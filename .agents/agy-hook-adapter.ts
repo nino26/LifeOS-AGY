@@ -28,10 +28,13 @@ const eventMappings: Record<string, string[]> = {
 
 const legacyEventsToRun = eventMappings[agyEventName] || [];
 
+const convId = agyInput.conversationId || "agy-session";
+const derivedTranscriptPath = require("os").homedir() + `/.gemini/antigravity-cli/brain/${convId}/.system_generated/logs/transcript.jsonl`;
+
 // 3. Construct Legacy JSON Input
 const legacyInput = {
-    session_id: agyInput.conversationId || "agy-session",
-    transcript_path: agyInput.transcriptPath || "",
+    session_id: convId,
+    transcript_path: agyInput.transcriptPath || derivedTranscriptPath,
     hook_event_name: agyEventName, // will be overridden per script
     last_assistant_message: "",
     effort: { level: "medium" }

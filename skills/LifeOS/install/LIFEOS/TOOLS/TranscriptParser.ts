@@ -106,11 +106,16 @@ export function parseLastAssistantMessage(transcriptContent: string): string {
     if (line.trim()) {
       try {
         const entry = JSON.parse(line) as any;
+        // Claude Code format
         if (entry.type === 'assistant' && entry.message?.content) {
           const text = contentToText(entry.message.content);
           if (text) {
             lastAssistantMessage = text;
           }
+        }
+        // Antigravity format
+        else if (entry.type === 'PLANNER_RESPONSE' && entry.content) {
+          lastAssistantMessage = entry.content;
         }
       } catch {
         // Skip invalid JSON lines
@@ -134,26 +139,26 @@ export function collectCurrentResponseText(transcriptContent: string): string {
   const lines = transcriptContent.trim().split('\n');
 
   // Find the index of the last REAL user prompt.
-  // Antigravity CLI transcript uses type='user' for both actual user prompts AND
-  // tool_result entries (which are mid-response). Real user prompts have at
-  // least one {type:'text'} content block. Tool results only have {type:'tool_result'}.
   let lastHumanIndex = -1;
   for (let i = 0; i < lines.length; i++) {
     if (lines[i].trim()) {
       try {
         const entry = JSON.parse(lines[i]) as any;
+        // Claude Code format
         if (entry.type === 'human' || entry.type === 'user') {
           const content = entry.message?.content;
-          // String content = real user message
           if (typeof content === 'string') {
             lastHumanIndex = i;
           } else if (Array.isArray(content)) {
-            // Check for text blocks — indicates a real user prompt
             const hasText = content.some((b: any) => b?.type === 'text' && b?.text?.trim());
             if (hasText) {
               lastHumanIndex = i;
             }
           }
+        }
+        // Antigravity format
+        else if (entry.type === 'USER_INPUT') {
+          lastHumanIndex = i;
         }
       } catch {
         // Skip invalid JSON lines
@@ -167,11 +172,16 @@ export function collectCurrentResponseText(transcriptContent: string): string {
     if (lines[i].trim()) {
       try {
         const entry = JSON.parse(lines[i]) as any;
+        // Claude Code format
         if (entry.type === 'assistant' && entry.message?.content) {
           const text = contentToText(entry.message.content);
           if (text) {
             textParts.push(text);
           }
+        }
+        // Antigravity format
+        else if (entry.type === 'PLANNER_RESPONSE' && entry.content) {
+          textParts.push(entry.content);
         }
       } catch {
         // Skip invalid JSON lines
