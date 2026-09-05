@@ -29,8 +29,8 @@ const legacyInput = {
 const legacyJson = JSON.stringify(legacyInput);
 
 // 3. Find all legacy hooks
-const hooksDir = resolve(process.cwd(), "skills/LifeOS/install/hooks");
-let hookFiles = [];
+const hooksDir = resolve(__dirname, "../skills/LifeOS/install/hooks");
+let hookFiles: string[] = [];
 try {
     hookFiles = readdirSync(hooksDir).filter(f => f.endsWith(".hook.ts"));
 } catch (e) {}

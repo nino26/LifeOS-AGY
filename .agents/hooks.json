@@ -6,7 +6,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bun run .agents/agy-hook-adapter.ts PreToolUse",
+            "command": "bun run ./agy-hook-adapter.ts PreToolUse",
             "timeout": 30
           }
         ]
@@ -18,7 +18,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bun run .agents/agy-hook-adapter.ts PostToolUse",
+            "command": "bun run ./agy-hook-adapter.ts PostToolUse",
             "timeout": 30
           }
         ]
@@ -27,21 +27,21 @@
     "PreInvocation": [
       {
         "type": "command",
-        "command": "bun run .agents/agy-hook-adapter.ts PreInvocation",
+        "command": "bun run ./agy-hook-adapter.ts PreInvocation",
         "timeout": 30
       }
     ],
     "PostInvocation": [
       {
         "type": "command",
-        "command": "bun run .agents/agy-hook-adapter.ts PostInvocation",
+        "command": "bun run ./agy-hook-adapter.ts PostInvocation",
         "timeout": 30
       }
     ],
     "Stop": [
       {
         "type": "command",
-        "command": "bun run .agents/agy-hook-adapter.ts Stop",
+        "command": "bun run ./agy-hook-adapter.ts Stop",
         "timeout": 30
       }
     ]
