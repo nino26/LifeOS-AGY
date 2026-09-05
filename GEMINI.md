@@ -48,3 +48,13 @@ Every substantial response follows the LifeOS unified structure:
 - **Headless Inference Utility:** `LIFEOS/TOOLS/Inference.ts`
 - **Skills Library:** `skills/*/SKILL.md` (65+ modular capability workflows)
 - **Memory (Cortex):** `LIFEOS/MEMORY/`
+
+
+---
+
+## Session Initialization (Cortex Memory System)
+
+At the start of every new session or complex task, you MUST load the user's personal context and active projects:
+1. **Read Core Telos:** Read `LIFEOS/USER/TELOS/PRINCIPAL_TELOS.md` (or equivalent core identity files) to understand the user's overarching goals.
+2. **Read Active Projects:** Read `LIFEOS/USER/PROJECTS.md` to understand current priorities.
+3. **Respect Customizations:** Check `LIFEOS/USER/CUSTOMIZATIONS/` for any skill overrides before executing workflows.
