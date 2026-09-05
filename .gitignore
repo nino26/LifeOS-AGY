@@ -1,0 +1,28 @@
+# Environment and secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.token
+
+# User private data & identity mount (never commit private life data)
+LIFEOS/USER/
+LIFEOS/USER_DATA/
+USER/
+
+# Runtime & session state
+MEMORY/CACHE/
+MEMORY/STATE/
+*.log
+events.jsonl
+*.jsonl
+
+# Node & Bun
+node_modules/
+bun.lockb
+bun.lock
+
+# OS metadata
+.DS_Store
+Thumbs.db
