@@ -4,7 +4,7 @@
  * Smart router for legacy LifeOS hooks. Reads the legacy hooks.json, maps Antigravity
  * lifecycle events to legacy events, and only runs the registered scripts.
  */
-import { spawnSync } from "bun";
+import { spawnSync } from "child_process";
 import { readFileSync } from "fs";
 import { resolve, join } from "path";
 
@@ -49,16 +49,18 @@ try {
 }
 
 // Extract the commands we need to run
-const commandsToRun: {cmd: string, event: string}[] = [];
+const commandsToRun: {cmd?: string, url?: string, event: string}[] = [];
+
+// Access the inner "hooks" property
+const actualHooksConfig = legacyHooksConfig.hooks || legacyHooksConfig;
 
 for (const legacyEvent of legacyEventsToRun) {
-    const hookGroups = legacyHooksConfig[legacyEvent] || [];
+    const hookGroups = actualHooksConfig[legacyEvent] || [];
     for (const group of hookGroups) {
-        // Simple matcher logic (we run all for now, ignoring tool specific matchers to ensure full parity)
         if (group.hooks && Array.isArray(group.hooks)) {
             for (const h of group.hooks) {
-                if (h.command) {
-                    commandsToRun.push({ cmd: h.command, event: legacyEvent });
+                if (h.command || h.url) {
+                    commandsToRun.push({ cmd: h.command, url: h.url, event: legacyEvent });
                 }
             }
         }
@@ -70,32 +72,40 @@ let blocked = false;
 let blockReason = "";
 
 for (const task of commandsToRun) {
-    // Rewrite legacy path to local workspace path
-    const executableCmd = task.cmd.replace("$HOME/.gemini/config/hooks/", join(hooksDir, "/") + "/");
-    
-    // Inject the specific legacy event name
     const payload = JSON.parse(legacyJsonBase);
     payload.hook_event_name = task.event;
     
-    const [bin, ...args] = executableCmd.split(" ");
-    
-    try {
-        const proc = spawnSync(bin, args, {
-            stdin: Buffer.from(JSON.stringify(payload)),
-            stdout: "pipe",
-            stderr: "inherit",
-            timeout: 10000 // 10s timeout
-        });
-        
-        const out = proc.stdout.toString();
-        // If it's a stop event and the hook tries to block
-        if (agyEventName === "Stop" && out.includes('"decision":"block"')) {
-            blocked = true;
-            blockReason = "Blocked by " + args[0];
+    if (task.url) {
+        try {
+            const resp = spawnSync("curl", ["-s", "-X", "POST", task.url, "-H", "Content-Type: application/json", "-d", JSON.stringify(payload)], { timeout: 10000 });
+            const out = resp.stdout.toString();
+            if (agyEventName === "Stop" && out.includes('"decision":"block"')) {
+                blocked = true;
+                blockReason = "Blocked by HTTP " + task.url;
+            }
+        } catch (err) {
+            console.error(`[agy-hook-adapter] Error fetching ${task.url}:`, err);
         }
+    } else if (task.cmd) {
+        // Rewrite legacy path to local workspace path
+        const executableCmd = task.cmd.replace("$HOME/.gemini/config/hooks/", join(hooksDir, "/") + "/");
         
-    } catch (err) {
-        console.error(`[agy-hook-adapter] Error running ${executableCmd}:`, err);
+        try {
+            // Run inside a shell to support features like ;, &&, and ENV variables
+            const proc = spawnSync("sh", ["-c", executableCmd], {
+                input: Buffer.from(JSON.stringify(payload)),
+                encoding: "utf8",
+                timeout: 10000 // 10s timeout
+            });
+            
+            const out = proc.stdout ? proc.stdout.toString() : "";
+            if (agyEventName === "Stop" && out.includes('"decision":"block"')) {
+                blocked = true;
+                blockReason = "Blocked by " + executableCmd;
+            }
+        } catch (err) {
+            console.error(`[agy-hook-adapter] Error running ${executableCmd}:`, err);
+        }
     }
 }
 
