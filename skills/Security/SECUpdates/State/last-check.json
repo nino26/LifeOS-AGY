@@ -1,0 +1,35 @@
+{
+  "last_check_timestamp": "2026-03-29T00:00:00.000Z",
+  "sources": {
+    "tldrsec": {
+      "last_hash": "321-2026-03-26-update",
+      "last_checked": "2026-03-29T00:00:00.000Z",
+      "last_title": "tl;dr sec #321 - AWS Bedrock AgentCore Sandbox Escape"
+    },
+    "nosecurity": {
+      "last_hash": "nosec-2026-03-29-update",
+      "last_checked": "2026-03-29T00:00:00.000Z",
+      "last_title": "TeamPCP Supply Chain Attacks"
+    },
+    "krebsonsecurity": {
+      "last_hash": "krebs-2026-03-29-update",
+      "last_checked": "2026-03-29T00:00:00.000Z",
+      "last_title": "CanisterWorm Springs Wiper Attack Targeting Iran"
+    },
+    "thehackernews": {
+      "last_hash": "thn-2026-03-29-update",
+      "last_checked": "2026-03-29T00:00:00.000Z",
+      "last_title": "Citrix NetScaler Under Active Recon for CVE-2026-3055"
+    },
+    "schneier": {
+      "last_hash": "schneier-2026-03-29-update",
+      "last_checked": "2026-03-29T00:00:00.000Z",
+      "last_title": "Microsoft Xbox One Hacked"
+    },
+    "riskybusiness": {
+      "last_hash": "risky-2026-03-29-update",
+      "last_checked": "2026-03-29T00:00:00.000Z",
+      "last_title": "Russia to use custom crypto-algorithm for 5G network"
+    }
+  }
+}
