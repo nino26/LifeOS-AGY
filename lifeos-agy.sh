@@ -18,6 +18,13 @@ if ! command -v agy &> /dev/null; then
     exit 1
 fi
 
+# 2.5 Start Pulse dashboard daemon
+if [ -f "./LIFEOS/PULSE/pulse.ts" ]; then
+    echo "⚡ Starting PULSE daemon..."
+    mkdir -p ./LIFEOS/PULSE/logs
+    bun run ./LIFEOS/PULSE/pulse.ts > ./LIFEOS/PULSE/logs/pulse-stdout.log 2> ./LIFEOS/PULSE/logs/pulse-stderr.log &
+fi
+
 # 3. Execute agy in the current directory (LifeOS-AGY)
 # Any arguments passed to lifeos-agy.sh will be forwarded to agy
 exec agy "$@"
