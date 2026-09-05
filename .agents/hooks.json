@@ -1,0 +1,49 @@
+{
+  "lifeos-legacy-hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bun run .agents/agy-hook-adapter.ts PreToolUse",
+            "timeout": 30
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bun run .agents/agy-hook-adapter.ts PostToolUse",
+            "timeout": 30
+          }
+        ]
+      }
+    ],
+    "PreInvocation": [
+      {
+        "type": "command",
+        "command": "bun run .agents/agy-hook-adapter.ts PreInvocation",
+        "timeout": 30
+      }
+    ],
+    "PostInvocation": [
+      {
+        "type": "command",
+        "command": "bun run .agents/agy-hook-adapter.ts PostInvocation",
+        "timeout": 30
+      }
+    ],
+    "Stop": [
+      {
+        "type": "command",
+        "command": "bun run .agents/agy-hook-adapter.ts Stop",
+        "timeout": 30
+      }
+    ]
+  }
+}
