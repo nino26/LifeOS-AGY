@@ -62,7 +62,7 @@ import { EFFORT_MODEL, CURRENT, CROSS_VENDOR, type EffortLevel, type ClaudeTier 
 import { homedir } from "node:os";
 
 const HOME = process.env.HOME ?? process.env.USERPROFILE ?? homedir();
-const PROJECTS_DIR = join(HOME, '.claude', 'projects');
+const PROJECTS_DIR = join(HOME, '.gemini/config', 'projects');
 
 /**
  * Resolved per call, not at import: the statusline and the tests both set
@@ -70,7 +70,7 @@ const PROJECTS_DIR = join(HOME, '.claude', 'projects');
  * pinned every caller to whatever it was at import time.
  */
 const stateDir = () =>
-  join(process.env.LIFEOS_DIR || join(HOME, '.claude', 'LIFEOS'), 'MEMORY', 'STATE', 'model-mix');
+  join(process.env.LIFEOS_DIR || join(HOME, '.gemini/config', 'LIFEOS'), 'MEMORY', 'STATE', 'model-mix');
 
 /** Rungs in display order, low → max, matching the statusline ladder. */
 export const RUNGS: EffortLevel[] = ['low', 'medium', 'high', 'max'];
@@ -107,7 +107,7 @@ export interface Mix {
 const zero = (): Record<EffortLevel, number> => ({ max: 0, high: 0, medium: 0, low: 0 });
 
 /**
- * Model ID → rung. Matches the tier NAME inside the ID (claude-opus-5 → opus),
+ * Model ID → rung. Matches the tier NAME inside the ID (gemini-5 → opus),
  * which survives version bumps without touching CURRENT. Falls back to an exact
  * CURRENT lookup for IDs that don't carry their tier name.
  * Returns null for anything unrecognized — never guess a rung.

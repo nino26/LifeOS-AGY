@@ -6,9 +6,9 @@ Description=LifeOS Atlas asset-graph tick (events-then-hourly-full-sync)
 
 [Service]
 Type=oneshot
-WorkingDirectory={{HOME}}/.claude
+WorkingDirectory={{HOME}}/.gemini/config
 Environment=PATH={{PATH}}
 Environment=HOME={{HOME}}
-ExecStart={{BUN}} {{HOME}}/.claude/LIFEOS/ATLAS/Atlas.ts tick
-StandardOutput=append:{{HOME}}/.claude/LIFEOS/MEMORY/OBSERVABILITY/atlas-launchd.log
-StandardError=append:{{HOME}}/.claude/LIFEOS/MEMORY/OBSERVABILITY/atlas-launchd.log
+ExecStart={{BUN}} {{HOME}}/.gemini/config/LIFEOS/ATLAS/Atlas.ts tick
+StandardOutput=append:{{HOME}}/.gemini/config/LIFEOS/MEMORY/OBSERVABILITY/atlas-launchd.log
+StandardError=append:{{HOME}}/.gemini/config/LIFEOS/MEMORY/OBSERVABILITY/atlas-launchd.log

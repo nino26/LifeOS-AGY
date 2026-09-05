@@ -25,9 +25,9 @@ export class LLMRubricGrader extends BaseGrader {
     const scale = params.scale ?? '1-5';
     // Map model preference to inference level (default to standard/Sonnet)
     const levelMap: Record<string, InferenceLevel> = {
-      'claude-haiku-4-5-20251001': 'fast',
-      'claude-sonnet-4-20250514': 'standard',
-      'claude-opus-4-20250514': 'smart',
+      'gemini-4-5-20251001': 'fast',
+      'gemini-4-20250514': 'standard',
+      'gemini-4-20250514': 'smart',
     };
     const level: InferenceLevel = levelMap[params.judge_model ?? ''] ?? 'standard';
 

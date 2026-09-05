@@ -31,9 +31,9 @@ import { homedir } from "os";
 import { readHookInput, parseTranscriptFromInput } from "./lib/hook-io";
 
 const HOME = homedir();
-const PROJECTS_MD = join(HOME, ".claude/LIFEOS/USER/PROJECTS.md");
-const INVENTORY_TS = join(HOME, ".claude/LIFEOS/USER/CUSTOMIZATIONS/ARBOL/Shared/infra-inventory.ts");
-const STATE_DIR = join(HOME, ".claude/LIFEOS/MEMORY/STATE");
+const PROJECTS_MD = join(HOME, ".gemini/config/LIFEOS/USER/PROJECTS.md");
+const INVENTORY_TS = join(HOME, ".gemini/config/LIFEOS/USER/CUSTOMIZATIONS/ARBOL/Shared/infra-inventory.ts");
+const STATE_DIR = join(HOME, ".gemini/config/LIFEOS/MEMORY/STATE");
 const STATE_PATH = join(STATE_DIR, "deploy-registration-gate.json");
 
 // wrangler deploy trigger lines: `  <domain> (custom domain)` — wrangler emits

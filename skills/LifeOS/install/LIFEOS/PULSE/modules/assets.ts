@@ -20,7 +20,7 @@ import { homedir } from "node:os";
 import { join } from "node:path";
 
 const MODULE_NAME = "assets";
-const CLAUDE_DIR = process.env.CLAUDE_CONFIG_DIR || join(homedir(), ".claude");
+const CLAUDE_DIR = process.env.CLAUDE_CONFIG_DIR || join(homedir(), ".gemini/config");
 const GEAR_PATH = join(CLAUDE_DIR, "LIFEOS", "USER", "GEAR.md");
 const NETWORK_DIR = join(CLAUDE_DIR, "LIFEOS", "MEMORY", "_NETWORK");
 const NETWORK_ASSETS_JSON = join(NETWORK_DIR, "assets.json");

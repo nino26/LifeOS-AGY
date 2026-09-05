@@ -36,7 +36,7 @@ function main(): void {
     return i >= 0 && a[i + 1] && !a[i + 1].startsWith("--") ? a[i + 1] : undefined;
   };
   const home = process.env.HOME || homedir(); // public issue #1729, @umair-a11y
-  const configRoot = get("--config-root") || process.env.CLAUDE_CONFIG_DIR || join(home, ".claude");
+  const configRoot = get("--config-root") || process.env.CLAUDE_CONFIG_DIR || join(home, ".gemini/config");
   const configDir = get("--config-dir") || process.env.LIFEOS_CONFIG_DIR || join(home, ".config", "LIFEOS");
   const skillRoot = get("--skill-root") || join(import.meta.dir, "..");
   const apply = a.includes("--apply");

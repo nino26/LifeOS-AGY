@@ -34,7 +34,7 @@ import { join, dirname } from "node:path";
 import { createHash, randomBytes } from "node:crypto";
 
 const HOME = process.env.HOME || homedir();
-const CLAUDE = join(HOME, ".claude");
+const CLAUDE = join(HOME, ".gemini/config");
 const ENV_PATH = join(CLAUDE, ".env");
 // USER/SECURITY, not skills/_LIFEOS: writing into <your-release-skill>/ created the
 // dev-tree marker on public installs, disabling seven installer tools (public

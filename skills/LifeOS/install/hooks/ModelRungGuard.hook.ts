@@ -41,7 +41,7 @@ import { homedir } from "node:os";
 
 const STDIN_TIMEOUT_MS = 300;
 const HOME = process.env.HOME ?? process.env.USERPROFILE ?? homedir();
-const CLAUDE_ROOT = join(HOME, ".claude");
+const CLAUDE_ROOT = join(HOME, ".gemini/config");
 const LIFEOS_DIR = process.env.LIFEOS_DIR || join(CLAUDE_ROOT, "LIFEOS");
 const SETTINGS_PATH = join(CLAUDE_ROOT, "settings.json");
 const LOG_PATH = join(LIFEOS_DIR, "MEMORY", "OBSERVABILITY", "model-rung.jsonl");

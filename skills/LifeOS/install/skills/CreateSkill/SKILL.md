@@ -50,7 +50,7 @@ Complete skill development lifecycle: **structure** (create, validate, canonical
 | **Public** | `TitleCase` | `Blogging`, `Daemon`, `CreateSkill` | Templated, safe, generic, ready for public release |
 | **Private** | `_ALLCAPS` (underscore prefix, all uppercase) | `_MYSKILL`, `_MYINBOX`, `_MYINFRA` | Personal-scoped *function*; body publishable-clean, all sensitive data referenced from `LIFEOS/USER/` |
 
-**The leading underscore is the public-release boundary.** Release tooling skips `_*` skills entirely — they never leave `~/.claude`. Public skills (no underscore) are mirrored into the LifeOS public release and MUST contain only generic, templated content.
+**The leading underscore is the public-release boundary.** Release tooling skips `_*` skills entirely — they never leave `~/.gemini/config`. Public skills (no underscore) are mirrored into the LifeOS public release and MUST contain only generic, templated content.
 
 **Sub-file naming (both public and private skills):**
 

@@ -8,7 +8,7 @@ import { join } from "node:path";
 import { homedir } from "node:os";
 import type { AssetObs, CollectResult, Collector, EdgeObs } from "../Store";
 
-const PROJECTS_PATH = join(homedir(), ".claude/LIFEOS/USER/PROJECTS.md");
+const PROJECTS_PATH = join(homedir(), ".gemini/config/LIFEOS/USER/PROJECTS.md");
 
 const strip = (s: string) => s.replace(/\*\*/g, "").replace(/[🟡🟢🎯🚨⚠️]/gu, "").trim();
 

@@ -32,7 +32,7 @@ for (const k of ["LIFEOS_DIR", "LIFEOS_CONFIG_DIR", "PROJECTS_DIR"]) {
 }
 
 
-const BASE_DIR = process.env.LIFEOS_DIR || join(homedir(), '.claude');
+const BASE_DIR = process.env.LIFEOS_DIR || join(homedir(), '.gemini/config');
 const FRAMES_DIR = join(BASE_DIR, 'MEMORY', 'WISDOM', 'FRAMES');
 
 // ── Domain Keyword Map ──

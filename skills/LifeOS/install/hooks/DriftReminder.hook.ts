@@ -70,7 +70,7 @@ const DEFAULT_LINE_CAP = 15;
 // The principal asking for depth lifts the cap. His explicit call outranks the
 // default; nothing else does.
 const DEPTH_RE = /\b(extensive|thorough|comprehensive|exhaustive|deep[\s-]?dive|in[\s-]depth|detailed|long[\s-]form|full (?:analysis|report|breakdown|write[\s-]?up)|go deep|be verbose|everything (?:you|we) (?:know|have))\b/i;
-const LIFEOS_DIR = process.env.LIFEOS_DIR || join(homedir(), ".claude", "LIFEOS");
+const LIFEOS_DIR = process.env.LIFEOS_DIR || join(homedir(), ".gemini/config", "LIFEOS");
 const LAST_RESPONSE_PATH = join(LIFEOS_DIR, "MEMORY", "STATE", "last-response.txt");
 const STATE_PATH = join(LIFEOS_DIR, "MEMORY", "STATE", "drift-reminder.json");
 const INITIAL_STATE: DriftState = {

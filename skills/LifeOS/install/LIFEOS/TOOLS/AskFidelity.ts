@@ -47,7 +47,7 @@ import { homedir } from "node:os";
 import { dirname, join } from "node:path";
 import { parseArgs } from "node:util";
 
-const LIFEOS_DIR = process.env.LIFEOS_DIR || join(homedir(), ".claude", "LIFEOS");
+const LIFEOS_DIR = process.env.LIFEOS_DIR || join(homedir(), ".gemini/config", "LIFEOS");
 const LOG_PATH = join(LIFEOS_DIR, "MEMORY", "OBSERVABILITY", "ask-fidelity.jsonl");
 
 const BLOCKING = "unmet";

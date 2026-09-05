@@ -25,7 +25,7 @@ if (process.env.EVALS_ALLOW_API_BILLING !== '1') {
   );
 }
 
-const judgeModel = anthropic('claude-sonnet-4-6');
+const judgeModel = anthropic('gemini-4-6');
 
 const config: ScenarioConfig = {
   name: 'polite greeting',

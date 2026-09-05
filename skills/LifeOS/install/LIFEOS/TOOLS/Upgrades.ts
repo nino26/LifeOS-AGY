@@ -31,7 +31,7 @@ for (const k of ["LIFEOS_DIR", "LIFEOS_CONFIG_DIR", "PROJECTS_DIR"]) {
   if (v && /^\$\{?HOME\}?(\/|$)/.test(v)) process.env[k] = v.replace(/^\$\{?HOME\}?/, process.env.HOME ?? "~");
 }
 
-const BASE_DIR = process.env.LIFEOS_DIR || join(homedir(), ".claude", "LIFEOS");
+const BASE_DIR = process.env.LIFEOS_DIR || join(homedir(), ".gemini/config", "LIFEOS");
 const UPGRADES_DIR = join(BASE_DIR, "MEMORY", "UPGRADES");
 const RECORDS_DIR = join(UPGRADES_DIR, "records");
 const STATE_FILE = join(UPGRADES_DIR, ".state.json");

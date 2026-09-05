@@ -36,7 +36,7 @@ type LaunchctlResult = {
 };
 
 const HOME = process.env.HOME ?? process.env.USERPROFILE ?? homedir();
-const TEMPLATE_PATH = join(HOME, ".claude", "LIFEOS", "TOOLS", "com.lifeos.interviewdue.plist.template");
+const TEMPLATE_PATH = join(HOME, ".gemini/config", "LIFEOS", "TOOLS", "com.lifeos.interviewdue.plist.template");
 const LAUNCH_AGENTS_DIR = join(HOME, "Library", "LaunchAgents");
 const TARGET_PLIST = join(LAUNCH_AGENTS_DIR, "com.lifeos.interviewdue.plist");
 const LABEL = "com.lifeos.interviewdue";
@@ -153,9 +153,9 @@ async function linuxSpec(): Promise<systemd.UnitSpec> {
   return {
     label: LABEL,
     description: "LifeOS interview-due cache refresh",
-    exec: [bunPath, join(HOME, ".claude", "LIFEOS", "TOOLS", "InterviewDue.ts"), "--refresh"],
-    logPath: join(HOME, ".claude", "LIFEOS", "MEMORY", "OBSERVABILITY", "interview-due.log"),
-    workingDirectory: join(HOME, ".claude"),
+    exec: [bunPath, join(HOME, ".gemini/config", "LIFEOS", "TOOLS", "InterviewDue.ts"), "--refresh"],
+    logPath: join(HOME, ".gemini/config", "LIFEOS", "MEMORY", "OBSERVABILITY", "interview-due.log"),
+    workingDirectory: join(HOME, ".gemini/config"),
     schedule: { kind: "calendar", hour: 7, minute: 10 },
   };
 }

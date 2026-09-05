@@ -63,7 +63,7 @@ export function clampConfig(raw: Partial<ConduitConfig>): ConduitConfig {
     sources: {
       appFocus: raw.sources?.appFocus !== false,
       git: raw.sources?.git !== false,
-      claudeSession: raw.sources?.claudeSession !== false,
+      claudeSession: raw.sources?.gemini/configSession !== false,
       github: raw.sources?.github === true, // opt-in: off unless explicitly enabled
     },
     repos: Array.isArray(raw.repos) ? raw.repos.filter((r) => typeof r === "string") : [],

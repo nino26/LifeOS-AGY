@@ -9,7 +9,7 @@
  * ⚠️ DATA CLASS: PUBLIC ONLY — HARD CEILING. xAI had a context-recording
  * incident (conversation data retained/exposed from API traffic), so this
  * carrier is approved ({{PRINCIPAL_NAME}}, 2026-08-12) for non-sensitive tasks only.
- * Nothing from ~/.claude private trees, no USER data, no credentials, no
+ * Nothing from ~/.gemini/config private trees, no USER data, no credentials, no
  * principal PII goes into a prompt through this tool. The Grok agent's
  * deny rules enforce the read side; this header is the send-side contract.
  *
@@ -64,7 +64,7 @@ Options:
 
 /** Canonical .env is ~/Projects/LifeOS-AGY/.env — never $LIFEOS_CONFIG_DIR/.env. */
 function loadEnv(): Record<string, string> {
-  const envPath = join(homedir(), '.claude', '.env')
+  const envPath = join(homedir(), '.gemini/config', '.env')
   const env: Record<string, string> = {}
   try {
     for (const line of readFileSync(envPath, 'utf-8').split('\n')) {

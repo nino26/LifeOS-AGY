@@ -26,7 +26,7 @@ import { homedir } from "node:os";
 
 // HOME ?? USERPROFILE: Windows defines only the latter (public issue #1694, @dissembler21-png)
 const HOME = process.env.HOME ?? process.env.USERPROFILE ?? homedir();
-const SETTINGS_PATH = join(HOME, '.claude/settings.json');
+const SETTINGS_PATH = join(HOME, '.gemini/config/settings.json');
 
 // Identity-file paths derive from LifeosConfig's userDir. On fresh installs where
 // LIFEOS_CONFIG.toml hasn't been created yet, fall back to the conventional
@@ -36,7 +36,7 @@ function paiUserDir(): string {
   try {
     return loadLifeosConfig().paths.userDir;
   } catch {
-    return join(HOME, '.claude/LIFEOS/USER');
+    return join(HOME, '.gemini/config/LIFEOS/USER');
   }
 }
 const DA_IDENTITY_PATH = join(paiUserDir(), 'DIGITAL_ASSISTANT/DA_IDENTITY.md');

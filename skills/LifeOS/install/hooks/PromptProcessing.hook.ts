@@ -82,7 +82,7 @@ function appendPromptProcessingTelemetry(entry: Record<string, unknown>): void {
 
 // ── Constants ──
 
-const BASE_DIR = process.env.LIFEOS_DIR || join(homedir(), '.claude', 'LIFEOS');
+const BASE_DIR = process.env.LIFEOS_DIR || join(homedir(), '.gemini/config', 'LIFEOS');
 const SESSION_NAMES_PATH = paiPath('MEMORY', 'STATE', 'session-names.json');
 const LOCK_PATH = SESSION_NAMES_PATH + '.lock';
 const MIN_PROMPT_LENGTH = 3;
@@ -859,7 +859,7 @@ function isKnownCommandOrSkill(token: string): boolean {
   const lower = token.toLowerCase();
   try {
     const { readdirSync } = require('fs') as typeof import('fs');
-    const claudeDir = join(homedir(), '.claude');
+    const claudeDir = join(homedir(), '.gemini/config');
     for (const f of readdirSync(join(claudeDir, 'commands'))) {
       if (f.toLowerCase() === `${lower}.md`) return true;
     }

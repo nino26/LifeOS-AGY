@@ -19,7 +19,7 @@
  * env silently won. This tool catches that class of leak at the FIRST run.
  *
  * Reference: https://github.com/disler/max-your-cc-sub  (engineering walkthrough)
- *            https://code.claude.com/docs/en/authentication#authentication-precedence
+ *            https://code.gemini/config.com/docs/en/authentication#authentication-precedence
  *
  * USAGE
  *

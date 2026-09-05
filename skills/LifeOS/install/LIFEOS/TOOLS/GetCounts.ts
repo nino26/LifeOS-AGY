@@ -52,7 +52,7 @@ for (const k of ["LIFEOS_DIR", "LIFEOS_CONFIG_DIR", "PROJECTS_DIR"]) {
 
 
 const HOME = process.env.HOME ?? process.env.USERPROFILE ?? homedir();
-const CLAUDE_DIR = join(HOME, ".claude");
+const CLAUDE_DIR = join(HOME, ".gemini/config");
 // skills/, hooks/, settings.json live under CLAUDE_DIR.
 // MEMORY/, USER/ live under LIFEOS_DIR (which is CLAUDE_DIR/PAI).
 const LIFEOS_DIR = process.env.LIFEOS_DIR || join(CLAUDE_DIR, "LIFEOS");
@@ -144,7 +144,7 @@ function countSkills(): number {
  * count — only what Antigravity CLI will actually fire.
  */
 function countHooks(): number {
-  const settingsPath = join(HOME, ".claude", "settings.json");
+  const settingsPath = join(HOME, ".gemini/config", "settings.json");
   try {
     const fs = require('fs');
     const settings = JSON.parse(fs.readFileSync(settingsPath, 'utf-8'));

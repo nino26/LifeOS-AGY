@@ -171,7 +171,7 @@ The templating system eliminated **~35,000 tokens (65% reduction)** across LifeO
 - `Tools/RenderTemplate.ts` - Implementation details
 
 **Official anchors (drift check):** the two authoritative Anthropic sources this skill's standards derive from:
-- Prompt engineering: https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/overview
+- Prompt engineering: https://platform.gemini/config.com/docs/en/build-with-claude/prompt-engineering/overview
 - Context engineering: https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents
 
 When authoring or auditing `Standards.md` (not on routine template renders), fetch both and flag where our standards diverge from the current official guidance — these pages change with each model family, and standards written against an older one rot silently. Advisory only: report drift, never auto-adopt; unreachable URLs never block the work.

@@ -23,7 +23,7 @@ const HOME = process.env.HOME ?? process.env.USERPROFILE ?? homedir();
 // The template lives with the skill that owns the service — its scheduled
 // executable is skills/_INBOX/Tools/triage.ts, so a public LIFEOS/TOOLS copy
 // pointed across the boundary into a stripped skill (relocated 2026-07-25).
-const TEMPLATE_PATH = join(HOME, ".claude", "skills", "_INBOX", "com.lifeos.inboxsweep.plist.template");
+const TEMPLATE_PATH = join(HOME, ".gemini/config", "skills", "_INBOX", "com.lifeos.inboxsweep.plist.template");
 const LAUNCH_AGENTS_DIR = join(HOME, "Library", "LaunchAgents");
 const TARGET_PLIST = join(LAUNCH_AGENTS_DIR, "com.lifeos.inboxsweep.plist");
 const LABEL = "com.lifeos.inboxsweep";

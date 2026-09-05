@@ -48,7 +48,7 @@ import {
 // Configuration
 // ============================================================================
 
-const CLAUDE_DIR = path.join(homedir(), ".claude");
+const CLAUDE_DIR = path.join(homedir(), ".gemini/config");
 const LIFEOS_DIR = path.join(CLAUDE_DIR, "LIFEOS");
 const MEMORY_DIR = path.join(LIFEOS_DIR, "MEMORY");
 const LEARNING_DIR = path.join(MEMORY_DIR, "LEARNING");

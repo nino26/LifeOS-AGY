@@ -97,7 +97,7 @@ Those are the general-capability skills; the reasoning ones are obvious from the
 
 Heavy analysis, where the answer matters more than the latency:
 
-- **Pre-release scrutiny** — a public LifeOS release, a docs sync, anything crossing the `~/.claude` privacy boundary into public visibility.
+- **Pre-release scrutiny** — a public LifeOS release, a docs sync, anything crossing the `~/.gemini/config` privacy boundary into public visibility.
 - **Security and privacy boundaries** — what leaks, what's reachable, what a compromised asset exposes.
 - **Irreversible actions** — deletes, migrations, production deploys, anything with no undo.
 - **Hard problems** — a design that keeps failing, a decision with real branch cost, a claim everyone believes and nobody has checked.

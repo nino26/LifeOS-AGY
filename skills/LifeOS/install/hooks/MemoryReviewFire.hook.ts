@@ -44,7 +44,7 @@ import { dirname, join, resolve as pathResolve } from "node:path";
 import { homedir } from "node:os";
 import { isSubagentContext as isSubagent } from './lib/subagent';
 
-const CLAUDE_ROOT = pathResolve(homedir(), ".claude");
+const CLAUDE_ROOT = pathResolve(homedir(), ".gemini/config");
 const STATE_PATH = pathResolve(CLAUDE_ROOT, "LIFEOS/MEMORY/OBSERVABILITY/review-state.json");
 const SESSION_STATE_DIR = pathResolve(CLAUDE_ROOT, "LIFEOS/MEMORY/STATE/memory-review");
 const CONFIG_PATH = pathResolve(CLAUDE_ROOT, "LIFEOS/USER/CONFIG/memory-review.json");

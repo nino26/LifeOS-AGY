@@ -34,7 +34,7 @@ function runCapture(): number {
   const runners: Array<[boolean, () => ConduitEvent[]]> = [
     [config.sources.appFocus, () => captureAppFocus(config)],
     [config.sources.git, () => captureGit(config)],
-    [config.sources.claudeSession, () => captureClaude()],
+    [config.sources.gemini/configSession, () => captureClaude()],
   ];
   for (const [enabled, run] of runners) {
     if (!enabled) continue;

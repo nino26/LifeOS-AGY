@@ -475,7 +475,7 @@ evals run --use-case newsletter-summary --dry-run
 **Output**:
 ```
 Running evaluation: newsletter-summary
-Model: claude-3-5-sonnet-20241022
+Model: gemini-3.1-pro-high
 Prompt: v1.0.0
 Test Cases: 5
 

@@ -152,7 +152,7 @@ serve a stale identity.
 **`Mount.ts` is the only writer of `config.yaml`, and the deny list is reconciled
 rather than seeded.** Both were learned on 2026-07-31. Mount used to skip the
 approvals block whenever one already existed, so a hand-edited list could never be
-corrected and `--check` still called the install clean — which is how `*.claude*`
+corrected and `--check` still called the install clean — which is how `*.gemini/config*`
 sat in a live deny list while `Policy.ts` was the stated source of truth. It also
 finished by shelling out to `hermes plugins enable lifeos`, and that command rewrites
 the file from a stock template: a 236-line config came back as 46 lines of defaults,
@@ -167,11 +167,11 @@ hand-edit the deny list — change `Policy.ts` and re-mount.
 were ordinary code touching no file, and the mail-monitor cron died on it. A glob
 that fires on normal work teaches everyone to route around the guard, so the env
 rules are path-anchored (`*/.env*`, `* .env*`, and the quoted forms). The same
-mistake in the other direction is worse: `*.claude*` denied every command naming
+mistake in the other direction is worse: `*.gemini/config*` denied every command naming
 the LifeOS tree, which is every skill CLI, since all of them live under it. The
 mount's whole premise is invoking those tools. What that glob was actually
 protecting — harness config and security state — is now named directly
-(`*.claude/settings*`, `*LIFEOS/USER/SECURITY*`).
+(`*.gemini/config/settings*`, `*LIFEOS/USER/SECURITY*`).
 
 ### The launcher
 
@@ -182,7 +182,7 @@ mount is half-blind. That is what the launcher is for — a small script on
 ```bash
 #!/usr/bin/env bash
 set -euo pipefail
-LIFEOS_ROOT="${LIFEOS_ROOT:-$HOME/.claude}"
+LIFEOS_ROOT="${LIFEOS_ROOT:-$HOME/.gemini/config}"
 [ -d "$LIFEOS_ROOT" ] || { echo "no LifeOS install at $LIFEOS_ROOT" >&2; exit 1; }
 [ -f "$HOME/.hermes/plugins/lifeos/policy.json" ] || {
   echo "sidecar guard not installed — run: bun $LIFEOS_ROOT/LIFEOS/HERMES/Mount.ts" >&2; exit 1; }

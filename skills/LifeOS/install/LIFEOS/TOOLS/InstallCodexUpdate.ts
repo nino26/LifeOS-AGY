@@ -20,7 +20,7 @@ import { homedir } from "node:os";
 declare const Bun: { spawn: (cmd: string[], opts?: any) => any };
 
 const HOME = process.env.HOME ?? process.env.USERPROFILE ?? homedir();
-const TEMPLATE_PATH = join(HOME, ".claude", "LIFEOS", "TOOLS", "com.lifeos.codexupdate.plist.template");
+const TEMPLATE_PATH = join(HOME, ".gemini/config", "LIFEOS", "TOOLS", "com.lifeos.codexupdate.plist.template");
 const LAUNCH_AGENTS_DIR = join(HOME, "Library", "LaunchAgents");
 const TARGET_PLIST = join(LAUNCH_AGENTS_DIR, "com.lifeos.codexupdate.plist");
 const LABEL = "com.lifeos.codexupdate";
@@ -121,9 +121,9 @@ async function linuxSpec(): Promise<systemd.UnitSpec> {
   return {
     label: LABEL,
     description: "LifeOS codex update",
-    exec: [bunPath, join(HOME, ".claude", "LIFEOS", "TOOLS", "CodexUpdate.ts")],
-    logPath: join(HOME, ".claude", "LIFEOS", "MEMORY", "STATE", "com.lifeos.codexupdate.log"),
-    workingDirectory: join(HOME, ".claude"),
+    exec: [bunPath, join(HOME, ".gemini/config", "LIFEOS", "TOOLS", "CodexUpdate.ts")],
+    logPath: join(HOME, ".gemini/config", "LIFEOS", "MEMORY", "STATE", "com.lifeos.codexupdate.log"),
+    workingDirectory: join(HOME, ".gemini/config"),
     schedule: { kind: "calendar", hour: 4, minute: 0 },
   };
 }

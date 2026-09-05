@@ -6,8 +6,8 @@
  * PairwiseComparison) each carried their own hardcoded `judge_model` → level
  * map. Two defects, both found 2026-07-26:
  *
- *   1. ROT. The maps pinned superseded ids (`claude-opus-4-8`, `claude-sonnet-4-6`)
- *      while every live eval spec passes `claude-3-5-sonnet-20241022`. Nothing
+ *   1. ROT. The maps pinned superseded ids (`gemini-4-8`, `gemini-4-6`)
+ *      while every live eval spec passes `gemini-3.1-pro-high`. Nothing
  *      intersected, so EVERY current judge silently fell through to `medium`
  *      regardless of what the spec asked for. Deriving from the registry is the
  *      fix; a fourth hardcoded map would rot the same way.

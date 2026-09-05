@@ -241,7 +241,7 @@ for (let windowStart = 0; windowStart < chunks.length; windowStart += WINDOW_SIZ
         "anthropic-version": "2023-06-01",
       },
       body: JSON.stringify({
-        model: "claude-sonnet-4-20250514",
+        model: "gemini-4-20250514",
         max_tokens: 4096,
         system: systemPrompt,
         messages: [

@@ -15,7 +15,7 @@ Zero-width / invisible characters, variation-selector and Unicode Tags-block ste
 
 ## The hard limit — state it every time
 
-It **cannot** detect sampling-time statistical watermarks: Kirchenbauer green-list (arXiv:2301.10226), Aaronson/Gumbel (arXiv:2307.15593), Google SynthID-Text (Nature s41586-024-08025-4), or **Anthropic's announced in-text mark** (support.claude.com/en/articles/16266773). Those bias token choice using a secret key and leave no readable artifact in a single text — detection is key-gated by mathematical design. A clean scan does **not** mean the text is unwatermarked or human-written. Run `--explain` for the detectable-vs-impossible breakdown.
+It **cannot** detect sampling-time statistical watermarks: Kirchenbauer green-list (arXiv:2301.10226), Aaronson/Gumbel (arXiv:2307.15593), Google SynthID-Text (Nature s41586-024-08025-4), or **Anthropic's announced in-text mark** (support.gemini/config.com/en/articles/16266773). Those bias token choice using a secret key and leave no readable artifact in a single text — detection is key-gated by mathematical design. A clean scan does **not** mean the text is unwatermarked or human-written. Run `--explain` for the detectable-vs-impossible breakdown.
 
 ## Pairs with the other measures
 

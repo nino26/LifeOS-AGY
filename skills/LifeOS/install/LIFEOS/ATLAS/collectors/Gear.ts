@@ -7,7 +7,7 @@ import { join } from "node:path";
 import { homedir } from "node:os";
 import type { AssetObs, CollectResult, Collector } from "../Store";
 
-const GEAR_PATH = join(homedir(), ".claude/LIFEOS/USER/GEAR.md");
+const GEAR_PATH = join(homedir(), ".gemini/config/LIFEOS/USER/GEAR.md");
 
 export const gear: Collector = {
   name: "gear",

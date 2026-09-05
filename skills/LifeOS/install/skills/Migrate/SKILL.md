@@ -66,7 +66,7 @@ Ask the user what he wants to migrate:
 - "Point me at a file path"
 - "Point me at a directory and I'll scan everything inside"
 - "I have a Cursor rules file at ~/Projects/X/.cursorrules"
-- "My old LifeOS install has TELOS at ~/old-claude/TELOS/"
+- "My old LifeOS install has TELOS at ~/old-lifeos/TELOS/"
 
 Collect the source path. If content is pasted, write it to a temp file first.
 
@@ -160,7 +160,7 @@ After approval pass:
 
 ## Examples
 
-### User: `/migrate ~/old-claude/TELOS/`
+### User: `/migrate ~/old-lifeos/TELOS/`
 
 the DA scans the old TELOS directory, classifies every chunk, presents the routing summary, offers fast-path vs. walk-through approval.
 

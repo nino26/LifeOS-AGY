@@ -58,7 +58,7 @@ import { modelForEffort, pinnedModelForEffort, EFFORT_MODEL, UNIFORM_HARNESS_EFF
  * conduit insight) fail silently with ENOENT — 2026-07-10.
  */
 export function resolveClaudeBin(): string {  // exported for algorithm.ts (PR #1460, author asdf8675309)
-  const fromPath = typeof Bun !== "undefined" ? Bun.which("claude") : null;
+  const fromPath = typeof Bun !== "undefined" ? Bun.which("agy") : null;
   if (fromPath) return fromPath;
   const fallback = join(homedir(), ".local", "bin", "claude");
   return existsSync(fallback) ? fallback : "claude";
@@ -193,7 +193,7 @@ export function verifyExecutedModel(modelUsage: unknown, expectedTier: string): 
  * exact drift this catches and makes auditable. Logging must never break inference. */
 function logModelVerification(entry: Record<string, unknown>): void {
   try {
-    const dir = join(homedir(), '.claude', 'LIFEOS', 'MEMORY', 'OBSERVABILITY');
+    const dir = join(homedir(), '.gemini/config', 'LIFEOS', 'MEMORY', 'OBSERVABILITY');
     mkdirSync(dir, { recursive: true });
     appendFileSync(join(dir, 'model-verification.jsonl'), JSON.stringify({ ts: new Date().toISOString(), ...entry }) + '\n');
   } catch { /* observability must never break inference */ }
@@ -216,7 +216,7 @@ async function inferenceAttempt(options: InferenceOptions, modelOverride?: strin
     delete env.CLAUDECODE;
 
     // BILLING: Always use subscription. Anthropic's credential precedence chain
-    // (https://code.claude.com/docs/en/authentication#authentication-precedence)
+    // (https://code.gemini/config.com/docs/en/authentication#authentication-precedence)
     // puts BOTH ANTHROPIC_API_KEY and ANTHROPIC_AUTH_TOKEN above CLAUDE_CODE_OAUTH_TOKEN,
     // so either one in env will silently override OAuth. Bun auto-loads ~/Projects/LifeOS-AGY/.env
     // into child processes, and some MCP/plugin setups export ANTHROPIC_AUTH_TOKEN —

@@ -51,7 +51,7 @@ Fetch the pinned LifeOS release for the repo and version on the install page (th
 bun Tools/DetectEnv.ts
 ```
 
-Read its output. It reports the OS (macOS / Linux / Windows), the harness (Antigravity CLI / Cursor / Cline / Codex / Gemini / other), the config root, and whether LifeOS is already present. **Every path below comes from this — don't assume `~/.claude` or any single harness.**
+Read its output. It reports the OS (macOS / Linux / Windows), the harness (Antigravity CLI / Cursor / Cline / Codex / Gemini / other), the config root, and whether LifeOS is already present. **Every path below comes from this — don't assume `~/.gemini/config` or any single harness.**
 
 ### 3. Scan for conflicts (read-only)
 
@@ -96,7 +96,7 @@ This is the one place harnesses genuinely differ. Show the exact change and get 
 
 This is the step that makes LifeOS *load*. The constitutional layer — the response format, verification doctrine, security protocol, the whole operating contract — lives in `install/LIFEOS/LIFEOS_SYSTEM_PROMPT.md` and is **NOT** loaded by a plain `claude` session. It loads only when the harness is launched with that file appended to its system prompt. So installed LifeOS needs its own launch command; running vanilla `claude` gives you CLAUDE.md but **not** the constitution.
 
-The payload ships the launcher — `install/LIFEOS/TOOLS/lifeos.ts` — which spawns Claude with `--append-system-prompt-file <configRoot>/LIFEOS/LIFEOS_SYSTEM_PROMPT.md` (plus the banner and MCP-profile handling). Wire a `lifeos` command that calls it into your human's shell. **Show the exact line, back up the rc file first, wait for a yes.** Use the real `<configRoot>` from `DetectEnv` (e.g. `~/.claude`) — never hardcode a home path.
+The payload ships the launcher — `install/LIFEOS/TOOLS/lifeos.ts` — which spawns Claude with `--append-system-prompt-file <configRoot>/LIFEOS/LIFEOS_SYSTEM_PROMPT.md` (plus the banner and MCP-profile handling). Wire a `lifeos` command that calls it into your human's shell. **Show the exact line, back up the rc file first, wait for a yes.** Use the real `<configRoot>` from `DetectEnv` (e.g. `~/.gemini/config`) — never hardcode a home path.
 
 - **Antigravity CLI (zsh / bash)** — append to `~/.zshrc` (or `~/.bashrc`):
   ```
@@ -104,7 +104,7 @@ The payload ships the launcher — `install/LIFEOS/TOOLS/lifeos.ts` — which sp
   ```
   fish: `alias lifeos "bun <configRoot>/LIFEOS/TOOLS/lifeos.ts -s <configRoot>/LIFEOS/LIFEOS_SYSTEM_PROMPT.md"; funcsave lifeos`. After this, **`lifeos` launches Claude WITH the constitution**; plain `claude` stays vanilla (which is fine — the user opts in by launching `lifeos`).
 
-  **Upgrade path — migrate stale pre-7.x aliases.** Pre-7.x installs wired a `pai` launch alias (`cd ~/.claude && claude`, or `bun ~/Projects/LifeOS-AGY/PAI/ACTIONS/pai.ts`). The `PAI/` tree no longer exists and the bare-`claude` form launches without the constitution, so check the rc for these, and (with permission, rc backed up) comment them out and repoint the SAME alias name at the launcher above — the human's muscle-memory `pai` keeps working. `install.sh` does this automatically at bootstrap; do it here when the human ran setup without the bootstrap script. Never touch an alias containing `LIFEOS_SYSTEM_PROMPT` (current) or `ARBOL/Actions/lifeos.ts` (the maintainer-side Arbol CLI alias — that tree does not ship in the public payload, so if the string appears in an rc, leave it alone).
+  **Upgrade path — migrate stale pre-7.x aliases.** Pre-7.x installs wired a `pai` launch alias (`cd ~/.gemini/config && claude`, or `bun ~/Projects/LifeOS-AGY/PAI/ACTIONS/pai.ts`). The `PAI/` tree no longer exists and the bare-`claude` form launches without the constitution, so check the rc for these, and (with permission, rc backed up) comment them out and repoint the SAME alias name at the launcher above — the human's muscle-memory `pai` keeps working. `install.sh` does this automatically at bootstrap; do it here when the human ran setup without the bootstrap script. Never touch an alias containing `LIFEOS_SYSTEM_PROMPT` (current) or `ARBOL/Actions/lifeos.ts` (the maintainer-side Arbol CLI alias — that tree does not ship in the public payload, so if the string appears in an rc, leave it alone).
 
 - **Any other harness** — use that harness's own system-prompt flag against the same file. e.g. pi: `pi --append-system-prompt <configRoot>/LIFEOS/LIFEOS_SYSTEM_PROMPT.md`. If a harness has no system-prompt flag, load `LIFEOS_SYSTEM_PROMPT.md` through its context file (AGENTS.md / rules) as the closest equivalent, and tell your human plainly that the constitution is loading as context, not as a true system-prompt layer.
 

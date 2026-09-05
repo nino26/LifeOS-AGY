@@ -19,7 +19,7 @@ import { homedir } from "node:os";
 declare const Bun: { spawn: (cmd: string[], opts?: any) => any };
 
 const HOME = process.env.HOME ?? process.env.USERPROFILE ?? homedir();
-const TEMPLATE_PATH = join(HOME, ".claude", "LIFEOS", "TOOLS", "com.lifeos.usage-aggregator.plist.template");
+const TEMPLATE_PATH = join(HOME, ".gemini/config", "LIFEOS", "TOOLS", "com.lifeos.usage-aggregator.plist.template");
 const LAUNCH_AGENTS_DIR = join(HOME, "Library", "LaunchAgents");
 const TARGET_PLIST = join(LAUNCH_AGENTS_DIR, "com.lifeos.usage-aggregator.plist");
 const LABEL = "com.lifeos.usage-aggregator";
@@ -120,9 +120,9 @@ async function linuxSpec(): Promise<systemd.UnitSpec> {
   return {
     label: LABEL,
     description: "LifeOS usage aggregator",
-    exec: [bunPath, join(HOME, ".claude", "LIFEOS", "TOOLS", "UsageAggregator.ts")],
-    logPath: join(HOME, ".claude", "LIFEOS", "MEMORY", "STATE", "com.lifeos.usage-aggregator.log"),
-    workingDirectory: join(HOME, ".claude"),
+    exec: [bunPath, join(HOME, ".gemini/config", "LIFEOS", "TOOLS", "UsageAggregator.ts")],
+    logPath: join(HOME, ".gemini/config", "LIFEOS", "MEMORY", "STATE", "com.lifeos.usage-aggregator.log"),
+    workingDirectory: join(HOME, ".gemini/config"),
     schedule: { kind: "calendar", hour: 3, minute: 30 },
   };
 }

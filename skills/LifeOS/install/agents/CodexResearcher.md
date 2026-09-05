@@ -55,7 +55,7 @@ Technical and code-adjacent research, API and framework questions, live-data swe
 **The Codex CLI, read-only, with live web search.** Resolve the model from the canonical registry — I never hardcode an ID:
 
 ```bash
-MODEL=$(bun -e 'import {CROSS_VENDOR} from "'$HOME'/.claude/LIFEOS/TOOLS/models.ts"; console.log(CROSS_VENDOR.codexResearcher)')
+MODEL=$(bun -e 'import {CROSS_VENDOR} from "'$HOME'/.gemini/config/LIFEOS/TOOLS/models.ts"; console.log(CROSS_VENDOR.codexResearcher)')
 
 # Deep research — the default.
 codex exec --sandbox read-only \

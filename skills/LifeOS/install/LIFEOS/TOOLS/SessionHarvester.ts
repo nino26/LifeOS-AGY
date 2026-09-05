@@ -30,10 +30,10 @@ import { homedir } from "node:os";
 // Configuration
 // ============================================================================
 
-const CLAUDE_DIR = path.join(homedir(), ".claude");
+const CLAUDE_DIR = path.join(homedir(), ".gemini/config");
 // Derive the project slug dynamically from CLAUDE_DIR (works on macOS and Linux)
-// macOS: ${HOME}/.claude → ${HARNESS_USER_DIR}
-// Linux: ${HOME}/.claude → ${HARNESS_USER_DIR}
+// macOS: ${HOME}/.gemini/config → ${HARNESS_USER_DIR}
+// Linux: ${HOME}/.gemini/config → ${HARNESS_USER_DIR}
 const CWD_SLUG = CLAUDE_DIR.replace(/[\/\.]/g, "-");
 const PROJECTS_DIR = path.join(CLAUDE_DIR, "projects", CWD_SLUG);
 const LEARNING_DIR = path.join(CLAUDE_DIR, "LIFEOS", "MEMORY", "LEARNING");

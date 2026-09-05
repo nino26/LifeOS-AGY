@@ -17,7 +17,7 @@ import { resolve as pathResolve } from "node:path";
 import { homedir } from "node:os";
 import { parseMemoryContent } from "./MemoryWriter";
 
-const CLAUDE_ROOT = pathResolve(homedir(), ".claude");
+const CLAUDE_ROOT = pathResolve(homedir(), ".gemini/config");
 const SNAPSHOT_DIR = pathResolve(CLAUDE_ROOT, "LIFEOS/MEMORY/OBSERVABILITY/memory-snapshots");
 const TARGETS: Record<string, string> = {
   principal: pathResolve(CLAUDE_ROOT, "LIFEOS/USER/PRINCIPAL/PRINCIPAL_MEMORY.md"),

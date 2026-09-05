@@ -42,7 +42,7 @@ for (const k of ["LIFEOS_DIR", "LIFEOS_CONFIG_DIR", "PROJECTS_DIR"]) {
 
 
 const HOME = process.env.HOME ?? process.env.USERPROFILE ?? homedir();
-const LIFEOS_DIR = process.env.LIFEOS_DIR || join(HOME, ".claude", "LIFEOS");
+const LIFEOS_DIR = process.env.LIFEOS_DIR || join(HOME, ".gemini/config", "LIFEOS");
 const PULSE_STATE_DIR = join(LIFEOS_DIR, "PULSE", "state");
 const CACHE_PATH = join(PULSE_STATE_DIR, "work-cache.json");
 const MODULE = "work";
@@ -161,7 +161,7 @@ function extractSlug(title: string): string | undefined {
 // issues; the workload is bounded and the files are small.
 function extractPrincipalGoal(slug: string | undefined): string | undefined {
   if (!slug) return undefined;
-  const isaPath = join(HOME, ".claude", "LIFEOS", "MEMORY", "WORK", slug, "ISA.md");
+  const isaPath = join(HOME, ".gemini/config", "LIFEOS", "MEMORY", "WORK", slug, "ISA.md");
   if (!existsSync(isaPath)) return undefined;
   try {
     const content = readFileSync(isaPath, "utf-8");

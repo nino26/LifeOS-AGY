@@ -32,7 +32,7 @@ type LaunchctlResult = {
 };
 
 const HOME = process.env.HOME ?? process.env.USERPROFILE ?? homedir();
-const TEMPLATE_PATH = join(HOME, ".claude", "LIFEOS", "TOOLS", "com.lifeos.healthsync.plist.template");
+const TEMPLATE_PATH = join(HOME, ".gemini/config", "LIFEOS", "TOOLS", "com.lifeos.healthsync.plist.template");
 const LAUNCH_AGENTS_DIR = join(HOME, "Library", "LaunchAgents");
 const TARGET_PLIST = join(LAUNCH_AGENTS_DIR, "com.lifeos.healthsync.plist");
 const LABEL = "com.lifeos.healthsync";
@@ -152,9 +152,9 @@ async function linuxSpec(): Promise<systemd.UnitSpec> {
   return {
     label: LABEL,
     description: "LifeOS health sync",
-    exec: [bunPath, join(HOME, ".claude", "LIFEOS", "TOOLS", "HealthSync.ts"), "pull"],
-    logPath: join(HOME, ".claude", "LIFEOS", "MEMORY", "OBSERVABILITY", "health-sync.log"),
-    workingDirectory: join(HOME, ".claude"),
+    exec: [bunPath, join(HOME, ".gemini/config", "LIFEOS", "TOOLS", "HealthSync.ts"), "pull"],
+    logPath: join(HOME, ".gemini/config", "LIFEOS", "MEMORY", "OBSERVABILITY", "health-sync.log"),
+    workingDirectory: join(HOME, ".gemini/config"),
     schedule: { kind: "interval", seconds: 3600 },
   };
 }

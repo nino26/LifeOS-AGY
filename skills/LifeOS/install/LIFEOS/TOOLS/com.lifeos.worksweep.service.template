@@ -21,9 +21,9 @@ Description=LifeOS Work Sweep — periodic Work System capture (session catch-up
 
 [Service]
 Type=oneshot
-ExecStart={{BUN}} {{HOME}}/.claude/LIFEOS/TOOLS/WorkSweep.ts
-WorkingDirectory={{HOME}}/.claude
+ExecStart={{BUN}} {{HOME}}/.gemini/config/LIFEOS/TOOLS/WorkSweep.ts
+WorkingDirectory={{HOME}}/.gemini/config
 Environment=HOME={{HOME}}
 Environment=PATH={{BUN_DIR}}:/usr/local/bin:/usr/bin:/bin
-StandardOutput=append:{{HOME}}/.claude/LIFEOS/MEMORY/STATE/com.lifeos.worksweep.log
-StandardError=append:{{HOME}}/.claude/LIFEOS/MEMORY/STATE/com.lifeos.worksweep.log
+StandardOutput=append:{{HOME}}/.gemini/config/LIFEOS/MEMORY/STATE/com.lifeos.worksweep.log
+StandardError=append:{{HOME}}/.gemini/config/LIFEOS/MEMORY/STATE/com.lifeos.worksweep.log

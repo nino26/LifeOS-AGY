@@ -3,7 +3,7 @@ import fs from 'fs'
 import path from 'path'
 import os from 'os'
 
-const TELOS_DIR = path.join(os.homedir(), '.claude/skills/Telos')
+const TELOS_DIR = path.join(os.homedir(), '.gemini/config/skills/Telos')
 
 export async function POST(request: Request) {
   try {
@@ -23,7 +23,7 @@ export async function POST(request: Request) {
     const baseDir = isCSV ? path.join(TELOS_DIR, 'data') : TELOS_DIR
     filePath = path.join(baseDir, filename)
 
-    // Contain the resolved path to baseDir — a filename like `../../.claude/.env`
+    // Contain the resolved path to baseDir — a filename like `../../.gemini/config/.env`
     // resolves outside it and is rejected before any existsSync/write touches disk.
     const resolved = path.resolve(filePath)
     if (resolved !== baseDir && !resolved.startsWith(baseDir + path.sep)) {

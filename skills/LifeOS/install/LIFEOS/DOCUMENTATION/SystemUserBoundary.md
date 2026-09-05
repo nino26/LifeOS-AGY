@@ -104,7 +104,7 @@ Anything else — direct `Read('LIFEOS/USER/...')`, hardcoded voice IDs in modul
 
 ## Two-repo sync (post-Phase-G.1, 2026-05-22)
 
-The USER tree is its own private git repo: `~/.config/LIFEOS/USER/` → the user's `<your-username>/<your-user-data-repo>` (PRIVATE GitHub). The SYSTEM tree is `~/Projects/LifeOS-AGY/` → the user's `<your-username>/.claude` (PRIVATE GitHub). There is no pre-push auto-sync git hook (a stale claim corrected 2026-07-04): both repos are committed, pushed, and version-tagged together by the UpdateKaiRepo workflow ("push both repos"), which runs four boundary gates: (G1) USER-zone leak check on pending `~/.claude` changes, (G2) `DenyListCheck.ts` must return 0 real-leaks, (G3) both remotes confirmed private via `gh repo view --json isPrivate`, (G4) post-push HEAD verification on both repos via `git ls-remote`. **Pre-flight refuses to proceed if the public LifeOS repo appears in either remote** — this workflow is explicit private-only. Public LifeOS release goes through the shadow-release pipeline (`ShadowRelease.ts`) with the separate 23-gate sanitization; the shipped distribution unit is the single `LifeOS/` skill emitted from that staging tree, not the `.claude/` clone.
+The USER tree is its own private git repo: `~/.config/LIFEOS/USER/` → the user's `<your-username>/<your-user-data-repo>` (PRIVATE GitHub). The SYSTEM tree is `~/Projects/LifeOS-AGY/` → the user's `<your-username>/.gemini/config` (PRIVATE GitHub). There is no pre-push auto-sync git hook (a stale claim corrected 2026-07-04): both repos are committed, pushed, and version-tagged together by the UpdateKaiRepo workflow ("push both repos"), which runs four boundary gates: (G1) USER-zone leak check on pending `~/.gemini/config` changes, (G2) `DenyListCheck.ts` must return 0 real-leaks, (G3) both remotes confirmed private via `gh repo view --json isPrivate`, (G4) post-push HEAD verification on both repos via `git ls-remote`. **Pre-flight refuses to proceed if the public LifeOS repo appears in either remote** — this workflow is explicit private-only. Public LifeOS release goes through the shadow-release pipeline (`ShadowRelease.ts`) with the separate 23-gate sanitization; the shipped distribution unit is the single `LifeOS/` skill emitted from that staging tree, not the `.gemini/config/` clone.
 
 ## Enforcement layers
 
@@ -131,7 +131,7 @@ This document is the Phase A deliverable. Phases B–H land progressively. Each 
 
 ## The boundary's success criterion
 
-The deny-list precheck (`DenyListCheck.ts ~/.claude`) returns:
+The deny-list precheck (`DenyListCheck.ts ~/.gemini/config`) returns:
 
 ```
 Real-leak: 0

@@ -221,7 +221,7 @@ const client = new Anthropic();
 
 const agent = await client.beta.agents.create({
   name: "Security Scanner",
-  model: "claude-sonnet-5",   // pinned IDs rot — check LIFEOS/TOOLS/models.ts for current
+  model: "gemini-5",   // pinned IDs rot — check LIFEOS/TOOLS/models.ts for current
   system: "You are a security auditor...",
   tools: [{ type: "agent_toolset_20260401" }],
 });

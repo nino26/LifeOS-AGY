@@ -44,7 +44,7 @@ async function loadEnv(): Promise<void> {
   const home = process.env.HOME!;
   const candidates = Array.from(new Set([
     ...(process.env.LIFEOS_DIR ? [resolve(process.env.LIFEOS_DIR, '.env')] : []),
-    resolve(home, '.claude', '.env'),
+    resolve(home, '.gemini/config', '.env'),
   ]));
   for (const envPath of candidates) {
     let envContent: string;
@@ -224,7 +224,7 @@ async function detectMimeType(filePath: string): Promise<string> {
 // ============================================================================
 
 // LifeOS directory for documentation paths
-const LIFEOS_DIR = process.env.LIFEOS_DIR || `${process.env.HOME}/.claude`;
+const LIFEOS_DIR = process.env.LIFEOS_DIR || `${process.env.HOME}/.gemini/config`;
 
 function showHelp(): void {
   console.log(`
@@ -343,7 +343,7 @@ MORE INFO:
  *   --workflow=<bad-name>   → exit 1 listing valid workflow names.
  */
 function enforceWorkflowDiscipline(parsed: Partial<CLIArgs>): void {
-  const workflowsDir = `${process.env.HOME}/.claude/skills/Art/Workflows`;
+  const workflowsDir = `${process.env.HOME}/.gemini/config/skills/Art/Workflows`;
   let availableWorkflows: string[] = [];
   try {
     // readdirSync via Bun.readdirSync isn't a thing; use Node fs sync via dynamic

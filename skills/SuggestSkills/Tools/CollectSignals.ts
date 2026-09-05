@@ -206,7 +206,7 @@ Usage:
   bun CollectSignals.ts [--root <dir>] [--days <n>] [--max-rating <n>]
                         [--ratings <file>] [--work <dir>] [--skills <dir>] [--loops <dir>]
 
-  --root <dir>        base for conventional store defaults (default: $HOME/.claude)
+  --root <dir>        base for conventional store defaults (default: $HOME/.gemini/config)
   --days <n>          lookback window, 1-3650 (default: 45)
   --max-rating <n>    highest rating still counted as frustration, 1-10 (default: 4)
   --ratings <file>    ratings JSONL store
@@ -227,7 +227,7 @@ function main(): void {
   const warnings: string[] = [];
   const missing: string[] = [];
 
-  const root = arg("--root") ?? process.env.SKILLSCAN_MEMORY_ROOT ?? join(process.env.HOME ?? ".", ".claude");
+  const root = arg("--root") ?? process.env.SKILLSCAN_MEMORY_ROOT ?? join(process.env.HOME ?? ".", ".gemini/config");
   const days = intArg("--days", 45, 1, 3650, warnings);
   const maxRating = intArg("--max-rating", 4, 1, 10, warnings);
   const since = new Date(Date.now() - days * 24 * 60 * 60 * 1000);

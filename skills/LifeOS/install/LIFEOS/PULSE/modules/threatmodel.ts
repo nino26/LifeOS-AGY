@@ -19,7 +19,7 @@ import { homedir } from "node:os";
 import { join } from "node:path";
 
 const MODULE_NAME = "threatmodel";
-const CLAUDE_DIR = process.env.CLAUDE_CONFIG_DIR || join(homedir(), ".claude");
+const CLAUDE_DIR = process.env.CLAUDE_CONFIG_DIR || join(homedir(), ".gemini/config");
 const DATA_DIR =
   process.env.THREATMODEL_DATA_DIR ||
   join(CLAUDE_DIR, "LIFEOS", "USER", "SECURITY", "THREATMODEL");

@@ -23,7 +23,7 @@ import { join, resolve, relative } from "node:path";
 import { CROSS_VENDOR } from "./models";
 
 const HOME = homedir();
-const LIFEOS_DIR = join(HOME, ".claude", "LIFEOS");
+const LIFEOS_DIR = join(HOME, ".gemini/config", "LIFEOS");
 const WORK_DIR = join(LIFEOS_DIR, "MEMORY", "WORK");
 const FINDINGS_LOG = join(LIFEOS_DIR, "MEMORY", "VERIFICATION", "cato-findings.jsonl");
 const TOOL_ACTIVITY_LOG = join(LIFEOS_DIR, "MEMORY", "OBSERVABILITY", "tool-activity.jsonl");
@@ -52,7 +52,7 @@ const CODEX_BIN = resolveCodexBin();
 // Consequences, both reproduced directly before this was written: the auditor
 // answered in the DA's persona complete with the LifeOS banner — so it shared
 // exactly the Anthropic-family framing the audit exists to escape — and it
-// DECLINED to read the ~/.claude artifact it was pointed at. A run like that
+// DECLINED to read the ~/.gemini/config artifact it was pointed at. A run like that
 // still returns a verdict, which is the dangerous part: "cross-vendor pass" on
 // an audit that never read the work and was not independent.
 //

@@ -28,9 +28,9 @@ import { fetchCrime } from "./FetchCrime.ts"
 // Serving plane: the Pulse module reads CUSTOMIZATIONS latest.json FIRST
 // (user-scoped primary path) — both latest copies are written on every persist
 // so the module and the history endpoint never diverge again.
-const DATA_DIR = join(homedir(), ".claude", "LIFEOS", "MEMORY", "DATA", "LocalIntelligence")
+const DATA_DIR = join(homedir(), ".gemini/config", "LIFEOS", "MEMORY", "DATA", "LocalIntelligence")
 const CUSTOMIZATIONS_DIR = join(
-  homedir(), ".claude", "LIFEOS", "USER", "CUSTOMIZATIONS", "SKILLS", "LocalIntelligence"
+  homedir(), ".gemini/config", "LIFEOS", "USER", "CUSTOMIZATIONS", "SKILLS", "LocalIntelligence"
 )
 
 const fetchers: Record<SectionKey, Fetcher> = {

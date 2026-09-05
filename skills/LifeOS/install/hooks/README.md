@@ -483,8 +483,8 @@ Hooks are configured in `settings.json` under the `hooks` key:
     "SessionStart": [
       {
         "hooks": [
-          { "type": "command", "command": "$HOME/.claude/hooks/KittyEnvPersist.hook.ts" },
-          { "type": "command", "command": "$HOME/.claude/hooks/LoadContext.hook.ts" }
+          { "type": "command", "command": "$HOME/.gemini/config/hooks/KittyEnvPersist.hook.ts" },
+          { "type": "command", "command": "$HOME/.gemini/config/hooks/LoadContext.hook.ts" }
         ]
       }
     ],
@@ -492,7 +492,7 @@ Hooks are configured in `settings.json` under the `hooks` key:
       {
         "matcher": "Bash",
         "hooks": [
-          { "type": "command", "command": "$HOME/.claude/hooks/ContextReduction.hook.sh" }
+          { "type": "command", "command": "$HOME/.gemini/config/hooks/ContextReduction.hook.sh" }
         ]
       }
     ],
@@ -500,7 +500,7 @@ Hooks are configured in `settings.json` under the `hooks` key:
       {
         "matcher": "WebFetch",
         "hooks": [
-          { "type": "command", "command": "$HOME/.claude/hooks/Safety.hook.ts" }
+          { "type": "command", "command": "$HOME/.gemini/config/hooks/Safety.hook.ts" }
         ]
       }
     ],
@@ -508,7 +508,7 @@ Hooks are configured in `settings.json` under the `hooks` key:
       {
         "matcher": "Write|Edit|MultiEdit|Bash",
         "hooks": [
-          { "type": "command", "command": "$HOME/.claude/hooks/Safety.hook.ts" }
+          { "type": "command", "command": "$HOME/.gemini/config/hooks/Safety.hook.ts" }
         ]
       }
     ]

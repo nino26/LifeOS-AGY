@@ -18,7 +18,7 @@ import { homedir } from "node:os";
 import { join } from "node:path";
 
 const MODULE_NAME = "usage";
-const CLAUDE_DIR = process.env.CLAUDE_CONFIG_DIR || join(homedir(), ".claude");
+const CLAUDE_DIR = process.env.CLAUDE_CONFIG_DIR || join(homedir(), ".gemini/config");
 const OBS_DIR = join(CLAUDE_DIR, "LIFEOS", "MEMORY", "OBSERVABILITY");
 const ANTHROPIC_COST = join(OBS_DIR, "anthropic-cost.jsonl");
 const USAGE_DAILY = join(OBS_DIR, "usage-daily.jsonl");

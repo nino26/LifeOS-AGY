@@ -31,7 +31,7 @@ const PROCESSED = join(homedir(), "Library/Mobile Documents/com~apple~CloudDocs/
 // a relocated LIFEOS_USER_DIR Just Works.
 const SNAPSHOTS = ((): string => {
   try { return join(loadLifeosConfig().paths.userDir, "HEALTH/snapshots") }
-  catch { return join(homedir(), ".claude/LIFEOS/USER/HEALTH/snapshots") }
+  catch { return join(homedir(), ".gemini/config/LIFEOS/USER/HEALTH/snapshots") }
 })()
 
 type HealthSnapshot = {

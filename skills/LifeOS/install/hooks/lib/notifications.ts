@@ -10,7 +10,7 @@ import { join } from 'path';
 import { homedir } from "node:os";
 
 const HOME = process.env.HOME ?? process.env.USERPROFILE ?? homedir();
-const PULSE_TOML_PATH = join(HOME, '.claude/LIFEOS/PULSE/PULSE.toml');
+const PULSE_TOML_PATH = join(HOME, '.gemini/config/LIFEOS/PULSE/PULSE.toml');
 
 // ============================================================================
 // Session Timing

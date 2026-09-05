@@ -49,7 +49,7 @@ for (const k of ["LIFEOS_DIR", "LIFEOS_CONFIG_DIR", "PROJECTS_DIR"]) {
 declare const Bun: { spawn: (cmd: string[], opts?: any) => any };
 
 const HOME = process.env.HOME ?? process.env.USERPROFILE ?? homedir();
-const LIFEOS_DIR = process.env.LIFEOS_DIR || join(HOME, ".claude", "LIFEOS");
+const LIFEOS_DIR = process.env.LIFEOS_DIR || join(HOME, ".gemini/config", "LIFEOS");
 const WORK_DIR = join(LIFEOS_DIR, "MEMORY", "WORK");
 const OBS_DIR = join(LIFEOS_DIR, "MEMORY", "OBSERVABILITY");
 const OBS_LOG = join(OBS_DIR, "worksweep.jsonl");
@@ -623,7 +623,7 @@ async function main(): Promise<void> {
   // installs. Probe before spawning: an unconditional spawn of a missing script made
   // every public install log a Bun "module not found" at the end of every sweep.
   if (!dryRun) {
-    const regenTool = join(HOME, ".claude", "skills", "_ULWORK", "Tools", "RegenerateTasklist.ts");
+    const regenTool = join(HOME, ".gemini/config", "skills", "_ULWORK", "Tools", "RegenerateTasklist.ts");
     if (existsSync(regenTool)) {
       const proc = Bun.spawn(["bun", regenTool, "--commit-push"], {
         stdout: "inherit", stderr: "inherit", timeout: 30000,

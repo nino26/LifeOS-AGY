@@ -21,7 +21,7 @@ import { execSync } from 'child_process';
 import { homedir } from "node:os";
 
 const HOME = process.env.HOME ?? process.env.USERPROFILE ?? homedir();
-const CLAUDE_DIR = join(HOME, '.claude');
+const CLAUDE_DIR = join(HOME, '.gemini/config');
 const LIFEOS_DIR = join(CLAUDE_DIR, 'LIFEOS');
 const HOOKS_DIR = join(CLAUDE_DIR, 'hooks');
 
@@ -36,9 +36,9 @@ const PATH_PATTERNS = [
   // Backtick-quoted paths: `LIFEOS/DOCUMENTATION/Hooks/HookSystem.md`, `hooks/PromptInjection.hook.ts`
   /`((?:LifeOS|hooks|skills|agents|Pulse|USER|MEMORY|Components|Algorithm|Tools)\/[\w/.@-]+\.\w+)`/g,
   // Backtick-quoted paths with ~/Projects/LifeOS-AGY/ prefix
-  /`~\/\.claude\/([\w/.@-]+\.\w+)`/g,
-  // Backtick-quoted paths with $HOME/.claude/ prefix
-  /`\$HOME\/\.claude\/([\w/.@-]+\.\w+)`/g,
+  /`~\/\.gemini/config\/([\w/.@-]+\.\w+)`/g,
+  // Backtick-quoted paths with $HOME/.gemini/config/ prefix
+  /`\$HOME\/\.gemini/config\/([\w/.@-]+\.\w+)`/g,
   // @-imports: @LIFEOS/USER/FILE.md
   /^@(LifeOS\/[\w/.@-]+\.md)/gm,
   // Table cell paths: | `path` | or | path |

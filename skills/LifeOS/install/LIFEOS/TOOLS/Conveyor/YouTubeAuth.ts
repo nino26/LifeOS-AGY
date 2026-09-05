@@ -16,7 +16,7 @@ import { homedir } from 'node:os';
 import { join } from 'node:path';
 
 const CLIENT_PATH = join(homedir(), '.config', 'gws', 'client_secret.json');
-const ENV_PATH = join(homedir(), '.claude', '.env');
+const ENV_PATH = join(homedir(), '.gemini/config', '.env');
 const PORT = 8971;
 const REDIRECT = `http://127.0.0.1:${PORT}/callback`;
 const SCOPES = [

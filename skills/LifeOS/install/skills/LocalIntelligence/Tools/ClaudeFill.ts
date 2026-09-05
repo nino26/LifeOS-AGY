@@ -98,7 +98,7 @@ function extractJson(text: string): unknown {
 }
 
 async function spawnResearch(prompt: string, model: string, timeoutMs: number): Promise<string> {
-  const claudePath = Bun.which("claude") ?? `${process.env.HOME}/.local/bin/claude`
+  const claudePath = Bun.which("agy") ?? `${process.env.HOME}/.local/bin/agy`
   const env: Record<string, string | undefined> = { ...process.env }
   // Subscription billing + nested-session safety (mirrors Inference.ts).
   delete env.ANTHROPIC_API_KEY
@@ -126,7 +126,7 @@ async function spawnResearch(prompt: string, model: string, timeoutMs: number): 
   clearTimeout(timer)
   if (exitCode !== 0) {
     const stderr = await new Response(proc.stderr).text()
-    throw new Error(`claude exited ${exitCode}: ${stderr.slice(0, 300)}`)
+    throw new Error(`agy exited ${exitCode}: ${stderr.slice(0, 300)}`)
   }
   return output
 }
@@ -155,7 +155,7 @@ export async function claudeFill(
     )
     parsed = extractJson(raw) as Record<string, unknown>
   } catch (err) {
-    errors.push(`claude-fill: ${(err as Error).message}`)
+    errors.push(`agy-fill: ${(err as Error).message}`)
     return { digest, filled: [], attempted, errors }
   }
 
@@ -163,7 +163,7 @@ export async function claudeFill(
   const filled: SectionKey[] = []
   for (const key of attempted) {
     const { items, dropped } = validateSection(parsed[key])
-    if (dropped > 0) errors.push(`claude-fill ${key}: dropped ${dropped} invalid item(s)`)
+    if (dropped > 0) errors.push(`agy-fill ${key}: dropped ${dropped} invalid item(s)`)
     if (items.length === 0) continue
     next[key] = { items, source_status: "ok", errors: digest[key].errors }
     filled.push(key)

@@ -17,7 +17,7 @@ import { createHash } from "node:crypto";
 import { isContained, isPatternAllowlisted, relativeToClaudeRoot } from "./containment-zones";
 
 const HOME = process.env.HOME ?? homedir();
-const CLAUDE_ROOT = join(HOME, ".claude");
+const CLAUDE_ROOT = join(HOME, ".gemini/config");
 const DEFAULT_DENY_LIST_PATH = join(CLAUDE_ROOT, "LIFEOS/USER/SECURITY/DENY_LIST.txt");
 // USER/SECURITY, not skills/_LIFEOS: on a public install, running the shipped
 // DeriveDenyHashes used to CREATE <your-release-skill>/, whose existence is exactly
@@ -90,7 +90,7 @@ export interface GuardDecision {
  * Classify a target file path. SYSTEM files are everything under CLAUDE_ROOT
  * that does NOT live in a containment zone AND is not pattern-allowlisted.
  * USER files are anything inside a containment zone OR pattern-allowlisted.
- * Out-of-tree files (outside ~/.claude) are never blocked.
+ * Out-of-tree files (outside ~/.gemini/config) are never blocked.
  */
 export function classifyTarget(
   absolutePath: string,
@@ -220,7 +220,7 @@ export function evaluateWrite(
   newContent: string,
   opts: { denyListPath?: string; claudeRoot?: string; hashesPath?: string; envPath?: string; hygieneAllowlistPath?: string } = {},
 ): GuardDecision {
-  const { classification, relPath } = classifyTarget(absolutePath, opts.claudeRoot ?? CLAUDE_ROOT);
+  const { classification, relPath } = classifyTarget(absolutePath, opts.gemini/configRoot ?? CLAUDE_ROOT);
   // Private-skill SOURCE files are deny-scanned even when the containment zone marks
   // them USER (2026-07-23 separation tooth) — unless the file is hygiene-allowlisted
   // (release tooling / the customer skill's own name) or pattern-allowlisted.

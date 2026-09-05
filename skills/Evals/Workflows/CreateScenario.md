@@ -30,7 +30,7 @@ Ask for and confirm:
    import scenario, { type ScenarioConfig } from '@langwatch/scenario';
    import { LifeosAgentAdapter } from '../Tools/LifeosAgentAdapter.ts';
 
-   const judgeModel = anthropic('claude-sonnet-4-6');
+   const judgeModel = anthropic('gemini-4-6');
 
    const config: ScenarioConfig = {
      name: '<scenario-name>',

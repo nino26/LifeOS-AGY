@@ -27,7 +27,7 @@ import { homedir } from "node:os"
 import type { Digest, Item, SectionKey } from "./Types.ts"
 
 const CONFIG_PATH = join(
-  homedir(), ".claude", "LIFEOS", "USER", "CUSTOMIZATIONS", "SKILLS", "LocalIntelligence", "sources.json"
+  homedir(), ".gemini/config", "LIFEOS", "USER", "CUSTOMIZATIONS", "SKILLS", "LocalIntelligence", "sources.json"
 )
 
 const SECTION_KEYS: SectionKey[] = [

@@ -12,7 +12,7 @@ background: false
 
 An eval gives an AI an input, then applies **assertions** to its output to measure success (Anthropic's definition). A case is `{id, prompt, assert:[...]}`. Each assertion is either **deterministic** (code, fast/free) or **model-graded** (an LLM judge). Cases run multiple trials; we report **pass^k** (all trials pass — the honest metric for a reliability-critical agent) and **pass@k** (any trial passes). Everything routes through `Inference.ts` — subscription-billed, no API-key path, no external deps.
 
-Grounded in Anthropic's current doctrine — [Demystifying evals for AI agents](https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents), [Define success criteria / develop tests](https://platform.claude.com/docs/en/docs/build-with-claude/develop-tests), and the `skill-creator` `{text, passed, evidence}` assertion convention. The typed-assert layer is promptfoo-shaped but our own TS.
+Grounded in Anthropic's current doctrine — [Demystifying evals for AI agents](https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents), [Define success criteria / develop tests](https://platform.gemini/config.com/docs/en/docs/build-with-claude/develop-tests), and the `skill-creator` `{text, passed, evidence}` assertion convention. The typed-assert layer is promptfoo-shaped but our own TS.
 
 **Freshness contract:** "aligned to Anthropic's doctrine" is a live claim, not a snapshot. When designing a new suite class or touching the `## Doctrine` section below, re-fetch the Demystifying-evals doc and flag where it has moved past what's encoded here. Advisory only — report divergence, never auto-adopt, and an unreachable URL never blocks a run.
 

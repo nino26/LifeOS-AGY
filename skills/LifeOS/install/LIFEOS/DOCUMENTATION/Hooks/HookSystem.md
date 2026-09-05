@@ -36,7 +36,7 @@ The LifeOS hook system is an event-driven automation infrastructure built on the
 - **Tab Titles** - Dynamic terminal tab updates with task context
 - **Unified Event Stream** - The advisory checkers emit structured events to `events.jsonl`, read back at SessionStart (see § Unified Event System for the emitters that participate)
 
-**Key Principle:** Most hooks run asynchronously and fail gracefully. Security hooks (e.g. `hooks/Safety.hook.ts`) are synchronous — the PermissionRequest path emits `decision: allow` JSON when safe (otherwise stdout is empty and the native engine prompts). All `.ts` hooks have `#!/usr/bin/env bun` shebangs and `+x` permissions — settings.json references them directly (e.g., `$HOME/.claude/hooks/Safety.hook.ts`) without a `bun` prefix. HTTP hooks (SkillGuard, AgentGuard) run via Pulse routes on `localhost:31337`.
+**Key Principle:** Most hooks run asynchronously and fail gracefully. Security hooks (e.g. `hooks/Safety.hook.ts`) are synchronous — the PermissionRequest path emits `decision: allow` JSON when safe (otherwise stdout is empty and the native engine prompts). All `.ts` hooks have `#!/usr/bin/env bun` shebangs and `+x` permissions — settings.json references them directly (e.g., `$HOME/.gemini/config/hooks/Safety.hook.ts`) without a `bun` prefix. HTTP hooks (SkillGuard, AgentGuard) run via Pulse routes on `localhost:31337`.
 
 **Freshness Authority:** When adding or modifying hooks, consult the `claude-code-guide` agent to verify current hook event types, return value schemas, and available fields.
 
@@ -59,11 +59,11 @@ Antigravity CLI supports the following hook events:
   "SessionStart": [
     {
       "hooks": [
-        { "type": "command", "command": "bun $HOME/.claude/hooks/HookHealer.hook.ts", "timeout": 10 },
-        { "type": "command", "command": "$HOME/.claude/hooks/KittyEnvPersist.hook.ts" },
-        { "type": "command", "command": "$HOME/.claude/hooks/LoadContext.hook.ts" },
-        { "type": "command", "command": "bun $HOME/.claude/LIFEOS/TOOLS/FreshnessCache.ts --quiet", "timeout": 5, "async": true },
-        { "type": "command", "command": "bun $HOME/.claude/LIFEOS/TOOLS/SettingsBackport.ts; bun $HOME/.claude/LIFEOS/TOOLS/MergeSettings.ts --system $HOME/.claude/settings.system.json --user $HOME/.claude/LIFEOS/USER/CONFIG/settings.user.json --output $HOME/.claude/settings.json", "timeout": 15, "async": true }
+        { "type": "command", "command": "bun $HOME/.gemini/config/hooks/HookHealer.hook.ts", "timeout": 10 },
+        { "type": "command", "command": "$HOME/.gemini/config/hooks/KittyEnvPersist.hook.ts" },
+        { "type": "command", "command": "$HOME/.gemini/config/hooks/LoadContext.hook.ts" },
+        { "type": "command", "command": "bun $HOME/.gemini/config/LIFEOS/TOOLS/FreshnessCache.ts --quiet", "timeout": 5, "async": true },
+        { "type": "command", "command": "bun $HOME/.gemini/config/LIFEOS/TOOLS/SettingsBackport.ts; bun $HOME/.gemini/config/LIFEOS/TOOLS/MergeSettings.ts --system $HOME/.gemini/config/settings.system.json --user $HOME/.gemini/config/LIFEOS/USER/CONFIG/settings.user.json --output $HOME/.gemini/config/settings.json", "timeout": 15, "async": true }
       ]
     }
   ]
@@ -95,17 +95,17 @@ Antigravity CLI supports the following hook events:
   "SessionEnd": [
     {
       "hooks": [
-        { "type": "command", "command": "$HOME/.claude/hooks/WorkCompletionLearning.hook.ts" },
-        { "type": "command", "command": "$HOME/.claude/hooks/SessionCleanup.hook.ts" },
-        { "type": "command", "command": "$HOME/.claude/hooks/UpdateCounts.hook.ts" },
-        { "type": "command", "command": "$HOME/.claude/hooks/MemoryHealthGate.hook.ts" },
-        { "type": "command", "command": "$HOME/.claude/hooks/DocIntegrity.hook.ts" },
-        { "type": "command", "command": "$HOME/.claude/hooks/IntegrityCheck.hook.ts" }
+        { "type": "command", "command": "$HOME/.gemini/config/hooks/WorkCompletionLearning.hook.ts" },
+        { "type": "command", "command": "$HOME/.gemini/config/hooks/SessionCleanup.hook.ts" },
+        { "type": "command", "command": "$HOME/.gemini/config/hooks/UpdateCounts.hook.ts" },
+        { "type": "command", "command": "$HOME/.gemini/config/hooks/MemoryHealthGate.hook.ts" },
+        { "type": "command", "command": "$HOME/.gemini/config/hooks/DocIntegrity.hook.ts" },
+        { "type": "command", "command": "$HOME/.gemini/config/hooks/IntegrityCheck.hook.ts" }
       ]
     },
     {
       "hooks": [
-        { "type": "command", "command": "$HOME/.claude/hooks/ULWorkSync.hook.ts", "timeout": 60 }  // private maintainer hook — NOT shipped in the public release; a fresh install has no such block
+        { "type": "command", "command": "$HOME/.gemini/config/hooks/ULWorkSync.hook.ts", "timeout": 60 }  // private maintainer hook — NOT shipped in the public release; a fresh install has no such block
       ]
     }
   ]
@@ -138,15 +138,15 @@ Antigravity CLI supports the following hook events:
 ```json
 {
   "UserPromptSubmit": [
-    { "hooks": [ { "type": "command", "command": "$HOME/.claude/hooks/PromptProcessing.hook.ts", "timeout": 30, "async": true } ] },
-    { "hooks": [ { "type": "command", "command": "$HOME/.claude/hooks/SatisfactionCapture.hook.ts", "timeout": 20, "async": true } ] },
-    { "hooks": [ { "type": "command", "command": "$HOME/.claude/hooks/ReminderRouter.hook.ts", "timeout": 5, "async": true } ] },
-    { "hooks": [ { "type": "command", "command": "$HOME/.claude/hooks/VersionDrift.hook.ts", "timeout": 10, "async": true } ] },
-    { "hooks": [ { "type": "command", "command": "$HOME/.claude/hooks/DriftReminder.hook.ts", "timeout": 5, "async": true } ] },
-    { "hooks": [ { "type": "command", "command": "$HOME/.claude/hooks/MemoryTurnStart.hook.ts", "timeout": 8 } ] },
-    { "hooks": [ { "type": "command", "command": "$HOME/.claude/hooks/AlgorithmNudge.hook.ts", "timeout": 5, "async": true } ] },
-    { "hooks": [ { "type": "command", "command": "$HOME/.claude/hooks/TimeContext.hook.ts", "timeout": 5, "async": true } ] },
-    { "hooks": [ { "type": "command", "command": "$HOME/.claude/hooks/ModelRungGuard.hook.ts", "timeout": 5, "async": true } ] }
+    { "hooks": [ { "type": "command", "command": "$HOME/.gemini/config/hooks/PromptProcessing.hook.ts", "timeout": 30, "async": true } ] },
+    { "hooks": [ { "type": "command", "command": "$HOME/.gemini/config/hooks/SatisfactionCapture.hook.ts", "timeout": 20, "async": true } ] },
+    { "hooks": [ { "type": "command", "command": "$HOME/.gemini/config/hooks/ReminderRouter.hook.ts", "timeout": 5, "async": true } ] },
+    { "hooks": [ { "type": "command", "command": "$HOME/.gemini/config/hooks/VersionDrift.hook.ts", "timeout": 10, "async": true } ] },
+    { "hooks": [ { "type": "command", "command": "$HOME/.gemini/config/hooks/DriftReminder.hook.ts", "timeout": 5, "async": true } ] },
+    { "hooks": [ { "type": "command", "command": "$HOME/.gemini/config/hooks/MemoryTurnStart.hook.ts", "timeout": 8 } ] },
+    { "hooks": [ { "type": "command", "command": "$HOME/.gemini/config/hooks/AlgorithmNudge.hook.ts", "timeout": 5, "async": true } ] },
+    { "hooks": [ { "type": "command", "command": "$HOME/.gemini/config/hooks/TimeContext.hook.ts", "timeout": 5, "async": true } ] },
+    { "hooks": [ { "type": "command", "command": "$HOME/.gemini/config/hooks/ModelRungGuard.hook.ts", "timeout": 5, "async": true } ] }
   ]
 }
 ```
@@ -221,18 +221,18 @@ Antigravity CLI supports the following hook events:
   "Stop": [
     {
       "hooks": [
-        { "type": "command", "command": "$HOME/.claude/hooks/LastResponseCache.hook.ts" },
-        { "type": "command", "command": "$HOME/.claude/hooks/TabState.hook.ts" },
-        { "type": "command", "command": "$HOME/.claude/hooks/VoiceCompletion.hook.ts" },
-        { "type": "command", "command": "$HOME/.claude/hooks/ISARenderOnStop.hook.ts" },
-        { "type": "command", "command": "$HOME/.claude/hooks/SpendAuditor.hook.ts" },
-        { "type": "command", "command": "$HOME/.claude/hooks/StopGates.hook.ts" },
-        { "type": "command", "command": "$HOME/.claude/hooks/MemoryReviewFire.hook.ts" }
+        { "type": "command", "command": "$HOME/.gemini/config/hooks/LastResponseCache.hook.ts" },
+        { "type": "command", "command": "$HOME/.gemini/config/hooks/TabState.hook.ts" },
+        { "type": "command", "command": "$HOME/.gemini/config/hooks/VoiceCompletion.hook.ts" },
+        { "type": "command", "command": "$HOME/.gemini/config/hooks/ISARenderOnStop.hook.ts" },
+        { "type": "command", "command": "$HOME/.gemini/config/hooks/SpendAuditor.hook.ts" },
+        { "type": "command", "command": "$HOME/.gemini/config/hooks/StopGates.hook.ts" },
+        { "type": "command", "command": "$HOME/.gemini/config/hooks/MemoryReviewFire.hook.ts" }
       ]
     },
     {
       "hooks": [
-        { "type": "command", "command": "$HOME/.claude/hooks/MemoryHealthGate.hook.ts", "timeout": 15, "async": true }
+        { "type": "command", "command": "$HOME/.gemini/config/hooks/MemoryHealthGate.hook.ts", "timeout": 15, "async": true }
       ]
     }
   ]
@@ -305,14 +305,14 @@ Each Stop hook is a self-contained `.hook.ts` file that reads stdin via shared `
 ```json
 {
   "PreToolUse": [
-    { "matcher": "Bash", "hooks": [ { "type": "command", "command": "$HOME/.claude/hooks/ContextReduction.hook.sh" } ] },
+    { "matcher": "Bash", "hooks": [ { "type": "command", "command": "$HOME/.gemini/config/hooks/ContextReduction.hook.sh" } ] },
     { "matcher": "Skill", "hooks": [ { "type": "http", "url": "http://localhost:31337/hooks/skill-guard" } ] },
     { "matcher": "Agent", "hooks": [
         { "type": "http", "url": "http://localhost:31337/hooks/agent-guard" },
-        { "type": "command", "command": "$HOME/.claude/hooks/AgentInvocation.hook.ts" }
+        { "type": "command", "command": "$HOME/.gemini/config/hooks/AgentInvocation.hook.ts" }
     ] },
-    { "matcher": "AskUserQuestion", "hooks": [ { "type": "command", "command": "$HOME/.claude/hooks/TabState.hook.ts" } ] },
-    { "matcher": "Bash|Write|Edit|MultiEdit", "hooks": [ { "type": "command", "command": "$HOME/.claude/hooks/PreToolGuard.hook.ts" } ] }
+    { "matcher": "AskUserQuestion", "hooks": [ { "type": "command", "command": "$HOME/.gemini/config/hooks/TabState.hook.ts" } ] },
+    { "matcher": "Bash|Write|Edit|MultiEdit", "hooks": [ { "type": "command", "command": "$HOME/.gemini/config/hooks/PreToolGuard.hook.ts" } ] }
   ]
 }
 ```
@@ -340,49 +340,49 @@ Each check is wrapped in its own try/catch so one guard throwing can never suppr
 ```json
 {
   "PostToolUse": [
-    { "matcher": "Agent", "hooks": [ { "type": "command", "command": "$HOME/.claude/hooks/AgentInvocation.hook.ts" } ] },
-    { "matcher": "WebFetch", "hooks": [ { "type": "command", "command": "$HOME/.claude/hooks/Safety.hook.ts", "timeout": 5 } ] },
-    { "matcher": "WebSearch", "hooks": [ { "type": "command", "command": "$HOME/.claude/hooks/Safety.hook.ts", "timeout": 5 } ] },
-    { "matcher": "mcp__.*", "hooks": [ { "type": "command", "command": "$HOME/.claude/hooks/Safety.hook.ts", "timeout": 5 } ] },
-    { "matcher": "ToolSearch", "hooks": [ { "type": "command", "command": "$HOME/.claude/hooks/Safety.hook.ts", "timeout": 5 } ] },
-    { "matcher": "AskUserQuestion", "hooks": [ { "type": "command", "command": "$HOME/.claude/hooks/TabState.hook.ts" } ] },
+    { "matcher": "Agent", "hooks": [ { "type": "command", "command": "$HOME/.gemini/config/hooks/AgentInvocation.hook.ts" } ] },
+    { "matcher": "WebFetch", "hooks": [ { "type": "command", "command": "$HOME/.gemini/config/hooks/Safety.hook.ts", "timeout": 5 } ] },
+    { "matcher": "WebSearch", "hooks": [ { "type": "command", "command": "$HOME/.gemini/config/hooks/Safety.hook.ts", "timeout": 5 } ] },
+    { "matcher": "mcp__.*", "hooks": [ { "type": "command", "command": "$HOME/.gemini/config/hooks/Safety.hook.ts", "timeout": 5 } ] },
+    { "matcher": "ToolSearch", "hooks": [ { "type": "command", "command": "$HOME/.gemini/config/hooks/Safety.hook.ts", "timeout": 5 } ] },
+    { "matcher": "AskUserQuestion", "hooks": [ { "type": "command", "command": "$HOME/.gemini/config/hooks/TabState.hook.ts" } ] },
     { "matcher": "Read", "hooks": [
-        { "type": "command", "command": "$HOME/.claude/hooks/ISAStaleWriteGuard.hook.ts" }
+        { "type": "command", "command": "$HOME/.gemini/config/hooks/ISAStaleWriteGuard.hook.ts" }
     ] },
     { "matcher": "Write", "hooks": [
-        { "type": "command", "command": "$HOME/.claude/hooks/ISASync.hook.ts" },
-        { "type": "command", "command": "$HOME/.claude/hooks/ISAStaleWriteGuard.hook.ts" },
-        { "type": "command", "command": "$HOME/.claude/hooks/CheckpointPerISC.hook.ts", "timeout": 30 },
-        { "type": "command", "command": "$HOME/.claude/hooks/ConfigEvalFire.hook.ts" },
-        { "type": "command", "command": "$HOME/.claude/hooks/AtlasEventCapture.hook.ts", "timeout": 5 },
-        { "type": "command", "command": "$HOME/.claude/hooks/KnowledgeWriteGuard.hook.ts", "timeout": 5 },
-        { "type": "command", "command": "$HOME/.claude/hooks/ComplexityRatchet.hook.ts" }
+        { "type": "command", "command": "$HOME/.gemini/config/hooks/ISASync.hook.ts" },
+        { "type": "command", "command": "$HOME/.gemini/config/hooks/ISAStaleWriteGuard.hook.ts" },
+        { "type": "command", "command": "$HOME/.gemini/config/hooks/CheckpointPerISC.hook.ts", "timeout": 30 },
+        { "type": "command", "command": "$HOME/.gemini/config/hooks/ConfigEvalFire.hook.ts" },
+        { "type": "command", "command": "$HOME/.gemini/config/hooks/AtlasEventCapture.hook.ts", "timeout": 5 },
+        { "type": "command", "command": "$HOME/.gemini/config/hooks/KnowledgeWriteGuard.hook.ts", "timeout": 5 },
+        { "type": "command", "command": "$HOME/.gemini/config/hooks/ComplexityRatchet.hook.ts" }
     ] },
     { "matcher": "Edit", "hooks": [
-        { "type": "command", "command": "$HOME/.claude/hooks/ISASync.hook.ts" },
-        { "type": "command", "command": "$HOME/.claude/hooks/ISAStaleWriteGuard.hook.ts" },
-        { "type": "command", "command": "$HOME/.claude/hooks/CheckpointPerISC.hook.ts", "timeout": 30 },
-        { "type": "command", "command": "$HOME/.claude/hooks/ConfigEvalFire.hook.ts" },
-        { "type": "command", "command": "$HOME/.claude/hooks/AtlasEventCapture.hook.ts", "timeout": 5 },
-        { "type": "command", "command": "$HOME/.claude/hooks/KnowledgeWriteGuard.hook.ts", "timeout": 5 },
-        { "type": "command", "command": "$HOME/.claude/hooks/ComplexityRatchet.hook.ts" }
+        { "type": "command", "command": "$HOME/.gemini/config/hooks/ISASync.hook.ts" },
+        { "type": "command", "command": "$HOME/.gemini/config/hooks/ISAStaleWriteGuard.hook.ts" },
+        { "type": "command", "command": "$HOME/.gemini/config/hooks/CheckpointPerISC.hook.ts", "timeout": 30 },
+        { "type": "command", "command": "$HOME/.gemini/config/hooks/ConfigEvalFire.hook.ts" },
+        { "type": "command", "command": "$HOME/.gemini/config/hooks/AtlasEventCapture.hook.ts", "timeout": 5 },
+        { "type": "command", "command": "$HOME/.gemini/config/hooks/KnowledgeWriteGuard.hook.ts", "timeout": 5 },
+        { "type": "command", "command": "$HOME/.gemini/config/hooks/ComplexityRatchet.hook.ts" }
     ] },
     { "matcher": "MultiEdit", "hooks": [
-        { "type": "command", "command": "$HOME/.claude/hooks/ISASync.hook.ts" },
-        { "type": "command", "command": "$HOME/.claude/hooks/ISAStaleWriteGuard.hook.ts" },
-        { "type": "command", "command": "$HOME/.claude/hooks/CheckpointPerISC.hook.ts", "timeout": 30 },
-        { "type": "command", "command": "$HOME/.claude/hooks/ConfigEvalFire.hook.ts" },
-        { "type": "command", "command": "$HOME/.claude/hooks/AtlasEventCapture.hook.ts", "timeout": 5 },
-        { "type": "command", "command": "$HOME/.claude/hooks/KnowledgeWriteGuard.hook.ts", "timeout": 5 },
-        { "type": "command", "command": "$HOME/.claude/hooks/ComplexityRatchet.hook.ts" }
+        { "type": "command", "command": "$HOME/.gemini/config/hooks/ISASync.hook.ts" },
+        { "type": "command", "command": "$HOME/.gemini/config/hooks/ISAStaleWriteGuard.hook.ts" },
+        { "type": "command", "command": "$HOME/.gemini/config/hooks/CheckpointPerISC.hook.ts", "timeout": 30 },
+        { "type": "command", "command": "$HOME/.gemini/config/hooks/ConfigEvalFire.hook.ts" },
+        { "type": "command", "command": "$HOME/.gemini/config/hooks/AtlasEventCapture.hook.ts", "timeout": 5 },
+        { "type": "command", "command": "$HOME/.gemini/config/hooks/KnowledgeWriteGuard.hook.ts", "timeout": 5 },
+        { "type": "command", "command": "$HOME/.gemini/config/hooks/ComplexityRatchet.hook.ts" }
     ] },
     { "hooks": [
-        { "type": "command", "command": "$HOME/.claude/hooks/PostToolObserver.hook.ts", "timeout": 5 },
-        { "type": "command", "command": "$HOME/.claude/hooks/LoopDetector.hook.ts", "timeout": 5 },
-        { "type": "command", "command": "$HOME/.claude/hooks/EventLogger.hook.ts", "timeout": 5, "async": true }
+        { "type": "command", "command": "$HOME/.gemini/config/hooks/PostToolObserver.hook.ts", "timeout": 5 },
+        { "type": "command", "command": "$HOME/.gemini/config/hooks/LoopDetector.hook.ts", "timeout": 5 },
+        { "type": "command", "command": "$HOME/.gemini/config/hooks/EventLogger.hook.ts", "timeout": 5, "async": true }
     ] },
     { "matcher": "Bash", "hooks": [
-        { "type": "command", "command": "$HOME/.claude/hooks/AtlasEventCapture.hook.ts", "timeout": 5 }
+        { "type": "command", "command": "$HOME/.gemini/config/hooks/AtlasEventCapture.hook.ts", "timeout": 5 }
     ] }
   ]
 }
@@ -429,9 +429,9 @@ Each check is wrapped in its own try/catch so one guard throwing can never suppr
 ```json
 {
   "PostToolUseFailure": [
-    { "hooks": [ { "type": "command", "command": "$HOME/.claude/hooks/EventLogger.hook.ts" } ] },
-    { "hooks": [ { "type": "command", "command": "$HOME/.claude/hooks/AlgorithmNudge.hook.ts", "timeout": 5 } ] },
-    { "hooks": [ { "type": "command", "command": "$HOME/.claude/hooks/LoopDetector.hook.ts", "timeout": 5 } ] }
+    { "hooks": [ { "type": "command", "command": "$HOME/.gemini/config/hooks/EventLogger.hook.ts" } ] },
+    { "hooks": [ { "type": "command", "command": "$HOME/.gemini/config/hooks/AlgorithmNudge.hook.ts", "timeout": 5 } ] },
+    { "hooks": [ { "type": "command", "command": "$HOME/.gemini/config/hooks/LoopDetector.hook.ts", "timeout": 5 } ] }
   ]
 }
 ```
@@ -465,7 +465,7 @@ Each check is wrapped in its own try/catch so one guard throwing can never suppr
       "hooks": [
         {
           "type": "command",
-          "command": "$HOME/.claude/hooks/EventLogger.hook.ts"
+          "command": "$HOME/.gemini/config/hooks/EventLogger.hook.ts"
         }
       ]
     }
@@ -518,7 +518,7 @@ To restore: `git revert 31a4b9ad9` (or `git show pre-bpe-cuts-2026-05-06:hooks/T
       "hooks": [
         {
           "type": "command",
-          "command": "$HOME/.claude/hooks/TaskGovernance.hook.ts"
+          "command": "$HOME/.gemini/config/hooks/TaskGovernance.hook.ts"
         }
       ]
     }
@@ -544,7 +544,7 @@ To restore: `git revert 31a4b9ad9` (or `git show pre-bpe-cuts-2026-05-06:hooks/T
       "hooks": [
         {
           "type": "command",
-          "command": "$HOME/.claude/hooks/EventLogger.hook.ts"
+          "command": "$HOME/.gemini/config/hooks/EventLogger.hook.ts"
         }
       ]
     }
@@ -566,8 +566,8 @@ To restore: `git revert 31a4b9ad9` (or `git show pre-bpe-cuts-2026-05-06:hooks/T
 ```json
 {
   "PermissionRequest": [
-    { "matcher": "Write|Edit|MultiEdit|Bash", "hooks": [ { "type": "command", "command": "$HOME/.claude/hooks/Safety.hook.ts" } ] },
-    { "matcher": "mcp__.*", "hooks": [ { "type": "command", "command": "$HOME/.claude/hooks/Safety.hook.ts" } ] }
+    { "matcher": "Write|Edit|MultiEdit|Bash", "hooks": [ { "type": "command", "command": "$HOME/.gemini/config/hooks/Safety.hook.ts" } ] },
+    { "matcher": "mcp__.*", "hooks": [ { "type": "command", "command": "$HOME/.gemini/config/hooks/Safety.hook.ts" } ] }
   ]
 }
 ```
@@ -612,15 +612,15 @@ Hooks have access to all environment variables from `~/Projects/LifeOS-AGY/setti
 ```json
 {
   "env": {
-    "LIFEOS_DIR": "$HOME/.claude",
+    "LIFEOS_DIR": "$HOME/.gemini/config",
     "CLAUDE_CODE_MAX_OUTPUT_TOKENS": "64000"
   }
 }
 ```
 
 **Key Variables:**
-- `LIFEOS_DIR` - LifeOS installation directory (typically `~/.claude`)
-- Hook scripts reference `$HOME/.claude` in command paths
+- `LIFEOS_DIR` - LifeOS installation directory (typically `~/.gemini/config`)
+- Hook scripts reference `$HOME/.gemini/config` in command paths
 
 ### Identity Configuration (Central to Install Wizard)
 
@@ -677,7 +677,7 @@ const VOICE_ID = getVoiceId();        // from settings.json daidentity.voices.ma
         "hooks": [
           {
             "type": "command",
-            "command": "$HOME/.claude/hooks/my-hook.ts --arg value"
+            "command": "$HOME/.gemini/config/hooks/my-hook.ts --arg value"
           }
         ]
       }
@@ -956,7 +956,7 @@ main();
 ```bash
 chmod +x ~/Projects/LifeOS-AGY/hooks/my-custom-hook.ts
 ```
-> **Note:** LifeOS hooks are registered BARE (`$HOME/.claude/hooks/<Name>.hook.ts`, no `bun` prefix — 62 of 63 commands; `HookHealer` is the one exception), so the shebang + execute bit ARE required. A `bun` prefix would make them optional, but that is not how settings.json is wired (contradiction flagged in public issue #1600, @cristbc).
+> **Note:** LifeOS hooks are registered BARE (`$HOME/.gemini/config/hooks/<Name>.hook.ts`, no `bun` prefix — 62 of 63 commands; `HookHealer` is the one exception), so the shebang + execute bit ARE required. A `bun` prefix would make them optional, but that is not how settings.json is wired (contradiction flagged in public issue #1600, @cristbc).
 
 ### Step 4: Add to settings.json
 ```json
@@ -967,7 +967,7 @@ chmod +x ~/Projects/LifeOS-AGY/hooks/my-custom-hook.ts
         "hooks": [
           {
             "type": "command",
-            "command": "$HOME/.claude/hooks/my-custom-hook.ts"
+            "command": "$HOME/.gemini/config/hooks/my-custom-hook.ts"
           }
         ]
       }
@@ -1026,7 +1026,7 @@ await Promise.race([readPromise, timeoutPromise]);
 
 ### 6. **Environment Access**
 - All `settings.json` env vars available via `process.env`
-- Use `$HOME/.claude` in settings.json for portability
+- Use `$HOME/.gemini/config` in settings.json for portability
 - Access in code via `process.env.LIFEOS_DIR`
 
 ### 7. **Logging**
@@ -1042,7 +1042,7 @@ await Promise.race([readPromise, timeoutPromise]);
 
 **Check:**
 1. Is hook script executable? `chmod +x ~/Projects/LifeOS-AGY/hooks/my-hook.ts` (required: LifeOS registers hooks bare, without a `bun` prefix)
-2. Is path correct in settings.json? Use `$HOME/.claude/hooks/...` (bare, matching every existing registration except `HookHealer`)
+2. Is path correct in settings.json? Use `$HOME/.gemini/config/hooks/...` (bare, matching every existing registration except `HookHealer`)
 3. Is settings.json valid JSON? `jq . ~/Projects/LifeOS-AGY/settings.json`
 4. Can the hook process find `bun`? Bare registration + `#!/usr/bin/env bun` means the harness's PATH must reach bun; a stripped environment fails every `.ts` hook with `env: bun: No such file or directory` (public issues #1368/#1600, @cristbc)
 4. Did you restart Antigravity CLI after editing settings.json?
@@ -1225,7 +1225,7 @@ Hooks in same event execute **sequentially** in order defined in settings.json:
   "Stop": [
     {
       "hooks": [
-        { "command": "$HOME/.claude/hooks/VoiceCompletion.hook.ts" }  // Example: one of several Stop hooks
+        { "command": "$HOME/.gemini/config/hooks/VoiceCompletion.hook.ts" }  // Example: one of several Stop hooks
       ]
     }
   ]
@@ -1520,7 +1520,7 @@ KEY FILES:
 
 INFERENCE TOOL (for hooks needing AI):
 Path: ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/Inference.ts
-Import: import { inference } from '../../.claude/LIFEOS/TOOLS/Inference'
+Import: import { inference } from '../../.gemini/config/LIFEOS/TOOLS/Inference'
 Levels: fast (haiku/15s) | standard (sonnet/30s) | smart (opus/90s)
 
 TAB STATE SYSTEM:
@@ -1594,7 +1594,7 @@ const principal = getPrincipal();  // { name, pronunciation, timezone }
 Unified AI inference with four run levels (low/medium/high/max, bound via `models.ts` `EFFORT_MODEL`).
 
 ```typescript
-import { inference } from '../../.claude/LIFEOS/TOOLS/Inference';
+import { inference } from '../../.gemini/config/LIFEOS/TOOLS/Inference';
 
 // Low (Haiku) - quick tasks, 15s timeout
 const result = await inference({
@@ -1708,7 +1708,7 @@ tail -f ~/Projects/LifeOS-AGY/LIFEOS/MEMORY/STATE/events.jsonl | jq 'select(.typ
 
 # Programmatic (Node/Bun fs.watch)
 import { watch } from 'fs';
-const eventsPath = `${process.env.HOME}/.claude/LIFEOS/MEMORY/STATE/events.jsonl`;
+const eventsPath = `${process.env.HOME}/.gemini/config/LIFEOS/MEMORY/STATE/events.jsonl`;
 watch(eventsPath, (eventType) => { /* read new lines */ });
 ```
 

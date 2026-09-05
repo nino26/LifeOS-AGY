@@ -27,7 +27,7 @@ import { evaluateDeterministic, isModelAssert, type Assertion, type AssertResult
 import { judgeAssertion } from './Judge.ts';
 import { inference, type InferenceLevel } from '../../../LIFEOS/TOOLS/Inference.ts';
 
-const CLAUDE_ROOT = join(homedir(), '.claude');
+const CLAUDE_ROOT = join(homedir(), '.gemini/config');
 const RESULTS_DIR = join(CLAUDE_ROOT, 'LIFEOS', 'MEMORY', 'STATE', 'Evals-Results');
 const USER_SUITES = join(CLAUDE_ROOT, 'LIFEOS', 'USER', 'CUSTOMIZATIONS', 'SKILLS', 'Evals', 'Suites');
 const SKILL_SUITES = join(import.meta.dir, '..', 'Suites');

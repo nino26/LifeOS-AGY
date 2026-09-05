@@ -23,7 +23,7 @@ import { stringify as toYaml } from 'yaml';
 import { inference } from '../../../LIFEOS/TOOLS/Inference.ts';
 import type { Assertion } from './Assertions.ts';
 
-const DRAFTS_DIR = join(homedir(), '.claude', 'LIFEOS', 'USER', 'CUSTOMIZATIONS', 'SKILLS', 'Evals', 'Suites', '_drafts');
+const DRAFTS_DIR = join(homedir(), '.gemini/config', 'LIFEOS', 'USER', 'CUSTOMIZATIONS', 'SKILLS', 'Evals', 'Suites', '_drafts');
 
 interface DraftCase {
   id: string;

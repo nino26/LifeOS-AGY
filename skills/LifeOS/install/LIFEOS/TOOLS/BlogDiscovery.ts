@@ -37,9 +37,9 @@ import { existsSync } from "fs";
 import { randomUUID } from "crypto";
 
 const HOME = homedir();
-const DB_PATH = join(HOME, ".claude/LIFEOS/MEMORY/STATE/feed-candidates.db");
-const CFENV = join(HOME, ".claude/skills/_CLOUDFLARE/Tools/CfEnv.ts");
-const INFERENCE = join(HOME, ".claude/LIFEOS/TOOLS/Inference.ts");
+const DB_PATH = join(HOME, ".gemini/config/LIFEOS/MEMORY/STATE/feed-candidates.db");
+const CFENV = join(HOME, ".gemini/config/skills/_CLOUDFLARE/Tools/CfEnv.ts");
+const INFERENCE = join(HOME, ".gemini/config/LIFEOS/TOOLS/Inference.ts");
 const SURFACE_TAX = join(HOME, "Projects/Surface/src/categories.ts");
 const UA =
   "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36";
@@ -397,7 +397,7 @@ async function cmdHarvest() {
   const pend = (db.query("SELECT COUNT(*) n FROM candidates WHERE status='pending' AND combined IS NOT NULL").get() as any).n;
   const good = (db.query("SELECT COUNT(*) n FROM candidates WHERE status='pending' AND combined>=55").get() as any).n;
   console.log(`[harvest] done. pending scored: ${pend}, of which combined>=55: ${good}.`);
-  console.log(`Shortlist: bun ${join(HOME, ".claude/LIFEOS/TOOLS/BlogDiscovery.ts")} top --n 50`);
+  console.log(`Shortlist: bun ${join(HOME, ".gemini/config/LIFEOS/TOOLS/BlogDiscovery.ts")} top --n 50`);
 }
 
 function rankRows(db: Database, limit: number, min: number, maxAgeDays: number, minFit = 0): any[] {

@@ -88,7 +88,7 @@ elif echo "$MATCH_CMD" | grep -qE '^gh[[:space:]]+(pr|issue|run|api|release)([[:
 
 # --- Interceptor screenshot --save — redirect output to /tmp/pai-screenshots ---
 # NOT a token rewrite: prevents stray interceptor-screenshot-*.jpg files from landing
-# in the cwd (typically ~/.claude) when a subagent calls the command without the
+# in the cwd (typically ~/.gemini/config) when a subagent calls the command without the
 # skill's `cd /tmp/pai-screenshots` prefix. Wraps the call in a subshell that chdirs
 # first. Kept independent of rtk's compression role — it is the load-bearing piece.
 elif echo "$MATCH_CMD" | grep -qE '^interceptor[[:space:]]+screenshot([[:space:]]|$)' && echo "$MATCH_CMD" | grep -qE -- '--save'; then

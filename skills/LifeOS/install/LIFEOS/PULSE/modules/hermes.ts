@@ -44,7 +44,7 @@ import { analyzeGuardLog } from "../../HERMES/LogAnalysis.ts";
 import { assertClean, scrubPaths } from "../../HERMES/RenderSoul.ts";
 
 const MODULE_NAME = "hermes";
-const CLAUDE_DIR = process.env.CLAUDE_CONFIG_DIR || join(homedir(), ".claude");
+const CLAUDE_DIR = process.env.CLAUDE_CONFIG_DIR || join(homedir(), ".gemini/config");
 const LIFEOS_DIR = join(CLAUDE_DIR, "LIFEOS");
 const USER_DIR = join(LIFEOS_DIR, "USER");
 const HERMES_DIR = join(LIFEOS_DIR, "HERMES");

@@ -27,11 +27,11 @@ import { homedir } from 'node:os';
 import { parseFrontmatter, parseCriteriaList, ARTIFACT_FILENAME, LEGACY_ARTIFACT_FILENAME } from './lib/isa-utils';
 import { isForeignToSystemRepo, looksLikePersonalTranscript } from '../LIFEOS/TOOLS/lib/ForeignDataCheck';
 
-// Allowlist path: top of ~/.claude per spec. One absolute repo path per line;
+// Allowlist path: top of ~/.gemini/config per spec. One absolute repo path per line;
 // '#' comments and blank
 // lines are ignored. Tilde and $HOME prefixes are expanded as a quality-of-
 // life feature so users can write `~/Projects/foo` instead of the long form.
-const ALLOWLIST_PATH = join(homedir(), '.claude', 'checkpoint-repos.txt');
+const ALLOWLIST_PATH = join(homedir(), '.gemini/config', 'checkpoint-repos.txt');
 const GIT_TIMEOUT_MS = 5000;
 
 interface CheckpointState {
@@ -140,7 +140,7 @@ function dirtyPaths(repo: string): string[] {
 /**
  * Paths this RUN touched: dirty AND modified at or after the run started.
  *
- * `git add -A` cannot be used here. ~/.claude runs concurrent sessions, so a whole-tree
+ * `git add -A` cannot be used here. ~/.gemini/config runs concurrent sessions, so a whole-tree
  * stage silently adopts another session's in-flight work and buries it under an unrelated
  * subject — which also destroys the provenance the Algorithm depends on, since
  * `git log -- <path>` is the authoritative change record. Residual: a file another session
@@ -154,7 +154,7 @@ function runTouchedPaths(repo: string, startedMs: number): string[] {
   });
 }
 
-const SYSTEM_REPO = join(homedir(), '.claude');
+const SYSTEM_REPO = join(homedir(), '.gemini/config');
 
 function isSystemRepo(repo: string): boolean {
   try { return realpathSync(repo) === realpathSync(SYSTEM_REPO); }
@@ -164,7 +164,7 @@ function isSystemRepo(repo: string): boolean {
 /**
  * Foreign-data boundary (2026-08-11 lifelog incident): a concurrent session's
  * relative-write bug put personal transcripts at LIFEOS/Users/<name>/... inside
- * ~/.claude, and THIS hook's checkpoint commit is what git-tracked them. In the
+ * ~/.gemini/config, and THIS hook's checkpoint commit is what git-tracked them. In the
  * system repo, a path that is foreign by shape (absolute-fs mirror, personal
  * filename signature) or by content (transcript structure) is NEVER staged —
  * skipped loudly on stderr, present in the next `git status` for a human.
@@ -244,9 +244,9 @@ async function main() {
   // dir — skill trees must stay publishable-clean and the sidecar carries
   // absolute paths + SHAs, which trips SkillHygieneGate (found 2026-08-11,
   // interview-evidence upgrade). Everything else keeps the beside-the-ISA path.
-  const skillsPrefix = join(homedir(), '.claude', 'skills') + '/';
+  const skillsPrefix = join(homedir(), '.gemini/config', 'skills') + '/';
   const inSkillTree = slugDir.startsWith(skillsPrefix);
-  const skillStateDir = join(homedir(), '.claude', 'LIFEOS', 'MEMORY', 'STATE', 'checkpoints');
+  const skillStateDir = join(homedir(), '.gemini/config', 'LIFEOS', 'MEMORY', 'STATE', 'checkpoints');
   if (inSkillTree) mkdirSync(skillStateDir, { recursive: true });
   const stateFile = inSkillTree
     ? join(skillStateDir, `skill-${slug}.checkpoint-state.json`)

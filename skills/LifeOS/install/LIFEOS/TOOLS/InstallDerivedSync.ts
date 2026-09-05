@@ -36,7 +36,7 @@ type LaunchctlResult = {
 };
 
 const HOME = process.env.HOME ?? process.env.USERPROFILE ?? homedir();
-const TEMPLATE_PATH = join(HOME, ".claude", "LIFEOS", "TOOLS", "com.lifeos.derivedsync.plist.template");
+const TEMPLATE_PATH = join(HOME, ".gemini/config", "LIFEOS", "TOOLS", "com.lifeos.derivedsync.plist.template");
 const LAUNCH_AGENTS_DIR = join(HOME, "Library", "LaunchAgents");
 const TARGET_PLIST = join(LAUNCH_AGENTS_DIR, "com.lifeos.derivedsync.plist");
 const LABEL = "com.lifeos.derivedsync";
@@ -89,7 +89,7 @@ async function install(): Promise<void> {
   }
   const bunPath = await detectBun();
   const bunDir = bunPath.replace(/\/bun$/, "");
-  const userDir = realpathSync(join(HOME, ".claude", "LIFEOS", "USER"));
+  const userDir = realpathSync(join(HOME, ".gemini/config", "LIFEOS", "USER"));
   console.log(`[InstallDerivedSync] detected bun at ${bunPath}`);
   const template = readFileSync(TEMPLATE_PATH, "utf-8");
   const materialized = template
@@ -157,13 +157,13 @@ async function linuxSpec(): Promise<systemd.UnitSpec> {
   // realpathSync, matching the {{USER_DIR}} substitution the plist path uses:
   // LIFEOS/USER is a symlink into the private config repo, and watching the
   // link rather than its target would never fire on a write to the real file.
-  const userDir = realpathSync(join(HOME, ".claude", "LIFEOS", "USER"));
+  const userDir = realpathSync(join(HOME, ".gemini/config", "LIFEOS", "USER"));
   return {
     label: LABEL,
     description: "LifeOS derived-file sync",
-    exec: [bunPath, join(HOME, ".claude", "LIFEOS", "TOOLS", "DerivedSync.ts")],
-    logPath: join(HOME, ".claude", "LIFEOS", "MEMORY", "OBSERVABILITY", "derived-sync-systemd.log"),
-    workingDirectory: join(HOME, ".claude"),
+    exec: [bunPath, join(HOME, ".gemini/config", "LIFEOS", "TOOLS", "DerivedSync.ts")],
+    logPath: join(HOME, ".gemini/config", "LIFEOS", "MEMORY", "OBSERVABILITY", "derived-sync-systemd.log"),
+    workingDirectory: join(HOME, ".gemini/config"),
     schedule: {
       kind: "watch",
       // Mirrors the plist's WatchPaths array. A missing directory is dropped:

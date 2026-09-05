@@ -155,7 +155,7 @@ async function main(): Promise<string | null> {
   let stripDelta: string | null = null;
   if (input.session_id && fm.slug && !isSubagentContext()) {
     try {
-      const stripDir = join(homedir(), '.claude/LIFEOS/MEMORY/STATE/ascent-strip');
+      const stripDir = join(homedir(), '.gemini/config/LIFEOS/MEMORY/STATE/ascent-strip');
       const stripFile = join(stripDir, `${String(input.session_id).replace(/[^\w-]/g, '')}.json`);
       let prev: { slug?: string; state?: string } = {};
       if (existsSync(stripFile)) {
@@ -183,7 +183,7 @@ async function main(): Promise<string | null> {
   //    constantly remaking the HTML file."
   if (newPhase === 'COMPLETE' && oldPhase !== 'COMPLETE' && fm.slug) {
     try {
-      const isaRender = join(homedir(), '.claude/LIFEOS/TOOLS/ISARender.ts');
+      const isaRender = join(homedir(), '.gemini/config/LIFEOS/TOOLS/ISARender.ts');
       const proc = spawn('bun', [isaRender, isaPath], {
         detached: true,
         stdio: 'ignore',
@@ -200,7 +200,7 @@ async function main(): Promise<string | null> {
   // pre-completion edits never trigger renders even though they show up here.
   if (input.session_id) {
     try {
-      const stateDir = join(homedir(), '.claude/LIFEOS/MEMORY/STATE/isa-render-debounce');
+      const stateDir = join(homedir(), '.gemini/config/LIFEOS/MEMORY/STATE/isa-render-debounce');
       const stateFile = join(stateDir, `${input.session_id}.json`);
       const { mkdirSync, writeFileSync } = require('fs');
       mkdirSync(stateDir, { recursive: true });

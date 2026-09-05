@@ -25,7 +25,7 @@ import { homedir } from "node:os";
  */
 export const MERGE_SNAPSHOT_PATH = path.join(
   os.homedir(),
-  ".claude",
+  ".gemini/config",
   "LIFEOS",
   "MEMORY",
   "STATE",
@@ -196,7 +196,7 @@ function expandLeadingHome(value: string, home: string): string {
  * Expand leading $HOME/${HOME}/~ references in settings `env` values to the real
  * home directory, in place. The Antigravity CLI harness sets `env` values verbatim —
  * it does NOT expand shell variables — so a shipped value like
- * "$HOME/.claude/LIFEOS" would be exported literally, making LIFEOS_DIR resolve
+ * "$HOME/.gemini/config/LIFEOS" would be exported literally, making LIFEOS_DIR resolve
  * to the string "$HOME/…" and breaking every downstream path (worst on fresh
  * installs and Linux). Issues #1404 / #1422.
  */
@@ -588,7 +588,7 @@ async function runCli(argv: string[]): Promise<number> {
   // sat dead for days. Warn loudly whenever a root-level copy exists that is
   // not the canonical file. This runs BEFORE the fresh-install no-op guard:
   // canonical-absent + root-stray-present is exactly the footgun case.
-  const rootStray = path.join(os.homedir(), ".claude", "settings.user.json");
+  const rootStray = path.join(os.homedir(), ".gemini/config", "settings.user.json");
   if (existsSync(rootStray) && path.resolve(rootStray) !== path.resolve(options.userPath)) {
     process.stderr.write(
       `⚠️  MergeSettings: ${rootStray} exists but is NOT read by the merge.\n` +

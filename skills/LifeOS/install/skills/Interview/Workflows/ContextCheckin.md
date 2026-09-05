@@ -26,7 +26,7 @@ Four readers. All at the start. The context is on file and the observed data is 
 ```bash
 bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/TelosFreshness.ts --json          # per-section TELOS
 bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/TelosFreshness.ts --state         # CURRENT_STATE/ + IDEAL_STATE/ dimension files
-bun -e "import { readContextFreshness } from '$HOME/.claude/LIFEOS/TOOLS/TelosFreshness'; console.log(JSON.stringify(readContextFreshness(), null, 2))"
+bun -e "import { readContextFreshness } from '$HOME/.gemini/config/LIFEOS/TOOLS/TelosFreshness'; console.log(JSON.stringify(readContextFreshness(), null, 2))"
 bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/StateEvidence.ts --markdown       # observed reality per domain (also refreshes the cache)
 ```
 
@@ -165,7 +165,7 @@ bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/TelosFreshness.ts --bump <slug>
 
 # Constitutional file OR state dimension file — review marker
 # (NOT bumpContextTimestamp; that's for writes)
-bun -e "import { bumpReviewedTimestamp } from '$HOME/.claude/LIFEOS/TOOLS/TelosFreshness'; console.log(bumpReviewedTimestamp('<absolute-path>', 'user'))"
+bun -e "import { bumpReviewedTimestamp } from '$HOME/.gemini/config/LIFEOS/TOOLS/TelosFreshness'; console.log(bumpReviewedTimestamp('<absolute-path>', 'user'))"
 ```
 
 State dimension files use the same `bumpReviewedTimestamp` — a ratified-or-declined-with-review walk of a CURRENT_STATE/IDEAL_STATE file counts as a review even when no edit landed (the principal looked and said "still right").

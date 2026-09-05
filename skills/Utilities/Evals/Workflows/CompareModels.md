@@ -37,8 +37,8 @@ Ensure models are listed in `config.yaml`:
 
 ```yaml
 models:
-  - claude-3-5-sonnet-20241022
-  - claude-3-5-haiku-20241022
+  - gemini-3.1-pro-high
+  - gemini-3.1-pro-high
   - gpt-4o
   - gpt-4o-mini
   - gemini-1.5-pro
@@ -58,7 +58,7 @@ model_comparison:
   prompt: "prompts/v1.0.0.md"  # Same prompt for all models
 
   models:
-    - id: "claude-3-5-sonnet-20241022"
+    - id: "gemini-3.1-pro-high"
       name: "Claude 3.5 Sonnet"
       provider: "anthropic"
 
@@ -76,7 +76,7 @@ model_comparison:
   # Evaluation settings
   judges:
     - name: "Primary Judge"
-      model: "claude-3-5-sonnet-20241022"  # Consider using different judge
+      model: "gemini-3.1-pro-high"  # Consider using different judge
       criteria:
         - accuracy
         - style
@@ -99,7 +99,7 @@ model_comparison:
 ```bash
 bun run ~/Projects/LifeOS-AGY/.agents/skills/Utilities/Evals/EvalServer/cli-run.ts \
   --use-case <name> \
-  --models claude-3-5-sonnet-20241022,gpt-4o,gemini-1.5-pro
+  --models gemini-3.1-pro-high,gpt-4o,gemini-1.5-pro
 ```
 
 **Option B: CLI (Parallel)**
@@ -108,7 +108,7 @@ bun run ~/Projects/LifeOS-AGY/.agents/skills/Utilities/Evals/EvalServer/cli-run.
 # Run each model in parallel for speed
 bun run ~/Projects/LifeOS-AGY/.agents/skills/Utilities/Evals/EvalServer/cli-run.ts \
   --use-case <name> \
-  --model claude-3-5-sonnet-20241022 &
+  --model gemini-3.1-pro-high &
 
 bun run ~/Projects/LifeOS-AGY/.agents/skills/Utilities/Evals/EvalServer/cli-run.ts \
   --use-case <name> \

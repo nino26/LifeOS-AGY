@@ -31,7 +31,7 @@ import { allServices, cadenceOf, findPlist, loadedLabels } from "../../TOOLS/Ser
 import { checkHermesHealth, type HermesHealth } from "../../HERMES/Health.ts";
 
 const HOME = homedir();
-const ARBOL_WORKERS = join(HOME, ".claude/LIFEOS/USER/CUSTOMIZATIONS/ARBOL/Workers");
+const ARBOL_WORKERS = join(HOME, ".gemini/config/LIFEOS/USER/CUSTOMIZATIONS/ARBOL/Workers");
 const HERMES_HOME = process.env.HERMES_HOME || join(HOME, ".hermes");
 
 export type Executor = "local" | "arbol" | "hermes";

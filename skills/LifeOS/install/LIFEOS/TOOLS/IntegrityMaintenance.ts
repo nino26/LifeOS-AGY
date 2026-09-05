@@ -110,9 +110,9 @@ interface UpdateData {
 // Constants
 // ============================================================================
 
-const LIFEOS_DIR = homedir() + '/.claude/LIFEOS';
-// NOT under LIFEOS_DIR — skills/ lives at the ~/.claude root, not under LIFEOS/.
-const CREATE_UPDATE_SCRIPT = join(homedir(), '.claude/LIFEOS/TOOLS/CreateUpdate.ts');
+const LIFEOS_DIR = homedir() + '/.gemini/config/LIFEOS';
+// NOT under LIFEOS_DIR — skills/ lives at the ~/.gemini/config root, not under LIFEOS/.
+const CREATE_UPDATE_SCRIPT = join(homedir(), '.gemini/config/LIFEOS/TOOLS/CreateUpdate.ts');
 
 // Words that indicate generic/bad titles - reject these
 const GENERIC_TITLE_PATTERNS = [

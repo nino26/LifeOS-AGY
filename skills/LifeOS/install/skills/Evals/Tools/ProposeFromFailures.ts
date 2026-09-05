@@ -22,7 +22,7 @@ import { parseArgs } from 'node:util';
 import { stringify as toYaml } from 'yaml';
 import { generate } from './GenerateCases.ts';
 
-const ROOT = join(homedir(), '.claude');
+const ROOT = join(homedir(), '.gemini/config');
 const REFLECTIONS = join(ROOT, 'LIFEOS/MEMORY/LEARNING/REFLECTIONS/algorithm-reflections.jsonl');
 const ASK_FIDELITY = join(ROOT, 'LIFEOS/MEMORY/OBSERVABILITY/ask-fidelity.jsonl');
 const DRAFTS_DIR = join(ROOT, 'LIFEOS/USER/CUSTOMIZATIONS/SKILLS/Evals/Suites/_drafts');

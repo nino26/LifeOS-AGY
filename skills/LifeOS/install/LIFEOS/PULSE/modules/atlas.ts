@@ -18,7 +18,7 @@ import { homedir } from "node:os";
 import { join } from "node:path";
 
 const MODULE_NAME = "atlas";
-const CLAUDE_DIR = process.env.CLAUDE_CONFIG_DIR || join(homedir(), ".claude");
+const CLAUDE_DIR = process.env.CLAUDE_CONFIG_DIR || join(homedir(), ".gemini/config");
 const LIFEOS_DIR = join(CLAUDE_DIR, "LIFEOS");
 const ATLAS_CLI = join(LIFEOS_DIR, "ATLAS", "Atlas.ts");
 const INFERENCE = join(LIFEOS_DIR, "TOOLS", "Inference.ts");

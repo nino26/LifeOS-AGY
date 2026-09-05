@@ -6,13 +6,13 @@ import { join, basename } from "node:path";
 import { homedir } from "node:os";
 
 const HOME = homedir();
-const LIFEOS_DIR = join(HOME, ".claude");
+const LIFEOS_DIR = join(HOME, ".gemini/config");
 const STATE_DIR = join(LIFEOS_DIR, "LIFEOS", "MEMORY", "STATE");
 const WORK_DIR = join(LIFEOS_DIR, "LIFEOS", "MEMORY", "WORK");
 // Antigravity CLI writes one transcript dir per working directory under
 // ~/Projects/LifeOS-AGY/projects/ (lowercase on disk — the old "Projects" spelling only
 // worked on case-insensitive macOS), named by the cwd with "/" and "." mapped
-// to "-". Search ALL of them: pinning to the ~/.claude slug alone made every
+// to "-". Search ALL of them: pinning to the ~/.gemini/config slug alone made every
 // session run inside a code repo unrecallable (public issues #1494 + #1498,
 // @christauff / @simeonzickert).
 const PROJECTS_ROOT = join(LIFEOS_DIR, "projects");
@@ -433,7 +433,7 @@ async function searchProjectIsas(tokens: string[], since: Date | null, until: Da
   if (tokens.length === 0) return [];
   const candidates = new Set<string>();
   for (const cwd of discoveredProjectCwds()) {
-    if (cwd === LIFEOS_DIR) continue; // task ISAs under ~/.claude are covered by the WORK_DIR sources
+    if (cwd === LIFEOS_DIR) continue; // task ISAs under ~/.gemini/config are covered by the WORK_DIR sources
     const isa = join(cwd, "ISA.md");
     if (existsSync(isa)) candidates.add(isa);
   }
@@ -479,7 +479,7 @@ async function searchProjectIsas(tokens: string[], since: Date | null, until: Da
 async function searchJsonl(tokens: string[], since: Date | null, until: Date | null = null): Promise<Result[]> {
   if (tokens.length === 0 || !existsSync(PROJECTS_ROOT)) return [];
   const realDir = PROJECTS_ROOT;
-  if (!realDir.startsWith(join(HOME, ".claude", "projects"))) return [];
+  if (!realDir.startsWith(join(HOME, ".gemini/config", "projects"))) return [];
   const pattern = tokens.map((t) => t.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")).join("|");
   const out = await ripgrep(pattern, realDir, ["--glob", "*.jsonl", "-c"]);
   const byFile = new Map<string, { hits: number; path: string }>();

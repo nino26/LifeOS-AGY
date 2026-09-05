@@ -101,7 +101,7 @@ comparison:
   # Judge configuration
   judges:
     - name: "Accuracy Judge"
-      model: "claude-3-5-sonnet-20241022"
+      model: "gemini-3.1-pro-high"
       focus: "accuracy"
     - name: "Style Judge"
       model: "gpt-4o"
@@ -111,7 +111,7 @@ comparison:
     position_swap: true      # Mitigate position bias
     num_runs: 1              # Runs per test case
     confidence_level: 0.95   # For statistical significance
-    model: "claude-3-5-sonnet-20241022"  # Model to generate outputs
+    model: "gemini-3.1-pro-high"  # Model to generate outputs
 ```
 
 ### Step 4: Run Comparison

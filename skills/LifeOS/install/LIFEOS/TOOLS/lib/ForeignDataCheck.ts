@@ -1,6 +1,6 @@
 /**
  * ForeignDataCheck — structural detection of personal/foreign data inside the
- * system repo (~/.claude).
+ * system repo (~/.gemini/config).
  *
  * Born from the 2026-08-11 lifelog incident: a concurrent session's
  * relative-write bug mirrored an absolute filesystem path INSIDE the repo
@@ -12,9 +12,9 @@
  * content-string luck required.
  *
  * The invariant enforced across its consumers: the only sanctioned
- * personal-data locations inside ~/.claude are the `LIFEOS/USER/` and
+ * personal-data locations inside ~/.gemini/config are the `LIFEOS/USER/` and
  * `LIFEOS/MEMORY/` symlinks into the private USER_DATA repo
- * (~/.config/LIFEOS/USER). Everything else tracked in ~/.claude is SYSTEM and
+ * (~/.config/LIFEOS/USER). Everything else tracked in ~/.gemini/config is SYSTEM and
  * shippable. Contract: LIFEOS/DOCUMENTATION/SystemUserBoundary.md.
  *
  * Consumers (each an independent layer):
@@ -43,7 +43,7 @@ export const ABS_MIRROR_SEGMENTS: ReadonlySet<string> = new Set([
   "Users", "home", "private", "var", "tmp", "Volumes", "etc", "opt", "System", "Library",
 ]);
 
-// Real tracked top-level directories of ~/.claude (git ls-tree HEAD, 2026-08-11).
+// Real tracked top-level directories of ~/.gemini/config (git ls-tree HEAD, 2026-08-11).
 // Enumerated so a root-level absolute-mirror hit can never flag a legitimate
 // repo dir. Currently disjoint from ABS_MIRROR_SEGMENTS — the allowlist is
 // belt-and-suspenders for the day a future top-level dir collides.
@@ -73,7 +73,7 @@ export interface ForeignCheckResult {
 }
 
 /**
- * Decide whether a repo-relative path inside ~/.claude is FOREIGN — i.e. must
+ * Decide whether a repo-relative path inside ~/.gemini/config is FOREIGN — i.e. must
  * never be tracked in the system repo nor ship in a release.
  *
  * Foreign =
@@ -231,8 +231,8 @@ export function userDataRoot(): string {
  * repo. Realpath-based on the deepest existing ancestor, so:
  *   - an intact `~/Projects/LifeOS-AGY/LIFEOS/USER` (or MEMORY) symlink resolves into
  *     ~/.config/LIFEOS/USER and passes;
- *   - a broken/replaced symlink (real dir inside ~/.claude) resolves under
- *     ~/.claude and is REFUSED — the write would land in the system tree;
+ *   - a broken/replaced symlink (real dir inside ~/.gemini/config) resolves under
+ *     ~/.gemini/config and is REFUSED — the write would land in the system tree;
  *   - a missing USER_DATA root refuses (fail-closed): a personal write with
  *     nowhere sanctioned to land must error loudly, never fall back.
  */

@@ -44,7 +44,7 @@ for (const k of ["LIFEOS_DIR", "LIFEOS_CONFIG_DIR", "PROJECTS_DIR"]) {
 }
 
 
-const LIFEOS_DIR = process.env.LIFEOS_DIR || join(homedir(), '.claude');
+const LIFEOS_DIR = process.env.LIFEOS_DIR || join(homedir(), '.gemini/config');
 
 interface FailureCaptureInput {
   transcriptPath: string;

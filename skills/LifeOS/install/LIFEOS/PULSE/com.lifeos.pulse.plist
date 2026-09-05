@@ -12,7 +12,7 @@
         <string>pulse.ts</string>
     </array>
     <key>WorkingDirectory</key>
-    <string>__HOME__/.claude/LIFEOS/PULSE</string>
+    <string>__HOME__/.gemini/config/LIFEOS/PULSE</string>
     <key>EnvironmentVariables</key>
     <dict>
         <key>HOME</key>
@@ -25,9 +25,9 @@
     <key>KeepAlive</key>
     <true/>
     <key>StandardOutPath</key>
-    <string>__HOME__/.claude/LIFEOS/PULSE/logs/pulse-stdout.log</string>
+    <string>__HOME__/.gemini/config/LIFEOS/PULSE/logs/pulse-stdout.log</string>
     <key>StandardErrorPath</key>
-    <string>__HOME__/.claude/LIFEOS/PULSE/logs/pulse-stderr.log</string>
+    <string>__HOME__/.gemini/config/LIFEOS/PULSE/logs/pulse-stderr.log</string>
     <key>ThrottleInterval</key>
     <integer>30</integer>
 </dict>

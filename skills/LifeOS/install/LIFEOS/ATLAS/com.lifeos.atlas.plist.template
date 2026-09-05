@@ -27,7 +27,7 @@
   <key>ProgramArguments</key>
   <array>
     <string>{{BUN}}</string>
-    <string>{{HOME}}/.claude/LIFEOS/ATLAS/Atlas.ts</string>
+    <string>{{HOME}}/.gemini/config/LIFEOS/ATLAS/Atlas.ts</string>
     <string>tick</string>
   </array>
   <key>EnvironmentVariables</key>
@@ -48,10 +48,10 @@
   <key>ThrottleInterval</key>
   <integer>60</integer>
   <key>WorkingDirectory</key>
-  <string>{{HOME}}/.claude</string>
+  <string>{{HOME}}/.gemini/config</string>
   <key>StandardOutPath</key>
-  <string>{{HOME}}/.claude/LIFEOS/MEMORY/OBSERVABILITY/atlas-launchd.log</string>
+  <string>{{HOME}}/.gemini/config/LIFEOS/MEMORY/OBSERVABILITY/atlas-launchd.log</string>
   <key>StandardErrorPath</key>
-  <string>{{HOME}}/.claude/LIFEOS/MEMORY/OBSERVABILITY/atlas-launchd.log</string>
+  <string>{{HOME}}/.gemini/config/LIFEOS/MEMORY/OBSERVABILITY/atlas-launchd.log</string>
 </dict>
 </plist>

@@ -40,13 +40,13 @@ export interface HarnessInfo {
   name: Harness;
   /** Where this harness loads skills from (absolute), if known. */
   skillsDir?: string;
-  /** The config root the harness resolves (e.g. ~/.claude). */
+  /** The config root the harness resolves (e.g. ~/.gemini/config). */
   configRoot?: string;
   /**
    * "detected" = the harness binary was found on PATH; "assumed" = inferred
    * from a config dir alone, or the clean-machine default. The Setup workflow
    * must confirm an "assumed" harness with the user before branching (#1448 —
-   * a leftover ~/.claude dir sent an OpenCode install down the Antigravity CLI path).
+   * a leftover ~/.gemini/config dir sent an OpenCode install down the Antigravity CLI path).
    */
   confidence: "detected" | "assumed";
 }
@@ -121,13 +121,13 @@ export function detectTool(name: string, versionCmd: string): ToolInfo {
 /**
  * Detect which harness is hosting this install and where it loads skills from.
  * Signal strength (#1448): config dir + harness binary on PATH beats config dir
- * alone beats binary alone — a leftover ~/.claude dir on a machine without the
+ * alone beats binary alone — a leftover ~/.gemini/config dir on a machine without the
  * claude CLI must not out-rank a live OpenCode install. Anything short of a
  * binary match is reported as confidence "assumed", never as fact.
  */
 export function detectHarness(home: string): HarnessInfo {
   const candidates: Array<{ name: Harness; root: string; skills: string; bin: string }> = [
-    { name: "claude-code", root: process.env.CLAUDE_CONFIG_DIR || join(home, ".claude"), skills: "skills", bin: "claude" },
+    { name: "claude-code", root: process.env.CLAUDE_CONFIG_DIR || join(home, ".gemini/config"), skills: "skills", bin: "claude" },
     { name: "opencode", root: process.env.OPENCODE_CONFIG_DIR || join(home, ".config", "opencode"), skills: "skills", bin: "opencode" },
     { name: "hermes", root: join(home, ".hermes"), skills: "skills", bin: "hermes" },
     { name: "cursor", root: join(home, ".cursor"), skills: "skills", bin: "cursor" },
@@ -150,7 +150,7 @@ export function detectHarness(home: string): HarnessInfo {
     if (hasBin(c)) return info(c, "detected");
   }
   // Default assumption when nothing is present yet (a clean machine pre-bootstrap).
-  return { name: "claude-code", configRoot: join(home, ".claude"), skillsDir: join(home, ".claude", "skills"), confidence: "assumed" };
+  return { name: "claude-code", configRoot: join(home, ".gemini/config"), skillsDir: join(home, ".gemini/config", "skills"), confidence: "assumed" };
 }
 
 /**
@@ -170,7 +170,7 @@ export function detectEnv(): EnvDetection {
   const home = homedir();
   const os = detectOS();
   const harness = detectHarness(home);
-  const configRoot = harness.configRoot || join(home, ".claude");
+  const configRoot = harness.configRoot || join(home, ".gemini/config");
   const settingsPath = join(configRoot, "settings.json");
   const claudeMdPath = join(configRoot, "CLAUDE.md");
   const ssh = !!(process.env.SSH_CONNECTION || process.env.SSH_TTY || process.env.SSH_CLIENT);
@@ -351,7 +351,7 @@ const SKIP_DIRS = new Set(["node_modules", ".git", "MEMORY"]);
  *
  * Was `filePath.slice(filePath.lastIndexOf("."))`, which searches the whole path:
  * for `~/Projects/LifeOS-AGY/.agents/skills/Fabric/Patterns/raycast/yt` that returns
- * ".claude/skills/Fabric/Patterns/raycast/yt" — the dot in `.claude`. Harmless by
+ * ".gemini/config/skills/Fabric/Patterns/raycast/yt" — the dot in `.gemini/config`. Harmless by
  * accident (no such key in the set, so extension-less files were skipped), but it
  * would have mis-typed any file under a dotted directory the moment the set grew.
  */
@@ -683,7 +683,7 @@ type HooksMap = Record<string, MatcherGroup[]>;
  */
 function normalizeCommand(cmd: string): string {
   return cmd
-    .replace(/\$\{?LIFEOS_DIR\}?|\$\{?CLAUDE_PROJECT_DIR\}?|\$\{?CLAUDE_PLUGIN_ROOT\}?|~\/\.claude|\$HOME\/\.claude|\$\{HOME\}\/\.claude/g, "§ROOT§")
+    .replace(/\$\{?LIFEOS_DIR\}?|\$\{?CLAUDE_PROJECT_DIR\}?|\$\{?CLAUDE_PLUGIN_ROOT\}?|~\/\.gemini/config|\$HOME\/\.gemini/config|\$\{HOME\}\/\.gemini/config/g, "§ROOT§")
     .replace(/\s+/g, " ")
     .trim();
 }

@@ -2,7 +2,7 @@
 /**
  * ReferenceCheck.ts — Full-surface reference validator for the LifeOS system.
  *
- * Walks every file under ~/.claude (excluding noise dirs), extracts every
+ * Walks every file under ~/.gemini/config (excluding noise dirs), extracts every
  * reference from .md/.ts/.json files, validates each against the filesystem,
  * and emits three categories: missing, stale, orphan.
  *
@@ -30,14 +30,14 @@ import { execSync } from 'child_process';
 import { homedir } from "node:os";
 
 const HOME = process.env.HOME ?? process.env.USERPROFILE ?? homedir();
-const CLAUDE_DIR = join(HOME, '.claude');
+const CLAUDE_DIR = join(HOME, '.gemini/config');
 const LIFEOS_DIR = join(CLAUDE_DIR, 'LIFEOS');
 
 // ── Arg parsing (manual, zero deps) ──
 
 const args = process.argv.slice(2);
 if (args.includes('--help') || args.includes('-h')) {
-  console.log(`ReferenceCheck — validate every reference across ~/.claude
+  console.log(`ReferenceCheck — validate every reference across ~/.gemini/config
 
 Usage: bun ReferenceCheck.ts [flags]
 
@@ -114,7 +114,7 @@ const EXCLUDE_PATH_PREFIXES = [
   '.vscode',
   '.wrangler',
   '.next',
-  '.claude',        // nested .claude (from shadow releases)
+  '.gemini/config',        // nested .gemini/config (from shadow releases)
 ];
 
 // Specific files matched by exact relative path. Currently used to exclude
@@ -255,8 +255,8 @@ function walk(root: string): string[] {
     }
 
     for (const entry of entries) {
-      if (entry.startsWith('.') && entry !== '.claude') {
-        // allow .claude top-level but skip hidden files/dirs like .git, .DS_Store
+      if (entry.startsWith('.') && entry !== '.gemini/config') {
+        // allow .gemini/config top-level but skip hidden files/dirs like .git, .DS_Store
         if (entry === '.git' || entry === '.DS_Store' || entry === '.cache' ||
             entry === '.next' || entry === '.turbo' || entry === '.venv') continue;
       }
@@ -293,9 +293,9 @@ const REF_PATTERNS: { re: RegExp; label: string; fenceSafe?: true }[] = [
   // Backtick-quoted paths with top-level anchor
   { re: new RegExp('`((?:LifeOS|hooks|skills|agents|Pulse|USER|MEMORY|Components|Algorithm|Tools|Workflows|References)\\/[\\w/@.-]+?' + EXT + ')`', 'g'), label: 'backtick-anchored' },
   // Backtick-quoted paths starting with ~/Projects/LifeOS-AGY/
-  { re: new RegExp('`~\\/\\.claude\\/([\\w/@.-]+?' + EXT + ')`', 'g'), label: 'backtick-home' },
-  // Backtick-quoted paths with $HOME/.claude/ or ${HOME}/.claude/
-  { re: new RegExp('`\\$(?:HOME|\\{HOME\\})\\/\\.claude\\/([\\w/@.-]+?' + EXT + ')`', 'g'), label: 'backtick-env-home' },
+  { re: new RegExp('`~\\/\\.gemini/config\\/([\\w/@.-]+?' + EXT + ')`', 'g'), label: 'backtick-home' },
+  // Backtick-quoted paths with $HOME/.gemini/config/ or ${HOME}/.gemini/config/
+  { re: new RegExp('`\\$(?:HOME|\\{HOME\\})\\/\\.gemini/config\\/([\\w/@.-]+?' + EXT + ')`', 'g'), label: 'backtick-env-home' },
   // @-import at start of line: @LIFEOS/USER/FILE.md
   { re: /^@(LifeOS\/[\w/@.-]+\.md)/gm, label: 'at-import' },
   // Markdown link target: [text](./path) or [text](path.md)
@@ -306,8 +306,8 @@ const REF_PATTERNS: { re: RegExp; label: string; fenceSafe?: true }[] = [
   { re: new RegExp('\\|\\s*`?((?:LifeOS|hooks|skills|agents|Pulse|USER|Components|Algorithm|Tools)\\/[\\w/@.-]+?' + EXT + ')`?\\s*\\|', 'g'), label: 'table-cell' },
   // TS/TSX relative imports with explicit relative prefix
   { re: /from\s+["'](\.\.?\/[\w/@.-]+?)["']/g, label: 'ts-import' },
-  // settings.json style: "command": "... $HOME/.claude/hooks/Foo.hook.ts ..."
-  { re: new RegExp('\\$\\{?HOME\\}?\\/\\.claude\\/((?:hooks|LifeOS|skills|agents)\\/[\\w/@.-]+?' + EXT + ')', 'g'), label: 'json-home' },
+  // settings.json style: "command": "... $HOME/.gemini/config/hooks/Foo.hook.ts ..."
+  { re: new RegExp('\\$\\{?HOME\\}?\\/\\.gemini/config\\/((?:hooks|LifeOS|skills|agents)\\/[\\w/@.-]+?' + EXT + ')', 'g'), label: 'json-home' },
   // Bare command invocations: `bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/Foo.ts --flag`.
   // Every other tilde pattern above is backtick-anchored (backtick-home needs the
   // backtick immediately before `~`), and json-home only matches the $HOME form —
@@ -315,7 +315,7 @@ const REF_PATTERNS: { re: RegExp; label: string; fenceSafe?: true }[] = [
   // a renamed tool could rot in every runbook without the checker noticing.
   // public issue #1679, @christauff
   {
-    re: new RegExp('\\b(?:bun|bunx|node|tsx)\\s+(?:run\\s+)?(?:~|\\$\\{?HOME\\}?)\\/\\.claude\\/([\\w/@.-]+?' + EXT + ')', 'g'),
+    re: new RegExp('\\b(?:bun|bunx|node|tsx)\\s+(?:run\\s+)?(?:~|\\$\\{?HOME\\}?)\\/\\.gemini/config\\/([\\w/@.-]+?' + EXT + ')', 'g'),
     label: 'fenced-command',
     fenceSafe: true,
   },

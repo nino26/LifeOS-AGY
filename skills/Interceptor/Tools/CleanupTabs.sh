@@ -28,7 +28,7 @@ SKILL_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 # than the gate that authorizes it — and on a stock install, where the skill ships
 # only preferences.env.example, no context at all (exit 8 on every run).
 # public issue #1802, @catchingknives
-PREFS="${HOME}/.claude/LIFEOS/USER/CUSTOMIZATIONS/SKILLS/Interceptor/preferences.env"
+PREFS="${HOME}/.gemini/config/LIFEOS/USER/CUSTOMIZATIONS/SKILLS/Interceptor/preferences.env"
 [[ -f "$PREFS" ]] || PREFS="$SKILL_DIR/preferences.env"
 
 DRY_RUN=0

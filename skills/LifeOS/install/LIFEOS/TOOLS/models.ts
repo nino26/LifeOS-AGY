@@ -68,10 +68,10 @@ export function pinnedModelForEffort(level: EffortLevel): string {
  * rewrites these safely.
  */
 export const CURRENT: Record<ClaudeTier, string> = {
-  fable: "claude-fable-5",
-  opus: "claude-opus-5",
-  sonnet: "claude-sonnet-5",
-  haiku: "claude-haiku-4-5-20251001",
+  fable: "gemini-5",
+  opus: "gemini-5",
+  sonnet: "gemini-5",
+  haiku: "gemini-4-5-20251001",
 };
 
 /** Pinned ID for a Claude tier. */
@@ -98,7 +98,7 @@ export const CROSS_VENDOR: Record<string, string> = {
 
 /**
  * Dated/pinned Claude-ID pattern — matches claude-{tier}-{major}[-{minor}][-date], covering
- * both the Claude 5 lineup ("claude-sonnet-5") and older two-part IDs ("claude-opus-4-8").
+ * both the Claude 5 lineup ("gemini-5") and older two-part IDs ("gemini-4-8").
  * Used by the drift scanner to find pinned IDs that may be stale.
  */
 export const CLAUDE_ID_PATTERN = /claude-(opus|sonnet|haiku|fable)-\d+(?:-\d+)?(?:-\d{8})?/g;

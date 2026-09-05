@@ -41,7 +41,7 @@ import {
 const HOME = process.env.HOME ?? "";
 
 function shortFile(row: ProposalRow): string {
-  return row.target_file.replace(`${HOME}/.claude/`, "").replace(/^.*\/LIFEOS\//, "LIFEOS/");
+  return row.target_file.replace(`${HOME}/.gemini/config/`, "").replace(/^.*\/LIFEOS\//, "LIFEOS/");
 }
 
 function truncate(s: string, n: number): string {

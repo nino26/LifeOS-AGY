@@ -27,7 +27,7 @@ import { existsSync, readFileSync, readdirSync, writeFileSync, statSync } from "
 import { homedir } from "node:os";
 import { join } from "node:path";
 
-const CLAUDE_DIR = process.env.CLAUDE_CONFIG_DIR || join(homedir(), ".claude");
+const CLAUDE_DIR = process.env.CLAUDE_CONFIG_DIR || join(homedir(), ".gemini/config");
 const OBS_DIR = join(CLAUDE_DIR, "LIFEOS", "MEMORY", "OBSERVABILITY");
 const SESSION_COSTS = join(OBS_DIR, "session-costs.jsonl");
 const PROJECTS_DIR = join(CLAUDE_DIR, "projects");

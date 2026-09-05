@@ -44,7 +44,7 @@ export class NoHometownError extends Error {
 
 const IDENTITY_DEFAULT = join(
   homedir(),
-  ".claude",
+  ".gemini/config",
   "LIFEOS",
   "USER",
   "PRINCIPAL",

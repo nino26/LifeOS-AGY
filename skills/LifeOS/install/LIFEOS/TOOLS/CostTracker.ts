@@ -35,7 +35,7 @@ import { PULSE_BASE } from "../PULSE/endpoint";
 import { homedir } from "node:os";
 
 const HOME = process.env.HOME ?? process.env.USERPROFILE ?? homedir();
-const LIFEOS_DIR = join(HOME, ".claude", "LIFEOS");
+const LIFEOS_DIR = join(HOME, ".gemini/config", "LIFEOS");
 const OBS_DIR = join(LIFEOS_DIR, "MEMORY", "OBSERVABILITY");
 const LEDGER_PATH = join(OBS_DIR, "anthropic-cost.jsonl");
 const CALL_SITES_PATH = join(OBS_DIR, "anthropic-call-sites.json");
@@ -131,11 +131,11 @@ async function fetchApiSpend(): Promise<{ month_used_usd: number | null; source:
 
 // Paths we scan (source-of-truth for LifeOS-local billing risk)
 const SCAN_ROOTS = [
-  join(HOME, ".claude", "LIFEOS", "PULSE"),
-  join(HOME, ".claude", "LIFEOS", "TOOLS"),
-  join(HOME, ".claude", "LIFEOS", "USER"),
-  join(HOME, ".claude", "skills"),
-  join(HOME, ".claude", "hooks"),
+  join(HOME, ".gemini/config", "LIFEOS", "PULSE"),
+  join(HOME, ".gemini/config", "LIFEOS", "TOOLS"),
+  join(HOME, ".gemini/config", "LIFEOS", "USER"),
+  join(HOME, ".gemini/config", "skills"),
+  join(HOME, ".gemini/config", "hooks"),
 ];
 
 // Paths to exclude from scan
@@ -147,7 +147,7 @@ const SCAN_EXCLUDES = [
   "ARBOL/Shared",        // CF Workers — legit API users
   "ARBOL/summarize",     // CF Workers — legit API users
   "worktrees",
-  "ARBOL/.claude",
+  "ARBOL/.gemini/config",
   "MEMORY/OBSERVABILITY",
   "CostTracker.ts",      // don't flag ourselves
 ];

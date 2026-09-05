@@ -34,10 +34,10 @@ import Handlebars from "handlebars";
 
 // Paths
 const HOME = process.env.HOME || "~";
-const BASE_TRAITS_PATH = `${HOME}/.claude/skills/Agents/Data/Traits.yaml`;
-const USER_TRAITS_PATH = `${HOME}/.claude/PAI/USER/SKILLCUSTOMIZATIONS/Agents/Traits.yaml`;
-const TEMPLATE_PATH = `${HOME}/.claude/skills/Agents/Templates/DynamicAgent.hbs`;
-const CUSTOM_AGENTS_DIR = `${HOME}/.claude/custom-agents`;
+const BASE_TRAITS_PATH = `${HOME}/.gemini/config/skills/Agents/Data/Traits.yaml`;
+const USER_TRAITS_PATH = `${HOME}/.gemini/config/PAI/USER/SKILLCUSTOMIZATIONS/Agents/Traits.yaml`;
+const TEMPLATE_PATH = `${HOME}/.gemini/config/skills/Agents/Templates/DynamicAgent.hbs`;
+const CUSTOM_AGENTS_DIR = `${HOME}/.gemini/config/custom-agents`;
 
 // Types
 interface ProsodySettings {

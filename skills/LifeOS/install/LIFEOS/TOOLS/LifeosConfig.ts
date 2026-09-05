@@ -91,7 +91,7 @@ export interface LifeosConfig {
 // ─────────── Resolution ───────────
 
 const DEFAULT_HOME = process.env.HOME || homedir();
-const DEFAULT_CONFIG_PATH = resolve(DEFAULT_HOME, ".claude/LIFEOS/USER/CONFIG/LIFEOS_CONFIG.toml");
+const DEFAULT_CONFIG_PATH = resolve(DEFAULT_HOME, ".gemini/config/LIFEOS/USER/CONFIG/LIFEOS_CONFIG.toml");
 
 let cache: { config: LifeosConfig; mtime: number; path: string } | null = null;
 
@@ -139,7 +139,7 @@ export function paiUserDir(): string {
   try {
     return loadLifeosConfig().paths.userDir;
   } catch {
-    return resolve(DEFAULT_HOME, ".claude/LIFEOS/USER");
+    return resolve(DEFAULT_HOME, ".gemini/config/LIFEOS/USER");
   }
 }
 
@@ -202,7 +202,7 @@ function validateAndNormalize(raw: unknown, path: string): LifeosConfig {
     },
     paths: {
       userDir: expandHome(
-        root.paths?.userDir ?? root.paths?.user_dir ?? resolve(DEFAULT_HOME, ".claude/LIFEOS/USER"),
+        root.paths?.userDir ?? root.paths?.user_dir ?? resolve(DEFAULT_HOME, ".gemini/config/LIFEOS/USER"),
       ),
       projectsDir: expandHome(
         root.paths?.projectsDir ?? root.paths?.projects_dir ?? resolve(DEFAULT_HOME, "Projects"),

@@ -13,7 +13,7 @@ import { dirname, join } from "node:path";
 
 const HOME = homedir();
 const LABEL = "com.lifeos.pegwatch";
-const TEMPLATE = join(HOME, ".claude", "LIFEOS", "TOOLS", `${LABEL}.plist.template`);
+const TEMPLATE = join(HOME, ".gemini/config", "LIFEOS", "TOOLS", `${LABEL}.plist.template`);
 const TARGET = join(HOME, "Library", "LaunchAgents", `${LABEL}.plist`);
 
 async function sh(cmd: string[]): Promise<{ exit: number; out: string }> {

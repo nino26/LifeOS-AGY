@@ -18,9 +18,9 @@ if [ -z "$HOME" ]; then
     [ -z "$HOME" ] && HOME="$(eval echo "~$(id -un)" 2>/dev/null)"
 fi
 
-LIFEOS_DIR="${LIFEOS_DIR:-$HOME/.claude/LIFEOS}"
+LIFEOS_DIR="${LIFEOS_DIR:-$HOME/.gemini/config/LIFEOS}"
 # Antigravity CLI injects settings.json env values without shell expansion (LifeOS#1404):
-# a shipped value of "$HOME/.claude/LIFEOS" arrives literal. Expand it here.
+# a shipped value of "$HOME/.gemini/config/LIFEOS" arrives literal. Expand it here.
 LIFEOS_DIR="${LIFEOS_DIR/#\$HOME/$HOME}"
 LIFEOS_DIR="${LIFEOS_DIR/#\$\{HOME\}/$HOME}"
 LIFEOS_DIR="${LIFEOS_DIR/#\~\//$HOME/}"
@@ -58,7 +58,7 @@ case "$LIFEOS_DIR" in
     *'$HOME'*|*'${HOME}'*|*'~'*) echo "LifeOS"; exit 0 ;;
 esac
 
-CLAUDE_HOME="$HOME/.claude"
+CLAUDE_HOME="$HOME/.gemini/config"
 
 # BUN_BIN — defensive only. MEASURED 2026-07-27: the statusline inherits the
 # full interactive PATH (/opt/homebrew/bin included), so a bare `bun` resolves
@@ -140,9 +140,9 @@ USER_TZ="${USER_TZ:-UTC}"
 LIFEOS_VERSION=""
 for _pai_v_path in \
     "$LIFEOS_DIR/VERSION" \
-    "$HOME/.claude/LIFEOS/VERSION" \
-    "/Users/$(id -un 2>/dev/null)/.claude/LIFEOS/VERSION" \
-    "$(eval echo ~"$(id -un 2>/dev/null)")/.claude/LIFEOS/VERSION"; do
+    "$HOME/.gemini/config/LIFEOS/VERSION" \
+    "/Users/$(id -un 2>/dev/null)/.gemini/config/LIFEOS/VERSION" \
+    "$(eval echo ~"$(id -un 2>/dev/null)")/.gemini/config/LIFEOS/VERSION"; do
     if [ -n "$_pai_v_path" ] && [ -f "$_pai_v_path" ]; then
         LIFEOS_VERSION="$(cat "$_pai_v_path" 2>/dev/null | tr -d '[:space:]')"
         [ -n "$LIFEOS_VERSION" ] && break
@@ -156,9 +156,9 @@ LIFEOS_VERSION="${LIFEOS_VERSION:-—}"
 ALGO_VERSION=""
 for _algo_path in \
     "$LIFEOS_DIR/ALGORITHM/LATEST" \
-    "$HOME/.claude/LIFEOS/ALGORITHM/LATEST" \
-    "/Users/$(id -un 2>/dev/null)/.claude/LIFEOS/ALGORITHM/LATEST" \
-    "$(eval echo ~"$(id -un 2>/dev/null)")/.claude/LIFEOS/ALGORITHM/LATEST"; do
+    "$HOME/.gemini/config/LIFEOS/ALGORITHM/LATEST" \
+    "/Users/$(id -un 2>/dev/null)/.gemini/config/LIFEOS/ALGORITHM/LATEST" \
+    "$(eval echo ~"$(id -un 2>/dev/null)")/.gemini/config/LIFEOS/ALGORITHM/LATEST"; do
     if [ -n "$_algo_path" ] && [ -f "$_algo_path" ]; then
         ALGO_VERSION="$(cat "$_algo_path" 2>/dev/null | tr -d '[:space:]')"
         [ -n "$ALGO_VERSION" ] && break
@@ -191,10 +191,10 @@ USAGE_SCOPED_TTL=180     # Fast lane for the scoped-model (FABLE) window when TH
 USAGE_HARD_EXPIRY=21600  # P5: 6h. Show last-known-good (dimmed + stale badge) until here, then hide —
                          # replaces the old 1800s cliff that deleted the cache and vanished the counters.
 
-# Source .env for API keys. Canonical location is $HOME/.claude/.env (which is
-# typically a symlink to $HOME/.config/LIFEOS/.env). The historical $HOME/.claude/LIFEOS/.env
+# Source .env for API keys. Canonical location is $HOME/.gemini/config/.env (which is
+# typically a symlink to $HOME/.config/LIFEOS/.env). The historical $HOME/.gemini/config/LIFEOS/.env
 # path is wrong and has been removed everywhere else — do not reintroduce it.
-[ -f "$HOME/.claude/.env" ] && source "$HOME/.claude/.env"
+[ -f "$HOME/.gemini/config/.env" ] && source "$HOME/.gemini/config/.env"
 
 # Cross-platform file mtime (seconds since epoch). Detect stat flavor once;
 # probing both variants on every mtime check is expensive on macOS.
@@ -423,7 +423,7 @@ if [ "$context_pct" = "0" ] && [ "$total_input" -eq 0 ] 2>/dev/null; then
         fi
 
         # Project memory files (CC native memory at ~/Projects/LifeOS-AGY/projects/*/memory/)
-        for _f in "$HOME"/.claude/projects/*/memory/MEMORY.md; do
+        for _f in "$HOME"/.gemini/config/projects/*/memory/MEMORY.md; do
             [ -f "$_f" ] && _startup_file_bytes=$((_startup_file_bytes + $(wc -c < "$_f")))
         done
 
@@ -882,7 +882,7 @@ if [ "$MODE" != "nano" ]; then
     # Hook count flows through GetCounts.ts — same source banner uses. --single hooks
     # short-circuits all other walks (~20ms). Don't reintroduce inline jq here.
     _hooks_cnt=0
-    [ -n "$BUN_BIN" ] && _hooks_cnt=$("$BUN_BIN" "$HOME/.claude/LIFEOS/TOOLS/GetCounts.ts" --single hooks 2>/dev/null || echo 0)
+    [ -n "$BUN_BIN" ] && _hooks_cnt=$("$BUN_BIN" "$HOME/.gemini/config/LIFEOS/TOOLS/GetCounts.ts" --single hooks 2>/dev/null || echo 0)
 
     _ratings_cnt=0
     [ -f "$RATINGS_FILE" ] && _ratings_cnt=$(wc -l < "$RATINGS_FILE" 2>/dev/null | tr -d ' ')
@@ -1019,9 +1019,9 @@ if [ "$MODE" = "normal" ]; then
                     if [ "$(uname -s)" = "Darwin" ]; then
                         cred_json=$(security find-generic-password -s "Antigravity CLI-credentials" -w 2>/dev/null)
                     else
-                        cred_json=$(cat "${HOME}/.claude/.credentials.json" 2>/dev/null)
+                        cred_json=$(cat "${HOME}/.gemini/config/.credentials.json" 2>/dev/null)
                     fi
-                    token=$(echo "$cred_json" | jq -r '.claudeAiOauth.accessToken // empty' 2>/dev/null)
+                    token=$(echo "$cred_json" | jq -r '.gemini/configAiOauth.accessToken // empty' 2>/dev/null)
 
                     if [ -n "$token" ]; then
                         usage_json=$(curl -s --max-time 3 \
@@ -2106,7 +2106,7 @@ if [ "$MODE" = "normal" ]; then
     # the last 2 min IS a live agent; its .meta.json carries the model. Depth
     # is fixed (projects/<slug>/<session>/subagents/*), so the find is bounded
     # (~30ms). Run ONCE; _bg_transcripts/_bg_count are reused by ▸ LIVE below.
-    _bg_transcripts=$(find "$HOME/.claude/projects" -mindepth 4 -maxdepth 4 -path '*/subagents/agent-*.jsonl' -mmin -2 2>/dev/null)
+    _bg_transcripts=$(find "$HOME/.gemini/config/projects" -mindepth 4 -maxdepth 4 -path '*/subagents/agent-*.jsonl' -mmin -2 2>/dev/null)
     _bg_count=0
     _bg_models=""
     while IFS= read -r _bg_t; do
@@ -2231,7 +2231,7 @@ if [ "$MODE" = "normal" ]; then
     # regex + panel label) loads from a USER-zone overlay that never ships.
     # No overlay → no lane; a public install renders MAX/FORGE only.
     _cyber_agent_re=""; _cyber_agent_lbl=""
-    _cyber_overlay="$HOME/.claude/LIFEOS/USER/CUSTOMIZATIONS/StatusLineCyberLane.sh"
+    _cyber_overlay="$HOME/.gemini/config/LIFEOS/USER/CUSTOMIZATIONS/StatusLineCyberLane.sh"
     [ -f "$_cyber_overlay" ] && . "$_cyber_overlay"
     [ -n "$_cyber_agent_lbl" ] && _ar_line+="$(_ar_tok "$_rs_cyber" cyber "$_lbl_cyber" "$mix_cyber") "
     _ar_line+="$(_ar_tok "$_rs_max"   max    "$_lbl_max"  "$mix_max")"
@@ -2244,7 +2244,7 @@ if [ "$MODE" = "normal" ]; then
     # agents ran, right next to which models did. Live = agent-starts or bg
     # meta types in the 300s window; used = this session's subagent metas.
     _sess_types=""
-    for _d in "$HOME/.claude/projects"/*/"$session_id"/subagents; do
+    for _d in "$HOME/.gemini/config/projects"/*/"$session_id"/subagents; do
         if [ -d "$_d" ]; then
             _sess_types=$(cat "$_d"/*.meta.json 2>/dev/null | jq -r -s \
                 '[.[] | (.agentType // "") + " " + (.customAgentType // "")] | join(" ")' 2>/dev/null)
@@ -2301,7 +2301,7 @@ fi
 # _bg_transcripts is computed by the single find in the ACTIVE block above
 # (normal mode); in narrower modes that block never ran, so compute it here.
 if [ -z "${_bg_count:-}" ]; then
-    _bg_transcripts=$(find "$HOME/.claude/projects" -mindepth 4 -maxdepth 4 -path '*/subagents/agent-*.jsonl' -mmin -2 2>/dev/null)
+    _bg_transcripts=$(find "$HOME/.gemini/config/projects" -mindepth 4 -maxdepth 4 -path '*/subagents/agent-*.jsonl' -mmin -2 2>/dev/null)
 fi
 while IFS= read -r _bg_t; do
     [ -z "$_bg_t" ] && continue
@@ -2777,8 +2777,8 @@ fi
 # ═══════════════════════════════════════════════════════════════════════════════
 
 if [ "$MODE" = "normal" ]; then
-    # Live login email from ~/.claude.json (.oauthAccount.emailAddress updates on /login)
-    _acct_email=$(jq -r '.oauthAccount.emailAddress // empty' "$HOME/.claude.json" 2>/dev/null)
+    # Live login email from ~/.gemini/config.json (.oauthAccount.emailAddress updates on /login)
+    _acct_email=$(jq -r '.oauthAccount.emailAddress // empty' "$HOME/.gemini/config.json" 2>/dev/null)
     [ -n "$_acct_email" ] && printf "${SLATE_500}${_acct_email}${RESET}\n"
 fi
 

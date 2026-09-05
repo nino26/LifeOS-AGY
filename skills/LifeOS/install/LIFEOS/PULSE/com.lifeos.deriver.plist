@@ -9,11 +9,11 @@
     <array>
         <string>__BUN_PATH__</string>
         <string>run</string>
-        <string>__HOME__/.claude/LIFEOS/TOOLS/LearningPatternSynthesis.ts</string>
+        <string>__HOME__/.gemini/config/LIFEOS/TOOLS/LearningPatternSynthesis.ts</string>
         <string>--hypothesize</string>
     </array>
     <key>WorkingDirectory</key>
-    <string>__HOME__/.claude</string>
+    <string>__HOME__/.gemini/config</string>
     <key>EnvironmentVariables</key>
     <dict>
         <key>HOME</key>
@@ -31,9 +31,9 @@
     <key>RunAtLoad</key>
     <false/>
     <key>StandardOutPath</key>
-    <string>__HOME__/.claude/LIFEOS/MEMORY/OBSERVABILITY/deriver.log</string>
+    <string>__HOME__/.gemini/config/LIFEOS/MEMORY/OBSERVABILITY/deriver.log</string>
     <key>StandardErrorPath</key>
-    <string>__HOME__/.claude/LIFEOS/MEMORY/OBSERVABILITY/deriver.log</string>
+    <string>__HOME__/.gemini/config/LIFEOS/MEMORY/OBSERVABILITY/deriver.log</string>
     <key>ThrottleInterval</key>
     <integer>60</integer>
 </dict>

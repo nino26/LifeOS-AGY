@@ -22,7 +22,7 @@ import { readdirSync, existsSync, statSync } from 'fs';
 import { join } from 'path';
 import { homedir } from 'os';
 
-const PROJECTS = join(homedir(), '.claude', 'projects');
+const PROJECTS = join(homedir(), '.gemini/config', 'projects');
 
 interface Usage {
   input_tokens?: number;

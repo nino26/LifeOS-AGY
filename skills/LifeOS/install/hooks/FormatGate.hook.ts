@@ -46,7 +46,7 @@ for (const k of ["LIFEOS_DIR", "LIFEOS_CONFIG_DIR", "PROJECTS_DIR"]) {
   if (v && /^\$\{?HOME\}?(\/|$)/.test(v)) process.env[k] = v.replace(/^\$\{?HOME\}?/, process.env.HOME ?? "~");
 }
 
-const LIFEOS_DIR = process.env.LIFEOS_DIR || join(homedir(), ".claude", "LIFEOS");
+const LIFEOS_DIR = process.env.LIFEOS_DIR || join(homedir(), ".gemini/config", "LIFEOS");
 const OBS_PATH = join(LIFEOS_DIR, "MEMORY", "OBSERVABILITY", "format-gate.jsonl");
 
 export interface FormatViolation {

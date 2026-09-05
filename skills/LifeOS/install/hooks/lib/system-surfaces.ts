@@ -62,7 +62,7 @@ export function classifySurface(absPath: string, claudeRoot: string): Surface | 
   const base = basename(p);
 
   // ISA files are the state-of-record wherever they live — including project
-  // repos outside ~/.claude, which is the case that matters most.
+  // repos outside ~/.gemini/config, which is the case that matters most.
   if (base === "ISA.md" || base.endsWith(".isa.md")) {
     const parts = p.split("/");
     const parent = parts[parts.length - 2] ?? "isa";

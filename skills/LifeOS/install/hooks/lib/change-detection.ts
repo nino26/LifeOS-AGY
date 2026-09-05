@@ -53,7 +53,7 @@ export interface IntegrityState {
 // ============================================================================
 
 const LIFEOS_DIR = getLifeosDir();
-// LifeOS spans TWO roots. CLAUDE_DIR (~/.claude) holds hooks, skills,
+// LifeOS spans TWO roots. CLAUDE_DIR (~/.gemini/config) holds hooks, skills,
 // settings.json, agents and CLAUDE.md; LIFEOS_DIR (~/Projects/LifeOS-AGY/LIFEOS) holds the
 // data tree. Containment must accept both — see categorizeChange().
 const CLAUDE_DIR = getClaudeDir();
@@ -181,7 +181,7 @@ export function parseToolUseBlocks(transcriptPath: string): FileChange[] {
  */
 /**
  * Path-boundary prefix test: `p` is `root` itself or a descendant. A bare
- * startsWith is a STRING test, not a path test — `~/.claude-backup` and
+ * startsWith is a STRING test, not a path test — `~/.gemini/config-backup` and
  * `~/Projects/LifeOS-AGY/LIFEOS-backup` both passed it and got treated as live system
  * changes (public issue #1797, @Steffen025).
  */

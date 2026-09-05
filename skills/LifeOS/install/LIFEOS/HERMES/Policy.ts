@@ -65,8 +65,8 @@ export const SENSITIVE_READ_RULES: readonly DenyRule[] = [
   { pattern: "**/*.keystore", reason: "key bundle" },
 
   // Harness config that carries MCP auth and permission grants.
-  { pattern: "**/.claude/settings.json", reason: "harness config containing auth and permission grants" },
-  { pattern: "**/.claude/settings.local.json", reason: "harness config containing auth and permission grants" },
+  { pattern: "**/.gemini/config/settings.json", reason: "harness config containing auth and permission grants" },
+  { pattern: "**/.gemini/config/settings.local.json", reason: "harness config containing auth and permission grants" },
 
   // Operational security state — findings, posture, monitoring detail. Useful
   // to an attacker, never needed to answer the principal.
@@ -138,12 +138,12 @@ export const SHELL_DENY_GLOBS: readonly string[] = [
 
   // The two surfaces the read guard denies but a shell command would otherwise reach, since
   // SENSITIVE_READ_RULES bind path-bearing TOOLS and these globs are the only thing standing
-  // in front of `terminal`. Narrow on purpose: an installed config carried `*.claude*` and
+  // in front of `terminal`. Narrow on purpose: an installed config carried `*.gemini/config*` and
   // `*.config/LIFEOS*` instead, which denied every command naming the LifeOS tree — that is
   // every skill CLI, because all of them live under it. The mount's whole premise is invoking
   // those tools, so the blanket globs denied the sidecar its only way to do useful work while
   // looking like ordinary hardening.
-  "*.claude/settings*", // harness config carrying auth and permission grants
+  "*.gemini/config/settings*", // harness config carrying auth and permission grants
   "*LIFEOS/USER/SECURITY*", // security posture and findings, via either path or the symlink
 
   // Self-invocation. Session taint is keyed to a session id, so spawning a

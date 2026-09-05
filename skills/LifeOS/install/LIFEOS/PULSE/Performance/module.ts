@@ -15,7 +15,7 @@ import { existsSync, readFileSync } from "fs"
 import { homedir } from "node:os";
 
 const HOME = process.env.HOME ?? process.env.USERPROFILE ?? homedir()
-const LIFEOS_DIR = join(HOME, ".claude", "LIFEOS")
+const LIFEOS_DIR = join(HOME, ".gemini/config", "LIFEOS")
 const MEMORY_DIR = join(LIFEOS_DIR, "MEMORY")
 const SESSION_COSTS_PATH = join(MEMORY_DIR, "OBSERVABILITY", "session-costs.jsonl")
 const TOOL_FAILURES_PATH = join(MEMORY_DIR, "OBSERVABILITY", "tool-failures.jsonl")
@@ -279,7 +279,7 @@ async function handleAnthropicCostApi(): Promise<Response> {
   const { readFileSync, existsSync } = await import("fs")
   const { join } = await import("path")
   const home = process.env.HOME ?? process.env.USERPROFILE ?? homedir()
-  const obsDir = join(home, ".claude", "LIFEOS", "MEMORY", "OBSERVABILITY")
+  const obsDir = join(home, ".gemini/config", "LIFEOS", "MEMORY", "OBSERVABILITY")
   const ledgerPath = join(obsDir, "anthropic-cost.jsonl")
   const sitesPath = join(obsDir, "anthropic-call-sites.json")
 

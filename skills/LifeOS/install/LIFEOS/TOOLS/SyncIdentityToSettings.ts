@@ -22,7 +22,7 @@ import { paiUserDir } from './LifeosConfig';
 
 const HOME = homedir();
 const PRINCIPAL_PATH = join(paiUserDir(), 'PRINCIPAL/PRINCIPAL_IDENTITY.md');
-const SETTINGS_PATH = join(HOME, '.claude/settings.json');
+const SETTINGS_PATH = join(HOME, '.gemini/config/settings.json');
 const VERBOSE = process.argv.includes('--verbose');
 
 function snakeToCamel(s: string): string {

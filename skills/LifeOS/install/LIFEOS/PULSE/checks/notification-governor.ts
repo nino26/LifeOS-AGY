@@ -48,7 +48,7 @@ for (const k of ["LIFEOS_DIR", "LIFEOS_CONFIG_DIR", "PROJECTS_DIR"]) {
 
 
 const HOME = process.env.HOME ?? process.env.USERPROFILE ?? homedir();
-const LIFEOS_DIR = process.env.LIFEOS_DIR || join(HOME, ".claude", "LIFEOS");
+const LIFEOS_DIR = process.env.LIFEOS_DIR || join(HOME, ".gemini/config", "LIFEOS");
 const STATE_FILE = join(LIFEOS_DIR, "PULSE", "state", "notification-governor.json");
 const LOG_FILE = join(LIFEOS_DIR, "MEMORY", "OBSERVABILITY", "notification-governor.jsonl");
 const NOTIFY_URL = `${PULSE_BASE}/notify`;

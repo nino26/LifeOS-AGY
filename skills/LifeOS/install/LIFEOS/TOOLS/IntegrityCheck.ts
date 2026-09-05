@@ -35,7 +35,7 @@
  *
  * Change window: every run stamps MEMORY/STATE/integrity/last-run.json (+ appends
  * runs.jsonl). The previous stamp anchors a report of everything committed in both
- * repos (~/.claude + ~/.config/LIFEOS/USER) since the last run, aggregated into
+ * repos (~/.gemini/config + ~/.config/LIFEOS/USER) since the last run, aggregated into
  * touched areas — the deterministic focus list for the workflow's contextual review.
  *
  * Usage:
@@ -60,7 +60,7 @@ import { ASCENT, type AscentState } from './ascent';
 import { homedir } from "node:os";
 
 const HOME = process.env.HOME ?? process.env.USERPROFILE ?? homedir();
-const CLAUDE_DIR = join(HOME, '.claude');
+const CLAUDE_DIR = join(HOME, '.gemini/config');
 const LIFEOS_DIR = join(CLAUDE_DIR, 'LIFEOS');
 const TOOLS_DIR = join(LIFEOS_DIR, 'TOOLS');
 const DOC_DIR = join(LIFEOS_DIR, 'DOCUMENTATION');
@@ -1478,7 +1478,7 @@ function expandRanges(nums: number[]): string {
 // ── Change window (memory sweep anchor) ──
 // Every run stamps last-run.json + appends runs.jsonl. Before overwriting, the
 // previous stamp anchors a change window: everything committed in BOTH repos
-// (~/.claude system + ~/.config/LIFEOS/USER data) since the last /ic run,
+// (~/.gemini/config system + ~/.config/LIFEOS/USER data) since the last /ic run,
 // aggregated into touched areas. This is the deterministic input for the
 // workflow's contextual review — "we just reworked Pulse" shows up here as
 // LIFEOS/PULSE/... churn, telling the model where integrity drift is likeliest.

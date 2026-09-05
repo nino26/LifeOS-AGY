@@ -509,7 +509,7 @@ and is not. *(public PR #1682, @pkumaschow.)*
   `chrome://extensions` → Load unpacked picker is the only route — and in a
   Flatpak browser it goes through the XDG Document Portal, so the chosen path
   appears as `/run/flatpak/doc/<id>/...` in any error. That prefix is normal and
-  is not the fault. **`~/.claude` is a dotfolder and GTK pickers hide dotfiles:
+  is not the fault. **`~/.gemini/config` is a dotfolder and GTK pickers hide dotfiles:
   press Ctrl+H in the picker** or the operator cannot navigate to the extension
   at all.
 

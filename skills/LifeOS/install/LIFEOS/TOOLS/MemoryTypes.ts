@@ -40,7 +40,7 @@ import { homedir } from "node:os";
 
 // ── Paths ──
 
-const CLAUDE_ROOT = pathResolve(homedir(), ".claude");
+const CLAUDE_ROOT = pathResolve(homedir(), ".gemini/config");
 const LIFEOS_DIR = pathJoin(CLAUDE_ROOT, "LIFEOS");
 const KNOWLEDGE_DIR = pathJoin(LIFEOS_DIR, "MEMORY", "KNOWLEDGE");
 

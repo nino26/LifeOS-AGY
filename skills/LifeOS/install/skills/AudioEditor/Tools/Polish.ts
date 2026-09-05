@@ -39,7 +39,7 @@ for (const k of ["LIFEOS_DIR", "LIFEOS_CONFIG_DIR", "PROJECTS_DIR"]) {
 function loadEnv(): void {
   // Canonical .env is ~/Projects/LifeOS-AGY/.env — never $LIFEOS_CONFIG_DIR/.env, which
   // resolves to the dead ~/Projects/LifeOS-AGY/LIFEOS/.env path (public issue #1490).
-  const envPath = resolve(homedir(), ".claude/.env");
+  const envPath = resolve(homedir(), ".gemini/config/.env");
   try {
     const content = readFileSync(envPath, "utf-8");
     for (const line of content.split("\n")) {

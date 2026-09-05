@@ -191,7 +191,7 @@ interface WorkSession {
  * Scanning only one starves this block of exactly the work it exists to
  * surface. Resolving through realpath before deduping matters here: the two
  * candidates ARE the same directory on installs where LIFEOS_DIR sits under
- * ~/.claude, and scanning it twice would double every row.
+ * ~/.gemini/config, and scanning it twice would double every row.
  */
 function getWorkRoots(paiDir: string): string[] {
   const candidates = [join(paiDir, 'MEMORY', 'WORK'), join(getClaudeDir(), 'MEMORY', 'WORK')];

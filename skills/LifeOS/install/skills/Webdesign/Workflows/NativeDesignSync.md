@@ -8,7 +8,7 @@ First-party Claude Design ↔ Antigravity CLI sync via the native `/design` and 
 
 ## What These Commands Are
 
-Anthropic shipped both commands inside Antigravity CLI in the June 2026 Claude Design update. GA on Pro, Max, Team, and Enterprise at no extra cost. Official reference: `support.claude.com/en/articles/14604416-get-started-with-claude-design`.
+Anthropic shipped both commands inside Antigravity CLI in the June 2026 Claude Design update. GA on Pro, Max, Team, and Enterprise at no extra cost. Official reference: `support.gemini/config.com/en/articles/14604416-get-started-with-claude-design`.
 
 | Command | What it does |
 |---------|-------------|

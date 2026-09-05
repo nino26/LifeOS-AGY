@@ -14,18 +14,18 @@
   <key>ProgramArguments</key>
   <array>
     <string>{{BUN}}</string>
-    <string>{{HOME}}/.claude/LIFEOS/TOOLS/PegWatch.ts</string>
+    <string>{{HOME}}/.gemini/config/LIFEOS/TOOLS/PegWatch.ts</string>
   </array>
   <key>RunAtLoad</key>
   <true/>
   <key>StartInterval</key>
   <integer>960</integer>
   <key>StandardOutPath</key>
-  <string>{{HOME}}/.claude/LIFEOS/MEMORY/OBSERVABILITY/pegwatch-launchd.log</string>
+  <string>{{HOME}}/.gemini/config/LIFEOS/MEMORY/OBSERVABILITY/pegwatch-launchd.log</string>
   <key>StandardErrorPath</key>
-  <string>{{HOME}}/.claude/LIFEOS/MEMORY/OBSERVABILITY/pegwatch-launchd.log</string>
+  <string>{{HOME}}/.gemini/config/LIFEOS/MEMORY/OBSERVABILITY/pegwatch-launchd.log</string>
   <key>WorkingDirectory</key>
-  <string>{{HOME}}/.claude</string>
+  <string>{{HOME}}/.gemini/config</string>
   <key>EnvironmentVariables</key>
   <dict>
     <key>PATH</key>

@@ -23,7 +23,7 @@
   <key>ProgramArguments</key>
   <array>
     <string>{{BUN}}</string>
-    <string>{{HOME}}/.claude/LIFEOS/TOOLS/BlogDiscovery.ts</string>
+    <string>{{HOME}}/.gemini/config/LIFEOS/TOOLS/BlogDiscovery.ts</string>
     <string>harvest</string>
     <string>--batch</string>
     <string>300</string>
@@ -50,13 +50,13 @@
   <integer>60</integer>
 
   <key>StandardOutPath</key>
-  <string>{{HOME}}/.claude/LIFEOS/MEMORY/STATE/com.lifeos.blogdiscovery.log</string>
+  <string>{{HOME}}/.gemini/config/LIFEOS/MEMORY/STATE/com.lifeos.blogdiscovery.log</string>
 
   <key>StandardErrorPath</key>
-  <string>{{HOME}}/.claude/LIFEOS/MEMORY/STATE/com.lifeos.blogdiscovery.log</string>
+  <string>{{HOME}}/.gemini/config/LIFEOS/MEMORY/STATE/com.lifeos.blogdiscovery.log</string>
 
   <key>WorkingDirectory</key>
-  <string>{{HOME}}/.claude</string>
+  <string>{{HOME}}/.gemini/config</string>
 
   <key>EnvironmentVariables</key>
   <dict>

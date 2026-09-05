@@ -23,7 +23,7 @@ import { existsSync, mkdirSync, readFileSync, writeFileSync, appendFileSync } fr
 import { join } from "path";
 import { homedir } from "os";
 
-const LIFEOS_ROOT = process.env.LIFEOS_ROOT || join(homedir(), ".claude");
+const LIFEOS_ROOT = process.env.LIFEOS_ROOT || join(homedir(), ".gemini/config");
 const HERMES_HOME = process.env.HERMES_HOME || join(homedir(), ".hermes");
 const STATE_DIR = join(HERMES_HOME, "state", "heartbeat");
 const CONFIG_PATH = join(LIFEOS_ROOT, "LIFEOS", "USER", "CONFIG", "heartbeat.json");

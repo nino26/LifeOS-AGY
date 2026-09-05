@@ -11,9 +11,9 @@ allowed-tools: Read, Write, Edit, Bash, Glob, Grep
 
 > **This is the INSTALLED copy of the LifeOS skill, not the distribution root.**
 > Its `install/` directory holds only bootstrap files; the whole-system payload lived in the
-> release artifact you installed FROM and is now deployed across `~/.claude`. Statements below
+> release artifact you installed FROM and is now deployed across `~/.gemini/config`. Statements below
 > about the skill being self-contained describe that release artifact, not this directory.
-> Run the setup and deploy tools from `~/.claude`, not from here — relative paths do not
+> Run the setup and deploy tools from `~/.gemini/config`, not from here — relative paths do not
 > resolve in this copy.
 
 
@@ -21,7 +21,7 @@ The install + onboarding surface for **LifeOS** — the Life Operating System. O
 
 ## How it ships
 
-LifeOS is distributed as **one self-contained skill** — the `LifeOS/` directory is the *entire* distribution. Everything ships inside it: the orchestrator (`SKILL.md`, `Workflows/`, `Tools/`), the whole-system payload under `install/`, and the one-line bootstrap at `install/install.sh`. **Nothing ships outside the skill** — no release-root `install.sh`, no `.claude/` clone.
+LifeOS is distributed as **one self-contained skill** — the `LifeOS/` directory is the *entire* distribution. Everything ships inside it: the orchestrator (`SKILL.md`, `Workflows/`, `Tools/`), the whole-system payload under `install/`, and the one-line bootstrap at `install/install.sh`. **Nothing ships outside the skill** — no release-root `install.sh`, no `.gemini/config/` clone.
 
 **The primary install is AI-native: give `INSTALL.md` (served at `ourlifeos.ai/install`) to your AI and say "install this."** LifeOS is AI-native, so the install is too — you hand the doc (or its link) to whatever harness you already use, and your AI installs LifeOS on your OS and harness, with permission at each step. It's the same document a human can read and follow. `INSTALL.md` opens with a capability gate, drives the install Tools (which run under `bun` on any OS, not a shell), wires integration per-harness (honest about what each gets), then runs Setup → Interview.
 

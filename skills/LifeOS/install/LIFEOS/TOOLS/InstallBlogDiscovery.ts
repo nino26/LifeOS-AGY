@@ -19,7 +19,7 @@ import { homedir } from "node:os";
 declare const Bun: { spawn: (cmd: string[], opts?: any) => any };
 
 const HOME = process.env.HOME ?? process.env.USERPROFILE ?? homedir();
-const TEMPLATE_PATH = join(HOME, ".claude", "LIFEOS", "TOOLS", "com.lifeos.blogdiscovery.plist.template");
+const TEMPLATE_PATH = join(HOME, ".gemini/config", "LIFEOS", "TOOLS", "com.lifeos.blogdiscovery.plist.template");
 const LAUNCH_AGENTS_DIR = join(HOME, "Library", "LaunchAgents");
 const TARGET_PLIST = join(LAUNCH_AGENTS_DIR, "com.lifeos.blogdiscovery.plist");
 const LABEL = "com.lifeos.blogdiscovery";
@@ -85,9 +85,9 @@ async function linuxSpec(): Promise<systemd.UnitSpec> {
   return {
     label: LABEL,
     description: "LifeOS blog discovery harvest",
-    exec: [bunPath, join(HOME, ".claude", "LIFEOS", "TOOLS", "BlogDiscovery.ts"), "harvest", "--batch", "300", "--level", "low", "--sources", "kagi,indieblog,bear"],
-    logPath: join(HOME, ".claude", "LIFEOS", "MEMORY", "STATE", "com.lifeos.blogdiscovery.log"),
-    workingDirectory: join(HOME, ".claude"),
+    exec: [bunPath, join(HOME, ".gemini/config", "LIFEOS", "TOOLS", "BlogDiscovery.ts"), "harvest", "--batch", "300", "--level", "low", "--sources", "kagi,indieblog,bear"],
+    logPath: join(HOME, ".gemini/config", "LIFEOS", "MEMORY", "STATE", "com.lifeos.blogdiscovery.log"),
+    workingDirectory: join(HOME, ".gemini/config"),
     schedule: { kind: "calendar", hour: 4, minute: 30 },
   };
 }

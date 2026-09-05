@@ -68,7 +68,7 @@ function sessionsDirectory(): string {
 }
 
 function projectsFilePath(): string {
-  return join(homeDirectory(), ".claude", "LIFEOS", "USER", "PROJECTS.md");
+  return join(homeDirectory(), ".gemini/config", "LIFEOS", "USER", "PROJECTS.md");
 }
 
 function slugify(name: string): string {

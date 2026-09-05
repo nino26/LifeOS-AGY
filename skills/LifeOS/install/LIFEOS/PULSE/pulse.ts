@@ -21,10 +21,10 @@ import { isLoopbackHostHeader } from "./lib/host-guard.ts"
 // ── Load .env before anything else ──
 
 const HOME = process.env.HOME ?? process.env.USERPROFILE ?? homedir()
-const LIFEOS_DIR = join(HOME, ".claude", "LIFEOS")
+const LIFEOS_DIR = join(HOME, ".gemini/config", "LIFEOS")
 const PULSE_DIR = join(LIFEOS_DIR, "PULSE")
 
-const envPath = join(HOME, ".claude", ".env")
+const envPath = join(HOME, ".gemini/config", ".env")
 try {
   const envContent = readFileSync(envPath, "utf-8")
   for (const line of envContent.split("\n")) {
@@ -521,7 +521,7 @@ function msUntilNextDue(jobs: PulseConfig["jobs"], state: DaemonState): number {
 // ── Unified Health Response ──
 
 // Content-liveness: the process being alive doesn't mean the product works.
-// 2026-06-10 incident: a fresh re-clone of ~/.claude wiped the gitignored
+// 2026-06-10 incident: a fresh re-clone of ~/.gemini/config wiped the gitignored
 // Next.js export (Observability/out/), every page 404'd for 13+ hours while
 // /healthz reported "ok". The dashboard asset check makes /healthz truthful.
 function dashboardDir(config: PulseConfig): string {

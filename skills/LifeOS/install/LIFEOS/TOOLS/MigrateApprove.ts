@@ -41,7 +41,7 @@ for (const k of ["LIFEOS_DIR", "LIFEOS_CONFIG_DIR", "PROJECTS_DIR"]) {
 
 
 const HOME = process.env.HOME ?? process.env.USERPROFILE ?? homedir();
-const LIFEOS_DIR = process.env.LIFEOS_DIR || join(HOME, ".claude", "LIFEOS");
+const LIFEOS_DIR = process.env.LIFEOS_DIR || join(HOME, ".gemini/config", "LIFEOS");
 const QUEUE_FILE = join(LIFEOS_DIR, "MEMORY", "MIGRATION", "migration-proposals.jsonl");
 const COMMITTED_LOG = join(LIFEOS_DIR, "MEMORY", "MIGRATION", "committed.jsonl");
 
@@ -86,7 +86,7 @@ function resolveTargetPath(target: string): string {
   }
   if (target === "memory/feedback") {
     // Feedback memories live outside LifeOS dir in projects/${HARNESS_USER_DIR}/memory/
-    return join(HOME, ".claude", "projects", "${HARNESS_USER_DIR}", "memory");
+    return join(HOME, ".gemini/config", "projects", "${HARNESS_USER_DIR}", "memory");
   }
   return join(LIFEOS_DIR, target);
 }

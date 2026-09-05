@@ -25,8 +25,8 @@ export class AgentContextLoader {
   private agentsDir: string;
 
   constructor() {
-    this.claudeHome = join(homedir(), ".claude");
-    this.agentsDir = join(this.claudeHome, "Skills", "Agents");
+    this.gemini/configHome = join(homedir(), ".gemini/config");
+    this.agentsDir = join(this.gemini/configHome, "Skills", "Agents");
   }
 
   /**

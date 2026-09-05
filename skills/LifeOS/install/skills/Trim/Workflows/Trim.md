@@ -59,7 +59,7 @@ Deterministic GC (Step 2) skips this gate — it only removes provably-redundant
   git -C ~/.config/LIFEOS/USER add <relpath> && git -C ~/.config/LIFEOS/USER commit -q -m "trim: <file> <oldpct>%→<newpct>% (<what>)"
   ```
   Stage ONLY the trimmed file — the USER_DATA repo carries unrelated live memory-loop changes; never sweep them in.
-- **System files** (system prompt, CLAUDE.md, ALGORITHM, skills) commit to `~/.claude` (`git -C ~/.claude …`), directly to `main`.
+- **System files** (system prompt, CLAUDE.md, ALGORITHM, skills) commit to `~/.gemini/config` (`git -C ~/.gemini/config …`), directly to `main`.
 - Re-run `wc -c` and report the new byte count. If it fell short of the target named in Step 1, say how much remains and offer to continue.
 
 ## Output shape

@@ -57,7 +57,7 @@ cd ~/Projects/LifeOS-AGY/.agents/skills/Utilities/Evals/EvalServer && bun run de
 ```bash
 bun run ~/Projects/LifeOS-AGY/.agents/skills/Utilities/Evals/EvalServer/cli-run.ts \
   --use-case <name> \
-  --model claude-3-5-sonnet-20241022
+  --model gemini-3.1-pro-high
 ```
 
 ### Step 4: Collect Results

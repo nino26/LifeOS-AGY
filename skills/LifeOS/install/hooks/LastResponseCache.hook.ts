@@ -44,7 +44,7 @@ async function main() {
 
   if (lastResponse) {
     try {
-      const paiDir = process.env.LIFEOS_DIR || join(homedir(), '.claude', 'LIFEOS');
+      const paiDir = process.env.LIFEOS_DIR || join(homedir(), '.gemini/config', 'LIFEOS');
       const cachePath = join(paiDir, 'MEMORY', 'STATE', 'last-response.txt');
       writeFileSync(cachePath, lastResponse.slice(0, 2000), 'utf-8');
     } catch (err) {

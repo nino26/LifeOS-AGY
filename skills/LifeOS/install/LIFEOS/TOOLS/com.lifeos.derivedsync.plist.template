@@ -16,7 +16,7 @@
   <key>ProgramArguments</key>
   <array>
     <string>{{BUN}}</string>
-    <string>{{HOME}}/.claude/LIFEOS/TOOLS/DerivedSync.ts</string>
+    <string>{{HOME}}/.gemini/config/LIFEOS/TOOLS/DerivedSync.ts</string>
   </array>
   <key>RunAtLoad</key>
   <true/>
@@ -33,11 +33,11 @@
   <key>ThrottleInterval</key>
   <integer>30</integer>
   <key>StandardOutPath</key>
-  <string>{{HOME}}/.claude/LIFEOS/MEMORY/OBSERVABILITY/derived-sync-launchd.log</string>
+  <string>{{HOME}}/.gemini/config/LIFEOS/MEMORY/OBSERVABILITY/derived-sync-launchd.log</string>
   <key>StandardErrorPath</key>
-  <string>{{HOME}}/.claude/LIFEOS/MEMORY/OBSERVABILITY/derived-sync-launchd.log</string>
+  <string>{{HOME}}/.gemini/config/LIFEOS/MEMORY/OBSERVABILITY/derived-sync-launchd.log</string>
   <key>WorkingDirectory</key>
-  <string>{{HOME}}/.claude</string>
+  <string>{{HOME}}/.gemini/config</string>
   <key>EnvironmentVariables</key>
   <dict>
     <key>PATH</key>

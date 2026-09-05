@@ -154,7 +154,7 @@ export function validateEdges(claims: FrontierClaim[]): string[] {
 // ── Lock protocol ─────────────────────────────────────────────────────────
 
 function paiRoot(): string {
-  return process.env.LIFEOS_ROOT || join(homedir(), '.claude');
+  return process.env.LIFEOS_ROOT || join(homedir(), '.gemini/config');
 }
 
 export function lockDirFor(isaPath: string, root = paiRoot()): string {

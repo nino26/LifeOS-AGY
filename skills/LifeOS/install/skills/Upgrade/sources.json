@@ -203,7 +203,7 @@
     },
     {
       "name": "Claude API Release Notes",
-      "url": "https://platform.claude.com/docs/en/release-notes/api",
+      "url": "https://platform.gemini/config.com/docs/en/release-notes/api",
       "priority": "HIGH",
       "type": "changelog"
     }
@@ -211,13 +211,13 @@
   "documentation": [
     {
       "name": "Antigravity CLI Docs",
-      "url": "https://code.claude.com/docs/en/overview",
+      "url": "https://code.gemini/config.com/docs/en/overview",
       "priority": "HIGH",
       "type": "docs"
     },
     {
       "name": "Agent SDK Docs",
-      "url": "https://code.claude.com/docs/en/agent-sdk/overview",
+      "url": "https://code.gemini/config.com/docs/en/agent-sdk/overview",
       "priority": "HIGH",
       "type": "docs"
     },

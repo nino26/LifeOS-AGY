@@ -43,7 +43,7 @@ for (const k of ["LIFEOS_DIR", "LIFEOS_CONFIG_DIR", "PROJECTS_DIR"]) {
 
 
 const HOME = process.env.HOME ?? process.env.USERPROFILE ?? homedir();
-const LIFEOS_DIR = process.env.LIFEOS_DIR || join(HOME, ".claude", "LIFEOS");
+const LIFEOS_DIR = process.env.LIFEOS_DIR || join(HOME, ".gemini/config", "LIFEOS");
 const FRAMES_DIR = join(LIFEOS_DIR, "MEMORY", "WISDOM", "FRAMES");
 const HYPOTHESES_DIR = join(FRAMES_DIR, "_hypotheses");
 const ARCHIVE_DIR = join(HYPOTHESES_DIR, "_archive");

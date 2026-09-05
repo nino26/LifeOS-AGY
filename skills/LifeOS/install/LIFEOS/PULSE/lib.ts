@@ -77,7 +77,7 @@ export interface DaemonConfig {
 
 export const USER_CRON_PATH = join(
   homedir(),
-  ".claude", "LIFEOS", "USER", "CONFIG", "PULSE.user.toml",
+  ".gemini/config", "LIFEOS", "USER", "CONFIG", "PULSE.user.toml",
 )
 
 export interface JobState {
@@ -580,7 +580,7 @@ export async function spawnScript(command: string, timeoutMs = 60_000): Promise<
   const proc = Bun.spawn([BASH_PATH, "-c", command], {
     stdout: "pipe",
     stderr: "pipe",
-    cwd: join(homedir(), ".claude", "LIFEOS", "PULSE"),
+    cwd: join(homedir(), ".gemini/config", "LIFEOS", "PULSE"),
     env: { ...process.env },
   })
 
@@ -612,7 +612,7 @@ export async function spawnClaude(prompt: string, opts: { model: string; timeout
     "--setting-sources", "",
     "--system-prompt", "",
   ]
-  const claudePath = Bun.which("claude") ?? join(homedir(), ".local", "bin", "claude")
+  const claudePath = Bun.which("agy") ?? join(homedir(), ".local", "bin", "claude")
 
   const env: Record<string, string> = { ...process.env, HOME: homedir() } as Record<string, string>
   // Strip BOTH keys — Anthropic's precedence chain ranks ANTHROPIC_API_KEY and
@@ -635,7 +635,7 @@ export async function spawnClaude(prompt: string, opts: { model: string; timeout
 
   if (timedOut) throw new Error(`claude timed out after ${timeoutMs}ms: ${stderr.slice(0, 200)}`)
   if (exitCode !== 0) {
-    throw new Error(`claude exited ${exitCode}: ${stderr.slice(0, 200)}`)
+    throw new Error(`agy exited ${exitCode}: ${stderr.slice(0, 200)}`)
   }
 
   return output.trim()

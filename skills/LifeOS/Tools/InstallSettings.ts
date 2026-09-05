@@ -36,7 +36,7 @@ function parseArgs(): Args {
   };
   const home = process.env.HOME || homedir(); // public issue #1729, @umair-a11y
   return {
-    configRoot: get("--config-root") || process.env.CLAUDE_CONFIG_DIR || join(home, ".claude"),
+    configRoot: get("--config-root") || process.env.CLAUDE_CONFIG_DIR || join(home, ".gemini/config"),
     skillRoot: get("--skill-root") || join(import.meta.dir, ".."),
     apply: a.includes("--apply"),
     allowDev: a.includes("--allow-dev"),

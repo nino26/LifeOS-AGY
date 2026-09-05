@@ -20,16 +20,16 @@ import { homedir } from "node:os";
 import { ASCENT, ASCENT_BRACKETS, PHASE_TO_ASCENT, type AscentState } from "./ascent";
 
 const HOME = process.env.HOME || homedir();
-const TOOLS_DIR = resolve(HOME, ".claude/LIFEOS/TOOLS");
+const TOOLS_DIR = resolve(HOME, ".gemini/config/LIFEOS/TOOLS");
 const TEMPLATE_HTML = join(TOOLS_DIR, "ISARender/template.html");
 const TEMPLATE_CSS = join(TOOLS_DIR, "ISARender/template.css");
 // Brand logo: user override via LIFEOS_BRAND_LOGO_PATH env var (absolute path),
 // else system default under PAI/ASSETS/, else inert (empty src).
 const BRAND_LOGO_PATH_OVERRIDE = process.env.LIFEOS_BRAND_LOGO_PATH ?? "";
 
-const BRAND_LOGO_PATH_DEFAULT = resolve(HOME, ".claude/LIFEOS/ASSETS/pai-logo.png");
-const WORK_DIR = resolve(HOME, ".claude/LIFEOS/MEMORY/WORK");
-const WORK_JSON = resolve(HOME, ".claude/LIFEOS/MEMORY/STATE/work.json");
+const BRAND_LOGO_PATH_DEFAULT = resolve(HOME, ".gemini/config/LIFEOS/ASSETS/pai-logo.png");
+const WORK_DIR = resolve(HOME, ".gemini/config/LIFEOS/MEMORY/WORK");
+const WORK_JSON = resolve(HOME, ".gemini/config/LIFEOS/MEMORY/STATE/work.json");
 
 // Lifecycle stages come from the one ascent table (LIFEOS/TOOLS/ascent.ts) — the same
 // four brackets an ISA can declare, in the same order, under the same names the Kitty tab

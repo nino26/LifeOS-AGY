@@ -28,7 +28,7 @@ for (const k of ["LIFEOS_DIR", "LIFEOS_CONFIG_DIR", "PROJECTS_DIR"]) {
 
 
 const HOME = process.env.HOME ?? process.env.USERPROFILE ?? homedir();
-const LIFEOS_DIR = process.env.LIFEOS_DIR || join(HOME, ".claude", "LIFEOS");
+const LIFEOS_DIR = process.env.LIFEOS_DIR || join(HOME, ".gemini/config", "LIFEOS");
 const CLAUDE_DIR = dirname(LIFEOS_DIR);
 // Stable, non-dated report location (public issue #1559, @tzioup, C5): the
 // previous path was a hardcoded dated WORK-session slug that this tool
@@ -220,7 +220,7 @@ function normalizeReference(raw: string): string | null {
 
   if (value.startsWith("LIFEOS/")) return join(CLAUDE_DIR, value);
   if (value.startsWith("~/Projects/LifeOS-AGY/LIFEOS/")) return join(HOME, value.slice(2));
-  if (value.startsWith(`${HOME}/.claude/LIFEOS/`)) return value;
+  if (value.startsWith(`${HOME}/.gemini/config/LIFEOS/`)) return value;
   return null;
 }
 

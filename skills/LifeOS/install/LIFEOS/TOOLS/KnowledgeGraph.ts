@@ -47,7 +47,7 @@ for (const k of ["LIFEOS_DIR", "LIFEOS_CONFIG_DIR", "PROJECTS_DIR"]) {
 // ============================================================================
 
 const HOME = process.env.HOME ?? process.env.USERPROFILE ?? homedir();
-const LIFEOS_DIR = process.env.LIFEOS_DIR || path.join(HOME, ".claude", "LIFEOS");
+const LIFEOS_DIR = process.env.LIFEOS_DIR || path.join(HOME, ".gemini/config", "LIFEOS");
 const KNOWLEDGE_DIR = path.join(LIFEOS_DIR, "MEMORY", "KNOWLEDGE");
 const DOMAINS = ["People", "Companies", "Ideas", "Research"];
 const SKIP_FILES = new Set(["_index.md", "_schema.md", "_log.md"]);

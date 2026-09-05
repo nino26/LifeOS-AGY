@@ -54,7 +54,7 @@ import { homedir } from "node:os";
 
 type BlockResult = { block: true; message: string } | null;
 
-const STATE_DIR = join(homedir(), ".claude/LIFEOS/MEMORY/STATE/isa-session-view");
+const STATE_DIR = join(homedir(), ".gemini/config/LIFEOS/MEMORY/STATE/isa-session-view");
 const PRUNE_AFTER_MS = 7 * 24 * 60 * 60 * 1000;
 
 /**

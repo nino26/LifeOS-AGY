@@ -33,9 +33,9 @@ const skillFilter = args.includes("--skill") ? args[args.indexOf("--skill") + 1]
 const rootArg = args.includes("--root") ? args[args.indexOf("--root") + 1] : null;
 const maxDetail = args.includes("--max-detail") ? parseInt(args[args.indexOf("--max-detail") + 1], 10) : 8;
 
-const CLAUDE_DIR = rootArg ?? join(homedir(), ".claude");
+const CLAUDE_DIR = rootArg ?? join(homedir(), ".gemini/config");
 const SKILLS_DIR = join(CLAUDE_DIR, "skills");
-const DENY_LIST_PATH = join(homedir(), ".claude", "LIFEOS", "USER", "SECURITY", "DENY_LIST.txt");
+const DENY_LIST_PATH = join(homedir(), ".gemini/config", "LIFEOS", "USER", "SECURITY", "DENY_LIST.txt");
 // Allowlist lives in the USER tree: every entry names a private `_*` skill path,
 // and one entry (the customer skill) contains a deny-listed token — so the file is
 // install-local, must be release-excluded, and SystemFileGuard must permit it to
@@ -68,7 +68,7 @@ function loadDenyPatterns(): string[] {
     // personal data IS protected elsewhere and this gate simply cannot
     // verify. Fail loud in that state instead of certifying cleanliness.
     // (public issue #1833, @xmasyx)
-    const hashesPath = join(homedir(), ".claude", "LIFEOS", "USER", "SECURITY", "DENY_HASHES.json");
+    const hashesPath = join(homedir(), ".gemini/config", "LIFEOS", "USER", "SECURITY", "DENY_HASHES.json");
     if (existsSync(hashesPath)) {
       if (jsonOutput) console.log(JSON.stringify({ ok: false, skipped: true, error: `DENY_HASHES.json exists but DENY_LIST.txt is absent — personal data exists and this gate cannot scan without the plaintext list` }));
       else console.error(`CANNOT VERIFY: ${hashesPath} exists but DENY_LIST.txt is absent — personal data exists on this tree and this gate cannot scan without the plaintext list. Restore DENY_LIST.txt or run the hash-based guard.`);

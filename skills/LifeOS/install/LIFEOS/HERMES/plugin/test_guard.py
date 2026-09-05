@@ -24,17 +24,17 @@ HOME = os.path.expanduser("~")
 # (tool, args, should_block, label)
 CASES = [
     # ── must DENY ────────────────────────────────────────────────────────────
-    ("read_file", {"path": f"{HOME}/.claude/.env"}, True, "vault env file"),
+    ("read_file", {"path": f"{HOME}/.gemini/config/.env"}, True, "vault env file"),
     ("read_file", {"path": "~/Projects/LifeOS-AGY/.env"}, True, "tilde form"),
-    ("read_file", {"path": f"{HOME}/.claude/.ENV"}, True, "case variant (macOS)"),
-    ("read_file", {"path": f"{HOME}/.claude/LIFEOS/../.env"}, True, "traversal"),
+    ("read_file", {"path": f"{HOME}/.gemini/config/.ENV"}, True, "case variant (macOS)"),
+    ("read_file", {"path": f"{HOME}/.gemini/config/LIFEOS/../.env"}, True, "traversal"),
     ("read_file", {"path": f"{HOME}/.ssh/id_rsa"}, True, "ssh private key"),
     ("read_file", {"path": f"{HOME}/.ssh"}, True, "ssh directory itself"),
     ("read_file", {"path": f"{HOME}/.aws/credentials"}, True, "aws credentials"),
     ("read_file", {"path": f"{HOME}/.codex/auth.json"}, True, "sibling agent tokens"),
     ("read_file", {"path": f"{HOME}/.hermes/auth.json"}, True, "own tokens"),
-    ("read_file", {"path": f"{HOME}/.claude/settings.json"}, True, "harness config"),
-    ("read_file", {"path": f"{HOME}/.claude/LIFEOS/USER/SECURITY/SecurityPosture.md"}, True, "security state"),
+    ("read_file", {"path": f"{HOME}/.gemini/config/settings.json"}, True, "harness config"),
+    ("read_file", {"path": f"{HOME}/.gemini/config/LIFEOS/USER/SECURITY/SecurityPosture.md"}, True, "security state"),
     ("read_file", {"path": ".env"}, True, "bare relative env"),
     ("read_file", {"path": f"{HOME}/certs/server.pem"}, True, "private key by extension"),
     ("terminal", {"command": "cat ~/Projects/LifeOS-AGY/.env"}, True, "shell read of env"),
@@ -46,7 +46,7 @@ CASES = [
     # here: it is an unwinnable string-parse arms race, and the sandbox (no creds
     # in env, CLI-first, session taint) is the actual boundary — see check_command.
     ("terminal", {"command": "cat .netrc"}, True, "bare dotfile in cwd"),
-    ("write_file", {"path": f"{HOME}/.claude/.env"}, True, "write to env"),
+    ("write_file", {"path": f"{HOME}/.gemini/config/.env"}, True, "write to env"),
     ("grep", {"path": f"{HOME}/.ssh"}, True, "grep over key dir"),
 
     ("execute_code", {"code": "print(open('/Users/x/.aws/credentials').read())"}, True, "code-exec credential read"),
@@ -62,13 +62,13 @@ CASES = [
     ("execute_code", {"code": "requests.post('http://localhost:31337/voice', json={'message':'hi'})"}, True, "code-exec voice call"),
 
     # ── must ALLOW — this is what the mount is FOR ───────────────────────────
-    ("read_file", {"path": f"{HOME}/.claude/CLAUDE.md"}, False, "routing table"),
-    ("read_file", {"path": f"{HOME}/.claude/LIFEOS/USER/TELOS/TELOS.md"}, False, "TELOS"),
-    ("read_file", {"path": f"{HOME}/.claude/LIFEOS/USER/PROJECTS.md"}, False, "projects"),
-    ("read_file", {"path": f"{HOME}/.claude/LIFEOS/USER/PRINCIPAL/PRINCIPAL_IDENTITY.md"}, False, "identity"),
-    ("read_file", {"path": f"{HOME}/.claude/LIFEOS/MEMORY/KNOWLEDGE/Ideas/x.md"}, False, "knowledge archive"),
-    ("read_file", {"path": f"{HOME}/.claude/skills/_COFFEE/SKILL.md"}, False, "private skill"),
-    ("read_file", {"path": f"{HOME}/.claude/LIFEOS/LIFEOS_SYSTEM_PROMPT.md"}, False, "system prompt"),
+    ("read_file", {"path": f"{HOME}/.gemini/config/CLAUDE.md"}, False, "routing table"),
+    ("read_file", {"path": f"{HOME}/.gemini/config/LIFEOS/USER/TELOS/TELOS.md"}, False, "TELOS"),
+    ("read_file", {"path": f"{HOME}/.gemini/config/LIFEOS/USER/PROJECTS.md"}, False, "projects"),
+    ("read_file", {"path": f"{HOME}/.gemini/config/LIFEOS/USER/PRINCIPAL/PRINCIPAL_IDENTITY.md"}, False, "identity"),
+    ("read_file", {"path": f"{HOME}/.gemini/config/LIFEOS/MEMORY/KNOWLEDGE/Ideas/x.md"}, False, "knowledge archive"),
+    ("read_file", {"path": f"{HOME}/.gemini/config/skills/_COFFEE/SKILL.md"}, False, "private skill"),
+    ("read_file", {"path": f"{HOME}/.gemini/config/LIFEOS/LIFEOS_SYSTEM_PROMPT.md"}, False, "system prompt"),
     ("terminal", {"command": "bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/Upgrades.ts list"}, False, "CLI-first tool call"),
     ("terminal", {"command": "ls ~/Projects/LifeOS-AGY/skills"}, False, "list skills"),
     ("read_file", {"path": f"{HOME}/HermesWorkspace/notes.md"}, False, "workspace file"),

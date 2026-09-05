@@ -47,7 +47,7 @@ async function loadEnv(): Promise<void> {
   const home = process.env.HOME!;
   const candidates = Array.from(new Set([
     ...(process.env.LIFEOS_DIR ? [resolve(process.env.LIFEOS_DIR, '.env')] : []),
-    resolve(home, '.claude', '.env'),
+    resolve(home, '.gemini/config', '.env'),
   ]));
   for (const envPath of candidates) {
     let envContent: string;

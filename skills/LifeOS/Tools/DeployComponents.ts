@@ -155,7 +155,7 @@ function deployStatusline(ctx: Ctx): ComponentResult {
   const scriptPath = join(ctx.lifeosDir, "LIFEOS_StatusLine.sh");
   const settingsPath = join(ctx.configRoot, "settings.json");
   // Build the settings.json command from the ACTUAL install root (ctx.lifeosDir),
-  // not a hardcoded ~/.claude — a custom --config-root (e.g. ~/.claude-fable) places
+  // not a hardcoded ~/.gemini/config — a custom --config-root (e.g. ~/.gemini/config-fable) places
   // the script under its own LIFEOS/, and the old literal pointed at the wrong tree.
   const command = scriptPath.startsWith(`${ctx.home}/`)
     ? `$HOME/${scriptPath.slice(ctx.home.length + 1)}`
@@ -392,7 +392,7 @@ function deploy(component: Component, ctx: Ctx): ComponentResult {
 function main(): void {
   const a = process.argv.slice(2);
   const home = process.env.HOME || homedir(); // public issue #1729, @umair-a11y
-  const configRoot = arg(a, "--config-root") || process.env.CLAUDE_CONFIG_DIR || join(home, ".claude");
+  const configRoot = arg(a, "--config-root") || process.env.CLAUDE_CONFIG_DIR || join(home, ".gemini/config");
   const skillRoot = arg(a, "--skill-root") || join(import.meta.dir, "..");
   const apply = a.includes("--apply");
   const allowDev = a.includes("--allow-dev");

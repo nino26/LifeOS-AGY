@@ -16,10 +16,10 @@ import * as systemd from "./lib/SystemdUser";
 import { homedir } from "node:os";
 
 const HOME = process.env.HOME ?? process.env.USERPROFILE ?? homedir();
-const TEMPLATE = join(HOME, ".claude", "LIFEOS", "TOOLS", "com.lifeos.commitmentsweep.plist.template");
+const TEMPLATE = join(HOME, ".gemini/config", "LIFEOS", "TOOLS", "com.lifeos.commitmentsweep.plist.template");
 const TARGET_DIR = join(HOME, "Library", "LaunchAgents");
 const TARGET = join(TARGET_DIR, "com.lifeos.commitmentsweep.plist");
-const STATE_DIR = join(HOME, ".claude", "LIFEOS", "MEMORY", "STATE");
+const STATE_DIR = join(HOME, ".gemini/config", "LIFEOS", "MEMORY", "STATE");
 const LABEL = "com.lifeos.commitmentsweep";
 
 function uid(): string {
@@ -91,9 +91,9 @@ async function linuxSpec(): Promise<systemd.UnitSpec> {
   return {
     label: LABEL,
     description: "LifeOS commitment sweep",
-    exec: [bunPath, join(HOME, ".claude", "LIFEOS", "TOOLS", "CommitmentSweep.ts")],
+    exec: [bunPath, join(HOME, ".gemini/config", "LIFEOS", "TOOLS", "CommitmentSweep.ts")],
     logPath: join(STATE_DIR, "com.lifeos.commitmentsweep.log"),
-    workingDirectory: join(HOME, ".claude"),
+    workingDirectory: join(HOME, ".gemini/config"),
     schedule: { kind: "calendar", hour: 7, minute: 0 },
   };
 }

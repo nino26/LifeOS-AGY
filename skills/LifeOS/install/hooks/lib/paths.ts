@@ -3,7 +3,7 @@
  *
  * Two root directories:
  * - LIFEOS_DIR (~/Projects/LifeOS-AGY/LIFEOS) — LifeOS data: MEMORY, Algorithm, Tools, USER
- * - Claude home (~/.claude) — Antigravity CLI: settings, skills, hooks, commands, agents
+ * - Claude home (~/.gemini/config) — Antigravity CLI: settings, skills, hooks, commands, agents
  *
  * Usage:
  *   import { getLifeosDir, getClaudeDir, paiPath } from '';
@@ -51,15 +51,15 @@ export function getLifeosDir(): string {
     return expandPath(envLifeosDir);
   }
 
-  return join(homedir(), '.claude', 'LIFEOS');
+  return join(homedir(), '.gemini/config', 'LIFEOS');
 }
 
 /**
  * Get the Antigravity CLI home directory.
  *
  * Plugin install: CLAUDE_PLUGIN_ROOT is the flattened plugin root that plays the
- * live ~/.claude role (skills/ and hooks/ sit directly under it, matching live
- * .claude/skills and .claude/hooks). Live default: ~/.claude — byte-identical to
+ * live ~/.gemini/config role (skills/ and hooks/ sit directly under it, matching live
+ * .gemini/config/skills and .gemini/config/hooks). Live default: ~/.gemini/config — byte-identical to
  * pre-plugin behavior, since CLAUDE_PLUGIN_ROOT is unset on a normal install.
  */
 export function getClaudeDir(): string {
@@ -69,7 +69,7 @@ export function getClaudeDir(): string {
     return expandPath(pluginRoot);
   }
 
-  return join(homedir(), '.claude');
+  return join(homedir(), '.gemini/config');
 }
 
 /**

@@ -44,8 +44,8 @@ OAuth 2.1 authorization is interactive. It cannot be bypassed, automated away, o
 Optional vendor examples:
 
 ```bash
-claude mcp add signal-mcp https://mcp.returnonsecurity.com/mcp
-claude mcp list
+agy mcp add signal-mcp https://mcp.returnonsecurity.com/mcp
+agy mcp list
 codex mcp add signal-mcp https://mcp.returnonsecurity.com/mcp
 codex mcp login signal-mcp
 ```

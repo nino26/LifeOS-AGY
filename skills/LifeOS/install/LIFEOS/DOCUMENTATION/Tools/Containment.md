@@ -127,7 +127,7 @@ Record such files in `PATTERN_ALLOWLIST_FILES` in `hooks/lib/containment-zones.t
 
 1. **Zone review** — per the mandatory step above. Happens before anything else.
 2. **Source audit** — grep the live tree against the identity plus CF-ID pattern list. Every hit outside the configured zones is a policy violation; fix at source (sanitize, relocate, or allowlist with justification).
-3. **Staging build** — the release pipeline's `ShadowRelease.ts --create <version>` clones the live tree with hard rsync exclusions, deletes zone contents (preserving only top-level READMEs as scaffold), overlays the public `settings.json`, `CLAUDE.md`, and `LIFEOS_CONFIG.toml` templates. This `.claude/` tree is an intermediate: `EmitSkill.ts` then reshapes it into the shippable `LifeOS/` skill, so the published release is that emitted skill, not the tree-clone itself.
+3. **Staging build** — the release pipeline's `ShadowRelease.ts --create <version>` clones the live tree with hard rsync exclusions, deletes zone contents (preserving only top-level READMEs as scaffold), overlays the public `settings.json`, `CLAUDE.md`, and `LIFEOS_CONFIG.toml` templates. This `.gemini/config/` tree is an intermediate: `EmitSkill.ts` then reshapes it into the shippable `LifeOS/` skill, so the published release is that emitted skill, not the tree-clone itself.
 4. **The containment gates run against the staging tree (G1-G14 + G17-G25 — see the release pipeline's `GateKey` type for the canonical roster; G1-G14 listed here):**
     - **G1 — Zone deletion:** required public READMEs survive; forbidden personal files and persona dirs do not.
     - **G2 — Identity grep:** no identity patterns in the staging tree (except allowlisted files).
@@ -144,7 +144,7 @@ Record such files in `PATTERN_ALLOWLIST_FILES` in `hooks/lib/containment-zones.t
     - **G13 — Hidden-file leakage:** deny-by-default scan of the staged tree for hidden entries (basenames starting with `.`) not in the small explicit `HIDDEN_ENTRY_ALLOWLIST`. Catches IDE configs, runtime caches, OS metadata, tool-specific state.
     - **G14 — Critical artifacts:** verifies the install-path-critical files survived build + scrub. If any are missing the install boots broken (dashboard 404, wizard missing, no settings template).
 5. **Pass all fourteen → READY FOR RELEASE.** Any fail → fix source or refine exclusions; never hide with allowlist unless the file legitimately needs the pattern.
-6. **Public publish is a separate step.** The shippable release artifact is the self-contained `LIFEOS/LIFEOS_RELEASES/{VERSION}/LifeOS/` skill (emitted from the staging tree; the `.claude/` staging clone is dropped after emit). It stays under `LIFEOS/LIFEOS_RELEASES/{VERSION}/` until a deliberate publish action ships it to the public repo.
+6. **Public publish is a separate step.** The shippable release artifact is the self-contained `LIFEOS/LIFEOS_RELEASES/{VERSION}/LifeOS/` skill (emitted from the staging tree; the `.gemini/config/` staging clone is dropped after emit). It stays under `LIFEOS/LIFEOS_RELEASES/{VERSION}/` until a deliberate publish action ships it to the public repo.
 
 ---
 
@@ -171,7 +171,7 @@ Populated by the audit. Updated as files are sanitized or relocated.
 | `LIFEOS/TOOLS/SessionHarvester.ts` | Comment references derivation, not literal path | **KEEP** — uses `CLAUDE_DIR.replace(...)` dynamically |
 | `LIFEOS/TOOLS/gmail.ts` | Uses `homedir()` at runtime, not a literal path | **KEEP** — dynamic resolution |
 | `LIFEOS/PULSE/checks/health.ts` | Hardcoded site list for health monitoring | **TODO-REFACTOR** — move site list to `LIFEOS_CONFIG.toml`, read at startup |
-| `agents/<agent>.md` | Write-permission path literals in agent definitions | **TODO-REFACTOR** — verify env-expansion support in Antigravity CLI agent spec, then replace with `${HOME}/.claude/...` |
+| `agents/<agent>.md` | Write-permission path literals in agent definitions | **TODO-REFACTOR** — verify env-expansion support in Antigravity CLI agent spec, then replace with `${HOME}/.gemini/config/...` |
 
 ---
 

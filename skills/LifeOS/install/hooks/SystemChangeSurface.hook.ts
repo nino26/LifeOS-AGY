@@ -54,7 +54,7 @@ import {
   type ChangeEntry,
 } from "./lib/system-surfaces";
 
-const CLAUDE_ROOT = pathResolve(process.env.HOME ?? homedir(), ".claude");
+const CLAUDE_ROOT = pathResolve(process.env.HOME ?? homedir(), ".gemini/config");
 const LEDGER_DIR = pathResolve(CLAUDE_ROOT, "LIFEOS/MEMORY/STATE");
 
 interface LedgerEntry extends ChangeEntry {

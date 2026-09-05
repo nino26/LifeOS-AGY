@@ -20,7 +20,7 @@ import { homedir } from 'node:os';
 import { runSuite } from '../../skills/Evals/Tools/EvalRunner.ts';
 import { PULSE_BASE } from '../PULSE/endpoint';
 
-const CLAUDE_ROOT = join(homedir(), '.claude');
+const CLAUDE_ROOT = join(homedir(), '.gemini/config');
 const RESULTS_DIR = join(CLAUDE_ROOT, 'LIFEOS', 'MEMORY', 'STATE', 'Evals-Results');
 const LOCK = join(RESULTS_DIR, '.config-eval.lock');
 const LOG = join(CLAUDE_ROOT, 'LIFEOS', 'MEMORY', 'OBSERVABILITY', 'config-eval-fires.jsonl');

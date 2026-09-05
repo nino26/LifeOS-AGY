@@ -21,7 +21,7 @@ import { homedir } from "node:os";
 try {
   let TZ = "UTC";
   try {
-    const s = JSON.parse(readFileSync(`${homedir()}/.claude/settings.json`, "utf8"));
+    const s = JSON.parse(readFileSync(`${homedir()}/.gemini/config/settings.json`, "utf8"));
     if (s?.principal?.timezone) TZ = s.principal.timezone;
   } catch {
     // keep UTC

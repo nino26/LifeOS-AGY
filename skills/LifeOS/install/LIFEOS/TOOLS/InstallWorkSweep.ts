@@ -33,13 +33,13 @@ const LABEL = "com.lifeos.worksweep";
 const IS_LINUX = process.platform === "linux";
 
 // darwin (launchd)
-const TEMPLATE_PATH = join(HOME, ".claude", "LIFEOS", "TOOLS", "com.lifeos.worksweep.plist.template");
+const TEMPLATE_PATH = join(HOME, ".gemini/config", "LIFEOS", "TOOLS", "com.lifeos.worksweep.plist.template");
 const LAUNCH_AGENTS_DIR = join(HOME, "Library", "LaunchAgents");
 const TARGET_PLIST = join(LAUNCH_AGENTS_DIR, "com.lifeos.worksweep.plist");
 
 // linux (systemd --user)
-const SERVICE_TEMPLATE_PATH = join(HOME, ".claude", "LIFEOS", "TOOLS", "com.lifeos.worksweep.service.template");
-const TIMER_TEMPLATE_PATH = join(HOME, ".claude", "LIFEOS", "TOOLS", "com.lifeos.worksweep.timer.template");
+const SERVICE_TEMPLATE_PATH = join(HOME, ".gemini/config", "LIFEOS", "TOOLS", "com.lifeos.worksweep.service.template");
+const TIMER_TEMPLATE_PATH = join(HOME, ".gemini/config", "LIFEOS", "TOOLS", "com.lifeos.worksweep.timer.template");
 const SYSTEMD_USER_DIR = join(HOME, ".config", "systemd", "user");
 const TARGET_SERVICE = join(SYSTEMD_USER_DIR, `${LABEL}.service`);
 const TARGET_TIMER = join(SYSTEMD_USER_DIR, `${LABEL}.timer`);

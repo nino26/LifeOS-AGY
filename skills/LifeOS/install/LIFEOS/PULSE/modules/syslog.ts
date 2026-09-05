@@ -24,7 +24,7 @@ const MAX_FILE_SIZE = 50 * 1024 * 1024 // 50 MB rotation threshold
 
 const LOG_PATH = join(
   HOME,
-  ".claude",
+  ".gemini/config",
   "LIFEOS",
   "MEMORY",
   "OBSERVABILITY",

@@ -37,7 +37,7 @@ import { existsSync, readFileSync, writeFileSync, rmSync } from "node:fs";
 import { join, resolve } from "node:path";
 
 /** This file lives at <configRoot>/LIFEOS/TOOLS/, so the root is two levels up.
- *  Derived from the script's own location rather than assumed to be ~/.claude:
+ *  Derived from the script's own location rather than assumed to be ~/.gemini/config:
  *  the install root is configurable and hardcoding it makes the tool lie on any
  *  install that put it elsewhere. */
 const ROOT = resolve(import.meta.dir, "..", "..");

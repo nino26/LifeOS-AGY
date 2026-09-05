@@ -71,7 +71,7 @@ for (const k of ["LIFEOS_DIR", "LIFEOS_CONFIG_DIR", "PROJECTS_DIR"]) {
 }
 
 
-const BASE_DIR = process.env.LIFEOS_DIR || join(homedir(), '.claude', 'LIFEOS');
+const BASE_DIR = process.env.LIFEOS_DIR || join(homedir(), '.gemini/config', 'LIFEOS');
 const MEMORY_DIR = join(BASE_DIR, 'MEMORY');
 const WORK_DIR = join(MEMORY_DIR, 'WORK');
 const LEARNING_DIR = join(MEMORY_DIR, 'LEARNING');

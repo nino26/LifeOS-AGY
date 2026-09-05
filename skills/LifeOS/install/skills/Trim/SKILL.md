@@ -24,7 +24,7 @@ Shrink an always-on context file that has gotten too big. `/trim <file>` walks t
 
 ## Gotchas
 
-- **USER files commit to the USER_DATA repo, not `~/.claude`.** `LIFEOS/USER/**` (OPERATIONAL_RULES, PROJECTS, the identity files) is a symlink into a separate private repo. Commit with `git -C ~/.config/LIFEOS/USER …`. A `~/.claude` commit captures nothing under `LIFEOS/USER/` — a false safety net.
+- **USER files commit to the USER_DATA repo, not `~/.gemini/config`.** `LIFEOS/USER/**` (OPERATIONAL_RULES, PROJECTS, the identity files) is a symlink into a separate private repo. Commit with `git -C ~/.config/LIFEOS/USER …`. A `~/.gemini/config` commit captures nothing under `LIFEOS/USER/` — a false safety net.
 - **The file can change mid-edit.** The autonomic memory loop appends proposals to these files while you work. If a Write/Edit reports "modified since read", RE-READ before writing — a concurrent correction may have landed (this is how a real deploy-command fix was nearly reverted). Never write from a stale read.
 - **Semantic merges must never drop a directive.** Before applying any merge/tighten, confirm every proper noun, path, tool name, and imperative from the originals survives in the result. If one is missing, the merge is wrong — keep the original. Deterministic GC (superseded/dup/absorbed) is always safe; semantic edits are the risky class.
 - **`bun`/`bunx` only, never `npm`/`npx`.**

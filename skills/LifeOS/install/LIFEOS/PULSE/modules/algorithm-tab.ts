@@ -41,13 +41,13 @@ import { homedir } from "node:os";
 import { join } from "node:path";
 
 const MODULE_NAME = "algorithm-tab";
-const HOME = process.env.CLAUDE_CONFIG_DIR || join(homedir(), ".claude");
+const HOME = process.env.CLAUDE_CONFIG_DIR || join(homedir(), ".gemini/config");
 const LIFEOS_DIR = join(HOME, "LIFEOS");
 const ALGO_DIR = join(LIFEOS_DIR, "ALGORITHM");
 const STATE_PATH = join(LIFEOS_DIR, "MEMORY", "STATE", "algorithm-tab-summary.json");
 const INFERENCE = join(LIFEOS_DIR, "TOOLS", "Inference.ts");
 // The USER tree is a symlink into the private USER-data repo — commits for
-// files that resolve there must land in THAT repo, not ~/.claude.
+// files that resolve there must land in THAT repo, not ~/.gemini/config.
 const USER_REPO = join(homedir(), ".config", "LIFEOS", "USER");
 
 // Failed auto-regeneration attempts back off so a broken inference call can't
@@ -67,7 +67,7 @@ type Stage = "context" | "doctrine" | "isa" | "run" | "ondemand";
 interface ChainSpec {
   id: string;
   name: string;
-  /** Display path, relative to ~/.claude */
+  /** Display path, relative to ~/.gemini/config */
   rel: string;
   role: string;
   loaded: string;
@@ -442,7 +442,7 @@ async function commitFiles(absPaths: string[], message: string): Promise<{ commi
   const commit = await git(repo, "commit", "-m", message);
   if (commit.code !== 0) return { committed: false, detail: `git commit: ${commit.err || commit.out}` };
   const sha = await git(repo, "rev-parse", "--short", "HEAD");
-  return { committed: true, detail: `${sha.out} in ${repo === HOME ? "~/.claude" : "USER repo"}` };
+  return { committed: true, detail: `${sha.out} in ${repo === HOME ? "~/.gemini/config" : "USER repo"}` };
 }
 
 /* ── Frontmatter freshness — bump what the file actually carries ── */

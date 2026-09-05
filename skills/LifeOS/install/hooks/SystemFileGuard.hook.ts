@@ -27,7 +27,7 @@ import { evaluateWrite, extractNewContent } from "./lib/system-file-guard-core";
 import { parseHookStdin, asWriteToolInput, isString } from "./lib/hook-input";
 
 const HOME = process.env.HOME ?? homedir();
-const LOG_PATH = join(HOME, ".claude/LIFEOS/MEMORY/OBSERVABILITY/system-file-guard.jsonl");
+const LOG_PATH = join(HOME, ".gemini/config/LIFEOS/MEMORY/OBSERVABILITY/system-file-guard.jsonl");
 
 interface HookInput {
   session_id?: string;

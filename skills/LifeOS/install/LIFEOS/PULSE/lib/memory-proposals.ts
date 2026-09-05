@@ -30,7 +30,7 @@ import {
 import { assertInsideUserData } from "../../TOOLS/lib/ForeignDataCheck";
 
 const HOME = process.env.HOME ?? homedir();
-const OBS_DIR = join(HOME, ".claude", "LIFEOS", "MEMORY", "OBSERVABILITY");
+const OBS_DIR = join(HOME, ".gemini/config", "LIFEOS", "MEMORY", "OBSERVABILITY");
 const PROPOSAL_REPLIES_LOG_PATH = join(OBS_DIR, "proposal-replies.jsonl");
 const IDENTITY_PROPOSALS_LOG_PATH = join(OBS_DIR, "identity-proposals.jsonl");
 
@@ -172,7 +172,7 @@ export function logProposalReply(event: Record<string, unknown>, path: string = 
 }
 
 export function formatProposalMessage(p: ProposalRow, home: string = HOME): string {
-  const fileLabel = p.target_file.replace(`${home}/.claude/`, "");
+  const fileLabel = p.target_file.replace(`${home}/.gemini/config/`, "");
   const conf = p.confidence.toFixed(2);
   const obs = p.observed_across_sessions ?? 1;
   // P1 2026-05-25: prepend subtype badge so the principal sees at a glance
@@ -231,11 +231,11 @@ function stampTarget(absPath: string): void {
 
 export function applyProposalEdit(targetFile: string, editText: string): { ok: true } | { ok: false; reason: string } {
   // A proposal's targetFile is root-relative (e.g. "LIFEOS/USER/CONFIG/OPERATIONAL_RULES.md").
-  // Resolve it against ~/.claude so it works regardless of the process CWD: the Pulse server runs
+  // Resolve it against ~/.gemini/config so it works regardless of the process CWD: the Pulse server runs
   // from LIFEOS/PULSE, so a bare relative path resolved to a nonexistent nested path and every
   // apply failed with "target file missing" even though the file was present (public PR #1507,
   // credit @anikinsasha).
-  const resolved = isAbsolute(targetFile) ? targetFile : join(HOME, ".claude", targetFile);
+  const resolved = isAbsolute(targetFile) ? targetFile : join(HOME, ".gemini/config", targetFile);
   if (!existsSync(resolved)) return { ok: false, reason: `target file missing: ${targetFile}` };
   // Boundary (2026-08-11 incident class): a proposal edit is personal content —
   // its target must physically resolve into the USER_DATA repo. pinProposalTargetFile

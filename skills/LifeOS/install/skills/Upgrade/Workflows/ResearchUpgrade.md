@@ -46,8 +46,8 @@ Use Task tool with subagent_type=general-purpose, run 4 agents in parallel:
 
 Agent 1 - Official Documentation:
 "Research [FEATURE] in official Anthropic documentation:
-- Search docs.claude.com
-- Check support.claude.com
+- Search docs.gemini/config.com
+- Check support.gemini/config.com
 - Look in modelcontextprotocol.io (if MCP-related)
 
 Return: Official description, usage examples, any caveats or limitations."
@@ -183,7 +183,7 @@ User: "research the context forking feature"
 
 [Spawn 4 research agents in parallel]
 
-Agent 1: Found in docs.claude.com - context: fork allows skills to run isolated
+Agent 1: Found in docs.gemini/config.com - context: fork allows skills to run isolated
 Agent 2: Found in anthropics/claude-code CHANGELOG - introduced v1.0.15
 Agent 3: Found in Anthropic blog - designed for complex skill workflows
 Agent 4: Found in GitHub discussions - users report 40% latency reduction

@@ -33,7 +33,7 @@ import { isTerminalStatus } from "../lib/memory-proposals";
 import { homedir } from "node:os";
 
 const HOME = process.env.HOME ?? process.env.USERPROFILE ?? homedir();
-const CLAUDE = join(HOME, ".claude");
+const CLAUDE = join(HOME, ".gemini/config");
 const OBS_DIR = join(CLAUDE, "LIFEOS/MEMORY/OBSERVABILITY");
 
 const REVIEW_STATE = join(OBS_DIR, "review-state.json");

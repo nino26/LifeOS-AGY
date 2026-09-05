@@ -36,7 +36,7 @@ for (const k of ["LIFEOS_DIR", "LIFEOS_CONFIG_DIR", "PROJECTS_DIR"]) {
 }
 
 const HOME = process.env.HOME ?? process.env.USERPROFILE ?? homedir();
-const LIFEOS_DIR = process.env.LIFEOS_DIR || join(HOME, ".claude", "LIFEOS");
+const LIFEOS_DIR = process.env.LIFEOS_DIR || join(HOME, ".gemini/config", "LIFEOS");
 const CACHE_DIR = join(LIFEOS_DIR, "USER", "CACHE");
 export const EVIDENCE_CACHE_PATH = join(CACHE_DIR, "state-evidence.json");
 
@@ -45,7 +45,7 @@ const HEALTH_CURRENT = join(LIFEOS_DIR, "USER", "HEALTH", "current.json");
 const CONDUIT_DIR = join(LIFEOS_DIR, "USER", "CONDUIT", "daily");
 const WORK_STATE = join(LIFEOS_DIR, "MEMORY", "STATE", "work.json");
 const EXPENSES = join(LIFEOS_DIR, "USER", "FINANCES", "expenses.json");
-const REPO_DIR = join(HOME, ".claude");
+const REPO_DIR = join(HOME, ".gemini/config");
 
 // ---------- types ----------
 

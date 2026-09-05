@@ -35,7 +35,7 @@ if (!import.meta.main) {
 }
 
 const HOME = process.env.HOME ?? process.env.USERPROFILE ?? homedir();
-const CLAUDE = process.env.CORTEX_HEALTH_ROOT || join(HOME, ".claude");
+const CLAUDE = process.env.CORTEX_HEALTH_ROOT || join(HOME, ".gemini/config");
 const HOOKS_DIR = join(CLAUDE, "hooks");
 const TOOLS_DIR = join(CLAUDE, "LIFEOS/TOOLS");
 const OBS_DIR = join(CLAUDE, "LIFEOS/MEMORY/OBSERVABILITY");

@@ -5,7 +5,7 @@
  * Part of the Ledger system (LIFEOS/DOCUMENTATION/Ledger/LedgerSystem.md).
  * Every gated deploy (the _CLOUDFLARE Deploy workflow, project deploy scripts)
  * records one event here so "what shipped, when, at what version" has a single
- * answer across the whole estate — not just the ~/.claude tree.
+ * answer across the whole estate — not just the ~/.gemini/config tree.
  *
  * The record is append-only JSONL at MEMORY/SYSTEMUPDATES/deploys.jsonl
  * (private via the MEMORY symlink into the user-data repo). Pulse reads it
@@ -31,7 +31,7 @@ import { join, resolve } from "node:path";
 import { parseArgs } from "node:util";
 import { invariant } from "./Invariant";
 
-const LIFEOS_DIR = process.env.LIFEOS_DIR || join(homedir(), ".claude", "LIFEOS");
+const LIFEOS_DIR = process.env.LIFEOS_DIR || join(homedir(), ".gemini/config", "LIFEOS");
 const DEPLOYS_PATH = join(LIFEOS_DIR, "MEMORY", "SYSTEMUPDATES", "deploys.jsonl");
 
 interface DeployEvent {

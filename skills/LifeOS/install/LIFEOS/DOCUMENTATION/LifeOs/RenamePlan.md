@@ -38,7 +38,7 @@ version: 1.0.5
 ## Cut preconditions (all must hold — see RenameMap.json `cut_preconditions`)
 
 1. The LifeOS sensor loop (R3–R7 from the 2026-06-13 MasterReport) is demonstrably running — the rename is then a formality, not a migration.
-2. In-flight forks reconciled: `.claude-fable` v7, skill-only shadow release (release root = `LifeOS/` skill only, no full `.claude/` clone and no root `install.sh`), 5.0.0/5.1.0 shadow releases.
+2. In-flight forks reconciled: `.gemini/config-fable` v7, skill-only shadow release (release root = `LifeOS/` skill only, no full `.gemini/config/` clone and no root `install.sh`), 5.0.0/5.1.0 shadow releases.
 3. Scrub gates read RenameMap.json programmatically.
 4. Rehearsal in a `CLAUDE_CONFIG_DIR` clone passes its migration ISA (per-path probes: launchd agents alive, symlink chain intact, two-repo sync green, statusline rendering, Pulse healthy).
 5. GitHub rename redirect verified (stars + clone URLs survive); never create a new repo named LifeOS afterward.

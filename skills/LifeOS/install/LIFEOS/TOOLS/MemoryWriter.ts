@@ -54,7 +54,7 @@ import { homedir } from "node:os";
 
 // ── Constants ──
 
-const CLAUDE_ROOT = pathResolve(homedir(), ".claude");
+const CLAUDE_ROOT = pathResolve(homedir(), ".gemini/config");
 
 const ALLOWED_FILES = new Set<string>([
   pathResolve(CLAUDE_ROOT, "LIFEOS/USER/PRINCIPAL/PRINCIPAL_MEMORY.md"),

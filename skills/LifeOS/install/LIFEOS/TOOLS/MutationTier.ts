@@ -40,7 +40,7 @@ import { getPrincipalName } from "../../hooks/lib/identity";
 
 // ── Constants ──
 
-const CLAUDE_ROOT = pathResolve(homedir(), ".claude");
+const CLAUDE_ROOT = pathResolve(homedir(), ".gemini/config");
 
 export type Tier = "A" | "B" | "C" | "D";
 
@@ -255,7 +255,7 @@ function smokeTest(): number {
     const ok = got === c.expected;
     if (ok) {
       pass++;
-      console.log(`  ✓ ${c.expected}  ${c.path.replace(CLAUDE_ROOT, "~/.claude")}  — ${c.why}`);
+      console.log(`  ✓ ${c.expected}  ${c.path.replace(CLAUDE_ROOT, "~/.gemini/config")}  — ${c.why}`);
     } else {
       fail++;
       console.error(`  ✗ expected ${c.expected}, got ${got}  ${c.path}  — ${c.why}`);

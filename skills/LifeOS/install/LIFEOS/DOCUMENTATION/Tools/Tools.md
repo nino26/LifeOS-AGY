@@ -22,7 +22,7 @@ This file documents single-purpose CLI utilities that have been consolidated fro
 
 Single inference tool with four run levels for different speed/capability trade-offs — the same four-level abstraction as `EFFORT_MODEL` in `models.ts` (max→fable, high→opus, medium→sonnet, low→haiku; one-line mapping edit on a lineup change).
 
-**Executed-model verification (v6.29.0).** `--level max` genuinely runs Fable (spawns `agy --model claude-fable-5`), unlike an `Agent(model:fable)` dispatch which downgrades to Opus — so this is the real Fable carrier for max-level reasoning. Every run reads the executed model back from the JSON envelope's `modelUsage` (`verifyExecutedModel` — filters Antigravity CLI's per-turn background haiku pass, then takes the highest-output model as the answer's author and checks its family; presence alone can't tell a tiny classifier pass from real authorship). The result carries `executedModel` + `modelDowngraded`; the CLI prints a `[model] requested=… → executed=…` line to stderr (stdout stays the clean answer); any downgrade is logged to `MEMORY/OBSERVABILITY/model-verification.jsonl`. The tool reports what RAN, never what it requested.
+**Executed-model verification (v6.29.0).** `--level max` genuinely runs Fable (spawns `agy --model gemini-5`), unlike an `Agent(model:fable)` dispatch which downgrades to Opus — so this is the real Fable carrier for max-level reasoning. Every run reads the executed model back from the JSON envelope's `modelUsage` (`verifyExecutedModel` — filters Antigravity CLI's per-turn background haiku pass, then takes the highest-output model as the answer's author and checks its family; presence alone can't tell a tiny classifier pass from real authorship). The result carries `executedModel` + `modelDowngraded`; the CLI prints a `[model] requested=… → executed=…` line to stderr (stdout stays the clean answer); any downgrade is logged to `MEMORY/OBSERVABILITY/model-verification.jsonl`. The tool reports what RAN, never what it requested.
 
 **Usage:**
 ```bash
@@ -56,7 +56,7 @@ bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/Inference.ts --level medium --timeout 600
 **Programmatic Usage:**
 ```typescript
 // From hooks (at ~/Projects/LifeOS-AGY/hooks/):
-import { inference } from '../../.claude/LIFEOS/TOOLS/Inference';
+import { inference } from '../../.gemini/config/LIFEOS/TOOLS/Inference';
 
 const result = await inference({
   systemPrompt: 'Analyze this',
@@ -496,7 +496,7 @@ Monitor({
   description: "Agent watchdog",
   persistent: true,
   timeout_ms: 3600000,
-  command: "bun $HOME/.claude/LIFEOS/TOOLS/AgentWatchdog.ts"
+  command: "bun $HOME/.gemini/config/LIFEOS/TOOLS/AgentWatchdog.ts"
 })
 ```
 
@@ -684,7 +684,7 @@ bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/KnowledgeHarvester.ts index
 
 - **Prefer aliases.** Consumers that accept a string and don't need a pinned ID use the tier alias (`"opus"`/`"sonnet"`/`"haiku"`/`"fable"`) — the `claude` CLI resolves each to the LATEST model in that tier (`claude --help`: "Provide an alias for the latest model"), so they never drift. This is the system's auto-update mechanism; a pinned ID is the staleness source. Pulse manifests and `Inference.ts` work this way. A tier name IS its alias — the former `ALIAS` record was an identity map and was deleted 2026-07-24.
 - **Import the registry** only when you genuinely need a pinned ID (e.g. `ContextAudit.ts`'s drift check imports `currentModel("opus")`).
-- **Never** hardcode a dated ID in live code — that's the bug class this replaced (`ContextAudit` checked for `claude-opus-4-7` long after 4.8 shipped).
+- **Never** hardcode a dated ID in live code — that's the bug class this replaced (`ContextAudit` checked for `gemini-4-7` long after 4.8 shipped).
 
 **On a new model release (propose-not-auto):**
 1. The AI-news skill's Anthropic monitor (`CheckAnthropicChanges.ts`) scans fetched source bodies for a new Claude ID and, on a hit, records it to `LIFEOS/MEMORY/OBSERVABILITY/model-releases.jsonl` and best-effort fires `/notify` (voice/ntfy). It never edits the registry. (A model bump is a command, not a markdown-section text edit, so it deliberately does NOT use the `pending-proposals.jsonl` proposal queue — that queue's apply path only appends text under a header.)

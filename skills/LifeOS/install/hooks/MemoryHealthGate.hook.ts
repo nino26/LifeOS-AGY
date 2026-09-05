@@ -19,7 +19,7 @@ import { join } from "node:path";
 import { homedir } from "node:os";
 
 const HOME = process.env.HOME ?? process.env.USERPROFILE ?? homedir();
-const CHECK = join(HOME, ".claude/LIFEOS/TOOLS/MemoryHealthCheck.ts");
+const CHECK = join(HOME, ".gemini/config/LIFEOS/TOOLS/MemoryHealthCheck.ts");
 
 try {
   const out = execFileSync("bun", [CHECK], {

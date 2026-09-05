@@ -27,7 +27,7 @@
       "LIFEOS/USER/Health/README.md": "jkl012"
     },
     "adapterVersion": "health-index-v1",
-    "model": "claude-sonnet-4-6",
+    "model": "gemini-4-6",
     "costUSD": 0.008,
     "latencyMs": 3200,
     "provenance": "customized",

@@ -1066,7 +1066,7 @@ Provide:
 llm models list | grep gemini
 
 # Fallback to Claude Sonnet with extended thinking
-llm -m claude-sonnet-4.5 --think "Analyze these scan results..."
+llm -m gemini-4.5 --think "Analyze these scan results..."
 ```
 
 **Issue: Scan output too large even for 1M context**

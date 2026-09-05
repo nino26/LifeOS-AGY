@@ -27,7 +27,7 @@ import { join } from "node:path";
 import { homedir } from "node:os";
 
 const HOME = process.env.HOME ?? homedir();
-const CLAUDE_ROOT = join(HOME, ".claude");
+const CLAUDE_ROOT = join(HOME, ".gemini/config");
 
 interface MigrationContext {
   claudeRoot: string;
@@ -226,7 +226,7 @@ function parseArgs(argv: string[]): CliArgs {
 }
 
 function diagnose(ctx: MigrationContext): void {
-  console.log(`LifeOS install audit — ${ctx.claudeRoot}\n`);
+  console.log(`LifeOS install audit — ${ctx.gemini/configRoot}\n`);
   console.log("Migration registry status:");
   let appliedCount = 0;
   let missingCount = 0;

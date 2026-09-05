@@ -22,7 +22,7 @@ const BLOCKED_NAMES_BASELINE: string[] = [];
 
 const BLOCKED_PATH_PATTERNS = [
   /\/Users\/\w+\//g,
-  /~\/\.claude\//g,
+  /~\/\.gemini/config\//g,
   /~\/Cloud\//g,
   /~\/LocalProjects\//g,
   /(?:LIFEOS|PAI)\/USER\//g,
@@ -303,7 +303,7 @@ Options:
 
     const testCases = [
       { input: "my and B's minds into digital format", expectRedactions: true, desc: "Partner alias" },
-      { input: "File at /Users/example/.claude/LIFEOS/hooks/test.ts", expectRedactions: true, desc: "Private path" },
+      { input: "File at /Users/example/.gemini/config/LIFEOS/hooks/test.ts", expectRedactions: true, desc: "Private path" },
       { input: "Token: sk-abc123def456ghi789jkl012mno345", expectRedactions: true, desc: "API key" },
       { input: "Building open source tools for everyone", expectRedactions: false, desc: "Clean text" },
       { input: "localhost:31337 pulse server", expectRedactions: true, desc: "Internal endpoint" },

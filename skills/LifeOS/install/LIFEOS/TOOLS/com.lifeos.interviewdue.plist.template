@@ -17,7 +17,7 @@
   <key>ProgramArguments</key>
   <array>
     <string>{{BUN}}</string>
-    <string>{{HOME}}/.claude/LIFEOS/TOOLS/InterviewDue.ts</string>
+    <string>{{HOME}}/.gemini/config/LIFEOS/TOOLS/InterviewDue.ts</string>
     <string>--refresh</string>
   </array>
   <key>RunAtLoad</key>
@@ -30,11 +30,11 @@
     <integer>10</integer>
   </dict>
   <key>StandardOutPath</key>
-  <string>{{HOME}}/.claude/LIFEOS/MEMORY/OBSERVABILITY/interview-due.log</string>
+  <string>{{HOME}}/.gemini/config/LIFEOS/MEMORY/OBSERVABILITY/interview-due.log</string>
   <key>StandardErrorPath</key>
-  <string>{{HOME}}/.claude/LIFEOS/MEMORY/OBSERVABILITY/interview-due.log</string>
+  <string>{{HOME}}/.gemini/config/LIFEOS/MEMORY/OBSERVABILITY/interview-due.log</string>
   <key>WorkingDirectory</key>
-  <string>{{HOME}}/.claude</string>
+  <string>{{HOME}}/.gemini/config</string>
   <key>EnvironmentVariables</key>
   <dict>
     <key>PATH</key>

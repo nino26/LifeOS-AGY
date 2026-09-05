@@ -208,7 +208,7 @@ function main(): void {
   const a = process.argv.slice(2);
   const apply = a.includes("--apply");
   const allowDev = a.includes("--allow-dev");
-  const configRoot = arg(a, "--config-root") || process.env.CLAUDE_CONFIG_DIR || join(homedir(), ".claude");
+  const configRoot = arg(a, "--config-root") || process.env.CLAUDE_CONFIG_DIR || join(homedir(), ".gemini/config");
   const skillRoot = arg(a, "--skill-root") || join(configRoot, "skills", "LifeOS");
   const payloadInstall = join(skillRoot, "install");
 

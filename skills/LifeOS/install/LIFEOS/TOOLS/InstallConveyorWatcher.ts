@@ -21,7 +21,7 @@ import { homedir } from "node:os";
 declare const Bun: { spawn: (cmd: string[], opts?: any) => any };
 
 const HOME = process.env.HOME ?? process.env.USERPROFILE ?? homedir();
-const TEMPLATE_PATH = join(HOME, ".claude", "LIFEOS", "TOOLS", "com.lifeos.conveyor-watcher.plist.template");
+const TEMPLATE_PATH = join(HOME, ".gemini/config", "LIFEOS", "TOOLS", "com.lifeos.conveyor-watcher.plist.template");
 const LAUNCH_AGENTS_DIR = join(HOME, "Library", "LaunchAgents");
 const TARGET_PLIST = join(LAUNCH_AGENTS_DIR, "com.lifeos.conveyor-watcher.plist");
 const LABEL = "com.lifeos.conveyor-watcher";
@@ -123,9 +123,9 @@ async function linuxSpec(): Promise<systemd.UnitSpec> {
   return {
     label: LABEL,
     description: "LifeOS Conveyor inbox watcher",
-    exec: [bunPath, join(HOME, ".claude", "LIFEOS", "TOOLS", "Conveyor", "Watcher.ts")],
-    logPath: join(HOME, ".claude", "LIFEOS", "MEMORY", "STATE", "com.lifeos.conveyor-watcher.log"),
-    workingDirectory: join(HOME, ".claude"),
+    exec: [bunPath, join(HOME, ".gemini/config", "LIFEOS", "TOOLS", "Conveyor", "Watcher.ts")],
+    logPath: join(HOME, ".gemini/config", "LIFEOS", "MEMORY", "STATE", "com.lifeos.conveyor-watcher.log"),
+    workingDirectory: join(HOME, ".gemini/config"),
     schedule: { kind: "daemon", restartSec: 30 },
   };
 }

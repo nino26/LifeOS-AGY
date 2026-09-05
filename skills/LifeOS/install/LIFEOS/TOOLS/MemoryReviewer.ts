@@ -56,8 +56,8 @@ import {
 
 // ── Constants ──
 
-const CLAUDE_ROOT = pathResolve(homedir(), ".claude");
-const HARNESS_PROJECTS_DIR = pathResolve(homedir(), ".claude", "projects");
+const CLAUDE_ROOT = pathResolve(homedir(), ".gemini/config");
+const HARNESS_PROJECTS_DIR = pathResolve(homedir(), ".gemini/config", "projects");
 const RUNS_LOG_PATH = pathResolve(CLAUDE_ROOT, "LIFEOS/MEMORY/OBSERVABILITY/reviewer-runs.jsonl");
 const RUNS_DEBUG_DIR = pathResolve(CLAUDE_ROOT, "LIFEOS/MEMORY/OBSERVABILITY/reviewer-runs");
 const REVIEW_CONFIG_PATH = pathResolve(CLAUDE_ROOT, "LIFEOS/USER/CONFIG/memory-review.json");
@@ -741,7 +741,7 @@ export async function review(opts: ReviewOptions = {}): Promise<ReviewResult> {
       `Proposal auto-apply: succeeded=${summary.proposals_auto_applied} failed=${summary.proposals_auto_apply_failed}`,
       "",
       "Per-item results:",
-      ...results.map((r, i) => `[${i}] ${r.ok ? "OK " + (r as any).type : "FAIL " + (r as any).code}: ${r.ok ? (r as any).path?.replace(CLAUDE_ROOT, "~/.claude") : (r as any).message}`),
+      ...results.map((r, i) => `[${i}] ${r.ok ? "OK " + (r as any).type : "FAIL " + (r as any).code}: ${r.ok ? (r as any).path?.replace(CLAUDE_ROOT, "~/.gemini/config") : (r as any).message}`),
     ].join("\n"),
   });
 
@@ -821,7 +821,7 @@ async function smokeTest(): Promise<number> {
   const mockResponse = JSON.stringify({
     items: [
       { type: "memory", actor: "principal", content: "PREFERENCE: smoke E2E mock" },
-      { type: "proposal", target_file: pathJoin(homedir(), ".claude/LIFEOS/USER/PRINCIPAL/PRINCIPAL_IDENTITY.md"), edit: "RULE: E2E mock", confidence: 0.5, rationale: "smoke" },
+      { type: "proposal", target_file: pathJoin(homedir(), ".gemini/config/LIFEOS/USER/PRINCIPAL/PRINCIPAL_IDENTITY.md"), edit: "RULE: E2E mock", confidence: 0.5, rationale: "smoke" },
     ],
   });
 

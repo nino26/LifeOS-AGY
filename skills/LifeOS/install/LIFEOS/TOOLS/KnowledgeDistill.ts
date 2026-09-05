@@ -35,7 +35,7 @@ import { homedir } from "os";
 import { createHash } from "crypto";
 import { addUpgrade } from "./Upgrades";
 
-const BASE = process.env.LIFEOS_DIR || join(homedir(), ".claude", "LIFEOS");
+const BASE = process.env.LIFEOS_DIR || join(homedir(), ".gemini/config", "LIFEOS");
 const KNOWLEDGE = join(BASE, "MEMORY", "KNOWLEDGE");
 const DIGESTS = join(BASE, "MEMORY", "DIGESTS");
 const STATE_FILE = join(BASE, "MEMORY", "STATE", "distill.json");

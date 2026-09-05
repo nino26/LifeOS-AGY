@@ -23,7 +23,7 @@
 export function isSubagentContext(): boolean {
   const projectDir = process.env.CLAUDE_PROJECT_DIR || '';
   return Boolean(
-    projectDir.includes('/.claude/Agents/') ||
+    projectDir.includes('/.gemini/config/Agents/') ||
       process.env.CLAUDE_AGENT_TYPE ||
       process.env.CLAUDE_CODE_SUBAGENT_NAME ||
       process.env.CLAUDE_CODE_SUBAGENT_TYPE ||

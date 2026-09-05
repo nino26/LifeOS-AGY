@@ -29,9 +29,9 @@ import { homedir, hostname } from "node:os";
 import type { AssetObs, CollectResult, Collector, EdgeObs } from "../Store";
 
 const HOME = homedir();
-const REGISTRY_TOOL = join(HOME, ".claude/skills/_INCIDENT_RESPONSE/Tools/GenerateRegistry.ts");
-const DETECT_TOOL = join(HOME, ".claude/skills/_INCIDENT_RESPONSE/Tools/DetectCriticalKeys.ts");
-const CONFIG_REPO_DIR = join(HOME, ".claude");
+const REGISTRY_TOOL = join(HOME, ".gemini/config/skills/_INCIDENT_RESPONSE/Tools/GenerateRegistry.ts");
+const DETECT_TOOL = join(HOME, ".gemini/config/skills/_INCIDENT_RESPONSE/Tools/DetectCriticalKeys.ts");
+const CONFIG_REPO_DIR = join(HOME, ".gemini/config");
 
 interface RegistryKey {
   name: string;

@@ -65,7 +65,7 @@ Options:
 
 /** Canonical .env is ~/Projects/LifeOS-AGY/.env — never $LIFEOS_CONFIG_DIR/.env. */
 function loadEnv(): Record<string, string> {
-  const envPath = join(homedir(), '.claude', '.env')
+  const envPath = join(homedir(), '.gemini/config', '.env')
   const env: Record<string, string> = {}
   try {
     for (const line of readFileSync(envPath, 'utf-8').split('\n')) {

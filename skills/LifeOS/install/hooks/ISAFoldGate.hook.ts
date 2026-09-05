@@ -37,7 +37,7 @@ import { appendFileSync, mkdirSync } from "fs";
 import { dirname, join } from "path";
 import { homedir } from "node:os";
 
-const LIFEOS = process.env.LIFEOS_DIR || join(homedir(), ".claude", "LIFEOS");
+const LIFEOS = process.env.LIFEOS_DIR || join(homedir(), ".gemini/config", "LIFEOS");
 const OBS_PATH = join(LIFEOS, "MEMORY", "OBSERVABILITY", "isa-fold-gate.jsonl");
 
 /** Prod-mutating command shapes. Conservative and explicit: each one is a class this

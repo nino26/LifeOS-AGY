@@ -176,7 +176,7 @@ function isHookModified(modifiedFiles: Set<string>): boolean {
 /**
  * Check if ANY meaningful LifeOS system file was modified.
  * LifeOS spans TWO root directories:
- *   - CLAUDE_DIR (~/.claude) — hooks, skills, settings, agents, CLAUDE.md
+ *   - CLAUDE_DIR (~/.gemini/config) — hooks, skills, settings, agents, CLAUDE.md
  *   - LIFEOS_DIR (~/Projects/LifeOS-AGY/LIFEOS) — LifeOS data, Tools, Components, Workflows, SYSTEM docs
  * Excludes MEMORY/WORK, MEMORY/LEARNING, MEMORY/STATE, and other non-system paths.
  */

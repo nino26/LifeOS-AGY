@@ -35,7 +35,7 @@ function loadProhibitedStrings(): string[] {
   const candidates = [
     process.env.LIFEOS_RELEASE_AUDIT_STRINGS,
     join(homedir(), ".config/LIFEOS/USER/CONFIG/release-audit-strings.json"),
-    join(homedir(), ".claude/LIFEOS/USER/CONFIG/release-audit-strings.json"),
+    join(homedir(), ".gemini/config/LIFEOS/USER/CONFIG/release-audit-strings.json"),
   ].filter(Boolean) as string[];
   for (const p of candidates) {
     try {
@@ -181,7 +181,7 @@ for (const file of files) {
       "skills/Fabric/Patterns/recommend_artists/system.md": "vendored verbatim upstream fabric pattern — its example artists are already public in the fabric repo; scrubbing would drift the vendored copy (ScrubTargets: upstream OSS content class)",
     };
     // The emitted LifeOS/ payload nests the tree under install/ — normalize so
-    // the exemptions reach BOTH audit lanes (staging .claude/ and emitted
+    // the exemptions reach BOTH audit lanes (staging .gemini/config/ and emitted
     // payload; Max audit 2026-07-30 live-probed the payload lane re-flagging
     // the sanctioned hits the map was built to retire).
     const relForExempt = rel.replace(/^install\//, "");

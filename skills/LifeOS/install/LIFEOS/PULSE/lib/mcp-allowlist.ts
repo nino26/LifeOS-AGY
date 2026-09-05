@@ -11,7 +11,7 @@
  * externally influenced text, so granting the full desktop MCP set would widen
  * the prompt-injection blast radius. Default remains zero servers; each server
  * is opted in by name via LIFEOS_REMOTE_MCP_ALLOWLIST (comma-separated names
- * matching ~/.claude.json `mcpServers` keys). What changes unconditionally is
+ * matching ~/.gemini/config.json `mcpServers` keys). What changes unconditionally is
  * honesty: the channel prompt now states exactly which MCP servers are loaded,
  * so the model reports "unavailable on this surface" instead of inventing a
  * cause.
@@ -28,7 +28,7 @@ export function loadRemoteMcpServers(): Record<string, unknown> {
     .filter(Boolean)
   if (allow.length === 0) return {}
   try {
-    const cfg = JSON.parse(readFileSync(join(homedir(), ".claude.json"), "utf8")) as {
+    const cfg = JSON.parse(readFileSync(join(homedir(), ".gemini/config.json"), "utf8")) as {
       mcpServers?: Record<string, unknown>
     }
     const all = cfg?.mcpServers ?? {}

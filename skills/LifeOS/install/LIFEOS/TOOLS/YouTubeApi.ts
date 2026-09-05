@@ -58,7 +58,7 @@ function loadEnv(): Record<string, string> {
   // Canonical .env is ~/Projects/LifeOS-AGY/.env. LIFEOS_CONFIG_DIR names the LIFEOS
   // directory, NOT the dir holding .env — joining it produced the dead path
   // ~/Projects/LifeOS-AGY/LIFEOS/.env that nothing creates (public issue #1490).
-  const envPath = join(homedir(), '.claude', '.env')
+  const envPath = join(homedir(), '.gemini/config', '.env')
   const env: Record<string, string> = {}
   try {
     const content = readFileSync(envPath, 'utf-8')

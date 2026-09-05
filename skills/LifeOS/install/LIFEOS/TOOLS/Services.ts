@@ -31,7 +31,7 @@ import { join } from "node:path";
 
 const IS_LINUX = process.platform === "linux";
 const HOME = homedir();
-const CLAUDE = join(HOME, ".claude");
+const CLAUDE = join(HOME, ".gemini/config");
 const LIFEOS = join(CLAUDE, "LIFEOS");
 const TOOLS = join(LIFEOS, "TOOLS");
 const PULSE = join(LIFEOS, "PULSE");

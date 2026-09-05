@@ -77,7 +77,7 @@ interface RatingEntry {
 
 // ── Constants ──
 
-const BASE_DIR = process.env.LIFEOS_DIR || join(homedir(), '.claude', 'LIFEOS');
+const BASE_DIR = process.env.LIFEOS_DIR || join(homedir(), '.gemini/config', 'LIFEOS');
 const SIGNALS_DIR = join(BASE_DIR, 'MEMORY', 'LEARNING', 'SIGNALS');
 const RATINGS_FILE = join(SIGNALS_DIR, 'ratings.jsonl');
 const LAST_RESPONSE_CACHE = join(BASE_DIR, 'MEMORY', 'STATE', 'last-response.txt');

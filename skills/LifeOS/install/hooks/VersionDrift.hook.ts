@@ -22,7 +22,7 @@ import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
 import { homedir } from "node:os";
 import { join, dirname } from "node:path";
 
-const CLAUDE_DIR = join(homedir(), ".claude");
+const CLAUDE_DIR = join(homedir(), ".gemini/config");
 const VERSION_FILE = join(CLAUDE_DIR, "LIFEOS", "VERSION");
 const STATE_FILE = join(CLAUDE_DIR, "LIFEOS", "MEMORY", "STATE", "version-drift-nag.json");
 

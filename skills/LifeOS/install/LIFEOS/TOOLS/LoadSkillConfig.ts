@@ -35,7 +35,7 @@ interface ExtendManifest {
 
 // Constants
 const HOME = homedir();
-const CUSTOMIZATION_DIR = join(HOME, '.claude', 'LIFEOS', 'USER', 'CUSTOMIZATIONS', 'SKILLS');
+const CUSTOMIZATION_DIR = join(HOME, '.gemini/config', 'LIFEOS', 'USER', 'CUSTOMIZATIONS', 'SKILLS');
 
 /**
  * Deep merge two objects recursively

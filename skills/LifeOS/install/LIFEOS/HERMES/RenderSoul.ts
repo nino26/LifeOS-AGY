@@ -30,7 +30,7 @@ import { join } from "node:path";
 const HOME = homedir();
 /** LIFEOS/HERMES/ → LIFEOS/ */
 export const LIFEOS_ROOT = join(import.meta.dir, "..");
-/** LIFEOS/ → the install root (the .claude directory). */
+/** LIFEOS/ → the install root (the .gemini/config directory). */
 export const INSTALL_ROOT = join(LIFEOS_ROOT, "..");
 const USER = join(LIFEOS_ROOT, "USER");
 

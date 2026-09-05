@@ -15,7 +15,7 @@ import { homedir } from "node:os";
 import { join } from "node:path";
 
 const MODULE_NAME = "doctor";
-const CONFIG_ROOT = process.env.CLAUDE_CONFIG_DIR || join(homedir(), ".claude");
+const CONFIG_ROOT = process.env.CLAUDE_CONFIG_DIR || join(homedir(), ".gemini/config");
 const LIFEOS_DIR = join(CONFIG_ROOT, "LIFEOS");
 const STATE_DIR = join(LIFEOS_DIR, "MEMORY", "STATE");
 const MANIFEST_PATH = join(STATE_DIR, "capabilities.json");

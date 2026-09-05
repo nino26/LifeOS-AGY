@@ -13,7 +13,7 @@ const API = "https://api.cloudflare.com/client/v4";
 
 /** Token, or null when there is no .env / no token in it (absent source). */
 function token(): string | null {
-  const envPath = join(homedir(), ".claude/.env");
+  const envPath = join(homedir(), ".gemini/config/.env");
   if (!existsSync(envPath)) return null;
   const env = readFileSync(envPath, "utf8");
   const m = env.match(/^CLOUDFLARE_API_TOKEN=["']?([^"'\n]+)/m);

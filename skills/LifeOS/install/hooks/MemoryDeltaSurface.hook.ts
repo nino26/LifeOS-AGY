@@ -35,7 +35,7 @@ import { resolve as pathResolve, dirname } from "node:path";
 import { homedir } from "node:os";
 import { isSubagentContext as isSubagent } from './lib/subagent';
 
-const CLAUDE_ROOT = pathResolve(homedir(), ".claude");
+const CLAUDE_ROOT = pathResolve(homedir(), ".gemini/config");
 const WRITES_LOG = pathResolve(CLAUDE_ROOT, "LIFEOS/MEMORY/OBSERVABILITY/memory-writes.jsonl");
 const CURSOR = pathResolve(CLAUDE_ROOT, "LIFEOS/MEMORY/OBSERVABILITY/memory-delta-cursor.json");
 const HEALTH_LOG = pathResolve(CLAUDE_ROOT, "LIFEOS/MEMORY/OBSERVABILITY/memory-health.jsonl");

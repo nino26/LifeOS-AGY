@@ -40,12 +40,12 @@ async function refreshUsageCache(paiDir: string): Promise<void> {
         { encoding: 'utf-8', timeout: 3000 }
       ).trim();
     } else {
-      const credPath = join(homedir(), '.claude', '.credentials.json');
+      const credPath = join(homedir(), '.gemini/config', '.credentials.json');
       credJson = readFileSync(credPath, 'utf-8').trim();
     }
 
     const parsed = JSON.parse(credJson);
-    const token = parsed?.claudeAiOauth?.accessToken;
+    const token = parsed?.gemini/configAiOauth?.accessToken;
     if (!token) return;
 
     const resp = await fetch('https://api.anthropic.com/api/oauth/usage', {

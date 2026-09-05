@@ -18,7 +18,7 @@ import { homedir } from "node:os";
 import { getPrincipalName } from "../../hooks/lib/identity";
 
 const HOME = process.env.HOME ?? process.env.USERPROFILE ?? homedir();
-const KNOWLEDGE_DIR = join(HOME, ".claude/LIFEOS/MEMORY/KNOWLEDGE/Blogs");
+const KNOWLEDGE_DIR = join(HOME, ".gemini/config/LIFEOS/MEMORY/KNOWLEDGE/Blogs");
 const URL_FILE = "/tmp/tlp-urls.txt";
 const FAILED_FILE = "/tmp/tlp-failed.txt";
 const SUCCESS_FILE = "/tmp/tlp-success.txt";

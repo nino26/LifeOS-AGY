@@ -9,7 +9,7 @@ import { join } from "node:path";
 import { homedir } from "node:os";
 import type { AssetObs, CollectResult, Collector, EdgeObs } from "../Store";
 
-const INVENTORY = join(homedir(), ".claude/LIFEOS/USER/CUSTOMIZATIONS/ARBOL/Shared/infra-inventory.ts");
+const INVENTORY = join(homedir(), ".gemini/config/LIFEOS/USER/CUSTOMIZATIONS/ARBOL/Shared/infra-inventory.ts");
 
 export const infraInventory: Collector = {
   name: "infra-inventory",

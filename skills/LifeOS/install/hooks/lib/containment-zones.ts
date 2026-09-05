@@ -15,7 +15,7 @@
 // guard came back as SystemFileGuard with a tighter scope (writes only,
 // fail-safe-open, USER-zone no-op).
 //
-// Path patterns are matched relative to CLAUDE_ROOT (the .claude directory
+// Path patterns are matched relative to CLAUDE_ROOT (the .gemini/config directory
 // root, resolved from HOME). `**` means "anywhere under this prefix". A bare
 // path means "this exact file or directory (and anything inside it)".
 

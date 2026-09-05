@@ -32,7 +32,7 @@ export interface ToolCall {
 const HOME = homedir();
 
 export const TRUSTED_PREFIXES: readonly string[] = [
-  resolve(HOME, ".claude"),
+  resolve(HOME, ".gemini/config"),
   resolve(HOME, "Projects"),
   resolve(HOME, "LocalProjects"),
   resolve(HOME, "Downloads"),
@@ -603,7 +603,7 @@ export function classifyCommand(tc: ToolCall): Classification {
   if (tc.filePath) {
     // CREDENTIAL_PATHS was consulted only on the Bash branch above, so the
     // trusted-prefix allow below short-circuited it for file tools. Because
-    // ~/.claude IS a trusted prefix, `Edit`/`Write` on ~/Projects/LifeOS-AGY/.env
+    // ~/.gemini/config IS a trusted prefix, `Edit`/`Write` on ~/Projects/LifeOS-AGY/.env
     // auto-approved with no prompt, while the identical `cat ~/Projects/LifeOS-AGY/.env`
     // correctly deferred — the same guard, enforced on one path only. Standing
     // rule is to ask before modifying .env, so the credential check runs first

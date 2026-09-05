@@ -56,7 +56,7 @@ for (const k of ["LIFEOS_DIR", "LIFEOS_CONFIG_DIR", "PROJECTS_DIR"]) {
 // ============================================================================
 
 const HOME = process.env.HOME ?? process.env.USERPROFILE ?? homedir();
-const LIFEOS_DIR = process.env.LIFEOS_DIR || path.join(HOME, ".claude", "LIFEOS");
+const LIFEOS_DIR = process.env.LIFEOS_DIR || path.join(HOME, ".gemini/config", "LIFEOS");
 const KNOWLEDGE_DIR = path.join(LIFEOS_DIR, "MEMORY", "KNOWLEDGE");
 const DOMAINS = ["People", "Companies", "Ideas", "Research"];
 
@@ -574,8 +574,8 @@ function formatResults(
 // dual-tier prefetch, no graph traversal on hot path).
 
 const MEMORY_FILES: ReadonlyArray<{ path: string; title: string }> = [
-  { path: path.join(HOME, ".claude", "LIFEOS", "USER", "PRINCIPAL", "PRINCIPAL_MEMORY.md"), title: "Principal Memory" },
-  { path: path.join(HOME, ".claude", "LIFEOS", "USER", "DIGITAL_ASSISTANT", "DA_MEMORY.md"), title: "DA Memory" },
+  { path: path.join(HOME, ".gemini/config", "LIFEOS", "USER", "PRINCIPAL", "PRINCIPAL_MEMORY.md"), title: "Principal Memory" },
+  { path: path.join(HOME, ".gemini/config", "LIFEOS", "USER", "DIGITAL_ASSISTANT", "DA_MEMORY.md"), title: "DA Memory" },
 ];
 
 const RELEVANT_CACHE_TTL_MS = 60_000;
@@ -758,7 +758,7 @@ function formatRelevantBlock(results: RelevantResultItem[]): string {
   if (results.length === 0) return "";
   const lines: string[] = ["## RELEVANT MEMORY"];
   for (const r of results) {
-    const shortPath = r.path.replace(HOME + "/.claude/", "");
+    const shortPath = r.path.replace(HOME + "/.gemini/config/", "");
     lines.push("");
     // A learning hit is labelled by class rather than by its (usually absent)
     // frontmatter type, so the injected block reads as a historical record

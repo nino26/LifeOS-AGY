@@ -41,7 +41,7 @@
  * permissions.allow forever. public issue #1722, @xmasyx
  *
  * Usage:
- *   bun SettingsBackport.ts            # default ~/.claude paths
+ *   bun SettingsBackport.ts            # default ~/.gemini/config paths
  *   bun SettingsBackport.ts --dry-run  # report drift, write nothing
  */
 
@@ -51,7 +51,7 @@ import os from "node:os";
 import { mergeSettings, deepEqual, parseJsonFileOrThrow, MERGE_SNAPSHOT_PATH } from "./MergeSettings";
 import { atomicWriteText } from "../PULSE/lib/atomic-write";
 
-const CLAUDE_DIR = path.join(os.homedir(), ".claude");
+const CLAUDE_DIR = path.join(os.homedir(), ".gemini/config");
 const SYSTEM_PATH = path.join(CLAUDE_DIR, "settings.system.json");
 const USER_PATH = path.join(CLAUDE_DIR, "LIFEOS", "USER", "CONFIG", "settings.user.json");
 const GENERATED_PATH = path.join(CLAUDE_DIR, "settings.json");

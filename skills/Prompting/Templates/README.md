@@ -164,7 +164,7 @@ bun run ~/Projects/LifeOS-AGY/.agents/skills/Prompting/Tools/RenderTemplate.ts \
 If anything breaks, rollback to v2.5.0:
 
 ```bash
-cd ~/.claude
+cd ~/.gemini/config
 git checkout v2.5.0
 # Or to just undo templating:
 rm -rf Templates/

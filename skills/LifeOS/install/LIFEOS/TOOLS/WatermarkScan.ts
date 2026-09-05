@@ -18,7 +18,7 @@ for (const __k of ["LIFEOS_DIR", "LIFEOS_CONFIG_DIR", "PROJECTS_DIR"]) {
  * sampling-time statistical watermarks — Kirchenbauer green-list (arXiv:2301.10226),
  * Aaronson/Gumbel distortion-free (arXiv:2307.15593), Google SynthID-Text
  * (Nature s41586-024-08025-4), and Anthropic's announced in-text watermark
- * (support.claude.com/en/articles/16266773, sampling-pipeline per an informal
+ * (support.gemini/config.com/en/articles/16266773, sampling-pipeline per an informal
  * Anthropic-engineer statement). All are key-gated for single-text detection;
  * the output is provably indistinguishable from unwatermarked text without the
  * secret key/seed. No file-scanning tool can read them. See --explain.
@@ -174,7 +174,7 @@ NOT DETECTABLE from text alone, BY DESIGN (this tool says so and stops):
   • Kirchenbauer green-list/red-list  — arXiv:2301.10226 (z-test needs the hash key)
   • Aaronson / Gumbel distortion-free — arXiv:2307.15593 (marginal distribution unchanged)
   • Google SynthID-Text             — Nature s41586-024-08025-4 (code open, detection key-gated)
-  • Anthropic's in-text watermark    — support.claude.com/en/articles/16266773
+  • Anthropic's in-text watermark    — support.gemini/config.com/en/articles/16266773
         (mechanism undisclosed; an informal Anthropic-engineer statement describes a
          sampling-pipeline scheme referencing SynthID. A detection API is "coming" from
          Anthropic; until it ships, nothing detects this from text — with or without a key.)

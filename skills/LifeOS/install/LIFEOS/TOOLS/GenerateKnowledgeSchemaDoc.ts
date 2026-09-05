@@ -21,7 +21,7 @@ import {
   RELATION_VOCAB, SOURCE_KINDS, STATUS_VALUES, SCHEMA_VERSION,
 } from "./KnowledgeSchema";
 
-const OUT = pathResolve(homedir(), ".claude/LIFEOS/MEMORY/KNOWLEDGE/_schema.md");
+const OUT = pathResolve(homedir(), ".gemini/config/LIFEOS/MEMORY/KNOWLEDGE/_schema.md");
 
 /** Absolute path of the generated doc — importers compare against it. */
 export const SCHEMA_DOC_PATH = OUT;

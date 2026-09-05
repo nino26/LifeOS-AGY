@@ -22,7 +22,7 @@ import { dirname, resolve } from 'node:path';
 import { homedir } from 'node:os';
 import { isSubagentContext as isSubagent } from './lib/subagent';
 
-const CLAUDE_ROOT = resolve(homedir(), '.claude');
+const CLAUDE_ROOT = resolve(homedir(), '.gemini/config');
 const RUNNER = resolve(CLAUDE_ROOT, 'LIFEOS/TOOLS/ConfigEvalOnChange.ts');
 const STATE = resolve(CLAUDE_ROOT, 'LIFEOS/MEMORY/OBSERVABILITY/config-eval-state.json');
 const DEBOUNCE_MINUTES = 5;

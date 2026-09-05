@@ -34,13 +34,13 @@ const IS_LINUX = process.platform === "linux";
 const IS_MACOS = process.platform === "darwin";
 
 // darwin (launchd)
-const TEMPLATE_PATH = join(HOME, ".claude", "LIFEOS", "ATLAS", "com.lifeos.atlas.plist.template");
+const TEMPLATE_PATH = join(HOME, ".gemini/config", "LIFEOS", "ATLAS", "com.lifeos.atlas.plist.template");
 const LAUNCH_AGENTS_DIR = join(HOME, "Library", "LaunchAgents");
 const TARGET_PLIST = join(LAUNCH_AGENTS_DIR, `${LABEL}.plist`);
 
 // linux (systemd --user)
-const SERVICE_TEMPLATE_PATH = join(HOME, ".claude", "LIFEOS", "ATLAS", "com.lifeos.atlas.service.template");
-const TIMER_TEMPLATE_PATH = join(HOME, ".claude", "LIFEOS", "ATLAS", "com.lifeos.atlas.timer.template");
+const SERVICE_TEMPLATE_PATH = join(HOME, ".gemini/config", "LIFEOS", "ATLAS", "com.lifeos.atlas.service.template");
+const TIMER_TEMPLATE_PATH = join(HOME, ".gemini/config", "LIFEOS", "ATLAS", "com.lifeos.atlas.timer.template");
 const SYSTEMD_USER_DIR = join(HOME, ".config", "systemd", "user");
 const TARGET_SERVICE = join(SYSTEMD_USER_DIR, `${LABEL}.service`);
 const TARGET_TIMER = join(SYSTEMD_USER_DIR, `${LABEL}.timer`);

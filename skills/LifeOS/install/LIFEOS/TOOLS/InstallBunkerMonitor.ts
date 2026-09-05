@@ -24,9 +24,9 @@ import { homedir } from "node:os";
 declare const Bun: { spawn: (cmd: string[], opts?: any) => any };
 
 const HOME = process.env.HOME ?? process.env.USERPROFILE ?? homedir();
-const BUNKER_DIR = process.env.BUNKER_DIR || join(HOME, ".claude", "LIFEOS", "PULSE", "Bunker");
+const BUNKER_DIR = process.env.BUNKER_DIR || join(HOME, ".gemini/config", "LIFEOS", "PULSE", "Bunker");
 const BUNKER_DATA_DIR = join(HOME, ".config", "LIFEOS", "USER", "PULSE", "Bunker");
-const TEMPLATE_PATH = join(HOME, ".claude", "LIFEOS", "TOOLS", "com.lifeos.bunkermonitor.plist.template");
+const TEMPLATE_PATH = join(HOME, ".gemini/config", "LIFEOS", "TOOLS", "com.lifeos.bunkermonitor.plist.template");
 const LAUNCH_AGENTS_DIR = join(HOME, "Library", "LaunchAgents");
 const TARGET_PLIST = join(LAUNCH_AGENTS_DIR, "com.lifeos.bunkermonitor.plist");
 const LABEL = "com.lifeos.bunkermonitor";

@@ -17,7 +17,7 @@ import { existsSync, readFileSync } from "node:fs";
 import { homedir } from "node:os";
 import { join } from "node:path";
 
-const HOME = process.env.CLAUDE_CONFIG_DIR || join(homedir(), ".claude");
+const HOME = process.env.CLAUDE_CONFIG_DIR || join(homedir(), ".gemini/config");
 const LIFEOS_DIR = join(HOME, "LIFEOS");
 const SYSTEMUPDATES = join(LIFEOS_DIR, "MEMORY", "SYSTEMUPDATES");
 const STATE_DIR = join(LIFEOS_DIR, "MEMORY", "STATE");

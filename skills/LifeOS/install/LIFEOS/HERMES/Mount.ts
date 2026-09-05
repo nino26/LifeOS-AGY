@@ -89,7 +89,7 @@ function setSkillsExternalDirs(yaml: string, dirs: string[]): { yaml: string; ch
  * The deny list is RECONCILED, not merely seeded. Skipping whenever an `approvals:` block
  * already existed meant an installed sidecar could never be corrected: the first mount wrote
  * the list, anything later edited it, and every re-run — including `--check` — reported the
- * install clean. That is how `*.claude*` survived in a live config while this file was the
+ * install clean. That is how `*.gemini/config*` survived in a live config while this file was the
  * stated source of truth. Only the deny list is claimed; mode, timeout, and cron_mode stay
  * whatever the operator set.
  */

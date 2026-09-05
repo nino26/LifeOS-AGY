@@ -44,7 +44,7 @@
   ],
   "cut_preconditions": [
     "LifeOS sensor loop (R3-R7) demonstrably running — rename lands as formality, not migration",
-    "In-flight forks reconciled or closed: .claude-fable v7, skill-only shadow release (release root = LifeOS/ skill only, no full .claude/ clone and no root install.sh; installer is LifeOS/install/install.sh; delivery target = v6.0.0, NOT a 6->7 bump), staged 5.0.0/5.1.0 shadow releases",
+    "In-flight forks reconciled or closed: .gemini/config-fable v7, skill-only shadow release (release root = LifeOS/ skill only, no full .gemini/config/ clone and no root install.sh; installer is LifeOS/install/install.sh; delivery target = v6.0.0, NOT a 6->7 bump), staged 5.0.0/5.1.0 shadow releases",
     "All scrub gates (ShadowRelease G1-G14, sync-docs rules, DenyListCheck) updated to read THIS map programmatically",
     "Staging rehearsal via CLAUDE_CONFIG_DIR clone before touching the live tree",
     "Two-repo sync + symlink chain verified green after every stage",
@@ -52,7 +52,7 @@
   ],
   "forbidden": [
     "grep-and-sed 'LifeOS' globally (strata-blind)",
-    "renaming ~/.claude itself (it does not move)",
+    "renaming ~/.gemini/config itself (it does not move)",
     "creating any new public repo named LifeOS after the rename (would break the redirect)",
     "hand-editing generated artifacts (ARCHITECTURE_SUMMARY.md, PRINCIPAL_TELOS.md, LIFEOS_STATE.json)"
   ]

@@ -11,7 +11,7 @@
  *   lifeos -m bd       Launch with Bright Data MCP
  *   lifeos -m bd,ap    Launch with multiple MCPs
  *   lifeos -r / --resume  Resume a session (picker, or pass a session ID)
- *   lifeos --local     Stay in current directory (don't cd to ~/.claude)
+ *   lifeos --local     Stay in current directory (don't cd to ~/.gemini/config)
  *   lifeos -- <flags...>  Forward everything after -- verbatim to `claude`
  *   lifeos update      Update Antigravity CLI
  *   lifeos version     Show version info
@@ -30,10 +30,10 @@ import { PULSE_BASE } from "../PULSE/endpoint";
 // Configuration
 // ============================================================================
 
-const CLAUDE_DIR = join(homedir(), ".claude");
+const CLAUDE_DIR = join(homedir(), ".gemini/config");
 const MCP_DIR = join(CLAUDE_DIR, "MCPs");
 const ACTIVE_MCP = join(CLAUDE_DIR, ".mcp.json");
-const BANNER_SCRIPT = join(homedir(), ".claude", "LIFEOS", "TOOLS", "Banner.ts");
+const BANNER_SCRIPT = join(homedir(), ".gemini/config", "LIFEOS", "TOOLS", "Banner.ts");
 const VOICE_SERVER = `${PULSE_BASE}/notify/personality`;
 const WALLPAPER_DIR = join(homedir(), "Projects", "Wallpaper");
 // Note: RAW archiving removed - Antigravity CLI handles its own cleanup (30-day retention in projects/)
@@ -74,7 +74,7 @@ function log(message: string, emoji = "") {
 
 
 // True when the current directory is a git repo's MAIN checkout (not a linked
-// worktree) AND the repo uses the .claude/worktrees convention. The main
+// worktree) AND the repo uses the .gemini/config/worktrees convention. The main
 // checkout has --git-dir == --git-common-dir; a linked worktree's --git-dir
 // points into .git/worktrees/<name>, so they differ. Fail-open: anything
 // unexpected returns false and the launch proceeds (public PR #1579,
@@ -91,10 +91,10 @@ export function inMainCheckoutWithWorktrees(): boolean {
     const top = spawnSync(["git", "rev-parse", "--show-toplevel"]).stdout.toString().trim();
     if (top.length === 0) return false;
     // "In use" means the dir actually CONTAINS worktrees. The harness creates
-    // an empty .claude/worktrees as a side effect of one-off agent isolation;
+    // an empty .gemini/config/worktrees as a side effect of one-off agent isolation;
     // an empty dir must not lock --local out of the main checkout (caught
     // live on this install while porting).
-    const wtDir = join(top, ".claude", "worktrees");
+    const wtDir = join(top, ".gemini/config", "worktrees");
     return existsSync(wtDir) && readdirSync(wtDir).length > 0;
   } catch {
     return false;
@@ -203,7 +203,7 @@ function displayBanner() {
 // The launcher wraps the Antigravity CLI CLI. On machines without it (e.g. an
 // OpenCode-driven install, #1448) fail with directions, not a bare ENOENT.
 function requireClaudeCli() {
-  if (Bun.which("claude")) return;
+  if (Bun.which("agy")) return;
   console.error("❌ Antigravity CLI CLI not found on PATH — `lifeos` wraps the `claude` binary.");
   console.error("   Either install Antigravity CLI (https://claude.com/claude-code), or launch your");
   console.error("   own harness with its system-prompt flag pointed at LIFEOS/LIFEOS_SYSTEM_PROMPT.md");
@@ -212,7 +212,7 @@ function requireClaudeCli() {
 }
 
 function getCurrentVersion(): string | null {
-  if (!Bun.which("claude")) return null;
+  if (!Bun.which("agy")) return null;
   const result = spawnSync(["claude", "--version"]);
   const output = result.stdout.toString();
   const match = output.match(/([0-9]+\.[0-9]+\.[0-9]+)/);
@@ -526,7 +526,7 @@ async function cmdLaunch(options: { mcp?: string; resume?: boolean; resumeId?: s
 
   // Guard (public PR #1579, @asdf8675309): --local launches Claude in the
   // CURRENT directory. If that's a repo's main checkout (not a worktree) and
-  // the repo uses .claude/worktrees, the whole session would run on whatever
+  // the repo uses .gemini/config/worktrees, the whole session would run on whatever
   // stale branch the root is parked on. Refuse unless explicitly overridden.
   if (options.local && process.env.LIFEOS_ALLOW_ROOT !== "1" && inMainCheckoutWithWorktrees()) {
     error(
@@ -730,7 +730,7 @@ USAGE:
   lifeos -m bd,ap          Launch with multiple MCPs
   lifeos -r, --resume [id]  Resume a session (interactive picker, or a specific session ID)
   lifeos -s, --system-prompt  System prompt file to append (default: LIFEOS_SYSTEM_PROMPT.md)
-  lifeos -l, --local       Stay in current directory (don't cd to ~/.claude)
+  lifeos -l, --local       Stay in current directory (don't cd to ~/.gemini/config)
   lifeos -- <flags...>     Forward everything after -- straight to \`claude\`
 
 COMMANDS:

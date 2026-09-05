@@ -43,7 +43,7 @@ import { createHash, randomBytes } from 'crypto';
 import { homedir } from "node:os";
 
 const HOME = process.env.HOME ?? process.env.USERPROFILE ?? homedir();
-const CONFIG_ROOT = process.env.CLAUDE_CONFIG_DIR || join(HOME, '.claude');
+const CONFIG_ROOT = process.env.CLAUDE_CONFIG_DIR || join(HOME, '.gemini/config');
 const LIFEOS_DIR = (process.env.LIFEOS_DIR || join(CONFIG_ROOT, 'LIFEOS'))
   .replace(/^\$HOME/, HOME).replace(/^~(?=\/)/, HOME);
 const STATE_DIR = join(LIFEOS_DIR, 'MEMORY', 'STATE');
@@ -137,7 +137,7 @@ function envKey(name: string): string | null {
 
 // ── shadow-$HOME trees (public issue #1485, @vanvonlj; class: #1404/#1451) ───
 // Pre-#1451 installs interpolated the literal string "$HOME" into paths, so
-// every project directory a session ran in grew a `$HOME/.claude/LIFEOS/MEMORY`
+// every project directory a session ran in grew a `$HOME/.gemini/config/LIFEOS/MEMORY`
 // shadow tree. #1451 stopped NEW ones; the accumulated ones persist after
 // upgrade, holding real ratings/learning/observability data that is valid,
 // complete, and invisible to MemoryRetriever. Nothing else ever notices.
@@ -173,7 +173,7 @@ function* walkFiles(dir: string, prefix = ''): Generator<string> {
 function countShadowMemoryFiles(shadows: string[]): number {
   let n = 0;
   for (const s of shadows) {
-    const mem = join(s, '.claude', 'LIFEOS', 'MEMORY');
+    const mem = join(s, '.gemini/config', 'LIFEOS', 'MEMORY');
     if (!existsSync(mem)) continue;
     for (const rel of walkFiles(mem)) if (!isDisposable(rel)) n++;
   }
@@ -211,7 +211,7 @@ async function reclaimShadows(): Promise<void> {
   const { renameSync, cpSync } = await import('fs');
   for (let i = 0; i < shadows.length; i++) {
     const shadow = shadows[i];
-    const mem = join(shadow, '.claude', 'LIFEOS', 'MEMORY');
+    const mem = join(shadow, '.gemini/config', 'LIFEOS', 'MEMORY');
     if (existsSync(mem)) {
       for (const rel of walkFiles(mem)) {
         if (isDisposable(rel)) { skippedDisposable++; continue; }

@@ -22,7 +22,7 @@ import { homedir } from "node:os";
 import { join } from "node:path";
 
 const MODULE_NAME = "synapse";
-const HOME = process.env.CLAUDE_CONFIG_DIR || join(homedir(), ".claude");
+const HOME = process.env.CLAUDE_CONFIG_DIR || join(homedir(), ".gemini/config");
 const KNOWLEDGE_DIR = join(HOME, "LIFEOS", "MEMORY", "KNOWLEDGE");
 const X_STATE_DIR = join(HOME, "skills", "_X", "State");
 const ENV_PATH = join(HOME, ".env");

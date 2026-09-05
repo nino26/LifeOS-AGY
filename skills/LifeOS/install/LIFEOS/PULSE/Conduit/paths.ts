@@ -9,8 +9,8 @@
 import { homedir } from "node:os";
 import { join } from "node:path";
 
-/** LifeOS install root — honors CLAUDE_CONFIG_DIR, else ~/.claude. */
-export const CLAUDE_ROOT = process.env.CLAUDE_CONFIG_DIR || join(homedir(), ".claude");
+/** LifeOS install root — honors CLAUDE_CONFIG_DIR, else ~/.gemini/config. */
+export const CLAUDE_ROOT = process.env.CLAUDE_CONFIG_DIR || join(homedir(), ".gemini/config");
 
 /** All Conduit data lives here, under USER. Nothing Conduit writes escapes this dir. */
 export const DATA_ROOT = join(CLAUDE_ROOT, "LIFEOS", "USER", "CONDUIT");

@@ -40,7 +40,7 @@ function main(): void {
     return i >= 0 && a[i + 1] && !a[i + 1].startsWith("--") ? a[i + 1] : undefined;
   };
   const home = process.env.HOME || homedir(); // public issue #1729, @umair-a11y
-  const configRoot = get("--config-root") || process.env.CLAUDE_CONFIG_DIR || join(home, ".claude");
+  const configRoot = get("--config-root") || process.env.CLAUDE_CONFIG_DIR || join(home, ".gemini/config");
   const configDir = get("--config-dir") || process.env.LIFEOS_CONFIG_DIR || join(home, ".config", "LIFEOS");
   const apply = a.includes("--apply");
   const allowDev = a.includes("--allow-dev");
@@ -77,7 +77,7 @@ function main(): void {
           // GenerateTelosSummary resolves its TELOS dir via LifeosConfig.paiUserDir(),
           // which reads LIFEOS_CONFIG_PATH (NOT LIFEOS_DIR). UpdateLifeosState resolves via
           // LIFEOS_DIR. Pass BOTH so both generators target the same install root —
-          // otherwise a non-default config root mis-targets ~/.claude.
+          // otherwise a non-default config root mis-targets ~/.gemini/config.
           LIFEOS_CONFIG_PATH: join(configRoot, "LIFEOS", "USER", "CONFIG", "LIFEOS_CONFIG.toml"),
         },
         timeout: 60000,

@@ -5,7 +5,7 @@
  *
  * PURPOSE:
  * The Write tool creates files mode 0644. A hook registered in settings as a
- * direct-exec command ("$HOME/.claude/hooks/X.hook.ts") then fails every
+ * direct-exec command ("$HOME/.gemini/config/hooks/X.hook.ts") then fails every
  * invocation with "/bin/sh: Permission denied" until someone notices.
  * This hook detects and repairs that class automatically.
  *
@@ -15,11 +15,11 @@
  *              must exist and be executable. Missing exec bit -> chmod +x.
  *              Missing file / missing shebang -> surfaced warning only.
  * - --posttool PostToolUse(Write|Edit) ingestion guard: a written file under
- *              ~/.claude whose content starts with "#!" gets its exec bit
+ *              ~/.gemini/config whose content starts with "#!" gets its exec bit
  *              immediately - heals at the ingestion point.
  *
  * SAFETY:
- * - chmod containment: only ever touches paths under ~/.claude
+ * - chmod containment: only ever touches paths under ~/.gemini/config
  * - non-blocking: exits 0 on every path, including internal errors
  * - registered via "bun <path>" so it is immune to losing its own exec bit
  *
@@ -37,7 +37,7 @@ import {
 import { join } from 'path';
 import { homedir } from 'os';
 
-const CLAUDE_DIR = join(homedir(), '.claude');
+const CLAUDE_DIR = join(homedir(), '.gemini/config');
 const OBS_DIR = join(CLAUDE_DIR, 'LIFEOS', 'MEMORY', 'OBSERVABILITY');
 const LOG_FILE = join(OBS_DIR, 'hook-healer.jsonl');
 const SETTINGS_FILES = ['settings.json', 'settings.local.json'];
@@ -67,7 +67,7 @@ function hasShebang(p: string): boolean {
 
 /**
  * chmod +x with containment: only paths whose RESOLVED target lives under
- * ~/.claude (chmod follows symlinks — a link inside pointing outside must
+ * ~/.gemini/config (chmod follows symlinks — a link inside pointing outside must
  * never be healed), only when needed.
  */
 type HealResult = 'healed' | 'noop' | 'refused' | 'failed';
@@ -150,7 +150,7 @@ function sweep(): void {
     if (result === 'healed') healed.push(p);
     // Surface refusals and failures — a registered hook that stays dead is
     // "needs attention", never silence (public issue #1796, @bnkath2o).
-    else if (result === 'refused') warnings.push(`not executable, heal refused (resolves outside ~/.claude — chmod it yourself): ${p}`);
+    else if (result === 'refused') warnings.push(`not executable, heal refused (resolves outside ~/.gemini/config — chmod it yourself): ${p}`);
     else if (result === 'failed') warnings.push(`heal failed (see hook-healer.jsonl): ${p}`);
   }
   if (healed.length > 0 || warnings.length > 0) {
@@ -188,7 +188,7 @@ async function posttool(): Promise<void> {
     if (heal(fp, 'posttool') === 'refused') {
       // posttool runs headless; stderr is the only operator-visible channel
       // (public issue #1796, @bnkath2o).
-      console.error(`[HookHealer] refused to heal ${fp} — resolves outside ~/.claude; chmod it yourself if intended`);
+      console.error(`[HookHealer] refused to heal ${fp} — resolves outside ~/.gemini/config; chmod it yourself if intended`);
     }
   }
 }

@@ -30,7 +30,7 @@ import { resolve, join } from "node:path";
 import { classifyTarget, loadPatterns, scanForFirstHit } from "./lib/system-file-guard-core";
 
 const HOME = process.env.HOME ?? homedir();
-const CLAUDE_ROOT = join(HOME, ".claude");
+const CLAUDE_ROOT = join(HOME, ".gemini/config");
 
 interface HookInput {
   tool_input?: { command?: unknown };
@@ -49,8 +49,8 @@ const TARGET_RES: RegExp[] = [
 ];
 
 /** Resolve a candidate token to an absolute path when it plausibly names a file
- *  inside ~/.claude. Relative candidates resolve against a `cd <dir>` earlier in
- *  the same command when present, else against ~/.claude only when they look
+ *  inside ~/.gemini/config. Relative candidates resolve against a `cd <dir>` earlier in
+ *  the same command when present, else against ~/.gemini/config only when they look
  *  tree-relative (hooks/, LIFEOS/, skills/ …). */
 export function resolveCandidate(token: string, cmd: string): string | null {
   let t = token.replace(/^["']|["']$/g, "");

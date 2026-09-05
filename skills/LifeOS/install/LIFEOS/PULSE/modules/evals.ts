@@ -20,7 +20,7 @@ import { join } from "path";
 import { homedir } from "node:os";
 
 const HOME = process.env.HOME ?? process.env.USERPROFILE ?? homedir();
-const LIFEOS_DIR = process.env.LIFEOS_DIR || join(HOME, ".claude", "LIFEOS");
+const LIFEOS_DIR = process.env.LIFEOS_DIR || join(HOME, ".gemini/config", "LIFEOS");
 const RESULTS_DIR = join(LIFEOS_DIR, "MEMORY", "STATE", "Evals-Results");
 
 interface SuiteStatus {

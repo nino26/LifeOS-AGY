@@ -27,7 +27,7 @@ import { readFileSync, existsSync, readdirSync, statSync } from "node:fs";
 import { join, relative } from "node:path";
 import { homedir } from "node:os";
 
-const ROOT = join(homedir(), ".claude");
+const ROOT = join(homedir(), ".gemini/config");
 const DEFAULT_SCAN = ["hooks", "LIFEOS/TOOLS", "LIFEOS/ATLAS", "LIFEOS/PULSE/modules", "skills"];
 
 const SKIP_DIRS = new Set(["node_modules", ".git", "Plugins", "LIFEOS_RELEASES", "archive", "dist", "build", "MEMORY"]);

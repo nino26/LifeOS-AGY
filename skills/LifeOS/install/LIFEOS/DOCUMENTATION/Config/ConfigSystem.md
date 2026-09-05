@@ -76,11 +76,11 @@ LifeOS configuration follows the **system/user separation** contract (`LIFEOS/DO
 ## Two-repo sync
 
 The two trees are physically separate git repos:
-- `~/Projects/LifeOS-AGY/` → `<your-username>/.claude` (PRIVATE GitHub)
+- `~/Projects/LifeOS-AGY/` → `<your-username>/.gemini/config` (PRIVATE GitHub)
 - `~/.config/LIFEOS/USER/` → `<your-username>/<your-user-data-repo>` (PRIVATE GitHub)
 
-The two repos (`~/.claude` and the `~/.config/LIFEOS/USER` data repo) are committed, pushed, and version-tagged together by the release skill's UpdateKaiRepo workflow — there is **no** pre-push auto-sync git hook (a stale claim corrected 2026-07-04). A "push both repos" invocation wraps the two-repo push with four boundary gates:
-1. USER-zone leak check on pending `~/.claude` changes
+The two repos (`~/.gemini/config` and the `~/.config/LIFEOS/USER` data repo) are committed, pushed, and version-tagged together by the release skill's UpdateKaiRepo workflow — there is **no** pre-push auto-sync git hook (a stale claim corrected 2026-07-04). A "push both repos" invocation wraps the two-repo push with four boundary gates:
+1. USER-zone leak check on pending `~/.gemini/config` changes
 2. `DenyListCheck.ts` must return 0 real-leaks
 3. Both remotes confirmed private via `gh api`
 4. Post-push HEAD verification on both repos
@@ -89,7 +89,7 @@ The two repos (`~/.claude` and the `~/.config/LIFEOS/USER` data repo) are commit
 
 ## Public releases
 
-The Shadow Release system (the release skill's `ShadowRelease` tool) produces public staging at `~/Projects/LifeOS-AGY/LIFEOS/LIFEOS_RELEASES/{VERSION}/.claude/` via **containment** — clone the live tree, delete sensitive zones (USER, MEMORY, private underscore-prefixed skills), overlay fixed public templates from the release skill's `RELEASE_TEMPLATES/` (including `CLAUDE.public.md` + `settings.public.json`), run 23 gates (G1–G14 + G17 case-portability, G18 offensive-leak, G19 retired-capability leak, G20 root-runtime-state, G21 run-state leak, G22 staged-reference validation over the scrubbed payload, G23 placeholder-leak scan of shipped code, G24 foreign-data scan (absolute-path mirrors + personal-transcript signatures) <!-- public issue #1590, @anikinsasha -->; G1–G14: zone deletion, identity grep, CF ID grep, trufflehog, .env strays, private tokens, ref integrity, private-skill refs, username-path leak, staging boot, dashboard leak, template-only USER/MEMORY, hidden-file leakage, critical-artifact presence). Write `.shadow-state.json` report. `EmitSkill.ts` then reshapes this `.claude/` staging into the shippable `{VERSION}/LifeOS/` skill (and drops the staging clone) — the published distribution unit is that one self-contained skill, not the `.claude/` tree. Staging is isolated from `~/Projects/LIFEOS/`; public publish is a separate explicit step.
+The Shadow Release system (the release skill's `ShadowRelease` tool) produces public staging at `~/Projects/LifeOS-AGY/LIFEOS/LIFEOS_RELEASES/{VERSION}/.gemini/config/` via **containment** — clone the live tree, delete sensitive zones (USER, MEMORY, private underscore-prefixed skills), overlay fixed public templates from the release skill's `RELEASE_TEMPLATES/` (including `CLAUDE.public.md` + `settings.public.json`), run 23 gates (G1–G14 + G17 case-portability, G18 offensive-leak, G19 retired-capability leak, G20 root-runtime-state, G21 run-state leak, G22 staged-reference validation over the scrubbed payload, G23 placeholder-leak scan of shipped code, G24 foreign-data scan (absolute-path mirrors + personal-transcript signatures) <!-- public issue #1590, @anikinsasha -->; G1–G14: zone deletion, identity grep, CF ID grep, trufflehog, .env strays, private tokens, ref integrity, private-skill refs, username-path leak, staging boot, dashboard leak, template-only USER/MEMORY, hidden-file leakage, critical-artifact presence). Write `.shadow-state.json` report. `EmitSkill.ts` then reshapes this `.gemini/config/` staging into the shippable `{VERSION}/LifeOS/` skill (and drops the staging clone) — the published distribution unit is that one self-contained skill, not the `.gemini/config/` tree. Staging is isolated from `~/Projects/LIFEOS/`; public publish is a separate explicit step.
 
 The release skill's workflows:
 - **ReviewContainmentZones** — reconcile zone module against live tree (mandatory before any release build).

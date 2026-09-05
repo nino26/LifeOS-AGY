@@ -9,7 +9,7 @@ export interface TelosFile {
   type: 'markdown' | 'csv'
 }
 
-const TELOS_DIR = path.join(os.homedir(), '.claude/LIFEOS/USER/TELOS')
+const TELOS_DIR = path.join(os.homedir(), '.gemini/config/LIFEOS/USER/TELOS')
 
 export function getAllTelosData(): TelosFile[] {
   const files: TelosFile[] = []

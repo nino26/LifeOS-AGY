@@ -14,7 +14,7 @@ import { parse as parseYaml } from "yaml";
 import { homedir } from "node:os";
 
 const HOME = process.env.HOME ?? process.env.USERPROFILE ?? homedir();
-const CLAUDE_DIR = join(HOME, ".claude");
+const CLAUDE_DIR = join(HOME, ".gemini/config");
 
 // ═══════════════════════════════════════════════════════════════════════════
 // Terminal Width Detection

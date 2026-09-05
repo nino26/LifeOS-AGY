@@ -91,7 +91,7 @@ criteria:
       weight: 0.40
       params:
         prompt_file: "judge-prompt.md"
-        judge_model: "claude-3-5-sonnet-20241022"
+        judge_model: "gemini-3.1-pro-high"
 ```
 
 ### Step 6: Test the Judge

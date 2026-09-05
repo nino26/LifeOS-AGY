@@ -57,7 +57,7 @@ import { dirname, join } from "path";
 import { createHash } from "crypto";
 import { homedir } from "node:os";
 
-const LIFEOS = process.env.LIFEOS_DIR || join(homedir(), ".claude", "LIFEOS");
+const LIFEOS = process.env.LIFEOS_DIR || join(homedir(), ".gemini/config", "LIFEOS");
 const OBS_PATH = join(LIFEOS, "MEMORY", "OBSERVABILITY", "verification-gate.jsonl");
 const STATE_PATH = join(LIFEOS, "MEMORY", "STATE", "verification-gate-blocked.json");
 
@@ -165,7 +165,7 @@ const T5_SURFACE = /\b(public\s+repo|public\s+repository|github|the\s+public|doc
 const T5_PREDICATE = /\b(is|are|'s|was|were|now|already)\s+(public|live|released|shipped|published|out)\b/i;
 // Local/staged nouns in the unit ⇒ it's a private-tree statement, not a publicity
 // claim. "The payload is staged" and "local is ahead of origin" must never block.
-const T5_LOCAL = /\b(local(ly)?|staged?|staging|payload|private\s+repo|~\/\.claude|LIFEOS_RELEASES|candidate|shadow\s+release)\b/i;
+const T5_LOCAL = /\b(local(ly)?|staged?|staging|payload|private\s+repo|~\/\.gemini/config|LIFEOS_RELEASES|candidate|shadow\s+release)\b/i;
 
 export type ClaimType = "T1" | "T2" | "T3" | "T4" | "T5" | null;
 

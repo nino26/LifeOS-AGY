@@ -192,9 +192,9 @@ success "bun ($(command -v bun), v$(bun --version 2>/dev/null))"
 # ─── Step 2: Detect harness (no clobber) ─────────────────────────
 step "2/6  Detecting your harness"
 if [ -z "$LIFEOS_SKILLS_DIR" ]; then
-  if [ -d "$HOME/.claude" ]; then LIFEOS_SKILLS_DIR="$HOME/.claude/skills"
+  if [ -d "$HOME/.gemini/config" ]; then LIFEOS_SKILLS_DIR="$HOME/.gemini/config/skills"
   elif [ -d "$HOME/.config/claude" ]; then LIFEOS_SKILLS_DIR="$HOME/.config/claude/skills"
-  else LIFEOS_SKILLS_DIR="$HOME/.claude/skills"; fi
+  else LIFEOS_SKILLS_DIR="$HOME/.gemini/config/skills"; fi
 fi
 info "Skills dir: ${BOLD}${LIFEOS_SKILLS_DIR/#$HOME/~}${RESET}"
 TARGET="$LIFEOS_SKILLS_DIR/LifeOS"
@@ -374,7 +374,7 @@ done
 [ "$CAPTURE_RULES_ADDED" = "1" ] && success "Backup-safety gitignore rules for Interceptor captures in place"
 
 # ─── Step 5: Migrate stale pre-7.x launch aliases (upgrade path) ──
-# Pre-7.x installs wired a `pai` launch alias — either `cd ~/.claude && claude`
+# Pre-7.x installs wired a `pai` launch alias — either `cd ~/.gemini/config && claude`
 # or `bun ~/Projects/LifeOS-AGY/PAI/ACTIONS/pai.ts`. 7.x renamed PAI/ → LIFEOS/ and made the
 # launch constitutional (`lifeos.ts -s LIFEOS_SYSTEM_PROMPT.md`), so an old alias
 # either dies on the missing PAI/ path or silently launches WITHOUT the

@@ -15,7 +15,7 @@
       "LIFEOS/USER/PRINCIPAL/PRONUNCIATIONS.json": "ghi789"
     },
     "adapterVersion": "pronunciations-v1",
-    "model": "claude-sonnet-4-6",
+    "model": "gemini-4-6",
     "costUSD": 0.005,
     "latencyMs": 1800,
     "provenance": "customized",
