@@ -1,15 +1,14 @@
 #!/usr/bin/env bun
 /**
- * agy-hook-runner.ts
- * Emulates Claude Code's hook runner. Receives Antigravity hook payloads,
- * transforms them to the legacy LifeOS shape, and executes all .hook.ts 
- * files in the legacy directory in parallel.
+ * agy-hook-adapter.ts
+ * Smart router for legacy LifeOS hooks. Reads the legacy hooks.json, maps Antigravity
+ * lifecycle events to legacy events, and only runs the registered scripts.
  */
 import { spawnSync } from "bun";
-import { readdirSync } from "fs";
+import { readFileSync } from "fs";
 import { resolve, join } from "path";
 
-// 1. Parse Antigravity JSON
+// 1. Parse Antigravity JSON on stdin
 let inputStr = "";
 for await (const chunk of Bun.stdin.stream()) {
     inputStr += new TextDecoder().decode(chunk);
@@ -17,52 +16,93 @@ for await (const chunk of Bun.stdin.stream()) {
 let agyInput;
 try { agyInput = JSON.parse(inputStr); } catch (e) { process.exit(0); }
 
-// 2. Map to legacy
-const hookEventName = process.argv[2] || "Unknown";
+const agyEventName = process.argv[2] || "Unknown";
+
+// 2. Map Antigravity Events to Legacy Events
+const eventMappings: Record<string, string[]> = {
+    "PreInvocation": ["UserPromptSubmit", "SessionStart"],
+    "PreToolUse": ["PreToolUse", "PermissionRequest"],
+    "PostToolUse": ["PostToolUse"],
+    "Stop": ["Stop", "SessionEnd"]
+};
+
+const legacyEventsToRun = eventMappings[agyEventName] || [];
+
+// 3. Construct Legacy JSON Input
 const legacyInput = {
     session_id: agyInput.conversationId || "agy-session",
     transcript_path: agyInput.transcriptPath || "",
-    hook_event_name: hookEventName,
-    last_assistant_message: "", // best effort
+    hook_event_name: agyEventName, // will be overridden per script
+    last_assistant_message: "",
     effort: { level: "medium" }
 };
-const legacyJson = JSON.stringify(legacyInput);
+const legacyJsonBase = JSON.stringify(legacyInput);
 
-// 3. Find all legacy hooks
+// 4. Load legacy hooks.json
 const hooksDir = resolve(__dirname, "../skills/LifeOS/install/hooks");
-let hookFiles: string[] = [];
+let legacyHooksConfig: any = {};
 try {
-    hookFiles = readdirSync(hooksDir).filter(f => f.endsWith(".hook.ts"));
-} catch (e) {}
+    legacyHooksConfig = JSON.parse(readFileSync(join(hooksDir, "hooks.json"), "utf8"));
+} catch (e) {
+    console.error("[agy-hook-adapter] Could not read legacy hooks.json", e);
+    process.exit(0);
+}
 
-// 4. Run them
-let blocked = false;
-let blockReason = "";
+// Extract the commands we need to run
+const commandsToRun: {cmd: string, event: string}[] = [];
 
-for (const file of hookFiles) {
-    const hookPath = join(hooksDir, file);
-    try {
-        const proc = spawnSync(["bun", "run", hookPath], {
-            stdin: Buffer.from(legacyJson),
-            stdout: "pipe",
-            stderr: "inherit",
-            timeout: 5000 // 5 seconds max per hook
-        });
-        
-        const out = proc.stdout.toString();
-        if (hookEventName === "Stop" && out.includes('"decision":"block"')) {
-            blocked = true;
-            blockReason = "Blocked by " + file;
+for (const legacyEvent of legacyEventsToRun) {
+    const hookGroups = legacyHooksConfig[legacyEvent] || [];
+    for (const group of hookGroups) {
+        // Simple matcher logic (we run all for now, ignoring tool specific matchers to ensure full parity)
+        if (group.hooks && Array.isArray(group.hooks)) {
+            for (const h of group.hooks) {
+                if (h.command) {
+                    commandsToRun.push({ cmd: h.command, event: legacyEvent });
+                }
+            }
         }
-    } catch (err) {
-        console.error(`[agy-hook-runner] Failed to run ${file}:`, err);
     }
 }
 
-// 5. Output Antigravity response
-if (hookEventName === "PreToolUse") {
+// 5. Execute mapped hooks
+let blocked = false;
+let blockReason = "";
+
+for (const task of commandsToRun) {
+    // Rewrite legacy path to local workspace path
+    const executableCmd = task.cmd.replace("$HOME/.gemini/config/hooks/", join(hooksDir, "/") + "/");
+    
+    // Inject the specific legacy event name
+    const payload = JSON.parse(legacyJsonBase);
+    payload.hook_event_name = task.event;
+    
+    const [bin, ...args] = executableCmd.split(" ");
+    
+    try {
+        const proc = spawnSync(bin, args, {
+            stdin: Buffer.from(JSON.stringify(payload)),
+            stdout: "pipe",
+            stderr: "inherit",
+            timeout: 10000 // 10s timeout
+        });
+        
+        const out = proc.stdout.toString();
+        // If it's a stop event and the hook tries to block
+        if (agyEventName === "Stop" && out.includes('"decision":"block"')) {
+            blocked = true;
+            blockReason = "Blocked by " + args[0];
+        }
+        
+    } catch (err) {
+        console.error(`[agy-hook-adapter] Error running ${executableCmd}:`, err);
+    }
+}
+
+// 6. Return standard Antigravity responses
+if (agyEventName === "PreToolUse") {
     console.log(JSON.stringify({ decision: "allow" }));
-} else if (hookEventName === "Stop") {
+} else if (agyEventName === "Stop") {
     if (blocked) {
          console.log(JSON.stringify({ decision: "continue", reason: blockReason }));
     } else {
