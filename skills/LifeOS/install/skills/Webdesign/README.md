@@ -49,7 +49,7 @@ The skill routes your request to the right workflow automatically.
 
 ## Relationship to Other Tools
 
-- **`frontend-design` plugin** (Anthropic, auto-activates in Claude Code): the downstream code-generation engine when exporting bundles. Not invoked directly by this skill.
+- **`frontend-design` plugin** (Anthropic, auto-activates in Antigravity CLI): the downstream code-generation engine when exporting bundles. Not invoked directly by this skill.
 - **Interceptor skill**: required, drives claude.ai/design.
 - **Art skill**: for illustrations, diagrams, header images — not overlapping scope.
 

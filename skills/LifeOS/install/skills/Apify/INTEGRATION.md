@@ -23,7 +23,7 @@ The social skill now uses code-based Apify scripts instead of `mcp__apify` MCP t
 **Example Workflow:**
 
 1. User: "Turn @user's recent posts into a LinkedIn post"
-2. System runs: `bun ~/.claude/skills/Apify/skills/get-user-tweets.ts user 5`
+2. System runs: `bun ~/Projects/LifeOS-AGY/.agents/skills/Apify/skills/get-user-tweets.ts user 5`
 3. Script returns: Tweet text + metadata (~800 tokens per tweet)
 4. System transforms the posts into LinkedIn format
 5. **Token savings: 90-95%** (vs fetching unfiltered profile data)
@@ -34,13 +34,13 @@ The social skill now uses code-based Apify scripts instead of `mcp__apify` MCP t
 
 ```bash
 # Research what ThePrimeagen is discussing
-bun ~/.claude/skills/Apify/skills/get-user-tweets.ts ThePrimeagen 10
+bun ~/Projects/LifeOS-AGY/.agents/skills/Apify/skills/get-user-tweets.ts ThePrimeagen 10
 
 # Analyze Paul Graham's recent thoughts
-bun ~/.claude/skills/Apify/skills/get-user-tweets.ts paulg 20
+bun ~/Projects/LifeOS-AGY/.agents/skills/Apify/skills/get-user-tweets.ts paulg 20
 
 # Track Simon Willison's posts
-bun ~/.claude/skills/Apify/skills/get-user-tweets.ts simonw 15
+bun ~/Projects/LifeOS-AGY/.agents/skills/Apify/skills/get-user-tweets.ts simonw 15
 ```
 
 **Token Efficiency:**
@@ -54,7 +54,7 @@ bun ~/.claude/skills/Apify/skills/get-user-tweets.ts simonw 15
 
 ```bash
 # Pull a user's recent posts on a topic
-bun ~/.claude/skills/Apify/skills/get-user-tweets.ts <username> 10
+bun ~/Projects/LifeOS-AGY/.agents/skills/Apify/skills/get-user-tweets.ts <username> 10
 
 # Expand the posts into blog post format
 # Token efficient: only post content in context
@@ -64,7 +64,7 @@ bun ~/.claude/skills/Apify/skills/get-user-tweets.ts <username> 10
 
 ### skills/get-user-tweets.ts
 **Purpose:** Any user's recent tweets
-**Usage:** `bun ~/.claude/skills/Apify/skills/get-user-tweets.ts <username> [limit]`
+**Usage:** `bun ~/Projects/LifeOS-AGY/.agents/skills/Apify/skills/get-user-tweets.ts <username> [limit]`
 **Returns:** Recent tweets with metadata
 **Tokens:** ~800 per tweet
 **Savings:** 90-95% vs unfiltered
@@ -94,7 +94,7 @@ mcp__Apify__get-actor-output(runId)
 
 ```typescript
 // All in one script, filtering in code
-bun ~/.claude/skills/Apify/skills/get-user-tweets.ts <username> 1
+bun ~/Projects/LifeOS-AGY/.agents/skills/Apify/skills/get-user-tweets.ts <username> 1
 
 // Returns only the filtered result: ~800 tokens
 // Savings: 98%
@@ -106,7 +106,7 @@ bun ~/.claude/skills/Apify/skills/get-user-tweets.ts <username> 1
 ✅ Use appropriate script for the task
 ✅ Let script filter data before returning
 ✅ Trust token savings calculations
-✅ Run from the `~/.claude/skills/Apify/` directory or use the full path
+✅ Run from the `~/Projects/LifeOS-AGY/.agents/skills/Apify/` directory or use the full path
 ✅ Check execution time (~10 seconds expected)
 
 ### DON'T:
@@ -180,10 +180,10 @@ Other Apify actors worth implementing:
 
 ## Documentation
 
-- Skill entry point and workflows: `~/.claude/skills/Apify/SKILL.md`
-- Code-first API reference: `~/.claude/skills/Apify/README.md`
-- Actor wrappers: `~/.claude/skills/Apify/actors/`
-- Runnable examples: `~/.claude/skills/Apify/examples/`
+- Skill entry point and workflows: `~/Projects/LifeOS-AGY/.agents/skills/Apify/SKILL.md`
+- Code-first API reference: `~/Projects/LifeOS-AGY/.agents/skills/Apify/README.md`
+- Actor wrappers: `~/Projects/LifeOS-AGY/.agents/skills/Apify/actors/`
+- Runnable examples: `~/Projects/LifeOS-AGY/.agents/skills/Apify/examples/`
 
 ## Support
 

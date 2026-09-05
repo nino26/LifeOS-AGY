@@ -199,12 +199,12 @@ Actions declare dependencies in `action.json` under `requires`. The runner injec
 
 ### Running Actions
 
-> **Not in the public release.** The local Arbol CLI tree (`LIFEOS/ARBOL/` — `Actions/`, `Flows/`, `Pipelines/`) is rsync-excluded from the public release payload, so the `~/.claude/LIFEOS/ARBOL/...` paths and commands below do not exist on a public install. The Arbol *model* (the three primitives, the pipe model, the cloud workers) is public; this local runner tree is not.
+> **Not in the public release.** The local Arbol CLI tree (`LIFEOS/ARBOL/` — `Actions/`, `Flows/`, `Pipelines/`) is rsync-excluded from the public release payload, so the `~/Projects/LifeOS-AGY/LIFEOS/ARBOL/...` paths and commands below do not exist on a public install. The Arbol *model* (the three primitives, the pipe model, the cloud workers) is public; this local runner tree is not.
 
 **Local:**
 
 ```bash
-cd ~/.claude/LIFEOS/ARBOL/Actions
+cd ~/Projects/LifeOS-AGY/LIFEOS/ARBOL/Actions
 bun lib/runner.v2.ts run A_LABEL_AND_RATE --input '{"content": "Your text here"}'
 bun lib/runner.v2.ts list
 ```
@@ -234,11 +234,11 @@ curl -X POST https://arbol-a-your-action.YOUR-SUBDOMAIN.workers.dev/ \
 
 ### Creating a New Action
 
-1. Create directory: `mkdir ~/.claude/LIFEOS/USER/CUSTOMIZATIONS/ARBOL/ACTIONS/A_YOUR_ACTION`
+1. Create directory: `mkdir ~/Projects/LifeOS-AGY/LIFEOS/USER/CUSTOMIZATIONS/ARBOL/ACTIONS/A_YOUR_ACTION`
 2. Define manifest (`action.json`) with name, description, input/output schema, requires
 3. Implement logic (`action.ts`) using `execute(input, ctx)` pattern
 4. Test locally: `bun lib/runner.v2.ts run A_YOUR_ACTION --input '{"content": "test"}'`
-5. Deploy to cloud (optional): add Worker under `~/.claude/LIFEOS/USER/CUSTOMIZATIONS/ARBOL/Workers/a-your-action/`, then `bash deploy.sh a-your-action`
+5. Deploy to cloud (optional): add Worker under `~/Projects/LifeOS-AGY/LIFEOS/USER/CUSTOMIZATIONS/ARBOL/Workers/a-your-action/`, then `bash deploy.sh a-your-action`
 
 ### Action Best Practices
 
@@ -285,7 +285,7 @@ actions:
 
 **PIPELINE.md Format (local):**
 
-Local pipeline definitions live in `~/.claude/LIFEOS/ARBOL/Pipelines/[Domain]_[Pipeline-Name]/PIPELINE.md`:
+Local pipeline definitions live in `~/Projects/LifeOS-AGY/LIFEOS/ARBOL/Pipelines/[Domain]_[Pipeline-Name]/PIPELINE.md`:
 
 ```markdown
 # [Pipeline_Name] Pipeline
@@ -306,12 +306,12 @@ Local pipeline definitions live in `~/.claude/LIFEOS/ARBOL/Pipelines/[Domain]_[P
 
 - **Prefix:** `P_` for pipelines
 - **Worker name:** `arbol-p-{kebab-case-name}`
-- **Local directory:** `~/.claude/LIFEOS/ARBOL/Pipelines/[Domain]_[Pipeline-Name]/PIPELINE.md`
+- **Local directory:** `~/Projects/LifeOS-AGY/LIFEOS/ARBOL/Pipelines/[Domain]_[Pipeline-Name]/PIPELINE.md`
 
 ### Running Pipelines
 
 ```bash
-cd ~/.claude/LIFEOS/ARBOL/Actions
+cd ~/Projects/LifeOS-AGY/LIFEOS/ARBOL/Actions
 bun lib/pipeline-runner.ts run P_LABEL_AND_RATE --url "https://youtube.com/watch?v=..."
 bun lib/pipeline-runner.ts list
 ```
@@ -319,7 +319,7 @@ bun lib/pipeline-runner.ts list
 ### Creating a New Pipeline
 
 1. Identify the workflow: what Actions exist, what needs creating, what data passes between steps
-2. Create directory: `mkdir -p ~/.claude/LIFEOS/ARBOL/Pipelines/[Domain]_[Pipeline-Name]`
+2. Create directory: `mkdir -p ~/Projects/LifeOS-AGY/LIFEOS/ARBOL/Pipelines/[Domain]_[Pipeline-Name]`
 3. Define overview table in PIPELINE.md
 4. For each step, specify action, input (from upstream), and output fields
 5. For cloud deployment, create a Worker with service bindings to each action
@@ -621,7 +621,7 @@ Each layer depends on the one below:
 ### Deploy Script
 
 ```bash
-cd ~/.claude/LIFEOS/USER/CUSTOMIZATIONS/ARBOL
+cd ~/Projects/LifeOS-AGY/LIFEOS/USER/CUSTOMIZATIONS/ARBOL
 bash deploy.sh a-your-action          # Deploy single worker
 echo "token" | bunx wrangler secret put AUTH_TOKEN --name arbol-a-your-action
 ```
@@ -753,15 +753,15 @@ The picture shows why the layers exist: the Actions are reusable atoms that don'
 
 | Document | Path | Description |
 |----------|------|-------------|
-| Source Code | `~/.claude/LIFEOS/USER/CUSTOMIZATIONS/ARBOL/` | Cloudflare Workers source repository |
+| Source Code | `~/Projects/LifeOS-AGY/LIFEOS/USER/CUSTOMIZATIONS/ARBOL/` | Cloudflare Workers source repository |
 | Cloudflare Skill | `Cloudflare` skill (LifeOS Skill registry) | MCP + wrangler dual-mode operations |
 | Architecture | `LifeosSystemArchitecture.md` | LifeOS system architecture |
-| System Actions 🔒 | `~/.claude/LIFEOS/ARBOL/Actions/` | Framework actions (examples). **Not in the public release** — `LIFEOS/ARBOL/` is rsync-excluded. |
-| System Pipelines 🔒 | `~/.claude/LIFEOS/ARBOL/Pipelines/` | Framework pipelines (examples). **Not in the public release.** |
-| System Flows 🔒 | `~/.claude/LIFEOS/ARBOL/Flows/` | Framework flows (examples). **Not in the public release.** |
-| Personal Actions | `~/.claude/LIFEOS/USER/CUSTOMIZATIONS/ARBOL/ACTIONS/` | User-defined actions (override system) |
-| Personal Pipelines | `~/.claude/LIFEOS/USER/CUSTOMIZATIONS/ARBOL/PIPELINES/` | User-defined pipelines (override system) |
-| Personal Flows | `~/.claude/LIFEOS/USER/CUSTOMIZATIONS/ARBOL/FLOWS/` | User-defined flows (override system) |
+| System Actions 🔒 | `~/Projects/LifeOS-AGY/LIFEOS/ARBOL/Actions/` | Framework actions (examples). **Not in the public release** — `LIFEOS/ARBOL/` is rsync-excluded. |
+| System Pipelines 🔒 | `~/Projects/LifeOS-AGY/LIFEOS/ARBOL/Pipelines/` | Framework pipelines (examples). **Not in the public release.** |
+| System Flows 🔒 | `~/Projects/LifeOS-AGY/LIFEOS/ARBOL/Flows/` | Framework flows (examples). **Not in the public release.** |
+| Personal Actions | `~/Projects/LifeOS-AGY/LIFEOS/USER/CUSTOMIZATIONS/ARBOL/ACTIONS/` | User-defined actions (override system) |
+| Personal Pipelines | `~/Projects/LifeOS-AGY/LIFEOS/USER/CUSTOMIZATIONS/ARBOL/PIPELINES/` | User-defined pipelines (override system) |
+| Personal Flows | `~/Projects/LifeOS-AGY/LIFEOS/USER/CUSTOMIZATIONS/ARBOL/FLOWS/` | User-defined flows (override system) |
 
 ---
 

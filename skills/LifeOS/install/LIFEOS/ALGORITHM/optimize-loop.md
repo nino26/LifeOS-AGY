@@ -21,7 +21,7 @@ status: redirect
 - **Parameter schema:** [`archive/parameter-schema.md`](archive/parameter-schema.md)
 - **Eval mode guide:** [`eval-guide.md`](eval-guide.md)
 - **Target types:** [`archive/target-types.md`](archive/target-types.md)
-- **Optimize skill (router):** `~/.claude/skills/Optimize/SKILL.md`
+- **Optimize skill (router):** `~/Projects/LifeOS-AGY/.agents/skills/Optimize/SKILL.md`
 
 ## Backwards-compat note
 

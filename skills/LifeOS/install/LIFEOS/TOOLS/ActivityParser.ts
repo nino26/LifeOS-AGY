@@ -25,7 +25,7 @@ import { homedir } from "node:os";
 const CLAUDE_DIR = path.join(homedir(), ".claude");
 const MEMORY_DIR = path.join(CLAUDE_DIR, "LIFEOS", "MEMORY");
 const USERNAME = process.env.USER || require("os").userInfo().username;
-const PROJECTS_DIR = path.join(CLAUDE_DIR, "projects", `-Users-${USERNAME}--claude`);  // Claude Code native storage
+const PROJECTS_DIR = path.join(CLAUDE_DIR, "projects", `-Users-${USERNAME}--claude`);  // Antigravity CLI native storage
 const SYSTEM_UPDATES_DIR = path.join(MEMORY_DIR, "SYSTEMUPDATES");  // Canonical system change history
 
 // ============================================================================
@@ -113,7 +113,7 @@ function getRelativePath(filePath: string): string {
 // Event Parsing
 // ============================================================================
 
-// Projects/ format from Claude Code native storage
+// Projects/ format from Antigravity CLI native storage
 interface ProjectsEntry {
   sessionId?: string;
   type?: "user" | "assistant" | "summary";

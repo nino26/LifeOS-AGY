@@ -122,7 +122,7 @@ export const SHELL_DENY_GLOBS: readonly string[] = [
   // `os.environ` and `process.env`, so it denied six of the sidecar's first eleven blocked
   // commands — none of which touched a file — and killed the mail-monitor cron outright.
   // A glob that fires on ordinary code trains everyone to route around the guard.
-  "*/.env*", // path-qualified: ~/.claude/.env, $HOME/.env, /any/dir/.envrc
+  "*/.env*", // path-qualified: ~/Projects/LifeOS-AGY/.env, $HOME/.env, /any/dir/.envrc
   "* .env*", // bare argument: `cat .env`
   "*\".env*", // quoted argument
   "*'.env*",
@@ -165,7 +165,7 @@ export const SHELL_DENY_GLOBS: readonly string[] = [
   // ANY Hermes session is a leak, and cron sessions reading their skill
   // announcements aloud is exactly the 2026-08-14 incident (fifth recurrence:
   // the LifeLog commitment-capture job spoke every SKILL.md "Running the X
-  // workflow" curl because the sidecar runtime has none of Claude Code's
+  // workflow" curl because the sidecar runtime has none of Antigravity CLI's
   // hooks). Denied wholesale, /voice/health included — the sidecar has no
   // legitimate reason to reach the voice surface at all.
   "*31337/notify*",
@@ -244,7 +244,7 @@ export const COMMAND_BEARING_TOOLS: Readonly<Record<string, readonly string[]>> 
  * entering the context. This is the other half: stopping attacker-controlled
  * TEXT from reaching a privileged action.
  *
- * The LifeOS side does this with `Safety.hook.ts`, a Claude Code hook that
+ * The LifeOS side does this with `Safety.hook.ts`, a Antigravity CLI hook that
  * cannot fire inside a Hermes turn. So the same job is done here, in the one
  * plugin that does run in-process.
  *

@@ -276,7 +276,7 @@ function KnowledgeLanding({ data }: { data: WikiIndex }) {
         {isFreshInstall && (
           <EmptyStateGuide
             section="Cortex"
-            description="Everything the system knows — people, companies, ideas, research, work sessions (ISAs), lessons, and wisdom. Notes live under ~/.claude/LIFEOS/MEMORY/."
+            description="Everything the system knows — people, companies, ideas, research, work sessions (ISAs), lessons, and wisdom. Notes live under ~/Projects/LifeOS-AGY/LIFEOS/MEMORY/."
             daPromptExample="help me start my memory archive"
           />
         )}

@@ -13,7 +13,7 @@
  *   EIA_API_KEY         - Required for gas prices
  *   USMETRICS_DATA_DIR  - Optional. Directory holding the US-Common-Metrics
  *                         dataset. Defaults to
- *                         ~/.claude/LIFEOS/USER/DATA/US-Common-Metrics
+ *                         ~/Projects/LifeOS-AGY/LIFEOS/USER/DATA/US-Common-Metrics
  *
  * Output files (inside the data directory):
  *   - US-Common-Metrics.md      (updated values)
@@ -430,7 +430,7 @@ Environment:
   FRED_API_KEY        Required for most metrics
   EIA_API_KEY         Required for gas prices
   USMETRICS_DATA_DIR  Optional. Dataset directory. Defaults to
-                      ~/.claude/LIFEOS/USER/DATA/US-Common-Metrics
+                      ~/Projects/LifeOS-AGY/LIFEOS/USER/DATA/US-Common-Metrics
 
 Output (inside the dataset directory):
     - US-Common-Metrics.md (updated)

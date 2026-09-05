@@ -41,7 +41,7 @@ export const DISPATCH_EXECUTES_FABLE = true;
 /**
  * Three separate "level" dials — this file maps 1↔2:
  *   1. MODEL RUNG (EFFORT_MODEL): which Claude model runs.
- *   2. REASONING EFFORT (HarnessEffort): how hard a model thinks. Claude Code owns it
+ *   2. REASONING EFFORT (HarnessEffort): how hard a model thinks. Antigravity CLI owns it
  *      (`/effort`, settings, `--effort`); a hook can read it but cannot set the main loop's
  *      value. LifeOS runs uniformly at `high`.
  *   3. COMPOSITION (ultracode): whether to fan a task into a multi-agent Workflow. Not an

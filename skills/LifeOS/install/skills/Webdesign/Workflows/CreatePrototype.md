@@ -44,7 +44,7 @@ Use the prompt patterns in `References/InputFormats.md`.
 ### 3. Open Claude Design
 
 ```bash
-bun ~/.claude/skills/Webdesign/Tools/DriveClaudeDesign.ts open
+bun ~/Projects/LifeOS-AGY/.agents/skills/Webdesign/Tools/DriveClaudeDesign.ts open
 ```
 
 This opens `claude.ai/design` in the authenticated Interceptor-controlled Chrome session. First-run may require a headed login; subsequent runs are headless.
@@ -52,7 +52,7 @@ This opens `claude.ai/design` in the authenticated Interceptor-controlled Chrome
 ### 4. Submit the Brief
 
 ```bash
-bun ~/.claude/skills/Webdesign/Tools/DriveClaudeDesign.ts prompt "$(cat /tmp/brief.md)"
+bun ~/Projects/LifeOS-AGY/.agents/skills/Webdesign/Tools/DriveClaudeDesign.ts prompt "$(cat /tmp/brief.md)"
 ```
 
 Wait for Claude Design to produce the first version (typically 20-60 seconds).
@@ -62,7 +62,7 @@ Wait for Claude Design to produce the first version (typically 20-60 seconds).
 ```bash
 OUT="${LIFEOS_DOWNLOADS_DIR:-$HOME/Downloads}"/webdesign/$(date +%Y%m%d-%H%M%S)
 mkdir -p "$OUT"
-bun ~/.claude/skills/Webdesign/Tools/DriveClaudeDesign.ts screenshot "$OUT/v1.png"
+bun ~/Projects/LifeOS-AGY/.agents/skills/Webdesign/Tools/DriveClaudeDesign.ts screenshot "$OUT/v1.png"
 ```
 
 Review the screenshot. If it matches the brief, proceed to step 6. If not, hand to `RefinePrototype.md`.
@@ -75,18 +75,18 @@ Choose based on next step:
 |-----------|--------------|
 | Review / feedback | `url` (shareable internal URL) |
 | Collaborative editing | `canva` |
-| Local code integration | `bundle` (handoff to Claude Code) |
+| Local code integration | `bundle` (handoff to Antigravity CLI) |
 | Slide deck / client presentation | `pptx` or `pdf` |
 | Static one-off page | `html` |
 
 ```bash
-bun ~/.claude/skills/Webdesign/Tools/DriveClaudeDesign.ts export bundle "$OUT"
+bun ~/Projects/LifeOS-AGY/.agents/skills/Webdesign/Tools/DriveClaudeDesign.ts export bundle "$OUT"
 ```
 
 ### 7. Verify
 
 ```bash
-bun ~/.claude/skills/Webdesign/Tools/VerifyDesign.ts "$OUT/index.html" "$OUT/verify"
+bun ~/Projects/LifeOS-AGY/.agents/skills/Webdesign/Tools/VerifyDesign.ts "$OUT/index.html" "$OUT/verify"
 ```
 
 Produces a screenshot at the expected viewport plus an axe-core accessibility report. Fix any critical issues before declaring done.
@@ -106,7 +106,7 @@ Pass the bundle path + target project path.
 - Screenshot(s) in `$OUT/`
 - Export artifact (bundle / html / canva link / pptx)
 - Accessibility report
-- One-line entry in `~/.claude/`
+- One-line entry in `~/Projects/LifeOS-AGY/`
 
 ## Common Pitfalls
 

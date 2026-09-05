@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
   com.lifeos.conveyor-runner.plist.template — Source template. Install via:
-    bun ~/.claude/LIFEOS/TOOLS/InstallConveyorRunner.ts
+    bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/InstallConveyorRunner.ts
 
   The installer reads $HOME at install time, substitutes {{HOME}} placeholders,
   writes the materialized plist to ~/Library/LaunchAgents/, and bootstraps it

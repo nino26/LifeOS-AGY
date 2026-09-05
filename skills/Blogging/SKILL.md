@@ -10,7 +10,7 @@ Essay refinement and publishing workflow for dislatalk.com. Takes a raw essay dr
 ## Customization
 
 **Before executing, check for user customizations at:**
-`~/.claude/PAI/USER/SKILLCUSTOMIZATIONS/Blogging/`
+`~/Projects/LifeOS-AGY/PAI/USER/SKILLCUSTOMIZATIONS/Blogging/`
 
 If this directory exists, load and apply:
 - `PREFERENCES.md` — writing style, tone, image aesthetic, blog-specific config

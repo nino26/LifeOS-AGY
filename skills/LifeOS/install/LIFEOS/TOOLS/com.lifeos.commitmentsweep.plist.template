@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
   com.lifeos.commitmentsweep.plist.template — Source template. Install via:
-    bun ~/.claude/LIFEOS/TOOLS/InstallCommitmentSweep.ts
+    bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/InstallCommitmentSweep.ts
 
   The installer reads $HOME at install time, substitutes /Users/__USER__ placeholders,
   writes the materialized plist to ~/Library/LaunchAgents/, and bootstraps it

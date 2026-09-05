@@ -1,5 +1,5 @@
 #!/usr/bin/env bun
-// Normalize env path vars Claude Code may inject unexpanded — literal $HOME/${HOME}
+// Normalize env path vars Antigravity CLI may inject unexpanded — literal $HOME/${HOME}
 // in LIFEOS_DIR/LIFEOS_CONFIG_DIR/PROJECTS_DIR resolves to a shadow dir (#1404 / PR #1451, author jbmml).
 for (const __k of ["LIFEOS_DIR", "LIFEOS_CONFIG_DIR", "PROJECTS_DIR"]) {
   const __v = process.env[__k];
@@ -10,8 +10,8 @@ for (const __k of ["LIFEOS_DIR", "LIFEOS_CONFIG_DIR", "PROJECTS_DIR"]) {
  * ContextAudit — read-only quality audit for constitutional context files.
  *
  * Usage:
- *   bun ~/.claude/LIFEOS/TOOLS/ContextAudit.ts
- *   bun ~/.claude/LIFEOS/TOOLS/ContextAudit.ts --json
+ *   bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/ContextAudit.ts
+ *   bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/ContextAudit.ts --json
  */
 
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "fs";
@@ -20,7 +20,7 @@ import { CONTEXT_FRESHNESS_REGISTRY, parseFrontmatter, type ContextFile } from "
 import { currentModel } from "./models";
 import { homedir } from "node:os";
 
-// Normalize env path vars that Claude Code injects without shell expansion (LifeOS#1404)
+// Normalize env path vars that Antigravity CLI injects without shell expansion (LifeOS#1404)
 for (const k of ["LIFEOS_DIR", "LIFEOS_CONFIG_DIR", "PROJECTS_DIR"]) {
   const v = process.env[k];
   if (v && /^\$\{?HOME\}?(\/|$)/.test(v)) process.env[k] = v.replace(/^\$\{?HOME\}?/, process.env.HOME ?? "~");
@@ -219,7 +219,7 @@ function normalizeReference(raw: string): string | null {
   if (/[*?[\]{}]/.test(value)) return null;
 
   if (value.startsWith("LIFEOS/")) return join(CLAUDE_DIR, value);
-  if (value.startsWith("~/.claude/LIFEOS/")) return join(HOME, value.slice(2));
+  if (value.startsWith("~/Projects/LifeOS-AGY/LIFEOS/")) return join(HOME, value.slice(2));
   if (value.startsWith(`${HOME}/.claude/LIFEOS/`)) return value;
   return null;
 }

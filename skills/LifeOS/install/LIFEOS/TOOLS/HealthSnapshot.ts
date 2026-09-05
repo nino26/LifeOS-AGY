@@ -14,9 +14,9 @@
  * a relocated LIFEOS_USER_DIR Just Works; the homedir path is only a fallback.
  *
  * Usage:
- *   bun ~/.claude/LIFEOS/TOOLS/HealthSnapshot.ts ingest   # default — inbox → snapshots/YYYY-MM-DD.md
- *   bun ~/.claude/LIFEOS/TOOLS/HealthSnapshot.ts sample   # drop a sample into the inbox to test the pipeline
- *   bun ~/.claude/LIFEOS/TOOLS/HealthSnapshot.ts status   # inbox count, last snapshot, resolved paths
+ *   bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/HealthSnapshot.ts ingest   # default — inbox → snapshots/YYYY-MM-DD.md
+ *   bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/HealthSnapshot.ts sample   # drop a sample into the inbox to test the pipeline
+ *   bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/HealthSnapshot.ts status   # inbox count, last snapshot, resolved paths
  */
 
 import { readdir, readFile, writeFile, rename, mkdir } from "node:fs/promises"

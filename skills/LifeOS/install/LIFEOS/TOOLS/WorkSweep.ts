@@ -1,5 +1,5 @@
 #!/usr/bin/env bun
-// Normalize env path vars Claude Code may inject unexpanded — literal $HOME/${HOME}
+// Normalize env path vars Antigravity CLI may inject unexpanded — literal $HOME/${HOME}
 // in LIFEOS_DIR/LIFEOS_CONFIG_DIR/PROJECTS_DIR resolves to a shadow dir (#1404 / PR #1451, author jbmml).
 for (const __k of ["LIFEOS_DIR", "LIFEOS_CONFIG_DIR", "PROJECTS_DIR"]) {
   const __v = process.env[__k];
@@ -12,9 +12,9 @@ for (const __k of ["LIFEOS_DIR", "LIFEOS_CONFIG_DIR", "PROJECTS_DIR"]) {
  * Triggered by ~/Library/LaunchAgents/com.lifeos.worksweep.plist every 60 minutes.
  * Also runnable on-demand:
  *
- *   bun ~/.claude/LIFEOS/TOOLS/WorkSweep.ts            # apply
- *   bun ~/.claude/LIFEOS/TOOLS/WorkSweep.ts --dry-run  # show diff only
- *   bun ~/.claude/LIFEOS/TOOLS/WorkSweep.ts --since 48h  # widen the scan window
+ *   bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/WorkSweep.ts            # apply
+ *   bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/WorkSweep.ts --dry-run  # show diff only
+ *   bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/WorkSweep.ts --since 48h  # widen the scan window
  *
  * What it does:
  *   1. Scans MEMORY/WORK/*\/ISA.md for sessions modified in the last 24h
@@ -39,7 +39,7 @@ import { loadWorkConfig } from "../../hooks/lib/work-config";
 import { phaseHasWorkStarted } from "./ascent";
 import { homedir } from "node:os";
 
-// Normalize env path vars that Claude Code injects without shell expansion (LifeOS#1404)
+// Normalize env path vars that Antigravity CLI injects without shell expansion (LifeOS#1404)
 for (const k of ["LIFEOS_DIR", "LIFEOS_CONFIG_DIR", "PROJECTS_DIR"]) {
   const v = process.env[k];
   if (v && /^\$\{?HOME\}?(\/|$)/.test(v)) process.env[k] = v.replace(/^\$\{?HOME\}?/, process.env.HOME ?? "~");
@@ -537,7 +537,7 @@ async function sweepBpeCadence(
     "",
     `**Run:** \`Skill("BitterPillEngineering", "audit")\` over the ${BPE_AUDIT_TARGETS}.`,
     `**Cadence:** every ${BPE_CADENCE_DAYS} days. Last audit: ${days === null ? "never" : days + " days ago"}.`,
-    `**Then stamp it:** \`bun ~/.claude/LIFEOS/TOOLS/WorkSweep.ts --stamp-bpe\` to reset the clock.`,
+    `**Then stamp it:** \`bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/WorkSweep.ts --stamp-bpe\` to reset the clock.`,
     "",
     `Propose-only — never auto-cut. A cut needs judgment + ratification (the producer-lock / shadow-log call is why).`,
     "",

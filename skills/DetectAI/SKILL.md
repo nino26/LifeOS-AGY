@@ -29,13 +29,13 @@ The heuristic audit works with no setup. The empirical score needs a key.
 
 1. Create an account or log in at [pangram.com](https://www.pangram.com/solutions/api), open the **API** tab, and generate a key.
 2. Add prepaid credits (from $5, or enable auto-refill). Realtime checks bill about **$0.05 per 1,000 words**.
-3. Put the key in `~/.claude/.env`:
+3. Put the key in `~/Projects/LifeOS-AGY/.env`:
    ```
    PANGRAM_API_KEY=your-key-here
    ```
 4. Verify:
    ```bash
-   bun ~/.claude/LIFEOS/TOOLS/PangramScore.ts --file <a-file-you-wrote.md>
+   bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/PangramScore.ts --file <a-file-you-wrote.md>
    ```
 
 Full setup, alternatives, and troubleshooting (402/429 handling, endpoint override, key precedence): `Setup.md`.
@@ -70,5 +70,5 @@ Asked simply "is this AI?" with a key configured, run both and report them side 
 ## Execution Log
 
 ```bash
-echo '{"ts":"'$(date -u +%Y-%m-%dT%H:%M:%SZ)'","skill":"DetectAI","workflow":"WORKFLOW_USED","input":"8_WORD_SUMMARY","status":"ok|error","duration_s":SECONDS}' >> ~/.claude/LIFEOS/MEMORY/SKILLS/execution.jsonl
+echo '{"ts":"'$(date -u +%Y-%m-%dT%H:%M:%SZ)'","skill":"DetectAI","workflow":"WORKFLOW_USED","input":"8_WORD_SUMMARY","status":"ok|error","duration_s":SECONDS}' >> ~/Projects/LifeOS-AGY/LIFEOS/MEMORY/SKILLS/execution.jsonl
 ```

@@ -13,10 +13,10 @@ Running **RiskRegister** in **ThreatModel**...
 
 ## The tool
 
-The register is a deterministic CLI (no model judgment in the data path). Data dir defaults to `~/.claude/LIFEOS/USER/SECURITY/THREATMODEL/`, override `THREATMODEL_DATA_DIR`.
+The register is a deterministic CLI (no model judgment in the data path). Data dir defaults to `~/Projects/LifeOS-AGY/LIFEOS/USER/SECURITY/THREATMODEL/`, override `THREATMODEL_DATA_DIR`.
 
 ```bash
-T="bun ~/.claude/skills/ThreatModel/Tools/RiskRegister.ts"
+T="bun ~/Projects/LifeOS-AGY/.agents/skills/ThreatModel/Tools/RiskRegister.ts"
 $T init                    # scaffold data dir + empty register
 $T stats                   # posture snapshot
 $T list                    # open risks, highest score first

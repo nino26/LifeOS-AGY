@@ -1,5 +1,5 @@
 #!/usr/bin/env bun
-// Normalize env path vars Claude Code may inject unexpanded — literal $HOME/${HOME}
+// Normalize env path vars Antigravity CLI may inject unexpanded — literal $HOME/${HOME}
 // in LIFEOS_DIR/LIFEOS_CONFIG_DIR/PROJECTS_DIR resolves to a shadow dir (#1404 / PR #1451, author jbmml).
 for (const __k of ["LIFEOS_DIR", "LIFEOS_CONFIG_DIR", "PROJECTS_DIR"]) {
   const __v = process.env[__k];
@@ -19,7 +19,7 @@ for (const __k of ["LIFEOS_DIR", "LIFEOS_CONFIG_DIR", "PROJECTS_DIR"]) {
  * Usage:
  *   generate --model nano-banana-pro --prompt "..." --size 16:9 --output /tmp/image.png
  *
- * @see ~/.claude/skills/Art/SKILL.md
+ * @see ~/Projects/LifeOS-AGY/.agents/skills/Art/SKILL.md
  */
 
 import Replicate from "replicate";
@@ -37,8 +37,8 @@ import { getDAName } from "../../../hooks/lib/identity";
  * This ensures API keys are available regardless of how the CLI is invoked
  */
 async function loadEnv(): Promise<void> {
-  // The canonical .env lives at ~/.claude/.env — LIFEOS_DIR often points at the
-  // ~/.claude/LIFEOS SUBdirectory, which has no .env, and the silent catch made
+  // The canonical .env lives at ~/Projects/LifeOS-AGY/.env — LIFEOS_DIR often points at the
+  // ~/Projects/LifeOS-AGY/LIFEOS SUBdirectory, which has no .env, and the silent catch made
   // present keys invisible (public issue #1515, @xmasyx). Try LIFEOS_DIR first,
   // then the canonical location; load the first that exists.
   const home = process.env.HOME!;
@@ -639,7 +639,7 @@ function enhancePromptForTransparency(prompt: string): string {
 import { exec } from "node:child_process";
 import { promisify } from "node:util";
 
-// Normalize env path vars that Claude Code injects without shell expansion (LifeOS#1404)
+// Normalize env path vars that Antigravity CLI injects without shell expansion (LifeOS#1404)
 for (const k of ["LIFEOS_DIR", "LIFEOS_CONFIG_DIR", "PROJECTS_DIR"]) {
   const v = process.env[k];
   if (v && /^\$\{?HOME\}?(\/|$)/.test(v)) process.env[k] = v.replace(/^\$\{?HOME\}?/, process.env.HOME ?? "~");

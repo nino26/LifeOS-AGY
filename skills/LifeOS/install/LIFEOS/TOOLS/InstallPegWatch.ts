@@ -2,9 +2,9 @@
 /**
  * InstallPegWatch.ts - Materialize com.lifeos.pegwatch.plist.template and bootstrap it.
  *
- *   bun ~/.claude/LIFEOS/TOOLS/InstallPegWatch.ts             # install
- *   bun ~/.claude/LIFEOS/TOOLS/InstallPegWatch.ts --uninstall # remove
- *   bun ~/.claude/LIFEOS/TOOLS/InstallPegWatch.ts --status    # check
+ *   bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/InstallPegWatch.ts             # install
+ *   bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/InstallPegWatch.ts --uninstall # remove
+ *   bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/InstallPegWatch.ts --status    # check
  */
 
 import { existsSync, mkdirSync, readFileSync, unlinkSync, writeFileSync } from "node:fs";

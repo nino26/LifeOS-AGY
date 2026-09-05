@@ -582,7 +582,7 @@ function expandPath(p: string): string {
   return p
     .replace(/^~(?=\/|$)/, HOME)
     .replace(/\$\{?([A-Za-z_][A-Za-z0-9_]*)\}?/g, (m, name: string) => {
-      // Claude Code supplies these at hook time; Doctor's own env may not have
+      // Antigravity CLI supplies these at hook time; Doctor's own env may not have
       // them, and both point at the install root here.
       if (name === 'CLAUDE_PROJECT_DIR' || name === 'CLAUDE_CONFIG_DIR') {
         return process.env[name] || CONFIG_ROOT;

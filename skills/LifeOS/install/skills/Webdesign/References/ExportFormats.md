@@ -43,7 +43,7 @@ The handoff bundle is the load-bearing output when code is the destination. Stru
 
 ```
 bundle/
-├── PROMPT.md                    # Structured brief for Claude Code
+├── PROMPT.md                    # Structured brief for Antigravity CLI
 ├── tokens.json                  # Design tokens (colors, typography, spacing)
 ├── preview.html                 # Static preview render
 ├── components/                  # Component scaffolds
@@ -67,7 +67,7 @@ Contains:
 - Component inventory needed
 - Explicit instructions for the `frontend-design` plugin
 
-When you feed the bundle to Claude Code, the plugin reads PROMPT.md first. Everything else is context.
+When you feed the bundle to Antigravity CLI, the plugin reads PROMPT.md first. Everything else is context.
 
 ### tokens.json — machine-readable design tokens
 
@@ -136,7 +136,7 @@ Canva is NOT the right export when code is the destination — the round-trip fr
 For tight hand-offs where the user will write the code themselves, export just `tokens.json`:
 
 ```bash
-bun ~/.claude/skills/Webdesign/Tools/DriveClaudeDesign.ts export tokens path/to/out.json
+bun ~/Projects/LifeOS-AGY/.agents/skills/Webdesign/Tools/DriveClaudeDesign.ts export tokens path/to/out.json
 ```
 
 This is useful when:

@@ -2,7 +2,7 @@
  * transcript-evidence.ts — ground-truth evidence extraction for VerificationGate.
  *
  * The message is a CLAIM; the transcript is the EVIDENCE. This module parses the
- * current turn's tool_use/tool_result entries from a Claude Code transcript JSONL
+ * current turn's tool_use/tool_result entries from a Antigravity CLI transcript JSONL
  * into an ordered event index, then answers "did the required verification
  * actually run, after the last mutation, and succeed?" — so a message that SAYS
  * "interceptor-verified" but whose transcript shows only a render capture cannot

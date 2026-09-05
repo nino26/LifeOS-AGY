@@ -80,7 +80,7 @@ function summarizeInput(input: unknown): string {
   return compact.length > 120 ? `${compact.slice(0, 117)}...` : compact;
 }
 /**
- * A failed tool call does NOT emit PostToolUse — Claude Code routes it to the
+ * A failed tool call does NOT emit PostToolUse — Antigravity CLI routes it to the
  * separate PostToolUseFailure event (verified 2026-07-28: a failing Bash added
  * one line to tool-failures.jsonl and zero to tool-activity.jsonl). So reading
  * `input.error` on PostToolUse could never be true, `failed` was always false,

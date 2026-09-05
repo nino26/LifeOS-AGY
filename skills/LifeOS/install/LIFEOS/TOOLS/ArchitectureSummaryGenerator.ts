@@ -1,5 +1,5 @@
 #!/usr/bin/env bun
-// Normalize env path vars Claude Code may inject unexpanded — literal $HOME/${HOME}
+// Normalize env path vars Antigravity CLI may inject unexpanded — literal $HOME/${HOME}
 // in LIFEOS_DIR/LIFEOS_CONFIG_DIR/PROJECTS_DIR resolves to a shadow dir (#1404 / PR #1451, author jbmml).
 for (const __k of ["LIFEOS_DIR", "LIFEOS_CONFIG_DIR", "PROJECTS_DIR"]) {
   const __v = process.env[__k];
@@ -23,7 +23,7 @@ import * as fs from "fs";
 import * as path from "path";
 import { homedir } from "node:os";
 
-// Normalize env path vars that Claude Code injects without shell expansion (LifeOS#1404)
+// Normalize env path vars that Antigravity CLI injects without shell expansion (LifeOS#1404)
 for (const k of ["LIFEOS_DIR", "LIFEOS_CONFIG_DIR", "PROJECTS_DIR"]) {
   const v = process.env[k];
   if (v && /^\$\{?HOME\}?(\/|$)/.test(v)) process.env[k] = v.replace(/^\$\{?HOME\}?/, process.env.HOME ?? "~");
@@ -151,7 +151,7 @@ const PIPELINE_ROUTER: Record<string, { what: string; doc: string }> = {
   "Security": { what: "Constitutional security protocol, native denylist, safety-classifier hooks; deployed estate scanned hourly server-side by the Arbol scanner = the Bunker Security plane", doc: "Security/README.md" },
   "Algorithm": { what: "Outcome-driven ISA execution — articulate done, hill-climb, close claims on tool evidence", doc: "Algorithm/AlgorithmSystem.md" },
   "Cortex (Memory)": { what: "Cortex, the memory system — autonomic capture, tiered curation, and retrieval across hot-layer, KNOWLEDGE, LEARNING", doc: "Memory/MemorySystem.md" },
-  "Hooks": { what: "Deterministic enforcement and context injection at Claude Code events", doc: "Hooks/HookSystem.md" },
+  "Hooks": { what: "Deterministic enforcement and context injection at Antigravity CLI events", doc: "Hooks/HookSystem.md" },
   "Observability": { what: "Tool activity and failures appended to JSONL, read by Pulse", doc: "Observability/ObservabilitySystem.md" },
   "Pulse": { what: "The Life Dashboard server on :31337 — voice, work kanban, wiki, iMessage/Siri", doc: "Pulse/PulseSystem.md" },
   "Work System": { what: "Four capture surfaces feeding private GitHub Issues as system of record", doc: "Work/WorkSystem.md" },

@@ -7,7 +7,7 @@
  * MEMORY/STATE/work.json.
  *
  * REPLACES the legacy phantom file pattern:
- *   $(jq -r '.work_dir' ~/.claude/LIFEOS/MEMORY/STATE/current-work.json)
+ *   $(jq -r '.work_dir' ~/Projects/LifeOS-AGY/LIFEOS/MEMORY/STATE/current-work.json)
  *
  * The file `current-work.json` was never written by anything in the system —
  * it was a read-only contract on a nonexistent producer. The canonical

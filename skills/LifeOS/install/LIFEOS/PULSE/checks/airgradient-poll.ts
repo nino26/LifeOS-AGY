@@ -27,7 +27,7 @@ const HISTORY = join(CACHE_DIR, "history.jsonl")
 const API_BASE = "https://api.airgradient.com/public/api/v1"
 
 // Bun auto-loads .env from CWD only; Pulse cron runs from LIFEOS/PULSE/, so the
-// symlink at ~/.claude/.env isn't picked up. Read it directly if env is empty.
+// symlink at ~/Projects/LifeOS-AGY/.env isn't picked up. Read it directly if env is empty.
 function loadTokenFromDotenv(): string | null {
   const envPath = join(HOME, ".claude", ".env")
   if (!existsSync(envPath)) return null

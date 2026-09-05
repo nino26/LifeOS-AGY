@@ -1,5 +1,5 @@
 #!/bin/bash
-# RTK auto-rewrite hook for Claude Code PreToolUse:Bash
+# RTK auto-rewrite hook for Antigravity CLI PreToolUse:Bash
 # Transparently rewrites raw commands to their rtk equivalents to compress output.
 #
 # SCOPE (2026-07-13 shrink): rewrites ONLY git, gh, and the interceptor-screenshot

@@ -128,7 +128,7 @@ export class TranscriptCapture {
 }
 
 /**
- * Parse a Claude Code session transcript into our format
+ * Parse a Antigravity CLI session transcript into our format
  */
 export function parseClaudeCodeTranscript(
   sessionLog: string,
@@ -137,7 +137,7 @@ export function parseClaudeCodeTranscript(
 ): Transcript {
   const capture = new TranscriptCapture(taskId, trialId);
 
-  // Parse JSONL format (Claude Code history format)
+  // Parse JSONL format (Antigravity CLI history format)
   const lines = sessionLog.trim().split('\n').filter(Boolean);
 
   for (const line of lines) {

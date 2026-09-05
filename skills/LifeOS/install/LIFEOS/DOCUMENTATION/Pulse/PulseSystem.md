@@ -18,7 +18,7 @@ Every Pulse module is a sub-surface of the Dashboard: real-time observability, v
 **Implementation:** The unified daemon of LifeOS — a single always-on process that handles cron jobs, voice notifications, hook validation, observability APIs + dashboard, iMessage chat, the Siri bridge, and GitHub work polling. Pulse is THE local runtime for all LifeOS services. At v2.0 it absorbed VoiceServer, TelegramBot, the iMessage bot, and the Observability server into crash-isolated modules running under one process, one port (31337), and one launchd plist (`com.lifeos.pulse`) — the Telegram module has since been removed (2026-07-15).
 
 **Version:** 2.0 (2026-04-01)
-**Location:** `~/.claude/LIFEOS/PULSE/`
+**Location:** `~/Projects/LifeOS-AGY/LIFEOS/PULSE/`
 
 ---
 
@@ -213,7 +213,7 @@ enabled = true
 
 ### Script Jobs (`type = "script"`)
 
-Run a shell command via `bash -c`. The working directory is `~/.claude/Pulse/`. Environment variables from `~/.claude/.env` are available. The process has a 60-second timeout, enforced by `collectProc()` (public issue #1546): SIGTERM at expiry, SIGKILL 10s later, and a rejecting deadline 10s after that which drains stdout/stderr under `Promise.race` — a grandchild holding the pipe or a SIGTERM-immune child can no longer freeze the sequential cron loop.
+Run a shell command via `bash -c`. The working directory is `~/Projects/LifeOS-AGY/Pulse/`. Environment variables from `~/Projects/LifeOS-AGY/.env` are available. The process has a 60-second timeout, enforced by `collectProc()` (public issue #1546): SIGTERM at expiry, SIGKILL 10s later, and a rejecting deadline 10s after that which drains stdout/stderr under `Promise.race` — a grandchild holding the pipe or a SIGTERM-immune child can no longer freeze the sequential cron loop.
 
 Cost: $0. All computation is local or uses free APIs.
 
@@ -288,7 +288,7 @@ The knobs are hardcoded in `pulse.ts`: `MAX_FAILURES = 3`, `FAILURE_RETRY_COOLDO
 
 ### state.json
 
-Located at `~/.claude/Pulse/state/state.json`. Written atomically (write to `.tmp`, rename) after each job execution.
+Located at `~/Projects/LifeOS-AGY/Pulse/state/state.json`. Written atomically (write to `.tmp`, rename) after each job execution.
 
 ```json
 {
@@ -342,7 +342,7 @@ Pulse ships a supervisor unit for both supported platforms. On macOS it is manag
 | Start on login | `RunAtLoad = true` | `WantedBy=default.target` | Starts with the user session |
 | Restart on crash | `KeepAlive = true` | `Restart=on-failure` | Auto-restarts the daemon |
 | Restart throttle | `ThrottleInterval = 30` | `RestartSec=30` | Minimum 30 seconds between restart attempts |
-| Working directory | `WorkingDirectory` | `WorkingDirectory=` | `~/.claude/LIFEOS/PULSE` |
+| Working directory | `WorkingDirectory` | `WorkingDirectory=` | `~/Projects/LifeOS-AGY/LIFEOS/PULSE` |
 
 The systemd unit is templated — `__BUN_PATH__` and `__HOME__` are substituted at install time.
 
@@ -415,7 +415,7 @@ output = "ntfy"
 enabled = true
 ```
 
-3. Restart Pulse: `~/.claude/Pulse/manage.sh restart`
+3. Restart Pulse: `~/Projects/LifeOS-AGY/Pulse/manage.sh restart`
 
 ### Modifying an Existing Job
 
@@ -465,18 +465,18 @@ Sends HTTP HEAD requests to the sites you configure with 10-second timeouts. Rep
 
 ---
 
-## Relationship to Claude Code /schedule
+## Relationship to Antigravity CLI /schedule
 
-Claude Code has a built-in `/schedule` command that creates remote agents running on a cron schedule. These are **session-scoped triggers** -- they run as full Claude Code sessions in the cloud, have access to your codebase context, and are managed through Claude Code's interface.
+Antigravity CLI has a built-in `/schedule` command that creates remote agents running on a cron schedule. These are **session-scoped triggers** -- they run as full Antigravity CLI sessions in the cloud, have access to your codebase context, and are managed through Antigravity CLI's interface.
 
 Pulse is different:
 
 | | Pulse | /schedule |
 |---|---|---|
 | **Runs** | Locally, always-on daemon | Remote, cloud-based |
-| **Scope** | Lightweight checks, monitoring | Full Claude Code sessions |
+| **Scope** | Lightweight checks, monitoring | Full Antigravity CLI sessions |
 | **Cost** | $0 for script jobs | Full session token cost |
-| **Persistence** | Survives reboots (launchd) | Managed by Claude Code |
+| **Persistence** | Survives reboots (launchd) | Managed by Antigravity CLI |
 | **Use case** | Email, calendar, health checks | Complex recurring analysis |
 
 There is no conflict. Pulse handles high-frequency, low-cost local monitoring. /schedule handles heavy, infrequent cloud work. They can coexist and even complement each other (e.g., Pulse detects an issue, /schedule runs deeper analysis).
@@ -530,7 +530,7 @@ With all jobs enabled including proactive-suggestions: ~$0.065/day.
 ### Check Status
 
 ```bash
-~/.claude/Pulse/manage.sh status
+~/Projects/LifeOS-AGY/Pulse/manage.sh status
 ```
 
 Shows PID, uptime, and per-job last run times with failure counts.
@@ -539,13 +539,13 @@ Shows PID, uptime, and per-job last run times with failure counts.
 
 ```bash
 # Recent stdout (structured JSON)
-tail -50 ~/.claude/Pulse/logs/pulse-stdout.log
+tail -50 ~/Projects/LifeOS-AGY/Pulse/logs/pulse-stdout.log
 
 # Recent errors
-tail -50 ~/.claude/Pulse/logs/pulse-stderr.log
+tail -50 ~/Projects/LifeOS-AGY/Pulse/logs/pulse-stderr.log
 
 # Follow live
-tail -f ~/.claude/Pulse/logs/pulse-stdout.log | bun -e "process.stdin.on('data', d => { try { const e = JSON.parse(d); console.log(e.ts, e.level, e.msg) } catch {} })"
+tail -f ~/Projects/LifeOS-AGY/Pulse/logs/pulse-stdout.log | bun -e "process.stdin.on('data', d => { try { const e = JSON.parse(d); console.log(e.ts, e.level, e.msg) } catch {} })"
 ```
 
 ### Common Issues
@@ -555,9 +555,9 @@ tail -f ~/.claude/Pulse/logs/pulse-stdout.log | bun -e "process.stdin.on('data',
 | "NOT RUNNING (no PID file)" | Pulse not started or crashed without recovery | `manage.sh install` |
 | "DEAD (stale PID)" | Process died but launchd did not restart | `manage.sh restart` |
 | Job stuck in circuit breaker | 3+ consecutive failures | Fix the check script; retries automatically after the 6h cooldown, or `manage.sh restart` to retry now |
-| "ntfy dispatch skipped" | Missing env var | Set `NTFY_TOPIC` in `~/.claude/.env` |
+| "ntfy dispatch skipped" | Missing env var | Set `NTFY_TOPIC` in `~/Projects/LifeOS-AGY/.env` |
 | Voice notifications silent | Voice module not running or Pulse down | `manage.sh restart`; check `[voice] enabled = true` in PULSE.toml |
-| Calendar returns NO_EVENTS always | Missing or expired refresh token | Set `GOOGLE_CALENDAR_REFRESH_TOKEN` in `~/.claude/.env` |
+| Calendar returns NO_EVENTS always | Missing or expired refresh token | Set `GOOGLE_CALENDAR_REFRESH_TOKEN` in `~/Projects/LifeOS-AGY/.env` |
 | State file corrupt | Interrupted write (unlikely, writes are atomic) | Delete `state/state.json` and restart |
 
 ### Manual Job Test
@@ -565,7 +565,7 @@ tail -f ~/.claude/Pulse/logs/pulse-stdout.log | bun -e "process.stdin.on('data',
 Run a check script directly to verify it works:
 
 ```bash
-cd ~/.claude/Pulse
+cd ~/Projects/LifeOS-AGY/Pulse
 bun run checks/health.ts
 bun run checks/calendar.ts
 bun run checks/email.ts
@@ -577,7 +577,7 @@ bun run checks/github.ts
 ## File Inventory
 
 ```
-~/.claude/Pulse/
+~/Projects/LifeOS-AGY/Pulse/
 ├── pulse.ts                  # Main daemon -- startup, module init, heartbeat loop
 ├── PULSE.toml                # Job + module configuration
 ├── manage.sh                 # Process management -- start/stop/status/install
@@ -626,7 +626,7 @@ bun run checks/github.ts
 
 LifeOS Pulse includes a native macOS menu bar app that shows daemon status at a glance. The menu bar app is launched automatically by Pulse on startup -- no separate launchd plist needed.
 
-**Location:** `~/.claude/LIFEOS/PULSE/MenuBar/`
+**Location:** `~/Projects/LifeOS-AGY/LIFEOS/PULSE/MenuBar/`
 **Installed to:** `~/Applications/LifeOS Pulse.app`
 **Launched by:** Pulse process on startup (no separate launchd plist)
 
@@ -648,7 +648,7 @@ Reads `state/state.json` directly every 5 seconds (no HTTP endpoint needed). Che
 ### Building and Installing
 
 ```bash
-cd ~/.claude/LIFEOS/PULSE/MenuBar
+cd ~/Projects/LifeOS-AGY/LIFEOS/PULSE/MenuBar
 bash install.sh    # Builds, deploys to ~/Applications, installs plist
 ```
 
@@ -673,13 +673,13 @@ Pulse includes an integrated HTTP hook validation server as the `hooks` module (
 
 ### Behavior
 
-- **Fail-open:** If Pulse is unreachable, Claude Code treats hooks as non-blocking success. This is acceptable for skill-guard (minor annoyance) and agent-guard (warning only). These Pulse HTTP routes are the ONLY implementation — the standalone `.hook.ts` files (`SkillGuard.hook.ts`, `AgentExecutionGuard.hook.ts`) were deleted.
+- **Fail-open:** If Pulse is unreachable, Antigravity CLI treats hooks as non-blocking success. This is acceptable for skill-guard (minor annoyance) and agent-guard (warning only). These Pulse HTTP routes are the ONLY implementation — the standalone `.hook.ts` files (`SkillGuard.hook.ts`, `AgentExecutionGuard.hook.ts`) were deleted.
 - **Security hooks stay as command hooks:** `Safety.hook.ts` runs in-process (no network) for its permission classification. HTTP hooks would fail-open on connection failure, which is unacceptable for security operations.
 - **Port:** 31337 (shared with all Pulse modules), bound to 127.0.0.1 only.
 
 ### Hook Configuration
 
-The hooks are configured in `~/.claude/settings.json` as HTTP hooks pointing to `http://localhost:31337/hooks/*`.
+The hooks are configured in `~/Projects/LifeOS-AGY/settings.json` as HTTP hooks pointing to `http://localhost:31337/hooks/*`.
 
 ---
 
@@ -746,7 +746,7 @@ This ensures the browser always picks up new builds without stale content.
 After building the Observatory dashboard, Pulse must be restarted to pick up new files:
 
 ```bash
-cd ~/.claude/LIFEOS/Observability && bun run build
+cd ~/Projects/LifeOS-AGY/LIFEOS/Observability && bun run build
 launchctl stop com.lifeos.pulse && launchctl start com.lifeos.pulse
 ```
 

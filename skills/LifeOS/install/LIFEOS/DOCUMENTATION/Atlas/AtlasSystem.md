@@ -44,7 +44,7 @@ Modeled on CNCF Cartography's design (sync-and-expire collectors, per-source obs
 
 | Collector | Source of authority | Produces |
 |---|---|---|
-| `cloudflare` | CF API (token from `~/.claude/.env`, header auth only) | domains (zones + hostnames + workers.dev hosts), dns_records, workers (with `cron`/`workers_dev`/`queue_consumer` attrs), kv/r2/d1; edges: OWNS, SERVES (custom domain + workers.dev), ROUTE (zone routes), CALLS (service bindings, worker→worker) |
+| `cloudflare` | CF API (token from `~/Projects/LifeOS-AGY/.env`, header auth only) | domains (zones + hostnames + workers.dev hosts), dns_records, workers (with `cron`/`workers_dev`/`queue_consumer` attrs), kv/r2/d1; edges: OWNS, SERVES (custom domain + workers.dev), ROUTE (zone routes), CALLS (service bindings, worker→worker) |
 | `github` | `gh repo list` | repos (visibility, archived, pushed_at) |
 | `projects` | `USER/PROJECTS.md` main table | projects; SERVES → domains, DEPLOYED_FROM → repos |
 | `infra-inventory` | `ARBOL/Shared/infra-inventory.ts` (observed, never replaced) | targets, security-plane system node; MONITORS → domains, REGISTERED_IN |
@@ -62,7 +62,7 @@ v2 candidates (ISA § Not yet specified): UniFi/network devices, smart home, exp
 ## CLI
 
 ```
-bun ~/.claude/LIFEOS/ATLAS/Atlas.ts <cmd>
+bun ~/Projects/LifeOS-AGY/LIFEOS/ATLAS/Atlas.ts <cmd>
 
 sync [collector ...]        full reconcile (all collectors default)
 sync X --targeted <scope>   scoped upsert-only run (never sweeps)

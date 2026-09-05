@@ -12,7 +12,7 @@ description: Parallelize work via background/foreground agents, built-in types, 
 | {PRINCIPAL.NAME} Says | System | Tool | What Happens |
 |-------------|--------|------|-------------|
 | "**custom agents**", "spin up agents", "launch agents" | **Agents Skill** (ComposeAgent) | `Task(subagent_type="general-purpose", prompt=<ComposeAgent output>)` | Unique personalities, voices, colors via trait composition |
-| "**create an agent team**", "**agent team**", "**swarm**" | **Claude Code Teams** | `TeamCreate` → `TaskCreate` → `SendMessage` | Persistent team with shared task list, message coordination, multi-turn collaboration |
+| "**create an agent team**", "**agent team**", "**swarm**" | **Antigravity CLI Teams** | `TeamCreate` → `TaskCreate` → `SendMessage` | Persistent team with shared task list, message coordination, multi-turn collaboration |
 
 **These are NOT the same thing:**
 - **Custom agents** = one-shot parallel workers with unique identities, launched via `Task()`, no shared state
@@ -84,7 +84,7 @@ Standard `Task()` calls that block until complete:
 
 ```bash
 # Step 1: Compose agent identity
-bun run ~/.claude/skills/Agents/Tools/ComposeAgent.ts --traits "security,skeptical,thorough" --task "Review auth" --output json
+bun run ~/Projects/LifeOS-AGY/.agents/skills/Agents/Tools/ComposeAgent.ts --traits "security,skeptical,thorough" --task "Review auth" --output json
 
 # Step 2: Launch with composed prompt
 Task(subagent_type="general-purpose", prompt=<ComposeAgent JSON .prompt field>)

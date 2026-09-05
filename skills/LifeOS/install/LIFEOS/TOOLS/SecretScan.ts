@@ -7,9 +7,9 @@
  * Part of LifeOS CORE Tools.
  *
  * Usage:
- *   bun ~/.claude/LIFEOS/TOOLS/SecretScan.ts <directory>
- *   bun ~/.claude/LIFEOS/TOOLS/SecretScan.ts . --verbose
- *   bun ~/.claude/LIFEOS/TOOLS/SecretScan.ts . --verify
+ *   bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/SecretScan.ts <directory>
+ *   bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/SecretScan.ts . --verbose
+ *   bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/SecretScan.ts . --verify
  *
  * @see the release skill's SecretScanning workflow
  */

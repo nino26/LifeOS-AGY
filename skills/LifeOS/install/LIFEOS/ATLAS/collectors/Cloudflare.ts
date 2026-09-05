@@ -1,6 +1,6 @@
 /**
  * Cloudflare collector — workers, zones, DNS records, worker custom domains, KV/R2/D1.
- * Reads CLOUDFLARE_API_TOKEN from ~/.claude/.env (Authorization header only, never URLs).
+ * Reads CLOUDFLARE_API_TOKEN from ~/Projects/LifeOS-AGY/.env (Authorization header only, never URLs).
  * complete=true only when every page of every listing succeeded.
  */
 

@@ -14,4 +14,4 @@ Skill("Teach", "teach me $ARGUMENTS")
 
 If `$ARGUMENTS` is empty, the topic defaults to whatever this conversation has been working on or asking about; on a fresh session with no topic, the workflow asks.
 
-Full procedure: `~/.claude/skills/Teach/Workflows/Teach.md`.
+Full procedure: `~/Projects/LifeOS-AGY/.agents/skills/Teach/Workflows/Teach.md`.

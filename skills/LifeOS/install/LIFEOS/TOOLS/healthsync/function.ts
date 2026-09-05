@@ -102,7 +102,7 @@ export async function pull(ctx: Ctx): Promise<SourceResult> {
   const email = str(ctx.env.FUNCTION_HEALTH_EMAIL);
   const password = str(ctx.env.FUNCTION_HEALTH_PASSWORD);
   if (email === null || password === null) {
-    return unconfigured("FUNCTION_HEALTH_EMAIL / FUNCTION_HEALTH_PASSWORD not set in ~/.claude/.env", startedAt);
+    return unconfigured("FUNCTION_HEALTH_EMAIL / FUNCTION_HEALTH_PASSWORD not set in ~/Projects/LifeOS-AGY/.env", startedAt);
   }
 
   const state = await loadState(ctx);

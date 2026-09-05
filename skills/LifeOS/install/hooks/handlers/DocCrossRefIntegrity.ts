@@ -177,7 +177,7 @@ function isHookModified(modifiedFiles: Set<string>): boolean {
  * Check if ANY meaningful LifeOS system file was modified.
  * LifeOS spans TWO root directories:
  *   - CLAUDE_DIR (~/.claude) — hooks, skills, settings, agents, CLAUDE.md
- *   - LIFEOS_DIR (~/.claude/LIFEOS) — LifeOS data, Tools, Components, Workflows, SYSTEM docs
+ *   - LIFEOS_DIR (~/Projects/LifeOS-AGY/LIFEOS) — LifeOS data, Tools, Components, Workflows, SYSTEM docs
  * Excludes MEMORY/WORK, MEMORY/LEARNING, MEMORY/STATE, and other non-system paths.
  */
 function isSystemFileModified(modifiedFiles: Set<string>): boolean {
@@ -187,7 +187,7 @@ function isSystemFileModified(modifiedFiles: Set<string>): boolean {
   const CLAUDE_EXCLUDED = ['projects/', '.git/', 'node_modules/', 'history.jsonl'];
 
   for (const filePath of modifiedFiles) {
-    // --- Check ~/.claude/ paths ---
+    // --- Check ~/Projects/LifeOS-AGY/ paths ---
     if (filePath.startsWith(CLAUDE_DIR + '/')) {
       const relPath = filePath.slice(CLAUDE_DIR.length + 1);
       if (CLAUDE_EXCLUDED.some(ex => relPath.includes(ex))) continue;
@@ -203,7 +203,7 @@ function isSystemFileModified(modifiedFiles: Set<string>): boolean {
       continue;
     }
 
-    // --- Check ~/.claude/LIFEOS/ paths ---
+    // --- Check ~/Projects/LifeOS-AGY/LIFEOS/ paths ---
     if (filePath.startsWith(LIFEOS_DIR + '/')) {
       const relPath = filePath.slice(LIFEOS_DIR.length + 1);
       if (LIFEOS_EXCLUDED.some(ex => relPath.includes(ex))) continue;

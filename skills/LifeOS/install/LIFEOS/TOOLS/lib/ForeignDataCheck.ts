@@ -23,7 +23,7 @@
  *   - <your-release-skill>/Tools/ShadowRelease.ts   — release gate G24 on staging
  *   - LIFEOS/TOOLS/MemorySystem.ts + LIFEOS/PULSE/lib/memory-proposals.ts —
  *     assertInsideUserData() refuses personal writes outside USER_DATA
- *   - ~/.claude/.gitignore carries the same shapes as static patterns
+ *   - ~/Projects/LifeOS-AGY/.gitignore carries the same shapes as static patterns
  *
  * Pure and dependency-free beyond node builtins. Path checks are lexical over
  * repo-RELATIVE paths (git output); filesystem checks use lstat/realpath so a
@@ -229,7 +229,7 @@ export function userDataRoot(): string {
 /**
  * Assert an absolute write target physically resolves INSIDE the USER_DATA
  * repo. Realpath-based on the deepest existing ancestor, so:
- *   - an intact `~/.claude/LIFEOS/USER` (or MEMORY) symlink resolves into
+ *   - an intact `~/Projects/LifeOS-AGY/LIFEOS/USER` (or MEMORY) symlink resolves into
  *     ~/.config/LIFEOS/USER and passes;
  *   - a broken/replaced symlink (real dir inside ~/.claude) resolves under
  *     ~/.claude and is REFUSED — the write would land in the system tree;

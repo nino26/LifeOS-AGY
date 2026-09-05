@@ -652,7 +652,7 @@ The load-bearing edge is `C → D`: the CLI is tested and trustworthy *before* a
 
 ## Related Documentation
 
-- **Architecture**: `~/.claude/LIFEOS/DOCUMENTATION/LifeosSystemArchitecture.md`
+- **Architecture**: `~/Projects/LifeOS-AGY/LIFEOS/DOCUMENTATION/LifeosSystemArchitecture.md`
 
 ---
 

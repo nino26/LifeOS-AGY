@@ -35,7 +35,7 @@ const quiet = args.includes('--quiet');
 const PATH_PATTERNS = [
   // Backtick-quoted paths: `LIFEOS/DOCUMENTATION/Hooks/HookSystem.md`, `hooks/PromptInjection.hook.ts`
   /`((?:LifeOS|hooks|skills|agents|Pulse|USER|MEMORY|Components|Algorithm|Tools)\/[\w/.@-]+\.\w+)`/g,
-  // Backtick-quoted paths with ~/.claude/ prefix
+  // Backtick-quoted paths with ~/Projects/LifeOS-AGY/ prefix
   /`~\/\.claude\/([\w/.@-]+\.\w+)`/g,
   // Backtick-quoted paths with $HOME/.claude/ prefix
   /`\$HOME\/\.claude\/([\w/.@-]+\.\w+)`/g,
@@ -109,7 +109,7 @@ function extractPathRefs(content: string, docPath: string): PathRef[] {
       // Skip vX.Y.Z placeholder strings
       if (raw.includes('vX.Y.Z')) continue;
 
-      // Resolve path — try ~/.claude/ first, then ~/.claude/LIFEOS/, then
+      // Resolve path — try ~/Projects/LifeOS-AGY/ first, then ~/Projects/LifeOS-AGY/LIFEOS/, then
       // section-aware root from `## ... (paths under `X`)` heading hint, then
       // referrer-dir relative.
       let resolved = resolve(CLAUDE_DIR, raw);

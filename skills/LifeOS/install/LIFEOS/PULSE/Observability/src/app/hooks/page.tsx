@@ -86,7 +86,7 @@ function HooksLanding({ hooks, events }: { hooks: HookEntry[]; events: string[] 
       <PageHeader
         title="Hooks"
         icon={Webhook}
-        subtitle="Lifecycle event handlers that run shell commands or HTTP requests in response to Claude Code events. Configured in settings.json; they intercept tool calls, session events, and system changes."
+        subtitle="Lifecycle event handlers that run shell commands or HTTP requests in response to Antigravity CLI events. Configured in settings.json; they intercept tool calls, session events, and system changes."
       />
 
       <div className="grid gap-4" style={{ gridTemplateColumns: "repeat(auto-fill, minmax(180px, 220px))" }}>

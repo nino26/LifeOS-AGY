@@ -30,7 +30,7 @@ Two facts shape everything downstream. **Mac-only**: no Linux path, which matter
 
 ## Feature map — HIS features (the source video) → how we implement
 
-Every wrapper subcommand below is `bun ~/.claude/skills/CMUX/Tools/cmux.ts <subcommand>`.
+Every wrapper subcommand below is `bun ~/Projects/LifeOS-AGY/.agents/skills/CMUX/Tools/cmux.ts <subcommand>`.
 
 | # | Feature (his) | cmux mechanism | Our wrapper subcommand | Status |
 |---|---------------|----------------|------------------------|--------|
@@ -132,7 +132,7 @@ Sharp risks the first pass under-priced. Fold into the phase work before the Kit
 - **Session JSON is a private, uncontracted interface.** cmux does not promise that schema; it drifts on updates and the Pulse bridge breaks *silently*. Mitigation: pin the cmux version in SKILL.md, add a schema guard that **fails loud** — never let a schema miss degrade quietly into the poll fallback.
 - **Torn reads.** Reading `session-*.json` while cmux writes it yields partial JSON. Parse-failure → bounded retry, never crash.
 
-**Hook collision (the "voice says everything twice" bug):** during the staged window there are up to THREE hook sources on the same events — `cmux claude-teams`'s auto-injected Claude Code hooks, LifeOS's own hooks, and the still-live Kitty hooks. Without a dedup layer (keyed by event ID) or a documented precedence rule, you get duplicate Pulse entries and duplicate voice announcements. Staging *creates* this; it is not merely a cutover risk. Address before Phase 2.
+**Hook collision (the "voice says everything twice" bug):** during the staged window there are up to THREE hook sources on the same events — `cmux claude-teams`'s auto-injected Antigravity CLI hooks, LifeOS's own hooks, and the still-live Kitty hooks. Without a dedup layer (keyed by event ID) or a documented precedence rule, you get duplicate Pulse entries and duplicate voice announcements. Staging *creates* this; it is not merely a cutover risk. Address before Phase 2.
 
 **Kitty→cmux cutover blind spots:**
 - **Liveness inversion.** Kitty is a terminal (up while you're logged in); cmux is a GUI app whose socket dies on quit/crash. Monitor + Pulse workflows need an explicit "socket gone" state with reconnect/auto-launch, or post-cutover LifeOS goes quietly deaf.

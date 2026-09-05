@@ -55,7 +55,7 @@ function usageText(): string {
   return `cmux.ts - JSON CLI wrapper for the cmux GUI terminal multiplexer
 
 USAGE:
-  bun ~/.claude/skills/CMUX/Tools/cmux.ts <subcommand> [options]
+  bun ~/Projects/LifeOS-AGY/.agents/skills/CMUX/Tools/cmux.ts <subcommand> [options]
 
 SUBCOMMANDS:
   ping                                      Ensure cmux is up and return version
@@ -662,7 +662,7 @@ function loadFleetConfig(): HostConfig[] | JsonObject {
   if (!existsSync(configPath)) {
     return {
       ok: false,
-      error: "No hosts configured. Pass --hosts name=ssh,name2=ssh2 or create ~/.claude/LIFEOS/USER/CUSTOMIZATIONS/SKILLS/CMUX/fleet.json with {\"hosts\":[{\"name\":\"...\",\"ssh\":\"...\"}]}",
+      error: "No hosts configured. Pass --hosts name=ssh,name2=ssh2 or create ~/Projects/LifeOS-AGY/LIFEOS/USER/CUSTOMIZATIONS/SKILLS/CMUX/fleet.json with {\"hosts\":[{\"name\":\"...\",\"ssh\":\"...\"}]}",
     };
   }
 

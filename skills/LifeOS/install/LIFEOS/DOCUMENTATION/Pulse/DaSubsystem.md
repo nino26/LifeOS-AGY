@@ -613,7 +613,7 @@ bun LIFEOS/TOOLS/DASchedule.ts history
 bun LIFEOS/TOOLS/DASchedule.ts purge --older-than 30d
 ```
 
-During a Claude Code session, the DA can also manage tasks conversationally:
+During a Antigravity CLI session, the DA can also manage tasks conversationally:
 
 ```
 User: "what reminders do I have?"

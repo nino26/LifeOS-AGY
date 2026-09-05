@@ -1,7 +1,7 @@
 /**
  * Bunker module — feeds the Pulse "Bunker" tab.
  *
- * Bunker (~/.claude/LIFEOS/PULSE/Bunker) is the source of truth. This module shells out to its
+ * Bunker (~/Projects/LifeOS-AGY/LIFEOS/PULSE/Bunker) is the source of truth. This module shells out to its
  * CLI (`bunker data`), caches the snapshot, and serves it at /api/bunker. Pulse only
  * displays; Bunker computes. CLI-as-contract keeps Pulse decoupled from bunker internals.
  *

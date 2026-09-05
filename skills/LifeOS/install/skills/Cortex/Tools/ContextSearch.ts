@@ -9,8 +9,8 @@ const HOME = homedir();
 const LIFEOS_DIR = join(HOME, ".claude");
 const STATE_DIR = join(LIFEOS_DIR, "LIFEOS", "MEMORY", "STATE");
 const WORK_DIR = join(LIFEOS_DIR, "LIFEOS", "MEMORY", "WORK");
-// Claude Code writes one transcript dir per working directory under
-// ~/.claude/projects/ (lowercase on disk — the old "Projects" spelling only
+// Antigravity CLI writes one transcript dir per working directory under
+// ~/Projects/LifeOS-AGY/projects/ (lowercase on disk — the old "Projects" spelling only
 // worked on case-insensitive macOS), named by the cwd with "/" and "." mapped
 // to "-". Search ALL of them: pinning to the ~/.claude slug alone made every
 // session run inside a code repo unrecallable (public issues #1494 + #1498,
@@ -26,7 +26,7 @@ const STOPWORDS = new Set([
 
 type Source = "work.json" | "session-names.json" | "work-dir" | "isa-body" | "project-isa" | "jsonl";
 
-/** All Claude Code transcript dirs (one per cwd ever worked in). */
+/** All Antigravity CLI transcript dirs (one per cwd ever worked in). */
 function projectDirs(): string[] {
   if (!existsSync(PROJECTS_ROOT)) return [];
   return readdirSync(PROJECTS_ROOT, { withFileTypes: true })
@@ -360,7 +360,7 @@ function searchWorkDirs(tokens: string[], since: Date | null, until: Date | null
  * Code's shell integration aliases rg to its embedded ripgrep via a shell
  * FUNCTION — invisible to Bun.spawn, so every rg-backed source (ISA bodies,
  * conversation logs) dies with "Executable not found in $PATH". Fall back to
- * running the Claude Code executable with argv0="rg", the same trick the shell
+ * running the Antigravity CLI executable with argv0="rg", the same trick the shell
  * function uses. (Public PR #1486, credit @anikinsasha.)
  */
 function rgCommand(): { exe: string; argv0?: string } {

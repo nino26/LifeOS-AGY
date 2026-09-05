@@ -82,7 +82,7 @@ function main(): void {
       // ABORT on an unparseable EXISTING settings.json — never reset to {}.
       // The prior `catch { settings = {} }` silently dropped model / permissions /
       // env / statusLine and wrote a file containing ONLY "hooks", destroying the
-      // user's Claude Code config on the most common hand-edit error (a trailing
+      // user's Antigravity CLI config on the most common hand-edit error (a trailing
       // comma). Fresh-install data loss. (Forge cross-vendor audit 2026-08-11)
       console.log(JSON.stringify({
         ok: false, apply, settingsPath,

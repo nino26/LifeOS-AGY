@@ -2,8 +2,8 @@
 /**
  * InstallCommitmentSweep.ts — Materialize com.lifeos.commitmentsweep.plist.template and bootstrap.
  *
- *   bun ~/.claude/LIFEOS/TOOLS/InstallCommitmentSweep.ts             # install
- *   bun ~/.claude/LIFEOS/TOOLS/InstallCommitmentSweep.ts --uninstall # remove
+ *   bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/InstallCommitmentSweep.ts             # install
+ *   bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/InstallCommitmentSweep.ts --uninstall # remove
  *
  * Reads template, substitutes __HOME__ with $HOME, writes to ~/Library/LaunchAgents/,
  * bootstraps via launchctl bootstrap. Idempotent — re-runs cleanly replace existing.

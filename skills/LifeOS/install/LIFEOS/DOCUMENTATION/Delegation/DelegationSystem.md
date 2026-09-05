@@ -74,7 +74,7 @@ Agent({ prompt: "System design / distributed systems. Design the distributed cac
 Compose task-specific agents by writing the role/perspective/voice directly into each prompt:
 - Use a SINGLE message with MULTIPLE Agent tool calls
 - Each agent gets FULL CONTEXT and a DETAILED role brief written into its prompt, launched with `subagent_type: "general-purpose"`
-- ~~Launch as many as needed (no artificial limit)~~ — corrected 2026-07-23 (public PR #1569, @elhoim): since Claude Code 2.1.217, concurrently-running subagents are capped (default 20, override `CLAUDE_CODE_MAX_CONCURRENT_SUBAGENTS`) and subagents no longer spawn nested subagents by default (override `CLAUDE_CODE_MAX_SUBAGENT_SPAWN_DEPTH`)
+- ~~Launch as many as needed (no artificial limit)~~ — corrected 2026-07-23 (public PR #1569, @elhoim): since Antigravity CLI 2.1.217, concurrently-running subagents are capped (default 20, override `CLAUDE_CODE_MAX_CONCURRENT_SUBAGENTS`) and subagents no longer spawn nested subagents by default (override `CLAUDE_CODE_MAX_SUBAGENT_SPAWN_DEPTH`)
 - **ALWAYS launch a spotcheck agent after parallel work completes**
 
 **Agent routing by task type:**
@@ -212,7 +212,7 @@ Three primitives for non-blocking work. Pick the right one:
 
 ## Knowledge Archive Access
 
-Delegated agents can query the **Knowledge Archive** (`~/.claude/LIFEOS/MEMORY/KNOWLEDGE/`) for accumulated knowledge organized by 4 entity types: People (human beings), Companies (organizations), Ideas (insights/theses/analyses), Research (longer-form research notes). Topic is a tag, not a domain. Managed by Algorithm LEARN phase (direct writes), `LIFEOS/TOOLS/KnowledgeHarvester.ts` (validation/maintenance), and the `/knowledge` skill. Include archive query instructions in agent prompts when the task benefits from prior research or domain context.
+Delegated agents can query the **Knowledge Archive** (`~/Projects/LifeOS-AGY/LIFEOS/MEMORY/KNOWLEDGE/`) for accumulated knowledge organized by 4 entity types: People (human beings), Companies (organizations), Ideas (insights/theses/analyses), Research (longer-form research notes). Topic is a tag, not a domain. Managed by Algorithm LEARN phase (direct writes), `LIFEOS/TOOLS/KnowledgeHarvester.ts` (validation/maintenance), and the `/knowledge` skill. Include archive query instructions in agent prompts when the task benefits from prior research or domain context.
 
 ---
 
@@ -257,7 +257,7 @@ The diagram is the pattern in one frame: split only what's genuinely independent
 ---
 
 **See Also:**
-- `~/.claude/LIFEOS/DOCUMENTATION/LifeosSystemArchitecture.md` — Master architecture reference (system-of-systems)
+- `~/Projects/LifeOS-AGY/LIFEOS/DOCUMENTATION/LifeosSystemArchitecture.md` — Master architecture reference (system-of-systems)
 - SKILL.md > Delegation (Quick Reference) - Condensed trigger table
 - Workflows/Delegation.md - Operational delegation procedures
 - Workflows/BackgroundDelegation.md - Background agent patterns

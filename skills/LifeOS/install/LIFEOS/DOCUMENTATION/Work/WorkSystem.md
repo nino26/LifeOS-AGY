@@ -89,7 +89,7 @@ Fires on every prompt. Precision-biased regex looks for `remind me to X`, `resea
 
 ### 3. Periodic sweep — `LIFEOS/TOOLS/WorkSweep.ts` + launchd 60min
 
-Runs every 60 minutes via `~/Library/LaunchAgents/com.lifeos.worksweep.plist` (installed via `bun ~/.claude/LIFEOS/TOOLS/InstallWorkSweep.ts`). Four sub-sweeps:
+Runs every 60 minutes via `~/Library/LaunchAgents/com.lifeos.worksweep.plist` (installed via `bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/InstallWorkSweep.ts`). Four sub-sweeps:
 
 | Sub-sweep | Trigger | Output |
 |-----------|---------|--------|
@@ -174,9 +174,9 @@ A `<da-name>-can-take` label serves as the queue marker for "the DA should pick 
 
 | Layer | Lives in | Contains | Ships in release? |
 |-------|----------|----------|-------------------|
-| **System code (public)** | `~/.claude/LIFEOS/PULSE/`, `~/.claude/LIFEOS/TOOLS/`, generic capture hooks under `~/.claude/hooks/` | Modules, CLIs, generic hooks | YES — scrubbed, public-clean |
-| **Private components** | the work-tracking skill dir, `~/.claude/hooks/ULWorkSync.hook.ts` | Underscore-private skill + principal-specific SessionEnd capture hook (target the principal's private work repo) | NO — rsync-excluded from the public release payload, same as any underscore-prefixed private skill |
-| **User config** | `~/.claude/LIFEOS/USER/WORK/` | `labels.yml`, `config.yaml`, `work_repo.json`, `README.md` | NO — **created by work-system setup, not shipped.** These are USER-zone files excluded by containment; a fresh install has no `USER/WORK/` until setup writes it, so a missing file here is the pre-setup state, not a packaging bug. |
+| **System code (public)** | `~/Projects/LifeOS-AGY/LIFEOS/PULSE/`, `~/Projects/LifeOS-AGY/LIFEOS/TOOLS/`, generic capture hooks under `~/Projects/LifeOS-AGY/hooks/` | Modules, CLIs, generic hooks | YES — scrubbed, public-clean |
+| **Private components** | the work-tracking skill dir, `~/Projects/LifeOS-AGY/hooks/ULWorkSync.hook.ts` | Underscore-private skill + principal-specific SessionEnd capture hook (target the principal's private work repo) | NO — rsync-excluded from the public release payload, same as any underscore-prefixed private skill |
+| **User config** | `~/Projects/LifeOS-AGY/LIFEOS/USER/WORK/` | `labels.yml`, `config.yaml`, `work_repo.json`, `README.md` | NO — **created by work-system setup, not shipped.** These are USER-zone files excluded by containment; a fresh install has no `USER/WORK/` until setup writes it, so a missing file here is the pre-setup state, not a packaging bug. |
 | **Templates for new users** | maintainer-side only, in the release skill's `RELEASE_TEMPLATES/WORK_REPO/` — **not yet in the release payload**, so there is no installed path for these | README template, TASKLIST starter, .github/labels.yml, ISSUE_TEMPLATE, workflows | NOT YET — placeholder substitution at user-setup time is planned, not built |
 | **Live repo** | The configured private GitHub repo | Issues, TASKLIST.md, README, SOPs, CHANGELOG | NO — user's private property |
 
@@ -199,8 +199,8 @@ A new LifeOS user runs the work-tracking skill's `SetWorkRepo --bootstrap <owner
 1. Create a private GitHub repo
 2. Run the work-tracking skill's `SetWorkRepo --bootstrap <owner/repo>` tool (planned — for now do steps 3-5 manually)
 3. Run the work-tracking skill's `BootstrapLabels --repo <owner/repo>` tool to seed the label taxonomy
-4. Restart Pulse: `bash ~/.claude/LIFEOS/PULSE/manage.sh restart`
-5. `bun ~/.claude/LIFEOS/TOOLS/InstallWorkSweep.ts` to register the launchd job
+4. Restart Pulse: `bash ~/Projects/LifeOS-AGY/LIFEOS/PULSE/manage.sh restart`
+5. `bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/InstallWorkSweep.ts` to register the launchd job
 6. Run any Algorithm session — `ULWorkSync.hook.ts` opens the first issue at SessionEnd; sweep catches everything else within an hour
 
 ## Tunables

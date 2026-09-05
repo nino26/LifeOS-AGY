@@ -33,7 +33,7 @@ Today's zones:
 | `config-secrets` | `settings.json`, `settings.local.json`, `.vscode/settings.json`, `.env`, `.env.*`, `LIFEOS/.env`, `LIFEOS/.env.*` | API tokens, allowed command lists, MCP auth |
 | `runtime-memory` | `LIFEOS/MEMORY/**` | Work sessions, learnings, observability, research, raw data, bookmarks, relationship notes |
 | `private-skills` | `skills/_*/**` (underscore prefix) | Principal-specific and proprietary skills |
-| `install-state` | `history.jsonl`, `Plugins/**`, `plugins/installed_plugins.json`, `plugins/known_marketplaces.json` | Claude Code runtime install state written by the harness |
+| `install-state` | `history.jsonl`, `Plugins/**`, `plugins/installed_plugins.json`, `plugins/known_marketplaces.json` | Antigravity CLI runtime install state written by the harness |
 | `private-infra` | `LIFEOS/ARBOL/**`, `LIFEOS/PULSE/Assistant/**`, `LIFEOS/PULSE/Plans/**`, `LIFEOS/PULSE/logs/**`, `LIFEOS/PULSE/state/**`, `LIFEOS/PULSE/Observability/out/**`, `LIFEOS/PULSE/.playwright-cli/**`, `LIFEOS/ScheduledTasks/**` | Top-level private infrastructure: cloud worker source, DA-specific assistant, planning docs, runtime logs/state, rendered HTML, scheduled tasks |
 
 The underscore-prefix rule for `private-skills` is the interface contract. If a skill name does NOT start with `_`, that skill directory must be clean enough to ship to strangers.
@@ -45,7 +45,7 @@ The underscore-prefix rule for `private-skills` is the interface contract. If a 
 Zones drift. Before running `ShadowRelease --create <version>`:
 
 1. Open `hooks/lib/containment-zones.ts`.
-2. Walk `~/.claude/` at depth 1-2 (e.g. `ls -la && ls -la LIFEOS/ && ls -la skills/`) and compare against the zone list.
+2. Walk `~/Projects/LifeOS-AGY/` at depth 1-2 (e.g. `ls -la && ls -la LIFEOS/ && ls -la skills/`) and compare against the zone list.
 3. Ask, for every new top-level or first-nested dir since the last release:
     - Does it contain anything principal-specific? → **Add a zone or extend an existing one.**
     - Is it runtime state the harness writes? → **Add it to `install-state` or the RSYNC_EXCLUDES in `ShadowRelease.ts`.**
@@ -90,7 +90,7 @@ Use `${HOME}`, `${LIFEOS_DIR}`, `${LIFEOS_DIR}`, or a configurable placeholder. 
 
 1. Load from `process.env.X` at runtime.
 2. Document the var name in the file itself, no default value that contains the secret.
-3. Fallback path: read from `~/.claude/.env` directly (file is the canonical env source; on the dev machine `LIFEOS/.env` and `~/.config/LIFEOS/.env` are symlinks to it, but the installer does NOT create those symlinks — never compute the path as `$LIFEOS_CONFIG_DIR/.env`, which resolves to a file public installs don't have; public issue #1490). Use Node `fs.readFileSync` + a small parser, not a shared helper — no central env helper exists by design.
+3. Fallback path: read from `~/Projects/LifeOS-AGY/.env` directly (file is the canonical env source; on the dev machine `LIFEOS/.env` and `~/.config/LIFEOS/.env` are symlinks to it, but the installer does NOT create those symlinks — never compute the path as `$LIFEOS_CONFIG_DIR/.env`, which resolves to a file public installs don't have; public issue #1490). Use Node `fs.readFileSync` + a small parser, not a shared helper — no central env helper exists by design.
 4. If the secret lookup misses, emit a single stderr warning and degrade gracefully — never silently continue with an empty string.
 
 ### I am adding personal notes, work sessions, or memory
@@ -171,7 +171,7 @@ Populated by the audit. Updated as files are sanitized or relocated.
 | `LIFEOS/TOOLS/SessionHarvester.ts` | Comment references derivation, not literal path | **KEEP** — uses `CLAUDE_DIR.replace(...)` dynamically |
 | `LIFEOS/TOOLS/gmail.ts` | Uses `homedir()` at runtime, not a literal path | **KEEP** — dynamic resolution |
 | `LIFEOS/PULSE/checks/health.ts` | Hardcoded site list for health monitoring | **TODO-REFACTOR** — move site list to `LIFEOS_CONFIG.toml`, read at startup |
-| `agents/<agent>.md` | Write-permission path literals in agent definitions | **TODO-REFACTOR** — verify env-expansion support in Claude Code agent spec, then replace with `${HOME}/.claude/...` |
+| `agents/<agent>.md` | Write-permission path literals in agent definitions | **TODO-REFACTOR** — verify env-expansion support in Antigravity CLI agent spec, then replace with `${HOME}/.claude/...` |
 
 ---
 

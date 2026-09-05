@@ -1,5 +1,5 @@
 #!/usr/bin/env bun
-// Normalize env path vars Claude Code may inject unexpanded — literal $HOME/${HOME}
+// Normalize env path vars Antigravity CLI may inject unexpanded — literal $HOME/${HOME}
 // in LIFEOS_DIR/LIFEOS_CONFIG_DIR/PROJECTS_DIR resolves to a shadow dir (#1404 / PR #1451, author jbmml).
 for (const __k of ["LIFEOS_DIR", "LIFEOS_CONFIG_DIR", "PROJECTS_DIR"]) {
   const __v = process.env[__k];
@@ -39,7 +39,7 @@ import { createHash } from "crypto";
 import { dirname, join } from "path";
 import { homedir } from "node:os";
 
-// Normalize env path vars that Claude Code injects without shell expansion (LifeOS#1404)
+// Normalize env path vars that Antigravity CLI injects without shell expansion (LifeOS#1404)
 for (const k of ["LIFEOS_DIR", "LIFEOS_CONFIG_DIR", "PROJECTS_DIR"]) {
   const v = process.env[k];
   if (v && /^\$\{?HOME\}?(\/|$)/.test(v)) process.env[k] = v.replace(/^\$\{?HOME\}?/, process.env.HOME ?? "~");
@@ -117,7 +117,7 @@ function freshRuns(): RunRec[] {
  * Is the AI detector actually runnable on this install?
  *
  * Mirrors PangramScore.ts loadKey() exactly — process env first, then a
- * PANGRAM_API_KEY= line in ~/.claude/.env. If neither resolves, PangramScore
+ * PANGRAM_API_KEY= line in ~/Projects/LifeOS-AGY/.env. If neither resolves, PangramScore
  * exits 1 before it can ever append a run record, so the SHA-match pass
  * condition below is unreachable and blocking would be a permanent dead end.
  * Kept deliberately narrow: absence of a KEY, not absence of a successful run.
@@ -167,7 +167,7 @@ const BLOCK_REASON =
   "through a writing-audit skill AND the detector before it is shown (OPERATIONAL_RULES.md § Authored content). " +
   "The gate checks for a real PangramScore.ts run on the draft — a typed token does NOT satisfy it. Before " +
   "stopping: (1) run the writing-audit skill's DETECT mode on the draft and fix every P0/P1 in the right voice; " +
-  "(2) run `bun ~/.claude/LIFEOS/TOOLS/PangramScore.ts --file <draft>` on the ACTUAL draft text so the run is " +
+  "(2) run `bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/PangramScore.ts --file <draft>` on the ACTUAL draft text so the run is " +
   "logged; (3) cite the detect result + the reported AI% in a `✍️ WRITING-AUDIT:` line. Pangram saturates on " +
   "model prose, so the number is REPORTED, not a pass/fail bar — the requirement is that the audit RAN.";
 

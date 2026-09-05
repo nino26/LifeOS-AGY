@@ -2,8 +2,8 @@
  * Centralized Path Resolution
  *
  * Two root directories:
- * - LIFEOS_DIR (~/.claude/LIFEOS) — LifeOS data: MEMORY, Algorithm, Tools, USER
- * - Claude home (~/.claude) — Claude Code: settings, skills, hooks, commands, agents
+ * - LIFEOS_DIR (~/Projects/LifeOS-AGY/LIFEOS) — LifeOS data: MEMORY, Algorithm, Tools, USER
+ * - Claude home (~/.claude) — Antigravity CLI: settings, skills, hooks, commands, agents
  *
  * Usage:
  *   import { getLifeosDir, getClaudeDir, paiPath } from '';
@@ -31,14 +31,14 @@ export function expandPath(path: string): string {
  * Priority:
  *   1. CLAUDE_PLUGIN_ROOT (plugin install) → <root>/PAI
  *   2. LIFEOS_DIR env var (expanded)
- *   3. ~/.claude/LIFEOS  (live default — byte-identical to pre-plugin behavior)
+ *   3. ~/Projects/LifeOS-AGY/LIFEOS  (live default — byte-identical to pre-plugin behavior)
  *
  * The CLAUDE_PLUGIN_ROOT guard MUST precede the LIFEOS_DIR check: in a packed
  * plugin, bin/pai exports LIFEOS_DIR equal to CLAUDE_PLUGIN_ROOT (the flattened
  * claude-home root), so trusting LIFEOS_DIR first would drop the trailing /PAI
  * segment and mis-resolve paiPath() to ROOT/MEMORY instead of ROOT/LIFEOS/MEMORY.
- * Resolving via getClaudeDir() + 'LifeOS' keeps the live ~/.claude/LIFEOS →
- * plugin ${ROOT}/PAI mapping that the packer's ~/.claude/ → ${LIFEOS_DIR} rewrite assumes.
+ * Resolving via getClaudeDir() + 'LifeOS' keeps the live ~/Projects/LifeOS-AGY/LIFEOS →
+ * plugin ${ROOT}/PAI mapping that the packer's ~/Projects/LifeOS-AGY/ → ${LIFEOS_DIR} rewrite assumes.
  */
 export function getLifeosDir(): string {
   if (process.env.CLAUDE_PLUGIN_ROOT) {
@@ -55,7 +55,7 @@ export function getLifeosDir(): string {
 }
 
 /**
- * Get the Claude Code home directory.
+ * Get the Antigravity CLI home directory.
  *
  * Plugin install: CLAUDE_PLUGIN_ROOT is the flattened plugin root that plays the
  * live ~/.claude role (skills/ and hooks/ sit directly under it, matching live
@@ -80,7 +80,7 @@ export function getSettingsPath(): string {
 }
 
 /**
- * Get the authoritative .env path (~/.claude/.env).
+ * Get the authoritative .env path (~/Projects/LifeOS-AGY/.env).
  * All credentials live here; PAI/.env is deprecated.
  */
 export function getEnvPath(): string {

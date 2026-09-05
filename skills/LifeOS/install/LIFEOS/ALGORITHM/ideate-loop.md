@@ -19,7 +19,7 @@ status: redirect
 - **Ideate mode doctrine:** [`modes/ideate.md`](archive/modes/ideate.md) — 9 phases, parameters, presets, Meta-Learner, effort tier mapping
 - **Mode taxonomy:** [`modes/README.md`](archive/modes/README.md)
 - **Parameter schema:** [`archive/parameter-schema.md`](archive/parameter-schema.md)
-- **Ideate skill (router):** `~/.claude/skills/Ideate/SKILL.md`
+- **Ideate skill (router):** `~/Projects/LifeOS-AGY/.agents/skills/Ideate/SKILL.md`
 
 ## Backwards-compat note
 

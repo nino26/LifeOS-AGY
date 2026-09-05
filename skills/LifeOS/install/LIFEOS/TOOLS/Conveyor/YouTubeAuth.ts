@@ -5,7 +5,7 @@
  * Reuses the existing gws Google Desktop OAuth client (~/.config/gws/
  * client_secret.json), runs the loopback consent flow for the YouTube scopes,
  * verifies the token against channels.list(mine=true), and appends
- * YOUTUBE_OAUTH_REFRESH_TOKEN to ~/.claude/.env (backup written first).
+ * YOUTUBE_OAUTH_REFRESH_TOKEN to ~/Projects/LifeOS-AGY/.env (backup written first).
  *
  * Scopes: youtube.upload (uploads) + youtube (metadata, playlists).
  * Token values are never printed. Run: bun YouTubeAuth.ts

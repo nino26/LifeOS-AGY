@@ -59,7 +59,7 @@ export default function ProjectsBoard({ group }: { group: ProjectGroup }) {
   // file you were supposed to edit (public issue #1792, @waveman2020-sudo).
   // Every group knows its own source path, so the empty state can just say it.
   if (group.projects.length === 0) {
-    const sourcePath = `~/.claude/LIFEOS/${group.source}`;
+    const sourcePath = `~/Projects/LifeOS-AGY/LIFEOS/${group.source}`;
     return (
       <EmptyState
         icon={FolderGit2}

@@ -9,7 +9,7 @@ description: "AI audio editing pipeline: Whisper word-level transcription → Cl
 ## Customization
 
 **Before executing, check for user customizations at:**
-`~/.claude/LIFEOS/USER/CUSTOMIZATIONS/SKILLS/AudioEditor/`
+`~/Projects/LifeOS-AGY/LIFEOS/USER/CUSTOMIZATIONS/SKILLS/AudioEditor/`
 
 If this directory exists, load and apply any PREFERENCES.md, configurations, or resources found there. These override default behavior. If the directory does not exist, proceed with skill defaults.
 
@@ -97,7 +97,7 @@ Capture-chain noise gates (recorder filters, macOS Voice Isolation) truncate aud
 
 | Service | Env Var | Where to Get |
 |---------|---------|-------------|
-| Anthropic (for analyze step) | `ANTHROPIC_API_KEY` | Already set via Claude Code |
+| Anthropic (for analyze step) | `ANTHROPIC_API_KEY` | Already set via Antigravity CLI |
 | Cleanvoice (for polish step, optional) | `CLEANVOICE_API_KEY` | cleanvoice.ai Dashboard Settings API Key |
 
 ## Examples
@@ -140,7 +140,7 @@ User: "aggressively clean this audio and polish it"
 After completing any workflow, append a single JSONL entry:
 
 ```bash
-echo '{"ts":"'$(date -u +%Y-%m-%dT%H:%M:%SZ)'","skill":"AudioEditor","workflow":"WORKFLOW_USED","input":"8_WORD_SUMMARY","status":"ok|error","duration_s":SECONDS}' >> ~/.claude/LIFEOS/MEMORY/SKILLS/execution.jsonl
+echo '{"ts":"'$(date -u +%Y-%m-%dT%H:%M:%SZ)'","skill":"AudioEditor","workflow":"WORKFLOW_USED","input":"8_WORD_SUMMARY","status":"ok|error","duration_s":SECONDS}' >> ~/Projects/LifeOS-AGY/LIFEOS/MEMORY/SKILLS/execution.jsonl
 ```
 
 Replace `WORKFLOW_USED` with the workflow executed, `8_WORD_SUMMARY` with a brief input description, and `SECONDS` with approximate wall-clock time. Log `status: "error"` if the workflow failed.

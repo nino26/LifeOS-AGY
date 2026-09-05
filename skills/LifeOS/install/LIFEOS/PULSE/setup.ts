@@ -203,7 +203,7 @@ export async function generateConfigs(opts: {
   const pulseToml = `# LifeOS Pulse — ${opts.name} Worker Configuration
 #
 # type = "script" → runs command, $0 cost
-# type = "claude" → spawns claude --print, costs tokens
+# type = "claude" → spawns agy --disable-slash-commands --print, costs tokens
 # output = voice | ntfy | email | log
 # Sentinels: NO_ACTION, NO_URGENT, NO_EVENTS → suppress dispatch
 

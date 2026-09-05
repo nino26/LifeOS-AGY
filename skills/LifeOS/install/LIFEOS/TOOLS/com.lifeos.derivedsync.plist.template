@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
   com.lifeos.derivedsync.plist.template - Source template. Install via:
-    bun ~/.claude/LIFEOS/TOOLS/InstallDerivedSync.ts
+    bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/InstallDerivedSync.ts
   The installer reads $HOME at install time, resolves LIFEOS/USER to the real
   USER directory for launchd WatchPaths, substitutes placeholders, writes the
   materialized plist to ~/Library/LaunchAgents/, and bootstraps it with

@@ -9,7 +9,7 @@ argument-hint: <domain-or-url> [--deep] [--json]
 Thin invoker for `LIFEOS/TOOLS/IsDown.ts`.
 
 ```bash
-bun ~/.claude/LIFEOS/TOOLS/IsDown.ts $ARGUMENTS
+bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/IsDown.ts $ARGUMENTS
 ```
 
 Exit codes: 0 up everywhere · 1 down for everyone · 2 down just for you · 3 probe error.

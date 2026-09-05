@@ -1,5 +1,5 @@
 #!/usr/bin/env bun
-// Normalize env path vars Claude Code may inject unexpanded — literal $HOME/${HOME}
+// Normalize env path vars Antigravity CLI may inject unexpanded — literal $HOME/${HOME}
 // in LIFEOS_DIR/LIFEOS_CONFIG_DIR/PROJECTS_DIR resolves to a shadow dir (#1404 / PR #1451, author jbmml).
 for (const __k of ["LIFEOS_DIR", "LIFEOS_CONFIG_DIR", "PROJECTS_DIR"]) {
   const __v = process.env[__k];
@@ -10,7 +10,7 @@ for (const __k of ["LIFEOS_DIR", "LIFEOS_CONFIG_DIR", "PROJECTS_DIR"]) {
  * YouTubeApi.ts - YouTube Data API v3 client
  *
  * Usage:
- *   bun ~/.claude/LIFEOS/TOOLS/YouTubeApi.ts <command> [options]
+ *   bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/YouTubeApi.ts <command> [options]
  *
  * (The YouTube skill was retired; this tool moved to LIFEOS/TOOLS and the old
  * invocation line no longer resolved — ported from public PR #1707 (commit 1),
@@ -34,7 +34,7 @@ import { readFileSync } from 'fs'
 import { homedir } from 'os'
 import { join } from 'path'
 
-// Normalize env path vars that Claude Code injects without shell expansion (LifeOS#1404)
+// Normalize env path vars that Antigravity CLI injects without shell expansion (LifeOS#1404)
 for (const k of ["LIFEOS_DIR", "LIFEOS_CONFIG_DIR", "PROJECTS_DIR"]) {
   const v = process.env[k];
   if (v && /^\$\{?HOME\}?(\/|$)/.test(v)) process.env[k] = v.replace(/^\$\{?HOME\}?/, process.env.HOME ?? "~");
@@ -55,9 +55,9 @@ const colors = {
 
 // Load environment
 function loadEnv(): Record<string, string> {
-  // Canonical .env is ~/.claude/.env. LIFEOS_CONFIG_DIR names the LIFEOS
+  // Canonical .env is ~/Projects/LifeOS-AGY/.env. LIFEOS_CONFIG_DIR names the LIFEOS
   // directory, NOT the dir holding .env — joining it produced the dead path
-  // ~/.claude/LIFEOS/.env that nothing creates (public issue #1490).
+  // ~/Projects/LifeOS-AGY/LIFEOS/.env that nothing creates (public issue #1490).
   const envPath = join(homedir(), '.claude', '.env')
   const env: Record<string, string> = {}
   try {

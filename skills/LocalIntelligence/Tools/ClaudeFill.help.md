@@ -5,7 +5,7 @@ AI gap-filler for digest sections the deterministic fetchers couldn't populate. 
 ## What it does
 
 - Finds every section with `source_status != "ok"` or zero items.
-- Spawns ONE `claude --print` subprocess (default model `sonnet`) with `WebSearch,WebFetch` enabled and asks for real, sourced items for all empty sections in a single pass.
+- Spawns ONE `agy --disable-slash-commands --print` subprocess (default model `sonnet`) with `WebSearch,WebFetch` enabled and asks for real, sourced items for all empty sections in a single pass.
 - Runs deterministic validation on the output (required fields, `https?://` URL shape, item cap) — invalid items are dropped, never persisted.
 - Returns a new digest; fetcher sections that already had items are never overwritten.
 

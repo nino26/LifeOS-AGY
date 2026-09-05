@@ -1,4 +1,4 @@
-// Normalize env path vars Claude Code may inject unexpanded — literal $HOME/${HOME}
+// Normalize env path vars Antigravity CLI may inject unexpanded — literal $HOME/${HOME}
 // in LIFEOS_DIR/LIFEOS_CONFIG_DIR/PROJECTS_DIR resolves to a shadow dir (#1404 / PR #1451, author jbmml).
 for (const __k of ["LIFEOS_DIR", "LIFEOS_CONFIG_DIR", "PROJECTS_DIR"]) {
   const __v = process.env[__k];
@@ -34,7 +34,7 @@ import { loadWorkConfig, type WorkConfig } from "../../../hooks/lib/work-config"
 import { getDAName } from "../../../hooks/lib/identity";
 import { homedir } from "node:os";
 
-// Normalize env path vars that Claude Code injects without shell expansion (LifeOS#1404)
+// Normalize env path vars that Antigravity CLI injects without shell expansion (LifeOS#1404)
 for (const k of ["LIFEOS_DIR", "LIFEOS_CONFIG_DIR", "PROJECTS_DIR"]) {
   const v = process.env[k];
   if (v && /^\$\{?HOME\}?(\/|$)/.test(v)) process.env[k] = v.replace(/^\$\{?HOME\}?/, process.env.HOME ?? "~");
@@ -335,7 +335,7 @@ function setupTemplate(reason: string): Response {
     instructions: [
       "Bind a PRIVATE GitHub repo by writing `LIFEOS/USER/WORK/work_repo.json`:\n`{ \"repo\": \"owner/repo\", \"privacy\": { \"verified_private\": true, \"verified_at\": \"1970-01-01T00:00:00Z\", \"visibility\": \"private\" } }`\nThe loader never trusts a hand-written attestation on its own — it re-runs `gh repo view --json visibility,isPrivate` and only enables the module if the repo is genuinely private, then writes back a fresh `verified_at`. If your install ships a work-tracking skill with a SetWorkRepo tool, use that instead; it writes the same file.",
       `Ensure the repo has these labels: Type:feature, Type:reminder, Type:research, Type:queue, Status:queued, Status:in-progress, Status:in-review, Status:blocked, Status:done, Priority:P0..P3, Property:internal, Agent:${getDAName()}, pai-sync.`,
-      "Restart Pulse so this module re-reads work_repo.json: `bun ~/.claude/LIFEOS/PULSE/manage.sh restart`.",
+      "Restart Pulse so this module re-reads work_repo.json: `bun ~/Projects/LifeOS-AGY/LIFEOS/PULSE/manage.sh restart`.",
       "Run an Algorithm session — the SessionEnd work-capture hook will open the first issue.",
     ],
     docs: "LIFEOS/DOCUMENTATION/Work/WorkSystem.md (see 'Capture surfaces')",

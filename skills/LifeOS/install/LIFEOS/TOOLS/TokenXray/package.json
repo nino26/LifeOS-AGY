@@ -1,7 +1,7 @@
 {
   "name": "token-xray",
   "version": "1.0.0",
-  "description": "Reverse-engineer local Claude Code logs for token / time / cost breakdown",
+  "description": "Reverse-engineer local Antigravity CLI logs for token / time / cost breakdown",
   "type": "module",
   "private": true,
   "main": "TokenXray.ts",

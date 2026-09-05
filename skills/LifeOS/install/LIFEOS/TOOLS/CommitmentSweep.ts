@@ -1,5 +1,5 @@
 #!/usr/bin/env bun
-// Normalize env path vars Claude Code may inject unexpanded — literal $HOME/${HOME}
+// Normalize env path vars Antigravity CLI may inject unexpanded — literal $HOME/${HOME}
 // in LIFEOS_DIR/LIFEOS_CONFIG_DIR/PROJECTS_DIR resolves to a shadow dir (#1404 / PR #1451, author jbmml).
 for (const __k of ["LIFEOS_DIR", "LIFEOS_CONFIG_DIR", "PROJECTS_DIR"]) {
   const __v = process.env[__k];
@@ -12,9 +12,9 @@ for (const __k of ["LIFEOS_DIR", "LIFEOS_CONFIG_DIR", "PROJECTS_DIR"]) {
  * Triggered by ~/Library/LaunchAgents/com.lifeos.commitmentsweep.plist at 7am PT.
  * Also runnable on-demand:
  *
- *   bun ~/.claude/LIFEOS/TOOLS/CommitmentSweep.ts             # apply
- *   bun ~/.claude/LIFEOS/TOOLS/CommitmentSweep.ts --dry-run   # print digest, skip notify
- *   bun ~/.claude/LIFEOS/TOOLS/CommitmentSweep.ts --notify    # force voice notify even when empty
+ *   bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/CommitmentSweep.ts             # apply
+ *   bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/CommitmentSweep.ts --dry-run   # print digest, skip notify
+ *   bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/CommitmentSweep.ts --notify    # force voice notify even when empty
  *
  * What it does:
  *   1. Queries gh for open issues labeled Type:commitment in the WORK repo
@@ -33,7 +33,7 @@ import { loadWorkConfig } from "../../hooks/lib/work-config";
 import { PULSE_BASE } from "../PULSE/endpoint";
 import { homedir } from "node:os";
 
-// Normalize env path vars that Claude Code injects without shell expansion (LifeOS#1404)
+// Normalize env path vars that Antigravity CLI injects without shell expansion (LifeOS#1404)
 for (const k of ["LIFEOS_DIR", "LIFEOS_CONFIG_DIR", "PROJECTS_DIR"]) {
   const v = process.env[k];
   if (v && /^\$\{?HOME\}?(\/|$)/.test(v)) process.env[k] = v.replace(/^\$\{?HOME\}?/, process.env.HOME ?? "~");

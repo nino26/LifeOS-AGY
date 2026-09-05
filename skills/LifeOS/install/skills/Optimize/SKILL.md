@@ -42,10 +42,10 @@ Inspired by Karpathy's [autoresearch](https://github.com/karpathy/autoresearch) 
 ### Eval Mode (skill/prompt/agent targets)
 
 ```
-/optimize --target "~/.claude/skills/ExtractWisdom"
-/optimize --target "~/.claude/skills/Research/Workflows/QuickResearch.md"
+/optimize --target "~/Projects/LifeOS-AGY/.agents/skills/ExtractWisdom"
+/optimize --target "~/Projects/LifeOS-AGY/.agents/skills/Research/Workflows/QuickResearch.md"
 /optimize --target "prompts/my-prompt.md"
-/optimize --target "~/.claude/skills/ExtractWisdom" --max-experiments 20
+/optimize --target "~/Projects/LifeOS-AGY/.agents/skills/ExtractWisdom" --max-experiments 20
 ```
 
 In eval mode, the system automatically:
@@ -116,9 +116,9 @@ When `/optimize` is invoked, the eval_mode is set based on arguments (`mode:` is
 ISC criteria become **guard rails** — assertions that must hold true across ALL experiments. Guard rails must REMAIN satisfied perpetually. A violation triggers automatic revert regardless of score improvement.
 
 **Reference files:**
-- `~/.claude/LIFEOS/ALGORITHM/optimize-loop.md` — the full loop protocol
-- `~/.claude/LIFEOS/ALGORITHM/eval-guide.md` — how to write good eval criteria
-- `~/.claude/LIFEOS/ALGORITHM/archive/target-types.md` — target detection and ISC generation
+- `~/Projects/LifeOS-AGY/LIFEOS/ALGORITHM/optimize-loop.md` — the full loop protocol
+- `~/Projects/LifeOS-AGY/LIFEOS/ALGORITHM/eval-guide.md` — how to write good eval criteria
+- `~/Projects/LifeOS-AGY/LIFEOS/ALGORITHM/archive/target-types.md` — target detection and ISC generation
 
 ## Examples
 
@@ -154,7 +154,7 @@ ISC criteria become **guard rails** — assertions that must hold true across AL
 
 **Optimize a skill's Extract workflow:**
 ```
-/optimize --target "~/.claude/skills/ExtractWisdom" --max-experiments 15
+/optimize --target "~/Projects/LifeOS-AGY/.agents/skills/ExtractWisdom" --max-experiments 15
 ```
 
 **Optimize a standalone prompt:**
@@ -164,7 +164,7 @@ ISC criteria become **guard rails** — assertions that must hold true across AL
 
 **Optimize with custom criteria:**
 ```
-/optimize --target "~/.claude/skills/Research/Workflows/QuickResearch.md" \
+/optimize --target "~/Projects/LifeOS-AGY/.agents/skills/Research/Workflows/QuickResearch.md" \
   --criteria "Does the output contain specific facts with sources?" \
             "Is the output structured with clear sections?" \
             "Does the output avoid generic filler?" \

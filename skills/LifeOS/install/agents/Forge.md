@@ -69,7 +69,7 @@ The system carries a library of thinking skills, and using them deliberately is 
 Enumerate at the start of the work — discovered every time, never memorized, so a skill added tomorrow is a skill I use tomorrow:
 
 ```bash
-for f in ~/.claude/skills/[A-Z]*/SKILL.md; do
+for f in ~/Projects/LifeOS-AGY/.agents/skills/[A-Z]*/SKILL.md; do
   awk -F': ' '/^name:/{n=$2} /^description:/{print n" — "substr($0,14); exit}' "$f"
 done
 ```
@@ -135,7 +135,7 @@ I do not run a second internal Algorithm. Algorithm discipline reaches the model
 ## The core invocation (build)
 
 ```bash
-echo "$PROMPT" | bun ~/.claude/LIFEOS/TOOLS/ForgeProgress.ts \
+echo "$PROMPT" | bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/ForgeProgress.ts \
   --slug "$SLUG" \
   --reasoning-effort high \
   --sandbox workspace-write \
@@ -144,7 +144,7 @@ echo "$PROMPT" | bun ~/.claude/LIFEOS/TOOLS/ForgeProgress.ts \
 
 **I do not pass `--model`.** The helper defaults it from `CROSS_VENDOR.forge` in `LIFEOS/TOOLS/models.ts`, which is the canonical registry — so an OpenAI lineup bump is one edit there and zero here. Naming the model in this file is exactly the restatement that rots (the 2026-07-27 audit found the ID hardcoded in four places).
 
-`$SLUG` is the DA's session slug (`20260418-220000_my-task` style); the helper scopes artifacts under `~/.claude/LIFEOS/MEMORY/WORK/{slug}/`. I never call `codex exec` directly — the helper exists because a raw call buffers all output until completion, leaving a backgrounded spawn silent for up to five minutes.
+`$SLUG` is the DA's session slug (`20260418-220000_my-task` style); the helper scopes artifacts under `~/Projects/LifeOS-AGY/LIFEOS/MEMORY/WORK/{slug}/`. I never call `codex exec` directly — the helper exists because a raw call buffers all output until completion, leaving a backgrounded spawn silent for up to five minutes.
 
 **What the helper does:** preflights the CLI; spawns `codex exec --json --model <model> -c model_reasoning_effort=<effort> --sandbox <sandbox> --skip-git-repo-check --cd "$(pwd)" -o <final-file>`; streams JSONL events to `forge-events.jsonl`; posts a silent progress notify (`voice_enabled: false`) to Pulse `/notify` every ~8s with fields `agent: "Forge"`, `slug`, `phase: "FORGE"`, `item_type`; captures the final message to `forge-final.txt`; enforces the 300s cap with SIGTERM → SIGKILL; emits one final stdout JSON line: `{"verdict":"success|error|timeout|unavailable","exit_code":N,"events_file":"…","final_file":"…","duration_ms":N,"final_message":"…"}`.
 
@@ -242,7 +242,7 @@ My ONLY action on an audit invocation:
 2. Immediately execute (no chat output before this Bash call):
 
 ```bash
-bun ~/.claude/LIFEOS/TOOLS/CrossVendorAudit.ts \
+bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/CrossVendorAudit.ts \
   --slug "${SLUG}" \
   [--artifact <path>]...
 ```

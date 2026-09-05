@@ -16,16 +16,16 @@ LifeOS provides the Arbol CLI for running actions and pipelines locally (runtime
 
 ## The Arbol CLI (pai)
 
-> **Not in the public release.** The local Arbol CLI tree (`LIFEOS/ARBOL/` — `Actions/`, `Flows/`, `Pipelines/`) is rsync-excluded from the public release payload, so the `~/.claude/LIFEOS/ARBOL/...` paths and commands below do not exist on a public install. The Arbol *model* (the three primitives, the pipe model, the cloud workers) is public; this local runner tree is not.
+> **Not in the public release.** The local Arbol CLI tree (`LIFEOS/ARBOL/` — `Actions/`, `Flows/`, `Pipelines/`) is rsync-excluded from the public release payload, so the `~/Projects/LifeOS-AGY/LIFEOS/ARBOL/...` paths and commands below do not exist on a public install. The Arbol *model* (the three primitives, the pipe model, the cloud workers) is public; this local runner tree is not.
 
-**Location:** `~/.claude/LIFEOS/ARBOL/Actions/lifeos.ts`
+**Location:** `~/Projects/LifeOS-AGY/LIFEOS/ARBOL/Actions/lifeos.ts`
 
 The Arbol CLI (`pai`) provides a unified interface for running actions and pipelines locally. It supports JSON input via arguments, stdin piping, and UNIX-style action composition.
 
 ### Quick Start
 
 ```bash
-cd ~/.claude/LIFEOS/ARBOL/Actions
+cd ~/Projects/LifeOS-AGY/LIFEOS/ARBOL/Actions
 
 # Run an action with inline JSON
 bun lifeos.ts action A_EXAMPLE_SUMMARIZE --input '{"content": "Your text here"}'
@@ -98,12 +98,12 @@ bun lifeos.ts action A_EXAMPLE_SUMMARIZE --input '{"content": "test"}' -v
 
 ## The Arbol Runner (Low-Level)
 
-**Location:** `~/.claude/LIFEOS/ARBOL/Actions/lib/runner.v2.ts`
+**Location:** `~/Projects/LifeOS-AGY/LIFEOS/ARBOL/Actions/lib/runner.v2.ts`
 
 The runner is the lower-level engine that the `pai` CLI and pipeline runner both use. You can call it directly:
 
 ```bash
-cd ~/.claude/LIFEOS/ARBOL/Actions
+cd ~/Projects/LifeOS-AGY/LIFEOS/ARBOL/Actions
 
 # Run an action (input as JSON argument)
 bun lib/runner.v2.ts run A_EXAMPLE_SUMMARIZE '{"content": "Your text here"}'
@@ -133,12 +133,12 @@ bun lib/runner.v2.ts list
 
 ## The Pipeline Runner
 
-**Location:** `~/.claude/LIFEOS/ARBOL/Actions/lib/pipeline-runner.ts`
+**Location:** `~/Projects/LifeOS-AGY/LIFEOS/ARBOL/Actions/lib/pipeline-runner.ts`
 
 The pipeline runner loads YAML pipeline definitions and chains actions sequentially.
 
 ```bash
-cd ~/.claude/LIFEOS/ARBOL/Actions
+cd ~/Projects/LifeOS-AGY/LIFEOS/ARBOL/Actions
 
 # Run a pipeline with named parameters
 bun lib/pipeline-runner.ts run P_EXAMPLE_SUMMARIZE_AND_FORMAT --content "Your text here"
@@ -183,11 +183,11 @@ For convenience, add aliases to your shell configuration (`.zshrc`, `.bashrc`):
 
 ```bash
 # The Arbol CLI
-alias pai="bun ~/.claude/LIFEOS/ARBOL/Actions/lifeos.ts"
+alias pai="bun ~/Projects/LifeOS-AGY/LIFEOS/ARBOL/Actions/lifeos.ts"
 
 # Runners (optional — pai CLI wraps these)
-alias arbol-run="bun ~/.claude/LIFEOS/ARBOL/Actions/lib/runner.v2.ts"
-alias arbol-pipe="bun ~/.claude/LIFEOS/ARBOL/Actions/lib/pipeline-runner.ts"
+alias arbol-run="bun ~/Projects/LifeOS-AGY/LIFEOS/ARBOL/Actions/lib/runner.v2.ts"
+alias arbol-pipe="bun ~/Projects/LifeOS-AGY/LIFEOS/ARBOL/Actions/lib/pipeline-runner.ts"
 ```
 
 Then use:

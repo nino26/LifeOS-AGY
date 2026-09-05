@@ -5,7 +5,7 @@
  * with Midjourney bot. Handles connection, message sending, monitoring,
  * and image downloads.
  *
- * @see ~/.claude/skills/Art/SKILL.md
+ * @see ~/Projects/LifeOS-AGY/.agents/skills/Art/SKILL.md
  */
 
 import {

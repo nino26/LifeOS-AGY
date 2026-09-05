@@ -20,7 +20,7 @@ The corpus is the context. If the tool reports the ratings store missing, the fr
 ## Step 1 — gather deterministically (tool, not prose)
 
 ```bash
-bun ~/.claude/skills/SuggestSkills/Tools/CollectSignals.ts --days 45 > /tmp/skill-scan-corpus.json
+bun ~/Projects/LifeOS-AGY/.agents/skills/SuggestSkills/Tools/CollectSignals.ts --days 45 > /tmp/skill-scan-corpus.json
 ```
 
 ### Intent-to-flag mapping

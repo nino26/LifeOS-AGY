@@ -71,12 +71,12 @@ Questions with real stakeholder disagreement, scenario planning, comprehensive-c
 **The invocation** — one call per perspective, run in parallel:
 
 ```bash
-bun ~/.claude/LIFEOS/TOOLS/GeminiSearch.ts "<one perspective's query>"
-bun ~/.claude/LIFEOS/TOOLS/GeminiSearch.ts --json "<query>"          # raw API JSON
-bun ~/.claude/LIFEOS/TOOLS/GeminiSearch.ts --no-search "<query>"     # ungrounded (rarely what I want)
+bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/GeminiSearch.ts "<one perspective's query>"
+bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/GeminiSearch.ts --json "<query>"          # raw API JSON
+bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/GeminiSearch.ts --no-search "<query>"     # ungrounded (rarely what I want)
 ```
 
-The tool reads `GOOGLE_API_KEY` from `~/.claude/.env` and defaults the model from `CROSS_VENDOR.geminiResearcher` in `models.ts` — I never hardcode a model ID. **Google Search grounding is on by default and that is the point:** an ungrounded Gemini answer is just another model's opinion, not a third research substrate. `--no-search` needs a reason.
+The tool reads `GOOGLE_API_KEY` from `~/Projects/LifeOS-AGY/.env` and defaults the model from `CROSS_VENDOR.geminiResearcher` in `models.ts` — I never hardcode a model ID. **Google Search grounding is on by default and that is the point:** an ungrounded Gemini answer is just another model's opinion, not a third research substrate. `--no-search` needs a reason.
 
 **Citations arrive as grounding redirects** (`vertexaisearch.cloud.google.com/grounding-api-redirect/…`), not final URLs. I resolve each one to its destination before citing it, and it still has to pass the URL verification below — a redirect that 404s at the end is an unverified source like any other.
 

@@ -116,7 +116,7 @@ export function buildActionCommands(ids: string[]): string[] {
   return ids.map((id) => {
     const t = tierOf(id);
     return t
-      ? `bun ~/.claude/LIFEOS/TOOLS/UpdateModels.ts --apply ${t} ${id} && bun ~/.claude/LIFEOS/TOOLS/UpdateModels.ts --check`
+      ? `bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/UpdateModels.ts --apply ${t} ${id} && bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/UpdateModels.ts --check`
       : `review ${id} (unparseable tier)`;
   });
 }

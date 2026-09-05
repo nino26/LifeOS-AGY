@@ -9,7 +9,7 @@
  * updates flip it silently (it flipped 2026-07-12, caught by this tool's first
  * run); this turns "re-probe periodically" into infrastructure.
  *
- * HOW: spawns a cheap haiku `claude --print` session instructed to dispatch
+ * HOW: spawns a cheap haiku `agy --disable-slash-commands --print` session instructed to dispatch
  * ONE subagent with model "fable", then reads the child session's subagent
  * transcripts (projects/<slug>/<session>/subagents/agent-*.jsonl) and extracts
  * the assistant messages' `message.model` — the same evidence class the manual
@@ -94,10 +94,10 @@ function resolveClaudeBin(): string {
 function runChild(): Promise<{ envelope: Record<string, unknown> | null; raw: string }> {
   return new Promise((resolve) => {
     const env = { ...process.env } as Record<string, string | undefined>;
-    // Nested-session guard: hooks run inside Claude Code's environment.
+    // Nested-session guard: hooks run inside Antigravity CLI's environment.
     delete env.CLAUDECODE;
     // BILLING: subscription via OAuth — both keys outrank the OAuth token in
-    // Anthropic's precedence chain, and bun auto-loads ~/.claude/.env. Scrub.
+    // Anthropic's precedence chain, and bun auto-loads ~/Projects/LifeOS-AGY/.env. Scrub.
     delete env.ANTHROPIC_API_KEY;
     delete env.ANTHROPIC_AUTH_TOKEN;
     // Headless subprocess: never the desktop voice channel (2026-08-14 leak).

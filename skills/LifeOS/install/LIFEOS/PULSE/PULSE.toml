@@ -4,7 +4,7 @@
 # One process handles: cron jobs, voice, chat, observability, hooks, DA.
 #
 # type = "script" → runs command, $0 cost
-# type = "claude" → spawns claude --print, costs tokens
+# type = "claude" → spawns agy --disable-slash-commands --print, costs tokens
 # output = voice | ntfy | email | log
 # Sentinels: NO_ACTION, NO_URGENT, NO_EVENTS → suppress dispatch
 
@@ -114,7 +114,7 @@ enabled = true
 
 [bunker]
 enabled = true
-# Reads the app registry from ~/.claude/LIFEOS/PULSE/Bunker via its CLI (`bunker data`).
+# Reads the app registry from ~/Projects/LifeOS-AGY/LIFEOS/PULSE/Bunker via its CLI (`bunker data`).
 # Override the harness location with the BUNKER_DIR env var.
 
 [syslog]
@@ -122,7 +122,7 @@ enabled = false
 port = 5514
 # Off by default: enabling it opens a UDP listener on the port below. Turn it on
 # only after pointing a router/firewall's remote-syslog target at this host.
-# Captures router/firewall syslog to ~/.claude/LIFEOS/MEMORY/OBSERVABILITY/unifi-syslog.jsonl.
+# Captures router/firewall syslog to ~/Projects/LifeOS-AGY/LIFEOS/MEMORY/OBSERVABILITY/unifi-syslog.jsonl.
 # Controller-side setup: point your router/firewall's remote-syslog target at this
 # host on UDP 5514. Most consumer and prosumer gear exposes this as Settings →
 # System → Remote Logging (hostname + port).
@@ -190,7 +190,7 @@ schedule = "0 3 * * *"
 # timeout_ms is explicit because spawnScript's 60s default is far too short for
 # a 20-session harvest plus a week of pattern synthesis.
 type = "script"
-command = "bun run ~/.claude/LIFEOS/TOOLS/SessionHarvester.ts --recent 20 && bun run ~/.claude/LIFEOS/TOOLS/LearningPatternSynthesis.ts --week"
+command = "bun run ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/SessionHarvester.ts --recent 20 && bun run ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/LearningPatternSynthesis.ts --week"
 timeout_ms = 600000
 output = "log"
 enabled = true
@@ -207,7 +207,7 @@ schedule = "45 3 * * *"
 # section above it, which is why re-running finds nothing. Runs at :45 so it
 # collects whatever memory-consolidation (0 3) just wrote.
 type = "script"
-command = "bun run ~/.claude/LIFEOS/TOOLS/ProposalGC.ts --auto"
+command = "bun run ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/ProposalGC.ts --auto"
 output = "log"
 enabled = true
 

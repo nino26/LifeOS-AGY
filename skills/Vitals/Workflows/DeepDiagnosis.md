@@ -20,8 +20,8 @@ A complete picture across every subsystem — CPU, memory, GPU, thermal, disk, s
 ## Tools
 
 ```bash
-bun ~/.claude/skills/Vitals/Tools/Vitals.ts full --top 15   # everything, no sudo (~4s)
-bun ~/.claude/skills/Vitals/Tools/Vitals.ts startup         # launchd agent audit
+bun ~/Projects/LifeOS-AGY/.agents/skills/Vitals/Tools/Vitals.ts full --top 15   # everything, no sudo (~4s)
+bun ~/Projects/LifeOS-AGY/.agents/skills/Vitals/Tools/Vitals.ts startup         # launchd agent audit
 ```
 
 ## Optional sudo leg (only with operator consent — never required)

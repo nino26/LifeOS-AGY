@@ -3,7 +3,7 @@
  * RiskRegister.ts — deterministic risk register CLI for the ThreatModel skill.
  *
  * Code is public; data is private. The register lives OUTSIDE the skill tree:
- *   default  ~/.claude/LIFEOS/USER/SECURITY/THREATMODEL/
+ *   default  ~/Projects/LifeOS-AGY/LIFEOS/USER/SECURITY/THREATMODEL/
  *   override THREATMODEL_DATA_DIR
  * A data dir resolving inside any skills/ path is refused (exit 2).
  *

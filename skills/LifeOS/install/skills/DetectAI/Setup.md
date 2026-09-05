@@ -19,12 +19,12 @@ A typical blog post runs a few cents. Batch comparisons multiply by the number o
 
 ## 3. Store the key
 
-The tool reads `PANGRAM_API_KEY` from the process environment first, then falls back to `~/.claude/.env`. Either works; the env file is the durable option.
+The tool reads `PANGRAM_API_KEY` from the process environment first, then falls back to `~/Projects/LifeOS-AGY/.env`. Either works; the env file is the durable option.
 
-**Option A — `~/.claude/.env` (recommended):**
+**Option A — `~/Projects/LifeOS-AGY/.env` (recommended):**
 
 ```bash
-echo 'PANGRAM_API_KEY=your-key-here' >> ~/.claude/.env
+echo 'PANGRAM_API_KEY=your-key-here' >> ~/Projects/LifeOS-AGY/.env
 ```
 
 Unquoted or quoted both parse; surrounding quotes are stripped.
@@ -42,7 +42,7 @@ Never put the key in a URL, a committed file, a skill body, or a command that la
 Score a few hundred words you wrote yourself. Anything shorter is not a meaningful test of the setup *or* of the text.
 
 ```bash
-bun ~/.claude/LIFEOS/TOOLS/PangramScore.ts --file ~/some-writing-of-yours.md
+bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/PangramScore.ts --file ~/some-writing-of-yours.md
 ```
 
 Expected output shape:
@@ -58,17 +58,17 @@ Segments:   0 AI / 0 assisted / 7 human
 → Lower AI% = reads more human.
 ```
 
-Missing key exits 1 with `No PANGRAM_API_KEY found. Add it to ~/.claude/.env, then re-run.`
+Missing key exits 1 with `No PANGRAM_API_KEY found. Add it to ~/Projects/LifeOS-AGY/.env, then re-run.`
 
 ## The tool
 
-`~/.claude/LIFEOS/TOOLS/PangramScore.ts` — shared, not skill-local, because more than this skill consumes it.
+`~/Projects/LifeOS-AGY/LIFEOS/TOOLS/PangramScore.ts` — shared, not skill-local, because more than this skill consumes it.
 
 | Invocation | Effect |
 |------------|--------|
-| `bun ~/.claude/LIFEOS/TOOLS/PangramScore.ts "text"` | Score inline text |
-| `bun ~/.claude/LIFEOS/TOOLS/PangramScore.ts --file path.md` | Score a file |
-| `echo "text" \| bun ~/.claude/LIFEOS/TOOLS/PangramScore.ts` | Score stdin — best for long passages |
+| `bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/PangramScore.ts "text"` | Score inline text |
+| `bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/PangramScore.ts --file path.md` | Score a file |
+| `echo "text" \| bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/PangramScore.ts` | Score stdin — best for long passages |
 | add `--json` | Raw API response for parsing |
 
 It submits to `https://text.external-api.pangram.com/task` with an `x-api-key` header, then polls the task until `STAGE_SUCCESS` or `STAGE_FAILED` (60s ceiling). Override the endpoint with `PANGRAM_API_URL` if Pangram moves it.
@@ -79,7 +79,7 @@ Every run appends a record to `LIFEOS/MEMORY/OBSERVABILITY/pangram-runs.jsonl` �
 
 | Symptom | Cause | Fix |
 |---------|-------|-----|
-| `No PANGRAM_API_KEY found` | Key absent from both env and `~/.claude/.env` | Step 3 |
+| `No PANGRAM_API_KEY found` | Key absent from both env and `~/Projects/LifeOS-AGY/.env` | Step 3 |
 | HTTP 402 | Out of prepaid credits | Top up; this is not an auth failure — do not rotate the key |
 | HTTP 429 | Rate limited (realtime caps at 5 QPS) | Space the calls out; run batches sequentially, never in parallel |
 | HTTP 401 / 403 | Key wrong, revoked, or malformed | Regenerate in the API tab; check for a stray newline or quote in `.env` |

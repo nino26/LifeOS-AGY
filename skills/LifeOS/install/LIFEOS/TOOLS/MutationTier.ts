@@ -4,7 +4,7 @@
  *
  * LifeOS autonomic memory subsystem, F8.
  *
- * Classifies any absolute path under ~/.claude/ into one of four tiers that
+ * Classifies any absolute path under ~/Projects/LifeOS-AGY/ into one of four tiers that
  * govern what the Memory Reviewer subprocess is allowed to do with it:
  *
  *   Tier A — fully autonomic. Reviewer Phase 1 may set-overwrite via MemoryWriter.
@@ -24,7 +24,7 @@
  *            (default for everything not on a Tier A/B/C list)
  *
  * The classifier is an ALLOWLIST, not a denylist (ISC-105): a new file added
- * to ~/.claude/ is by default unreachable to the reviewer. Tier classifications
+ * to ~/Projects/LifeOS-AGY/ is by default unreachable to the reviewer. Tier classifications
  * are hard-coded in this file (ISC-106): there is no config-file override
  * path — changing a tier requires editing this code, reviewing, committing.
  *
@@ -84,7 +84,7 @@ const TIER_C_FILES: ReadonlySet<string> = new Set([
  *
  * Returns 'D' (untouchable) for any path that is not explicitly on a higher
  * tier's allowlist. This default-deny posture is intentional: a brand-new file
- * added to ~/.claude/ is unreachable to the reviewer until a code change
+ * added to ~/Projects/LifeOS-AGY/ is unreachable to the reviewer until a code change
  * explicitly raises its tier.
  */
 export function getTier(absolutePath: string): Tier {

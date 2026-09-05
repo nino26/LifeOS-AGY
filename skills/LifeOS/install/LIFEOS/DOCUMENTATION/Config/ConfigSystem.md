@@ -11,7 +11,7 @@ LifeOS configuration follows the **system/user separation** contract (`LIFEOS/DO
 ## The split, end-to-end
 
 ```
-~/.claude/                                       # SYSTEM tree (public LifeOS)
+~/Projects/LifeOS-AGY/                                       # SYSTEM tree (public LifeOS)
 ├── settings.json                                # Generated at SessionStart by MergeSettings.ts
 ├── settings.system.json                         # SYSTEM defaults (public-safe, ships in LifeOS)
 ├── CLAUDE.md                                    # SYSTEM routing table (public-safe)
@@ -50,13 +50,13 @@ LifeOS configuration follows the **system/user separation** contract (`LIFEOS/DO
 
 ## How it works at runtime
 
-1. **SessionStart** — `MergeSettings.ts` reads `settings.system.json` + `LIFEOS/USER/CONFIG/settings.user.json`, deep-merges (USER wins on conflict), writes `settings.json`. This file is what Claude Code reads for hooks, permissions, env, identity.
+1. **SessionStart** — `MergeSettings.ts` reads `settings.system.json` + `LIFEOS/USER/CONFIG/settings.user.json`, deep-merges (USER wins on conflict), writes `settings.json`. This file is what Antigravity CLI reads for hooks, permissions, env, identity.
 
    **Merge semantics for arrays (public issue #1575, @dactylmedia):** a plain array in the user overlay REPLACES the system array wholesale — it does not extend it. Additive intent requires the annotation form: `{"__merge": "append", "values": [...]}`. A user hand-porting deny rules or hooks with a plain array clobbers the system's list; a user expecting append gets replace. The annotation is consumed at merge time and never appears in the output.
 
    **Overlay location is load-bearing:** the user overlay is read ONLY from `LIFEOS/USER/CONFIG/settings.user.json`. A `settings.user.json` placed at the config root is never read — MergeSettings warns loudly when it sees one there.
 
-   **Permission-rule shape — file rules are `Edit(path)`, never `Write(path)`.** The harness resolves file permissions against `Edit(...)` alone, and `Edit` covers every file-editing tool. `Write(/etc/**)` next to `Edit(/etc/**)` guards nothing and the CLI complains about it at startup. Verified by live probe, not by counting: with only `Edit(~/.claude/projects/**/memory/**)` present and no Write twin, the Write tool was DENIED there; with no Write allow rule present, Write to `~/.claude/` was ALLOWED (commit `b68b1a5c4`). **This has been "fixed" the wrong way three times** — 2026-07-16, 07-25, 07-27 — every time from an audit that read a settings file, saw an `Edit` rule with no `Write` twin, and filed it as an unguarded path. A config-shape count is not a behavior probe. Two teeth now hold the line: `MergeSettings.prunePermissionRules` strips `Write(...)`/`MultiEdit(...)` path rules out of the generated `settings.json` from whichever source layer they land in, and `/ic` check 15 `permission-rule-shape` BLOCKS on any that remain in a source layer. Bare `Write` with no specifier is a tool-level rule and is honored — it is untouched.
+   **Permission-rule shape — file rules are `Edit(path)`, never `Write(path)`.** The harness resolves file permissions against `Edit(...)` alone, and `Edit` covers every file-editing tool. `Write(/etc/**)` next to `Edit(/etc/**)` guards nothing and the CLI complains about it at startup. Verified by live probe, not by counting: with only `Edit(~/Projects/LifeOS-AGY/projects/**/memory/**)` present and no Write twin, the Write tool was DENIED there; with no Write allow rule present, Write to `~/Projects/LifeOS-AGY/` was ALLOWED (commit `b68b1a5c4`). **This has been "fixed" the wrong way three times** — 2026-07-16, 07-25, 07-27 — every time from an audit that read a settings file, saw an `Edit` rule with no `Write` twin, and filed it as an unguarded path. A config-shape count is not a behavior probe. Two teeth now hold the line: `MergeSettings.prunePermissionRules` strips `Write(...)`/`MultiEdit(...)` path rules out of the generated `settings.json` from whichever source layer they land in, and `/ic` check 15 `permission-rule-shape` BLOCKS on any that remain in a source layer. Bare `Write` with no specifier is a tool-level rule and is honored — it is untouched.
 2. **Identity** — DA and principal values live in `settings.json` under `daidentity` and `principal` keys (provenance: USER overlay). Hooks read these via `hooks/lib/identity.ts` (`getIdentity()`, `getPrincipal()`, `getDAName()`, `getVoiceId()`).
 3. **Skills** — private `_*` skills that need credentials/integration data read `LIFEOS_CONFIG.toml` via `LifeosConfig.load()` (e.g. a home-automation skill reads its Homebridge token; the network skill reads UniFi creds).
 4. **CLAUDE.md `@`-imports** — at session start, CC loads files referenced by top-level `@`-imports in `CLAUDE.md` (ARCHITECTURE_SUMMARY, PRINCIPAL_TELOS, PRINCIPAL_IDENTITY, DA_IDENTITY, PROJECTS, OPERATIONAL_RULES). CC does NOT follow transitive `@`-imports from inside imported files, so identity files must be listed in `CLAUDE.md` directly.
@@ -76,7 +76,7 @@ LifeOS configuration follows the **system/user separation** contract (`LIFEOS/DO
 ## Two-repo sync
 
 The two trees are physically separate git repos:
-- `~/.claude/` → `<your-username>/.claude` (PRIVATE GitHub)
+- `~/Projects/LifeOS-AGY/` → `<your-username>/.claude` (PRIVATE GitHub)
 - `~/.config/LIFEOS/USER/` → `<your-username>/<your-user-data-repo>` (PRIVATE GitHub)
 
 The two repos (`~/.claude` and the `~/.config/LIFEOS/USER` data repo) are committed, pushed, and version-tagged together by the release skill's UpdateKaiRepo workflow — there is **no** pre-push auto-sync git hook (a stale claim corrected 2026-07-04). A "push both repos" invocation wraps the two-repo push with four boundary gates:
@@ -89,7 +89,7 @@ The two repos (`~/.claude` and the `~/.config/LIFEOS/USER` data repo) are commit
 
 ## Public releases
 
-The Shadow Release system (the release skill's `ShadowRelease` tool) produces public staging at `~/.claude/LIFEOS/LIFEOS_RELEASES/{VERSION}/.claude/` via **containment** — clone the live tree, delete sensitive zones (USER, MEMORY, private underscore-prefixed skills), overlay fixed public templates from the release skill's `RELEASE_TEMPLATES/` (including `CLAUDE.public.md` + `settings.public.json`), run 23 gates (G1–G14 + G17 case-portability, G18 offensive-leak, G19 retired-capability leak, G20 root-runtime-state, G21 run-state leak, G22 staged-reference validation over the scrubbed payload, G23 placeholder-leak scan of shipped code, G24 foreign-data scan (absolute-path mirrors + personal-transcript signatures) <!-- public issue #1590, @anikinsasha -->; G1–G14: zone deletion, identity grep, CF ID grep, trufflehog, .env strays, private tokens, ref integrity, private-skill refs, username-path leak, staging boot, dashboard leak, template-only USER/MEMORY, hidden-file leakage, critical-artifact presence). Write `.shadow-state.json` report. `EmitSkill.ts` then reshapes this `.claude/` staging into the shippable `{VERSION}/LifeOS/` skill (and drops the staging clone) — the published distribution unit is that one self-contained skill, not the `.claude/` tree. Staging is isolated from `~/Projects/LIFEOS/`; public publish is a separate explicit step.
+The Shadow Release system (the release skill's `ShadowRelease` tool) produces public staging at `~/Projects/LifeOS-AGY/LIFEOS/LIFEOS_RELEASES/{VERSION}/.claude/` via **containment** — clone the live tree, delete sensitive zones (USER, MEMORY, private underscore-prefixed skills), overlay fixed public templates from the release skill's `RELEASE_TEMPLATES/` (including `CLAUDE.public.md` + `settings.public.json`), run 23 gates (G1–G14 + G17 case-portability, G18 offensive-leak, G19 retired-capability leak, G20 root-runtime-state, G21 run-state leak, G22 staged-reference validation over the scrubbed payload, G23 placeholder-leak scan of shipped code, G24 foreign-data scan (absolute-path mirrors + personal-transcript signatures) <!-- public issue #1590, @anikinsasha -->; G1–G14: zone deletion, identity grep, CF ID grep, trufflehog, .env strays, private tokens, ref integrity, private-skill refs, username-path leak, staging boot, dashboard leak, template-only USER/MEMORY, hidden-file leakage, critical-artifact presence). Write `.shadow-state.json` report. `EmitSkill.ts` then reshapes this `.claude/` staging into the shippable `{VERSION}/LifeOS/` skill (and drops the staging clone) — the published distribution unit is that one self-contained skill, not the `.claude/` tree. Staging is isolated from `~/Projects/LIFEOS/`; public publish is a separate explicit step.
 
 The release skill's workflows:
 - **ReviewContainmentZones** — reconcile zone module against live tree (mandatory before any release build).
@@ -104,7 +104,7 @@ The release skill's workflows:
 - **Phase C (2026-05-22)** — `CLAUDE.md` becomes thin router with direct `@`-imports of USER identity files. `OPERATIONAL_RULES.md` created in `LIFEOS/USER/CONFIG/`. `CLAUDE.user.md` sidecar created and then deleted 2026-05-23 (merged back into `CLAUDE.md`) because CC doesn't follow transitive `@`-imports.
 - **Phase E (2026-05-22)** — `SystemFileGuard.hook.ts` runtime write-time enforcement begins.
 - **Phase F (2026-05-22)** — `LifeosConfig.ts` typed loader + `LIFEOS_CONFIG.toml` populated. Private skills migrated from hardcoded credentials to `LifeosConfig.load()`.
-- **Phase G (2026-05-22→23)** — separate private GitHub repo created for USER data. `~/.claude/LIFEOS/USER` becomes symlink to `~/.config/LIFEOS/USER`. Two-repo sync is handled by the UpdateKaiRepo workflow (no pre-push git hook — stale claim corrected 2026-07-04). A two-repo-push workflow ("push both repos") ships in the private release skill with four boundary gates.
+- **Phase G (2026-05-22→23)** — separate private GitHub repo created for USER data. `~/Projects/LifeOS-AGY/LIFEOS/USER` becomes symlink to `~/.config/LIFEOS/USER`. Two-repo sync is handled by the UpdateKaiRepo workflow (no pre-push git hook — stale claim corrected 2026-07-04). A two-repo-push workflow ("push both repos") ships in the private release skill with four boundary gates.
 - **Phase H (deferred)** — PR-time `DenyListCheck` via GitHub Actions; community v5→v6 migration tool.
 
 ## Pre-v6.0 history
@@ -142,7 +142,7 @@ flowchart TD
     A[settings.system.json<br/>public defaults] --> C[MergeSettings.ts<br/>deep-merge, USER wins]
     B[settings.user.json<br/>private overlay] --> C
     C --> D[settings.json<br/>generated, read-only]
-    D --> E[Claude Code reads:<br/>hooks, permissions, env, identity]
+    D --> E[Antigravity CLI reads:<br/>hooks, permissions, env, identity]
     F[Manual edit to settings.json] -.->|overwritten next SessionStart| D
 ```
 

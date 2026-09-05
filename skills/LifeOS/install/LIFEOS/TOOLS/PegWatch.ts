@@ -172,7 +172,7 @@ function diagnoseCpu(procs: Proc[]): { cause: string; rec: string } {
   }
   return {
     cause: `cpu:${top?.name ?? "unknown"}`,
-    rec: `Top consumers: ${procs.slice(0, 3).map((p) => `${p.name} (${p.cpu}%)`).join(", ")}. Inspect with \`bun ~/.claude/skills/Vitals/Tools/Vitals.ts hogs\`.`,
+    rec: `Top consumers: ${procs.slice(0, 3).map((p) => `${p.name} (${p.cpu}%)`).join(", ")}. Inspect with \`bun ~/Projects/LifeOS-AGY/.agents/skills/Vitals/Tools/Vitals.ts hogs\`.`,
   };
 }
 

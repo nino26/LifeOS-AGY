@@ -6,7 +6,7 @@ description: Structured OSINT investigations — people lookup, company intel, i
 ## Customization
 
 **Before executing, check for user customizations at:**
-`~/.claude/PAI/USER/SKILLCUSTOMIZATIONS/OSINT/`
+`~/Projects/LifeOS-AGY/PAI/USER/SKILLCUSTOMIZATIONS/OSINT/`
 
 If this directory exists, load and apply any PREFERENCES.md, configurations, or resources found there. These override default behavior. If the directory does not exist, proceed with skill defaults.
 
@@ -138,12 +138,12 @@ Open Source Intelligence gathering for authorized investigations.
 
 **Active investigations:**
 ```
-~/.claude/MEMORY/WORK/$(jq -r '.work_dir' ~/.claude/MEMORY/STATE/current-work.json)/YYYY-MM-DD-HHMMSS_osint-[target]/
+~/Projects/LifeOS-AGY/MEMORY/WORK/$(jq -r '.work_dir' ~/Projects/LifeOS-AGY/MEMORY/STATE/current-work.json)/YYYY-MM-DD-HHMMSS_osint-[target]/
 ```
 
 **Archived reports:**
 ```
-~/.claude/History/research/YYYY-MM/[target]-osint/
+~/Projects/LifeOS-AGY/History/research/YYYY-MM/[target]-osint/
 ```
 
 ---

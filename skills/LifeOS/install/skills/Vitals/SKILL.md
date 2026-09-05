@@ -11,7 +11,7 @@ Read-only macOS performance inspection: a deterministic CLI gathers the numbers,
 ## Customization
 
 **Before executing, check for user customizations at:**
-`~/.claude/LIFEOS/USER/CUSTOMIZATIONS/SKILLS/Vitals/`
+`~/Projects/LifeOS-AGY/LIFEOS/USER/CUSTOMIZATIONS/SKILLS/Vitals/`
 
 If this directory exists, load and apply any PREFERENCES.md, configurations, or resources found there. These override default behavior. If the directory does not exist, proceed with skill defaults.
 
@@ -42,9 +42,9 @@ If this directory exists, load and apply any PREFERENCES.md, configurations, or 
 ## Quick Reference
 
 ```bash
-bun ~/.claude/skills/Vitals/Tools/Vitals.ts check     # fast snapshot (<1s)
-bun ~/.claude/skills/Vitals/Tools/Vitals.ts hogs      # live per-process CPU/energy (~3s)
-bun ~/.claude/skills/Vitals/Tools/Vitals.ts full      # everything (~4s)
+bun ~/Projects/LifeOS-AGY/.agents/skills/Vitals/Tools/Vitals.ts check     # fast snapshot (<1s)
+bun ~/Projects/LifeOS-AGY/.agents/skills/Vitals/Tools/Vitals.ts hogs      # live per-process CPU/energy (~3s)
+bun ~/Projects/LifeOS-AGY/.agents/skills/Vitals/Tools/Vitals.ts full      # everything (~4s)
 # also: gpu · memory · disk · thermal · startup · --json · --top N
 ```
 

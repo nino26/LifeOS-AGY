@@ -7,12 +7,12 @@
  * Research skill / PerplexityResearcher agent as the primary web-research tool.
  *
  * Usage:
- *   bun ~/.claude/LIFEOS/TOOLS/PerplexitySearch.ts "<query>"
- *   bun ~/.claude/LIFEOS/TOOLS/PerplexitySearch.ts --model sonar-pro "<query>"
- *   bun ~/.claude/LIFEOS/TOOLS/PerplexitySearch.ts --model sonar-reasoning "<query>"
- *   bun ~/.claude/LIFEOS/TOOLS/PerplexitySearch.ts --recency week "<query>"
- *   bun ~/.claude/LIFEOS/TOOLS/PerplexitySearch.ts --system "You are a ..." "<query>"
- *   bun ~/.claude/LIFEOS/TOOLS/PerplexitySearch.ts --json "<query>"
+ *   bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/PerplexitySearch.ts "<query>"
+ *   bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/PerplexitySearch.ts --model sonar-pro "<query>"
+ *   bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/PerplexitySearch.ts --model sonar-reasoning "<query>"
+ *   bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/PerplexitySearch.ts --recency week "<query>"
+ *   bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/PerplexitySearch.ts --system "You are a ..." "<query>"
+ *   bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/PerplexitySearch.ts --json "<query>"
  *
  * Models:
  *   sonar            Fast, grounded, real-time web (default)
@@ -46,8 +46,8 @@ const colors = {
 
 // Load environment — mirrors the cross-vendor search-tool env convention
 function loadEnv(): Record<string, string> {
-  // Canonical .env is ~/.claude/.env — never $LIFEOS_CONFIG_DIR/.env, which
-  // resolves to the dead ~/.claude/LIFEOS/.env path (public issue #1490).
+  // Canonical .env is ~/Projects/LifeOS-AGY/.env — never $LIFEOS_CONFIG_DIR/.env, which
+  // resolves to the dead ~/Projects/LifeOS-AGY/LIFEOS/.env path (public issue #1490).
   const envPath = join(homedir(), '.claude', '.env')
   const env: Record<string, string> = {}
   try {
@@ -124,7 +124,7 @@ async function perplexity(query: string, opts: ReturnType<typeof parseArgs>['opt
   return { content: content.trim(), citations, usage: data.usage ?? {} }
 }
 
-const USAGE = `Usage: bun ~/.claude/LIFEOS/TOOLS/PerplexitySearch.ts [options] "<query>"
+const USAGE = `Usage: bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/PerplexitySearch.ts [options] "<query>"
 
 Options:
   --model <name>     sonar | sonar-pro | sonar-reasoning   (default: sonar)
@@ -147,7 +147,7 @@ async function main() {
   const { opts, query } = parseArgs(argv)
 
   if (!API_KEY) {
-    console.error(`${colors.red}Error: PERPLEXITY_API_KEY not set in ~/.claude/.env${colors.reset}`)
+    console.error(`${colors.red}Error: PERPLEXITY_API_KEY not set in ~/Projects/LifeOS-AGY/.env${colors.reset}`)
     process.exit(1)
   }
   if (!query) {

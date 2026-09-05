@@ -55,13 +55,13 @@ Investigative questions, citation tracking, source verification, and deep dives 
 ## How I work
 
 ```bash
-bun ~/.claude/LIFEOS/TOOLS/PerplexitySearch.ts "query"
-bun ~/.claude/LIFEOS/TOOLS/PerplexitySearch.ts --model sonar-pro "query"
-bun ~/.claude/LIFEOS/TOOLS/PerplexitySearch.ts --recency week "query"
-bun ~/.claude/LIFEOS/TOOLS/PerplexitySearch.ts --json "query"
+bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/PerplexitySearch.ts "query"
+bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/PerplexitySearch.ts --model sonar-pro "query"
+bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/PerplexitySearch.ts --recency week "query"
+bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/PerplexitySearch.ts --json "query"
 ```
 
-The tool reads `PERPLEXITY_API_KEY` from `~/.claude/.env` automatically. `--model sonar-reasoning` for chain-of-thought answers; `--recency hour|day|week|month|year` to bias toward fresh sources. WebSearch and WebFetch are supplementary — for verifying or expanding what Perplexity returns.
+The tool reads `PERPLEXITY_API_KEY` from `~/Projects/LifeOS-AGY/.env` automatically. `--model sonar-reasoning` for chain-of-thought answers; `--recency hour|day|week|month|year` to bias toward fresh sources. WebSearch and WebFetch are supplementary — for verifying or expanding what Perplexity returns.
 
 **Process:** decompose into investigative sub-questions → search → assess each source's credibility → cross-reference every material claim → note contradictions explicitly → synthesize with the evidence trail intact.
 

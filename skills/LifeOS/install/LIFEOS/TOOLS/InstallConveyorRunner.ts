@@ -2,9 +2,9 @@
 /**
  * InstallConveyorRunner.ts — Materialize com.lifeos.conveyor-runner.plist.template and bootstrap it.
  *
- *   bun ~/.claude/LIFEOS/TOOLS/InstallConveyorRunner.ts             # install
- *   bun ~/.claude/LIFEOS/TOOLS/InstallConveyorRunner.ts --uninstall # remove
- *   bun ~/.claude/LIFEOS/TOOLS/InstallConveyorRunner.ts --status    # check
+ *   bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/InstallConveyorRunner.ts             # install
+ *   bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/InstallConveyorRunner.ts --uninstall # remove
+ *   bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/InstallConveyorRunner.ts --status    # check
  *
  * Reads $HOME, substitutes {{HOME}}/{{BUN}}/{{BUN_DIR}} in the template, writes
  * ~/Library/LaunchAgents/com.lifeos.conveyor-runner.plist, and runs

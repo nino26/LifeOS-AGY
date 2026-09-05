@@ -323,7 +323,7 @@ async function loadModules(config: PulseConfig) {
       log("warn", "Usage module not available", { error: String(err) })
     }
   }
-  // Bunker — application-harness registry surface (reads ~/.claude/LIFEOS/PULSE/Bunker via its CLI).
+  // Bunker — application-harness registry surface (reads ~/Projects/LifeOS-AGY/LIFEOS/PULSE/Bunker via its CLI).
   if (config.modules.bunker) {
     try {
       bunkerModule = await import("./modules/bunker")

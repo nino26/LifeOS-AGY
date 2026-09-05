@@ -1,6 +1,6 @@
 # com.lifeos.worksweep.service.template — Source template (Linux, systemd --user).
 # Install via:
-#   bun ~/.claude/LIFEOS/TOOLS/InstallWorkSweep.ts
+#   bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/InstallWorkSweep.ts
 #
 # The installer reads $HOME and `which bun` at install time, substitutes the
 # {{HOME}}/{{BUN}}/{{BUN_DIR}} placeholders, writes the materialized unit to

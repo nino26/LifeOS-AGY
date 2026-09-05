@@ -13,7 +13,7 @@
  * signal.
  *
  * Usage:
- *   bun ~/.claude/LIFEOS/TOOLS/LifeosUpgrade.ts [--diagnose | --dry-run | --from-fresh-install] [--target=<version>]
+ *   bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/LifeosUpgrade.ts [--diagnose | --dry-run | --from-fresh-install] [--target=<version>]
  *
  * Exit codes:
  *   0  all migrations applied or already-applied (no-op)
@@ -181,7 +181,7 @@ const MIGRATIONS: Migration[] = [
       }
     },
     apply: () => {
-      throw new Error("m-007 apply not implemented — pre-push hook installation belongs to Phase G execution session (G.4b). The auto-install path requires the user's USER-data repo to exist first; once Phase G EXECUTE runs, this migration's apply will write the hook content (including the `# pai-user-data-sync` marker comment) and back up the original to ~/.claude/.git/hooks/pre-push.pre-G-backup.");
+      throw new Error("m-007 apply not implemented — pre-push hook installation belongs to Phase G execution session (G.4b). The auto-install path requires the user's USER-data repo to exist first; once Phase G EXECUTE runs, this migration's apply will write the hook content (including the `# pai-user-data-sync` marker comment) and back up the original to ~/Projects/LifeOS-AGY/.git/hooks/pre-push.pre-G-backup.");
     },
   },
 ];

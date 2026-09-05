@@ -1,11 +1,11 @@
 #!/usr/bin/env bun
 /**
- * UsageAggregator.ts — roll Claude Code usage into a DURABLE per-day store.
+ * UsageAggregator.ts — roll Antigravity CLI usage into a DURABLE per-day store.
  *
- *   bun ~/.claude/LIFEOS/TOOLS/UsageAggregator.ts            # aggregate → usage-daily.jsonl
- *   bun ~/.claude/LIFEOS/TOOLS/UsageAggregator.ts --dry-run  # print totals, write nothing
+ *   bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/UsageAggregator.ts            # aggregate → usage-daily.jsonl
+ *   bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/UsageAggregator.ts --dry-run  # print totals, write nothing
  *
- * WHY THIS EXISTS: raw session transcripts under ~/.claude/projects/ (per-session
+ * WHY THIS EXISTS: raw session transcripts under ~/Projects/LifeOS-AGY/projects/ (per-session
  * .jsonl files) are pruned after ~5 days, so per-model token/cost history evaporates.
  * This tool reads
  * every source of truth and folds it into a permanent per-day rollup that the Pulse
@@ -17,7 +17,7 @@
  *
  * SOURCES:
  *   1. MEMORY/OBSERVABILITY/session-costs.jsonl  — historical per-session rollup (has real cost); froze ~2026-04-16
- *   2. ~/.claude/projects/<proj>/*.jsonl (+ subagents/) — live raw transcripts (~5-day window); cost via price table
+ *   2. ~/Projects/LifeOS-AGY/projects/<proj>/*.jsonl (+ subagents/) — live raw transcripts (~5-day window); cost via price table
  *
  * OUTPUT: MEMORY/OBSERVABILITY/usage-daily.jsonl — one line per day, sorted:
  *   { date, messages, inputTokens, outputTokens, cacheReadTokens, cacheCreationTokens,

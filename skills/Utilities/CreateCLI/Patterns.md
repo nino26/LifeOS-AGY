@@ -249,7 +249,7 @@ PHILOSOPHY:
   - Documented: This help + README
   - Testable: Predictable behavior
 
-For full documentation: ~/.claude/Bin/${CLI_NAME}/README.md
+For full documentation: ~/Projects/LifeOS-AGY/Bin/${CLI_NAME}/README.md
 Version: ${VERSION}
 `);
 }

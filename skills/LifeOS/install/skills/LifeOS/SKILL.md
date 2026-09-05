@@ -25,7 +25,7 @@ LifeOS is distributed as **one self-contained skill** — the `LifeOS/` director
 
 **The primary install is AI-native: give `INSTALL.md` (served at `ourlifeos.ai/install`) to your AI and say "install this."** LifeOS is AI-native, so the install is too — you hand the doc (or its link) to whatever harness you already use, and your AI installs LifeOS on your OS and harness, with permission at each step. It's the same document a human can read and follow. `INSTALL.md` opens with a capability gate, drives the install Tools (which run under `bun` on any OS, not a shell), wires integration per-harness (honest about what each gets), then runs Setup → Interview.
 
-A terminal shortcut stays for Claude Code on macOS/Linux:
+A terminal shortcut stays for Antigravity CLI on macOS/Linux:
 
 ```
 curl -fsSL https://ourlifeos.ai/install.sh | bash
@@ -49,7 +49,7 @@ Default flow (`/LifeOS setup`): **Setup phase** (system integration) → transit
 
 ## The two phases
 
-**Setup (logistics, first).** Detect OS + harness → scan for conflicts and surface them → install prerequisites → overlay the system templates → scaffold the USER tree + link it → **trust-gated hook install** (show the exact change, back up `settings.json`, wait for yes) → activate the identity imports → verify with two evidence classes. Adapts to OS (macOS/Linux/Windows) and harness (Claude Code / Hermes / Cursor / OpenClaw).
+**Setup (logistics, first).** Detect OS + harness → scan for conflicts and surface them → install prerequisites → overlay the system templates → scaffold the USER tree + link it → **trust-gated hook install** (show the exact change, back up `settings.json`, wait for yes) → activate the identity imports → verify with two evidence classes. Adapts to OS (macOS/Linux/Windows) and harness (Antigravity CLI / Hermes / Cursor / OpenClaw).
 
 **Interview (meaning, second).** Name the DA → principal identity → TELOS current state → TELOS ideal state → **pull in external sources the user provides** (existing notes, configs, exports) to enrich USER context → seed Pulse. By the end, the config tree is populated and Pulse shows real data, not empty scaffolding.
 
@@ -63,7 +63,7 @@ Default flow (`/LifeOS setup`): **Setup phase** (system integration) → transit
 
 ## Gotchas
 
-- **The frontmatter `version:` is the COMPONENT line, not the release.** Claude Code ignores it; the maintainer-side `BumpSkillVersions` (not shipped) maintains it at the source repo. The DISTRIBUTION version is the tag + `LIFEOS_RELEASES/<version>/` + the `install.sh` fetch.
+- **The frontmatter `version:` is the COMPONENT line, not the release.** Antigravity CLI ignores it; the maintainer-side `BumpSkillVersions` (not shipped) maintains it at the source repo. The DISTRIBUTION version is the tag + `LIFEOS_RELEASES/<version>/` + the `install.sh` fetch.
 - **`install.sh` is non-destructive by design.** It installs only the LifeOS skill and backs up only a prior LifeOS skill — never the user's other skills, hooks, or config. The whole point is "bolt on, don't take over."
 - **Hooks are installed imperatively, with permission.** A bare skill cannot auto-wire hooks; the setup workflow writes them into the user's harness explicitly, after showing what changes.
 - **Config is `.toml`, never `.yaml`.** `LifeosConfig.ts` reads TOML; the legacy `.yaml` template was retired 2026-06-19.

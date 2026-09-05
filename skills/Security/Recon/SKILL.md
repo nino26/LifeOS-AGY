@@ -6,7 +6,7 @@ description: Network reconnaissance — subdomain enumeration, port scanning, DN
 ## Customization
 
 **Before executing, check for user customizations at:**
-`~/.claude/PAI/USER/SKILLCUSTOMIZATIONS/Recon/`
+`~/Projects/LifeOS-AGY/PAI/USER/SKILLCUSTOMIZATIONS/Recon/`
 
 If this directory exists, load and apply any PREFERENCES.md, configurations, or resources found there. These override default behavior. If the directory does not exist, proceed with skill defaults.
 
@@ -235,7 +235,7 @@ ASN and BGP reconnaissance (performed inline using WHOIS, IPInfo, and public BGP
 **MCP Tools** (security profile required)
 - `httpx` - HTTP probing and technology detection
 - `naabu` - Port scanning
-- Note: Requires security MCP profile (`~/.claude/MCPs/swap-mcp security`)
+- Note: Requires security MCP profile (`~/Projects/LifeOS-AGY/MCPs/swap-mcp security`)
 
 ### Future Tool Integration
 
@@ -363,8 +363,8 @@ Located in `Tools/` directory:
 ```
 
 Reports saved to:
-- **Work directory** (`~/.claude/MEMORY/WORK/{current_work}/`) - For iterative artifacts during investigation
-- **MEMORY/RESEARCH/** (`~/.claude/MEMORY/RESEARCH/YYYY-MM/`) - For pentest engagements and formal assessments
+- **Work directory** (`~/Projects/LifeOS-AGY/MEMORY/WORK/{current_work}/`) - For iterative artifacts during investigation
+- **MEMORY/RESEARCH/** (`~/Projects/LifeOS-AGY/MEMORY/RESEARCH/YYYY-MM/`) - For pentest engagements and formal assessments
 
 ## MCP Profile Requirements
 
@@ -373,9 +373,9 @@ Reports saved to:
 **For active recon:** Requires security MCP profile
 ```bash
 # Switch to security profile
-~/.claude/MCPs/swap-mcp security
+~/Projects/LifeOS-AGY/MCPs/swap-mcp security
 
-# Restart Claude Code to apply
+# Restart Antigravity CLI to apply
 # Then run active reconnaissance
 ```
 
@@ -421,7 +421,7 @@ Assistant: Activating recon skill with passive-recon workflow.
      [Performs WHOIS, DNS, cert transparency, IPInfo]
      [Generates report in scratchpad]
 
-     Report: ~/.claude/MEMORY/WORK/{current_work}/recon-example-com/
+     Report: ~/Projects/LifeOS-AGY/MEMORY/WORK/{current_work}/recon-example-com/
 ```
 
 ### Example 2: IP Investigation with Active Scan
@@ -496,8 +496,8 @@ Assistant: Activating OSINT skill...
 ## Related Documentation
 
 **Security Skills:**
-- `~/.claude/skills/Investigation/` - Entity and people reconnaissance (OSINT)
-- `~/.claude/skills/Security/WebAssessment/` - Web application testing
+- `~/Projects/LifeOS-AGY/.agents/skills/Investigation/` - Entity and people reconnaissance (OSINT)
+- `~/Projects/LifeOS-AGY/.agents/skills/Security/WebAssessment/` - Web application testing
 
 **Tool Documentation:**
 - IPInfo API: https://ipinfo.io/developers

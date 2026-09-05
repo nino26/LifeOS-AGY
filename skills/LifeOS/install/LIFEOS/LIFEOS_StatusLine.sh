@@ -19,7 +19,7 @@ if [ -z "$HOME" ]; then
 fi
 
 LIFEOS_DIR="${LIFEOS_DIR:-$HOME/.claude/LIFEOS}"
-# Claude Code injects settings.json env values without shell expansion (LifeOS#1404):
+# Antigravity CLI injects settings.json env values without shell expansion (LifeOS#1404):
 # a shipped value of "$HOME/.claude/LIFEOS" arrives literal. Expand it here.
 LIFEOS_DIR="${LIFEOS_DIR/#\$HOME/$HOME}"
 LIFEOS_DIR="${LIFEOS_DIR/#\$\{HOME\}/$HOME}"
@@ -83,7 +83,7 @@ fi
 
 # Host-local scratch for caches this statusline both writes AND is the only
 # reader of. MEMORY/STATE can be synced across machines, so per-host churn there
-# (model name, IP-derived location, local weather, this machine's own Claude Code
+# (model name, IP-derived location, local weather, this machine's own Antigravity CLI
 # version) shows up as noise everywhere else and can hand one host another
 # host's values. public issue #1702, @gangwaydigital
 # Deliberately NOT moved: session-names.json, session-name-cache.sh,
@@ -150,7 +150,7 @@ for _pai_v_path in \
 done
 LIFEOS_VERSION="${LIFEOS_VERSION:-—}"
 # v6.2.0+: LATEST is the single source of truth for the Algorithm version.
-# Hardened against Claude Code's hook-spawn context where $HOME or $LIFEOS_DIR
+# Hardened against Antigravity CLI's hook-spawn context where $HOME or $LIFEOS_DIR
 # may not resolve as expected (subprocess spawn with non-default env). Try
 # multiple candidate paths in order, keeping the first non-empty result.
 ALGO_VERSION=""
@@ -220,7 +220,7 @@ else
 fi
 
 # Parse timestamp to epoch seconds — handles both Unix epoch integers
-# (from Claude Code native rate_limits) and ISO 8601 strings (from OAuth API)
+# (from Antigravity CLI native rate_limits) and ISO 8601 strings (from OAuth API)
 parse_iso_epoch() {
     local ts="$1"
     [ -z "$ts" ] && echo 0 && return
@@ -337,7 +337,7 @@ has_native_rate_limits="${has_native_rate_limits:-false}"
 native_usage_5h_present="${native_usage_5h_present:-false}"
 native_usage_7d_present="${native_usage_7d_present:-false}"
 
-# Claude Code reserves ~16.5% of context for compaction overhead.
+# Antigravity CLI reserves ~16.5% of context for compaction overhead.
 # Usable context = 83.5% of window. Scale displayed % so it matches reality.
 # Without this: 83% raw looks fine but means ~1% usable remaining.
 COMPACTION_USABLE=835  # 83.5% × 10 for integer math precision
@@ -379,7 +379,7 @@ _compute_skills_desc_bytes() {
 }
 
 # ── Startup context estimate (fresh calculation, no cross-session caching) ─
-# Before the first API call, Claude Code provides no token data. We estimate
+# Before the first API call, Antigravity CLI provides no token data. We estimate
 # from measured file sizes + per-item token costs.
 # RECONCILIATION CONTRACT: the on-disk file components use the SAME inputs and
 # SAME math as the FILES line (bytes / 4, same file set, same skills sum), so
@@ -399,11 +399,11 @@ if [ "$context_pct" = "0" ] && [ "$total_input" -eq 0 ] 2>/dev/null; then
         # shellcheck disable=SC1090
         source "$_STARTUP_EST_CACHE"
     else
-        # Claude Code system prompt (~5k tokens — includes base instructions, mode rules,
+        # Antigravity CLI system prompt (~5k tokens — includes base instructions, mode rules,
         # permission model, output format, etc.)
         _est=5000
 
-        # Claude Code tool definitions (~12k tokens — Agent tool alone is ~4k with all
+        # Antigravity CLI tool definitions (~12k tokens — Agent tool alone is ~4k with all
         # subagent descriptions; Bash, Read, Edit, Write, Glob, Grep, Skill, ToolSearch
         # each 200-500 tokens; deferred tool names list ~500 tokens)
         _est=$((_est + 12000))
@@ -422,7 +422,7 @@ if [ "$context_pct" = "0" ] && [ "$total_input" -eq 0 ] 2>/dev/null; then
             done < <(sed -n 's/^@//p' "$CLAUDE_HOME/CLAUDE.md" 2>/dev/null)
         fi
 
-        # Project memory files (CC native memory at ~/.claude/projects/*/memory/)
+        # Project memory files (CC native memory at ~/Projects/LifeOS-AGY/projects/*/memory/)
         for _f in "$HOME"/.claude/projects/*/memory/MEMORY.md; do
             [ -f "$_f" ] && _startup_file_bytes=$((_startup_file_bytes + $(wc -c < "$_f")))
         done
@@ -443,7 +443,7 @@ if [ "$context_pct" = "0" ] && [ "$total_input" -eq 0 ] 2>/dev/null; then
         shopt -u nullglob 2>/dev/null
         _est=$((_est + (_ag + _pag) * 200))
 
-        # Git status block (injected by Claude Code — branch, status, recent commits)
+        # Git status block (injected by Antigravity CLI — branch, status, recent commits)
         _git_bytes=$(timeout 1 git -C "$current_dir" status --porcelain 2>/dev/null | wc -c | tr -d ' ')
         _est=$((_est + ${_git_bytes:-0} * 10 / 35 + 500))  # +500 for commit log, branch info
 
@@ -472,20 +472,20 @@ if [ "$context_pct" = "0" ] && [ "$total_input" -eq 0 ] 2>/dev/null; then
 fi
 
 # Get harness name and version from JSON input (set by pai-core extension).
-# Defaults to "CC" (Claude Code) when not running under Pi or another harness.
+# Defaults to "CC" (Antigravity CLI) when not running under Pi or another harness.
 harness_name="${harness_name_json:-}"
 harness_version="${harness_version_json:-}"
 if [ -z "$harness_name" ]; then
-    # Not running under a known harness — treat as Claude Code direct
+    # Not running under a known harness — treat as Antigravity CLI direct
     harness_name="CC"
 fi
 
-# Get Claude Code version. The harness already hands us the live value in the
+# Get Antigravity CLI version. The harness already hands us the live value in the
 # statusline JSON (.version, parsed above as cc_version_json) — use it first;
 # the 24h mtime cache is only a fallback for harnesses that omit it. The cache
 # was previously consulted before the parsed value, showing a stale version for
 # up to a day after an update (public issue #1588, @bnkath2o).
-# Host-local: this is THIS machine's Claude Code version, never a synced fact.
+# Host-local: this is THIS machine's Antigravity CLI version, never a synced fact.
 # public issue #1702, @gangwaydigital
 _CC_VERSION_CACHE="$STATUSLINE_LOCAL_STATE/cc-version-cache.txt"
 cc_version="${cc_version_json:-}"
@@ -511,14 +511,14 @@ echo "$model_name" > "$MODEL_CACHE" 2>/dev/null
 
 dir_name=$(basename "$current_dir" 2>/dev/null || echo ".")
 
-# Get session label — authoritative source: Claude Code's sessions-index.json customTitle
+# Get session label — authoritative source: Antigravity CLI's sessions-index.json customTitle
 # Priority: customTitle (set by /rename) > session-names.json (auto-generated) > none
-# NOTE: Claude Code uses lowercase "projects/" dir, LifeOS uses uppercase "Projects/".
+# NOTE: Antigravity CLI uses lowercase "projects/" dir, LifeOS uses uppercase "Projects/".
 SESSION_LABEL=""
 SESSION_NAMES_FILE="$LIFEOS_DIR/MEMORY/STATE/session-names.json"
 SESSION_CACHE="$LIFEOS_DIR/MEMORY/STATE/session-name-cache.sh"
 if [ -n "$session_id" ]; then
-    # Derive sessions-index path from current_dir (Claude Code uses lowercase "projects")
+    # Derive sessions-index path from current_dir (Antigravity CLI uses lowercase "projects")
     project_slug="${current_dir//[\/.]/-}"
     SESSIONS_INDEX="$LIFEOS_DIR/projects/${project_slug}/sessions-index.json"
 
@@ -600,7 +600,7 @@ detect_terminal_width() {
 
     # Tier 5: Environment variable / default
     # Treat $COLUMNS=0 (and any non-positive value) as unset. Some hook
-    # spawn contexts (Claude Code's statusline subprocess on a headless
+    # spawn contexts (Antigravity CLI's statusline subprocess on a headless
     # server, no TTY, no Kitty IPC, no /dev/tty) export COLUMNS=0, which
     # would otherwise pass `${COLUMNS:-80}` straight through and force
     # MODE=nano — silently dropping CC/PAI/ALG/SK/WF/HK from the render.
@@ -673,7 +673,7 @@ sep() {
 
 _parallel_tmp="/tmp/pai-parallel-$$"
 # Two-layer cleanup. The rm -rf near the end of this script is not reachable on
-# every invocation: Claude Code terminates a slow statusline, and at
+# every invocation: Antigravity CLI terminates a slow statusline, and at
 # refreshInterval=1 each killed render leaks its scratch dir forever.
 # ported from public PR #1767, @gcaspar
 #
@@ -931,7 +931,7 @@ if [ "$MODE" = "normal" ]; then
 
     # Refresh the OAuth usage cache (15-min TTL, single-fetcher lock). Used by
     # BOTH paths below: as the full data source when native rate_limits are
-    # absent, and as extra_usage enrichment when they're present — Claude Code's
+    # absent, and as extra_usage enrichment when they're present — Antigravity CLI's
     # native payload carries five_hour/seven_day but NO extra_usage object
     # (verified against real stdin 2026-07-08), so EXT/credits data can only
     # come from /api/oauth/usage. Sets _data_age (age of last-known-good).
@@ -997,7 +997,7 @@ if [ "$MODE" = "normal" ]; then
                 # Fetch DETACHED, mirroring the location/weather refresh above.
                 # ported from public PR #1773, @asdf8675309
                 # The keychain read and the 3s curl must not sit on the render
-                # path. Claude Code kills a statusline render that overruns its
+                # path. Antigravity CLI kills a statusline render that overruns its
                 # refreshInterval, and killing one mid-`security` can strand the
                 # terminal in the canonical/no-echo mode that call put it in.
                 # </dev/null severs stdin so the fetch can never read the TTY.
@@ -1017,7 +1017,7 @@ if [ "$MODE" = "normal" ]; then
 
                     # Extract OAuth token — macOS Keychain or Linux credentials file
                     if [ "$(uname -s)" = "Darwin" ]; then
-                        cred_json=$(security find-generic-password -s "Claude Code-credentials" -w 2>/dev/null)
+                        cred_json=$(security find-generic-password -s "Antigravity CLI-credentials" -w 2>/dev/null)
                     else
                         cred_json=$(cat "${HOME}/.claude/.credentials.json" 2>/dev/null)
                     fi
@@ -1065,7 +1065,7 @@ if [ "$MODE" = "normal" ]; then
         fi
     }
 
-    # Emit fields that exist ONLY in the OAuth payload — never in Claude Code's
+    # Emit fields that exist ONLY in the OAuth payload — never in Antigravity CLI's
     # native rate_limits (verified against real stdin 2026-07-12): the limits[]
     # array (scoped per-model window e.g. Fable, plus per-window is_active
     # flags) and the spend object (usage-credits pool, incl. disabled state).
@@ -1197,7 +1197,7 @@ wait
 rm -rf "$_parallel_tmp" 2>/dev/null
 
 # Supplement missing reset timestamps from OAuth cache when native rate_limits
-# omits resets_at (happens in some Claude Code sessions)
+# omits resets_at (happens in some Antigravity CLI sessions)
 if [ "$MODE" = "normal" ] && { [ -z "${usage_5h_reset:-}" ] || [ -z "${usage_7d_reset:-}" ]; } && [ -f "$USAGE_CACHE" ]; then
     eval "$(jq -r '
         "_cache_usage_5h_reset=" + (.five_hour.resets_at // "" | @sh) + "\n" +
@@ -2401,7 +2401,7 @@ _collect_ctx_file "$LIFEOS_DIR/LIFEOS_SYSTEM_PROMPT.md" "LIFEOS_SYSTEM_PROMPT.md
 # routing table itself shows in FILES alongside its @-imports; not re-read.
 _collect_ctx_file "$CLAUDE_HOME/CLAUDE.md" "CLAUDE.md"
 
-# @-imports from CLAUDE.md (paths relative to ~/.claude/)
+# @-imports from CLAUDE.md (paths relative to ~/Projects/LifeOS-AGY/)
 while IFS= read -r _cf; do
     if [ -n "$_cf" ]; then
         _collect_ctx_file "$CLAUDE_HOME/$_cf" "${_cf##*/}"
@@ -2454,7 +2454,7 @@ _skills_total_bytes=$(_compute_skills_desc_bytes)
 # Skills percentage of context window — same denominator as other FILES entries
 # and as `/context`'s "Skills" row, so the numbers reconcile across surfaces.
 # (The skill-listing budget — settings.json `skillListingBudgetFraction`, default
-# 0.15 — is Claude Code's truncation cap; here we report raw context-window
+# 0.15 — is Antigravity CLI's truncation cap; here we report raw context-window
 # share to stay legible against /context.)
 _skills_tokens=$((_skills_total_bytes / 4))
 if [ "$context_max" -gt 0 ] 2>/dev/null; then

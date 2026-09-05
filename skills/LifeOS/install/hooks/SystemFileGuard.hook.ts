@@ -4,7 +4,7 @@
  * SystemFileGuard.hook.ts — PreToolUse Write/Edit/MultiEdit gate.
  *
  * Blocks writes of user-identifying patterns (per the release skill's deny-list)
- * into SYSTEM files (anything under ~/.claude/ that is NOT in a containment
+ * into SYSTEM files (anything under ~/Projects/LifeOS-AGY/ that is NOT in a containment
  * zone per hooks/lib/containment-zones.ts).
  *
  * Doctrine: "public by construction, not public by scrub." Without this
@@ -85,7 +85,7 @@ function denyMessage(relPath: string, pattern: string, match: string): string {
     "  patterns. Move the user-specific content to a USER-zone location",
     "  or read it through the LifeosConfig interface:",
     "",
-    "    import { loadLifeosConfig, paiUserDir } from '~/.claude/LIFEOS/TOOLS/LifeosConfig';",
+    "    import { loadLifeosConfig, paiUserDir } from '~/Projects/LifeOS-AGY/LIFEOS/TOOLS/LifeosConfig';",
     "",
     "  Canonical USER zones (any of these can hold the content):",
     "    LIFEOS/USER/PRINCIPAL/        principal identity files",

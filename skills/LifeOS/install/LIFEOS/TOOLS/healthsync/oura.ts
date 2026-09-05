@@ -185,7 +185,7 @@ export async function pull(ctx: Ctx): Promise<SourceResult> {
     str(ctx.env.OURA_CLIENT_ID) === null ||
     str(ctx.env.OURA_CLIENT_SECRET) === null
   ) {
-    return unconfigured("OURA_CLIENT_ID / OURA_CLIENT_SECRET not set in ~/.claude/.env", startedAt);
+    return unconfigured("OURA_CLIENT_ID / OURA_CLIENT_SECRET not set in ~/Projects/LifeOS-AGY/.env", startedAt);
   }
 
   let tokens = await loadTokens(ctx);

@@ -21,7 +21,7 @@
  *   bun KnowledgeDistill.ts status                            # state summary
  *
  * Config (optional, personal — never hardcoded here):
- *   ~/.claude/LIFEOS/USER/CUSTOMIZATIONS/SKILLS/Knowledge/DistillConfig.json
+ *   ~/Projects/LifeOS-AGY/LIFEOS/USER/CUSTOMIZATIONS/SKILLS/Knowledge/DistillConfig.json
  *   { contentRepo, contentLabel, maxIssues, maxUpgrades, maxDigestItems, windowDays }
  *   Missing config → the issue lane is skipped (candidates stay digest-only).
  *

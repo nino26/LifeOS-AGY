@@ -2,9 +2,9 @@
 /**
  * InstallWorkSweep.ts — Materialize the WorkSweep scheduler unit(s) and bootstrap them.
  *
- *   bun ~/.claude/LIFEOS/TOOLS/InstallWorkSweep.ts             # install
- *   bun ~/.claude/LIFEOS/TOOLS/InstallWorkSweep.ts --uninstall # remove
- *   bun ~/.claude/LIFEOS/TOOLS/InstallWorkSweep.ts --status    # check
+ *   bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/InstallWorkSweep.ts             # install
+ *   bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/InstallWorkSweep.ts --uninstall # remove
+ *   bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/InstallWorkSweep.ts --status    # check
  *
  * Two backends, chosen by process.platform — the same split PULSE/manage.sh
  * already uses for Pulse itself (public PR #1692, @takanorinishida):

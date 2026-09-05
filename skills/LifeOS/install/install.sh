@@ -375,7 +375,7 @@ done
 
 # ─── Step 5: Migrate stale pre-7.x launch aliases (upgrade path) ──
 # Pre-7.x installs wired a `pai` launch alias — either `cd ~/.claude && claude`
-# or `bun ~/.claude/PAI/ACTIONS/pai.ts`. 7.x renamed PAI/ → LIFEOS/ and made the
+# or `bun ~/Projects/LifeOS-AGY/PAI/ACTIONS/pai.ts`. 7.x renamed PAI/ → LIFEOS/ and made the
 # launch constitutional (`lifeos.ts -s LIFEOS_SYSTEM_PROMPT.md`), so an old alias
 # either dies on the missing PAI/ path or silently launches WITHOUT the
 # constitution. Repoint stale aliases in place — SAME alias name, so the user's

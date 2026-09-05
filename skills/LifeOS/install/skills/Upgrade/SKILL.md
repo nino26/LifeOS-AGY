@@ -7,7 +7,7 @@ description: "Improve LifeOS from what the best practitioners are shipping aroun
 ## Customization
 
 **Before executing, check for user customizations at:**
-`~/.claude/LIFEOS/USER/CUSTOMIZATIONS/SKILLS/Upgrade/`
+`~/Projects/LifeOS-AGY/LIFEOS/USER/CUSTOMIZATIONS/SKILLS/Upgrade/`
 
 If this directory exists, load and apply any PREFERENCES.md, configurations, or resources found there. These override default behavior. If the directory does not exist, proceed with skill defaults.
 
@@ -64,10 +64,10 @@ Signal comes from two directions, and a good run uses both: **external** (what A
 | Surface | Contract |
 |---------|----------|
 | Anthropic (30+ sources: blog, changelogs, GitHub repos, docs) | `bun Tools/Anthropic.ts` — diffs against `State/last-check.json`, updates it itself |
-| YouTube channels | Config: `youtube-channels.json` (base) + user copy in CUSTOMIZATIONS. List: `yt-dlp --flat-playlist --dump-json 'https://www.youtube.com/@HANDLE/videos'`. Transcript: `bun ~/.claude/LIFEOS/TOOLS/GetTranscript.ts '<url>'`. Seen-state: `State/youtube-videos.json` — update after processing |
+| YouTube channels | Config: `youtube-channels.json` (base) + user copy in CUSTOMIZATIONS. List: `yt-dlp --flat-playlist --dump-json 'https://www.youtube.com/@HANDLE/videos'`. Transcript: `bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/GetTranscript.ts '<url>'`. Seen-state: `State/youtube-videos.json` — update after processing |
 | GitHub trending | Config: `github_trending` block in user `user-sources.json`. `gh api 'search/repositories?q=QUERY+created:>DATE+stars:>N&sort=...&per_page=3'`. Seen-state: `State/github-trending.json` — merge, never drop entries |
 | Custom sources | `user-sources.json` in CUSTOMIZATIONS — fetch each; skip dead/redirected pages with a note |
-| Claude Code internals | When discoveries touch hooks, settings, slash commands, MCP, agent types, or the SDK/API, spawn `Agent(subagent_type="claude-code-guide")` to verify against the live surface — never answer from memory |
+| Antigravity CLI internals | When discoveries touch hooks, settings, slash commands, MCP, agent types, or the SDK/API, spawn `Agent(subagent_type="claude-code-guide")` to verify against the live surface — never answer from memory |
 | Internal reflections | `MEMORY/LEARNING/REFLECTIONS/algorithm-reflections.jsonl` — method in `Workflows/MineReflections.md` |
 
 **Source labels in output:** `GitHub: claude-code vX.Y.Z` · `YouTube: Creator @ MM:SS` · `Docs: Section` · `Blog: Title`.
@@ -76,7 +76,7 @@ Signal comes from two directions, and a good run uses both: **external** (what A
 
 - **Hard deadline, fail-open — never block on a straggler.** Set a synthesis deadline (~4 min) at dispatch; report with whatever is back when it hits. A missing source is listed as `⏳ timed out` in Sources Processed; it degrades coverage, never delays the report. (2026-07-18: one hung GitHub-trending agent stalled a run ~1 hour.)
 - **Right-size the fan-out (~8 agents).** Small-file reads collapse into one agent; network sources get short budgets and are first to drop. Over-fan-out is the failure the reflection corpus flags most.
-- **Budget the `claude-code-guide` freshness spawn per-spawn — it dies on a broad ask.** Asking one spawn to cover the whole Claude Code surface (hook events, `settings.json`, slash commands, SKILL/subagent frontmatter, MCP, SDK, API) returns nothing: it fans out a batch of doc lookups on its first turn and the combined results blow its context window, surfacing as `Prompt is too long` ~10s after spawn. The prompt length is not the cause — a trivial prompt to the same agent type in a larger parent conversation completes fine; how much the ask makes it FETCH is the variable. Cap at ~3 areas per spawn, tell it to look things up rather than pull whole pages, and split the surface across parallel spawns so losing one costs a slice instead of the whole freshness check. Diagnostic tell: sibling agents in the same batch all succeed while this one dies — that points at the spawn's context budget, not the batch. Fallback that needs no agent at all: read `Claude Code CHANGELOG` from `sources.json` directly and diff the version range. *(public PR #1659, @elhoim.)*
+- **Budget the `claude-code-guide` freshness spawn per-spawn — it dies on a broad ask.** Asking one spawn to cover the whole Antigravity CLI surface (hook events, `settings.json`, slash commands, SKILL/subagent frontmatter, MCP, SDK, API) returns nothing: it fans out a batch of doc lookups on its first turn and the combined results blow its context window, surfacing as `Prompt is too long` ~10s after spawn. The prompt length is not the cause — a trivial prompt to the same agent type in a larger parent conversation completes fine; how much the ask makes it FETCH is the variable. Cap at ~3 areas per spawn, tell it to look things up rather than pull whole pages, and split the surface across parallel spawns so losing one costs a slice instead of the whole freshness check. Diagnostic tell: sibling agents in the same batch all succeed while this one dies — that points at the spawn's context budget, not the batch. Fallback that needs no agent at all: read `Antigravity CLI CHANGELOG` from `sources.json` directly and diff the version range. *(public PR #1659, @elhoim.)*
 - **Idle teammate ≠ delivered result.** Spawned agents sometimes go idle without sending output — a one-line SendMessage nudge recovers them. Nudge once; don't re-spawn.
 - **GitHub search 422s on bare OR between qualifiers** with no free-text term. Give every query a free-text term; don't retry a 422 inside the budget.
 - **Absence from `settings.json` ≠ a dead hook.** It's GENERATED by MergeSettings; hooks also fire via dispatchers (PreToolGuard) and Pulse HTTP. Flag "verify before concluding dark," never assert dead from absence.
@@ -87,7 +87,7 @@ Signal comes from two directions, and a good run uses both: **external** (what A
 After completing any workflow, append a single JSONL entry:
 
 ```bash
-echo '{"ts":"'$(date -u +%Y-%m-%dT%H:%M:%SZ)'","skill":"Upgrade","workflow":"WORKFLOW_USED","input":"8_WORD_SUMMARY","status":"ok|error","duration_s":SECONDS}' >> ~/.claude/LIFEOS/MEMORY/SKILLS/execution.jsonl
+echo '{"ts":"'$(date -u +%Y-%m-%dT%H:%M:%SZ)'","skill":"Upgrade","workflow":"WORKFLOW_USED","input":"8_WORD_SUMMARY","status":"ok|error","duration_s":SECONDS}' >> ~/Projects/LifeOS-AGY/LIFEOS/MEMORY/SKILLS/execution.jsonl
 ```
 
 Replace `WORKFLOW_USED` with the workflow executed, `8_WORD_SUMMARY` with a brief input description, and `SECONDS` with approximate wall-clock time. Log `status: "error"` if the workflow failed.

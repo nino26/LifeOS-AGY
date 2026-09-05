@@ -233,12 +233,12 @@ The Algorithm invokes this skill at run start to scaffold or read an ISA. The sk
 - Planning: `Skill("ISA", "extract feature <name> as ephemeral file")` → ephemeral excerpt.
 - Learning: `Skill("ISA", "reconcile <ephemeral-path> → <master-path>")` → deterministic merge.
 
-The Algorithm doctrine (`~/.claude/LIFEOS/ALGORITHM/LATEST` → `v{LATEST}.md`) governs invocation cadence. This skill is invocation-agnostic — it works the same whether called by the Algorithm or directly by the user.
+The Algorithm doctrine (`~/Projects/LifeOS-AGY/LIFEOS/ALGORITHM/LATEST` → `v{LATEST}.md`) governs invocation cadence. This skill is invocation-agnostic — it works the same whether called by the Algorithm or directly by the user.
 
 ---
 
 ## Format spec cross-reference
 
-The full ISA format spec lives at `~/.claude/LIFEOS/DOCUMENTATION/ISA/ISAFormat.md`. This skill implements that spec; if there is ever a contradiction, the format spec wins and this skill is updated to match.
+The full ISA format spec lives at `~/Projects/LifeOS-AGY/LIFEOS/DOCUMENTATION/ISA/ISAFormat.md`. This skill implements that spec; if there is ever a contradiction, the format spec wins and this skill is updated to match.
 
-The system-architecture doc — five identities, three-guardrail taxonomy, fourteen-section body, six workflows, two homes, subsystem relationships — lives at `~/.claude/LIFEOS/DOCUMENTATION/ISA/ISASystem.md`. Read that for the conceptual frame; read this file (and `ISAFormat.md`) for the operational contract.
+The system-architecture doc — five identities, three-guardrail taxonomy, fourteen-section body, six workflows, two homes, subsystem relationships — lives at `~/Projects/LifeOS-AGY/LIFEOS/DOCUMENTATION/ISA/ISASystem.md`. Read that for the conceptual frame; read this file (and `ISAFormat.md`) for the operational contract.

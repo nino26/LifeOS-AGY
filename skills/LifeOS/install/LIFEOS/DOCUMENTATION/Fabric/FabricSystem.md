@@ -10,7 +10,7 @@ version: 1.2.0
 
 > Fabric patterns are reusable moves in the LifeOS hill-climb (`LifeOs/LifeOsThesis.md`) — packaged transformations the DA applies to incoming content.
 
-**Primary Skill:** `~/.claude/skills/Fabric/SKILL.md`
+**Primary Skill:** `~/Projects/LifeOS-AGY/.agents/skills/Fabric/SKILL.md`
 
 This document provides a quick reference. For full functionality, invoke the Fabric skill.
 
@@ -18,7 +18,7 @@ This document provides a quick reference. For full functionality, invoke the Fab
 
 ## Quick Reference
 
-**Patterns Location:** `~/.claude/skills/Fabric/Patterns/` (240+ patterns)
+**Patterns Location:** `~/Projects/LifeOS-AGY/.agents/skills/Fabric/Patterns/` (240+ patterns)
 
 ### Invoke Fabric Skill
 
@@ -77,12 +77,12 @@ Only use `fabric` command for:
 User: "Update fabric patterns"
 -> Fabric skill > UpdatePatterns workflow
 -> Runs fabric -U
--> Syncs to ~/.claude/skills/Fabric/Patterns/
+-> Syncs to ~/Projects/LifeOS-AGY/.agents/skills/Fabric/Patterns/
 ```
 
 **Manual:**
 ```bash
-fabric -U && rsync -av ~/.config/fabric/patterns/ ~/.claude/skills/Fabric/Patterns/
+fabric -U && rsync -av ~/.config/fabric/patterns/ ~/Projects/LifeOS-AGY/.agents/skills/Fabric/Patterns/
 ```
 
 ---
@@ -136,8 +136,8 @@ The diagram shows why patterns compose: the *content* is the variable, the *patt
 
 ## See Also
 
-- **Full Skill:** `~/.claude/skills/Fabric/SKILL.md`
-- **Pattern Execution:** `~/.claude/skills/Fabric/Workflows/ExecutePattern.md`
-- **Pattern Updates:** `~/.claude/skills/Fabric/Workflows/UpdatePatterns.md`
-- **All Patterns:** `~/.claude/skills/Fabric/Patterns/`
-- **Architecture:** `~/.claude/LIFEOS/DOCUMENTATION/LifeosSystemArchitecture.md` — Master LifeOS architecture reference
+- **Full Skill:** `~/Projects/LifeOS-AGY/.agents/skills/Fabric/SKILL.md`
+- **Pattern Execution:** `~/Projects/LifeOS-AGY/.agents/skills/Fabric/Workflows/ExecutePattern.md`
+- **Pattern Updates:** `~/Projects/LifeOS-AGY/.agents/skills/Fabric/Workflows/UpdatePatterns.md`
+- **All Patterns:** `~/Projects/LifeOS-AGY/.agents/skills/Fabric/Patterns/`
+- **Architecture:** `~/Projects/LifeOS-AGY/LIFEOS/DOCUMENTATION/LifeosSystemArchitecture.md` — Master LifeOS architecture reference

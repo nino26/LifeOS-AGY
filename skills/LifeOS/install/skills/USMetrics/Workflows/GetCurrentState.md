@@ -39,7 +39,7 @@ Running **GetCurrentState** in **USMetrics**...
 
 Read the master metrics document:
 ```
-${USMETRICS_DATA_DIR:-~/.claude/LIFEOS/USER/DATA/US-Common-Metrics}/US-Common-Metrics.md
+${USMETRICS_DATA_DIR:-~/Projects/LifeOS-AGY/LIFEOS/USER/DATA/US-Common-Metrics}/US-Common-Metrics.md
 ```
 
 Extract the list of all metrics with their:
@@ -287,7 +287,7 @@ Generate structured markdown report:
 
 Save generated report to:
 ```
-~/.claude/History/research/[YYYY-MM]/[YYYY-MM-DD]_US-Economic-State-Analysis.md
+~/Projects/LifeOS-AGY/History/research/[YYYY-MM]/[YYYY-MM-DD]_US-Economic-State-Analysis.md
 ```
 
 ## Error Handling

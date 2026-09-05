@@ -336,7 +336,7 @@ Capture.sh: stale/unloaded extension — screenshot-runner.js failed to load.
 
 REMEDIATION (operator):
   In the test profile: chrome://extensions/ -> Interceptor -> Reload (or
-  Load Unpacked from ~/.claude/skills/Interceptor/Extension/). If you just
+  Load Unpacked from ~/Projects/LifeOS-AGY/.agents/skills/Interceptor/Extension/). If you just
   upgraded the binary, re-pin via the Update workflow first.
 EOF
     exit 10
@@ -364,7 +364,7 @@ if printf '%s' "$err" | grep -qiE 'timeout|timed out|native port disconnected|no
         cat >&2 <<EOF
 Capture.sh: stale/unloaded extension after daemon respawn.
 REMEDIATION: reload the Interceptor extension (Load Unpacked from
-  ~/.claude/skills/Interceptor/Extension/), then retry.
+  ~/Projects/LifeOS-AGY/.agents/skills/Interceptor/Extension/), then retry.
 EOF
         exit 10
     fi

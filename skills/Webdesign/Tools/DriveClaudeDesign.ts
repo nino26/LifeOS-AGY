@@ -18,7 +18,7 @@ function resolveInterceptorBin(): string {
   const found = Bun.spawnSync(["which", "interceptor"]);
   const bin = found.stdout.toString().trim();
   if (found.exitCode !== 0 || bin.length === 0) {
-    console.error("interceptor CLI not found on PATH — install the Interceptor skill (see ~/.claude/skills/Interceptor/SKILL.md)");
+    console.error("interceptor CLI not found on PATH — install the Interceptor skill (see ~/Projects/LifeOS-AGY/.agents/skills/Interceptor/SKILL.md)");
     process.exit(127);
   }
   return bin;
@@ -151,7 +151,7 @@ async function commandBundle(bin: string, outDir?: string): Promise<number> {
   const tree = await getTree(bin);
   // Handoff heuristic: Claude Design has varied handoff copy, so match several
   // public-facing labels and require a clickable ref.
-  const handoff = tree.nodes.find((n) => n.ref && /Claude Code|handoff|Send to Claude/i.test(labelOf(n)));
+  const handoff = tree.nodes.find((n) => n.ref && /Antigravity CLI|handoff|Send to Claude/i.test(labelOf(n)));
   if (!handoff?.ref) await dumpMiss(tree.raw);
   const clicked = await run([bin, "click", handoff.ref]);
   if (clicked.code !== 0) return clicked.code;

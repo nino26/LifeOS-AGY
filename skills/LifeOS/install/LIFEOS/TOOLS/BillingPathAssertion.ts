@@ -1,6 +1,6 @@
 #!/usr/bin/env bun
 /**
- * BillingPathAssertion — verify which credential path a `claude -p` run actually used.
+ * BillingPathAssertion — verify which credential path a `agy --disable-slash-commands -p` run actually used.
  *
  * Anthropic's stream-json event feed exposes two forensic signals that prove,
  * unambiguously, which billing path won the credential precedence chain:
@@ -31,8 +31,8 @@
  *   CLI:
  *     bun LIFEOS/TOOLS/BillingPathAssertion.ts oauth /path/to/events.ndjson
  *     bun LIFEOS/TOOLS/BillingPathAssertion.ts api  /path/to/events.ndjson
- *     # Or pipe stdout from a `claude -p ... --output-format stream-json --verbose` run:
- *     claude -p "ping" --verbose --output-format stream-json | \
+ *     # Or pipe stdout from a `agy --disable-slash-commands -p ... --output-format stream-json --verbose` run:
+ *     agy --disable-slash-commands -p "ping" --verbose --output-format stream-json | \
  *       bun LIFEOS/TOOLS/BillingPathAssertion.ts oauth -
  *
  *   Exit codes:
@@ -59,7 +59,7 @@ const API_KEY_API_KEY_SOURCE = "ANTHROPIC_API_KEY";
 const SUBSCRIPTION_RATE_LIMIT = "five_hour";
 
 /**
- * Parse the stream-json output of `claude -p ... --output-format stream-json --verbose`
+ * Parse the stream-json output of `agy --disable-slash-commands -p ... --output-format stream-json --verbose`
  * and extract the two forensic billing signals.
  */
 export function parseStreamJson(stdout: string): BillingSignals {

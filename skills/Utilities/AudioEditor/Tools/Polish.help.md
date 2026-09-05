@@ -5,7 +5,7 @@ Cleanvoice API cloud polish for final audio cleanup.
 ## Usage
 
 ```bash
-bun ~/.claude/skills/Utilities/AudioEditor/Tools/Polish.ts <audio-file> [--output <path>]
+bun ~/Projects/LifeOS-AGY/.agents/skills/Utilities/AudioEditor/Tools/Polish.ts <audio-file> [--output <path>]
 ```
 
 ## Options

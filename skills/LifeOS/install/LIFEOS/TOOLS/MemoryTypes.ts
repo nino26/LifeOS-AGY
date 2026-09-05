@@ -520,11 +520,11 @@ function smokeTest(): number {
   check("infer: unknown path defaults to identity (legacy compat)",
     inferProposalKind("/tmp/random.md") === "identity");
   check("infer: tilde-prefixed DA_IDENTITY resolves (2026-08-10 reviewer failure shape)",
-    inferProposalKind("~/.claude/LIFEOS/USER/DIGITAL_ASSISTANT/DA_IDENTITY.md") === "identity");
+    inferProposalKind("~/Projects/LifeOS-AGY/LIFEOS/USER/DIGITAL_ASSISTANT/DA_IDENTITY.md") === "identity");
   check("pin: tilde-prefixed DA_IDENTITY pins to the absolute canonical path",
-    pinProposalTargetFile("identity", "~/.claude/LIFEOS/USER/DIGITAL_ASSISTANT/DA_IDENTITY.md") === DA_IDENTITY_PATH);
+    pinProposalTargetFile("identity", "~/Projects/LifeOS-AGY/LIFEOS/USER/DIGITAL_ASSISTANT/DA_IDENTITY.md") === DA_IDENTITY_PATH);
   check("pin: out-of-set identity path still rejected after normalization",
-    pinProposalTargetFile("identity", "~/.claude/evil.md") === null);
+    pinProposalTargetFile("identity", "~/Projects/LifeOS-AGY/evil.md") === null);
 
   // 14b. pinProposalTargetFile — single-file kinds pin (supplied path ignored),
   //      identity validates within its set, out-of-set identity → null (reject).

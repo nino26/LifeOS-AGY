@@ -2,16 +2,16 @@
 /**
  * InstallBunkerMonitor.ts — Materialize com.lifeos.bunkermonitor.plist.template and bootstrap it.
  *
- *   bun ~/.claude/LIFEOS/TOOLS/InstallBunkerMonitor.ts             # install
- *   bun ~/.claude/LIFEOS/TOOLS/InstallBunkerMonitor.ts --uninstall # remove
- *   bun ~/.claude/LIFEOS/TOOLS/InstallBunkerMonitor.ts --status    # check
+ *   bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/InstallBunkerMonitor.ts             # install
+ *   bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/InstallBunkerMonitor.ts --uninstall # remove
+ *   bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/InstallBunkerMonitor.ts --status    # check
  *
  * Schedules `bunker monitor` (every app's ISA Test Strategy probes, alert email
  * on state transitions) every 30 minutes. Without this job the monitor only
  * runs when invoked by hand — the harness is only real if it watches.
  *
  * Substitutes {{HOME}}, {{BUN}}, {{BUN_DIR}}, {{BUNKER}} in the template.
- * Bunker's repo location defaults to ~/.claude/LIFEOS/PULSE/Bunker (its canonical home);
+ * Bunker's repo location defaults to ~/Projects/LifeOS-AGY/LIFEOS/PULSE/Bunker (its canonical home);
  * override with BUNKER_DIR env at install time.
  *
  * Idempotent. Re-running install bootouts the prior load before bootstrapping.

@@ -40,8 +40,8 @@ This methodology uses browser automation to systematically extract and analyze w
 **Documentation:**
 ```bash
 # Create testing directory in current work
-WORK_DIR=$(jq -r '.work_dir' ~/.claude/MEMORY/STATE/current-work.json)
-WORK_SUBDIR=~/.claude/MEMORY/WORK/${WORK_DIR}/$(date +%Y-%m-%d-%H%M%S)_prompt-injection-test-TARGET
+WORK_DIR=$(jq -r '.work_dir' ~/Projects/LifeOS-AGY/MEMORY/STATE/current-work.json)
+WORK_SUBDIR=~/Projects/LifeOS-AGY/MEMORY/WORK/${WORK_DIR}/$(date +%Y-%m-%d-%H%M%S)_prompt-injection-test-TARGET
 mkdir -p ${WORK_SUBDIR}
 cd ${WORK_SUBDIR}
 
@@ -644,7 +644,7 @@ cd "$OUTPUT_DIR"
 echo "[*] Phase 1: Initial Discovery"
 browser navigate "$TARGET_URL" > initial_nav.json
 browser screenshot
-cp "$(find ~/.claude/Plugins/marketplaces/browser-tools/agent/browser_screenshots -type f -name '*.png' | tail -1)" initial_page.png
+cp "$(find ~/Projects/LifeOS-AGY/Plugins/marketplaces/browser-tools/agent/browser_screenshots -type f -name '*.png' | tail -1)" initial_page.png
 
 # Phase 2: DOM Extraction
 echo "[*] Phase 2: DOM Extraction"
@@ -691,7 +691,7 @@ browser console-logs error > console_errors.json
 # Phase 10: Final Screenshot
 echo "[*] Phase 10: Final State Capture"
 browser screenshot
-cp "$(find ~/.claude/Plugins/marketplaces/browser-tools/agent/browser_screenshots -type f -name '*.png' | tail -1)" final_page.png
+cp "$(find ~/Projects/LifeOS-AGY/Plugins/marketplaces/browser-tools/agent/browser_screenshots -type f -name '*.png' | tail -1)" final_page.png
 
 # Cleanup
 echo "[*] Phase 11: Cleanup"

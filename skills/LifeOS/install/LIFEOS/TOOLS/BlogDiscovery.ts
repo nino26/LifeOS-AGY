@@ -14,7 +14,7 @@
  * Option B: nothing reaches the production feed DB until `approve <id>` promotes
  * a candidate into feed_sources (surface_enabled=1) with canonical Surface tags.
  *
- * Local queue: ~/.claude/LIFEOS/MEMORY/STATE/feed-candidates.db (bun:sqlite)
+ * Local queue: ~/Projects/LifeOS-AGY/LIFEOS/MEMORY/STATE/feed-candidates.db (bun:sqlite)
  *
  * USAGE:
  *   bun BlogDiscovery.ts harvest [--batch 500] [--sources kagi,indieblog,bear]

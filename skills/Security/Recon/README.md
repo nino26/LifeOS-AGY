@@ -15,7 +15,7 @@ User: "Do passive recon on example.com"
      - Subdomain discovery (47 found)
      - IP mapping (3 unique IPs)
 
-Report: ~/.claude/MEMORY/WORK/{current_work}/recon-example-com/
+Report: ~/Projects/LifeOS-AGY/MEMORY/WORK/{current_work}/recon-example-com/
 ```
 
 ### IP Address Investigation
@@ -264,8 +264,8 @@ for (const ip of ips) {
 ### For Active Recon
 Requires **security MCP profile**:
 ```bash
-~/.claude/MCPs/swap-mcp security
-# Restart Claude Code
+~/Projects/LifeOS-AGY/MCPs/swap-mcp security
+# Restart Antigravity CLI
 ```
 
 **Security profile includes:**
@@ -276,8 +276,8 @@ Requires **security MCP profile**:
 ## Output Formats
 
 ### Report Locations
-- **Iterative Work:** `~/.claude/MEMORY/WORK/{current_work}/` (tied to work item for learning)
-- **Formal Assessments:** `~/.claude/MEMORY/RESEARCH/YYYY-MM/`
+- **Iterative Work:** `~/Projects/LifeOS-AGY/MEMORY/WORK/{current_work}/` (tied to work item for learning)
+- **Formal Assessments:** `~/Projects/LifeOS-AGY/MEMORY/RESEARCH/YYYY-MM/`
 
 ### Report Structure
 - Executive summary

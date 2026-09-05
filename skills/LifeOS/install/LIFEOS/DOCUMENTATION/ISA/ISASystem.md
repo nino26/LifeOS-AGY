@@ -15,7 +15,7 @@ This document is the conceptual home of the ISA: the philosophy first, then the 
 
 - **Format spec** — `LIFEOS/DOCUMENTATION/ISA/ISAFormat.md` — the file-shape contract: frontmatter fields, body section schemas, ID-stability rule, status markers. If this document and the format spec disagree, the format spec wins and this document updates to match.
 - **Hierarchy reference** — `LIFEOS/DOCUMENTATION/ISA/ISAHierarchy.md` — trees of ISAs for builds too large for one file.
-- **Skill** — `~/.claude/skills/ISA/SKILL.md` — the workflows that generate, refine, score, and merge ISAs.
+- **Skill** — `~/Projects/LifeOS-AGY/.agents/skills/ISA/SKILL.md` — the workflows that generate, refine, score, and merge ISAs.
 - **The Algorithm** — `LIFEOS/DOCUMENTATION/Algorithm/AlgorithmSystem.md` — the thinking system that pursues ISAs. The ISA is the noun; the Algorithm is the verb. Read them together.
 
 ---
@@ -253,7 +253,7 @@ Anything too big for one file — an enterprise product, a Tolkien-scale world �
 
 ## Six Workflows
 
-The ISA skill at `~/.claude/skills/ISA/` owns six workflows, mapping verb-in-the-request to a deterministic procedure.
+The ISA skill at `~/Projects/LifeOS-AGY/.agents/skills/ISA/` owns six workflows, mapping verb-in-the-request to a deterministic procedure.
 
 | Workflow | Trigger Verbs | Purpose |
 |----------|---------------|---------|
@@ -370,7 +370,7 @@ A run moves left to right, but the self-loop is where the real work lives: a fai
 - **Hierarchy reference:** `LIFEOS/DOCUMENTATION/ISA/ISAHierarchy.md`
 - **The Algorithm (system doc):** `LIFEOS/DOCUMENTATION/Algorithm/AlgorithmSystem.md`
 - **The Algorithm (doctrine file):** `LIFEOS/ALGORITHM/LATEST` → `v{LATEST}.md`
-- **Skill (workflow implementations):** `~/.claude/skills/ISA/SKILL.md` · canonical example: `~/.claude/skills/ISA/Examples/canonical-isa.md`
+- **Skill (workflow implementations):** `~/Projects/LifeOS-AGY/.agents/skills/ISA/SKILL.md` · canonical example: `~/Projects/LifeOS-AGY/.agents/skills/ISA/Examples/canonical-isa.md`
 - **LifeOS thesis (the loop at OS scale):** `LIFEOS/DOCUMENTATION/LifeOs/LifeOsThesis.md`
 - **Memory system:** `LIFEOS/DOCUMENTATION/Memory/MemorySystem.md`
 - **Hooks system:** `LIFEOS/DOCUMENTATION/Hooks/HookSystem.md`

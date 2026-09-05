@@ -10,7 +10,7 @@ AI-powered audio/video editing — transcription, intelligent cut detection, aut
 ## Customization
 
 **Before executing, check for user customizations at:**
-`~/.claude/PAI/USER/SKILLCUSTOMIZATIONS/AudioEditor/`
+`~/Projects/LifeOS-AGY/PAI/USER/SKILLCUSTOMIZATIONS/AudioEditor/`
 
 If this directory exists, load and apply any PREFERENCES.md, configurations, or resources found there. These override default behavior. If the directory does not exist, proceed with skill defaults.
 
@@ -67,17 +67,17 @@ Output: cleaned MP3/WAV
 
 | Tool | Command | Purpose |
 |------|---------|---------|
-| **Transcribe** | `bun ~/.claude/skills/Utilities/AudioEditor/Tools/Transcribe.ts <file>` | Word-level transcription via Whisper |
-| **Analyze** | `bun ~/.claude/skills/Utilities/AudioEditor/Tools/Analyze.ts <transcript.json>` | LLM-powered edit classification |
-| **Edit** | `bun ~/.claude/skills/Utilities/AudioEditor/Tools/Edit.ts <file> <edits.json>` | Execute cuts with crossfades + room tone |
-| **Polish** | `bun ~/.claude/skills/Utilities/AudioEditor/Tools/Polish.ts <file>` | Cleanvoice API cloud polish |
-| **Pipeline** | `bun ~/.claude/skills/Utilities/AudioEditor/Tools/Pipeline.ts <file> [--polish]` | Full end-to-end pipeline |
+| **Transcribe** | `bun ~/Projects/LifeOS-AGY/.agents/skills/Utilities/AudioEditor/Tools/Transcribe.ts <file>` | Word-level transcription via Whisper |
+| **Analyze** | `bun ~/Projects/LifeOS-AGY/.agents/skills/Utilities/AudioEditor/Tools/Analyze.ts <transcript.json>` | LLM-powered edit classification |
+| **Edit** | `bun ~/Projects/LifeOS-AGY/.agents/skills/Utilities/AudioEditor/Tools/Edit.ts <file> <edits.json>` | Execute cuts with crossfades + room tone |
+| **Polish** | `bun ~/Projects/LifeOS-AGY/.agents/skills/Utilities/AudioEditor/Tools/Polish.ts <file>` | Cleanvoice API cloud polish |
+| **Pipeline** | `bun ~/Projects/LifeOS-AGY/.agents/skills/Utilities/AudioEditor/Tools/Pipeline.ts <file> [--polish]` | Full end-to-end pipeline |
 
 ## API Keys Required
 
 | Service | Env Var | Where to Get |
 |---------|---------|-------------|
-| Anthropic (for analyze step) | `ANTHROPIC_API_KEY` | Already set via Claude Code |
+| Anthropic (for analyze step) | `ANTHROPIC_API_KEY` | Already set via Antigravity CLI |
 | Cleanvoice (for polish step, optional) | `CLEANVOICE_API_KEY` | cleanvoice.ai Dashboard Settings API Key |
 
 ## Examples

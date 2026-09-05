@@ -2,7 +2,7 @@
  * Pulse Telos Freshness Module
  *
  * Read-only consumer of the TelosFreshness library at
- * `~/.claude/LIFEOS/TOOLS/TelosFreshness.ts`. Exposes:
+ * `~/Projects/LifeOS-AGY/LIFEOS/TOOLS/TelosFreshness.ts`. Exposes:
  *
  *   GET /api/telos/freshness         → full freshness JSON (all sections)
  *   GET /api/telos/freshness/stale   → stale sections only, sorted

@@ -1,5 +1,5 @@
 #!/usr/bin/env bun
-// Normalize env path vars Claude Code may inject unexpanded — literal $HOME/${HOME}
+// Normalize env path vars Antigravity CLI may inject unexpanded — literal $HOME/${HOME}
 // in LIFEOS_DIR/LIFEOS_CONFIG_DIR/PROJECTS_DIR resolves to a shadow dir (#1404 / PR #1451, author jbmml).
 for (const __k of ["LIFEOS_DIR", "LIFEOS_CONFIG_DIR", "PROJECTS_DIR"]) {
   const __v = process.env[__k];
@@ -49,7 +49,7 @@ import { isDesktopChannel, logSkippedVoice, getNotificationChannel } from './lib
 import { PULSE_BASE } from '../LIFEOS/PULSE/endpoint';
 import { homedir } from "node:os";
 
-// Normalize env path vars that Claude Code injects without shell expansion (LifeOS#1404)
+// Normalize env path vars that Antigravity CLI injects without shell expansion (LifeOS#1404)
 for (const k of ["LIFEOS_DIR", "LIFEOS_CONFIG_DIR", "PROJECTS_DIR"]) {
   const v = process.env[k];
   if (v && /^\$\{?HOME\}?(\/|$)/.test(v)) process.env[k] = v.replace(/^\$\{?HOME\}?/, process.env.HOME ?? "~");
@@ -668,7 +668,7 @@ function storeName(sessionId: string, label: string, source: string): void {
   console.error(`[PromptProcessing] Named session: "${finalLabel}" (${source})`);
 }
 
-/** Find Claude Code's session JSONL path for a given session ID. */
+/** Find Antigravity CLI's session JSONL path for a given session ID. */
 function findSessionJsonl(sessionId: string): string | null {
   try {
     for (const dir of [paiPath('projects'), paiPath('Projects')]) {
@@ -682,7 +682,7 @@ function findSessionJsonl(sessionId: string): string | null {
   return null;
 }
 
-/** Read the last custom-title from Claude Code's session JSONL (for /rename sync). */
+/** Read the last custom-title from Antigravity CLI's session JSONL (for /rename sync). */
 function getCustomTitle(sessionId: string): string | null {
   const jsonlPath = findSessionJsonl(sessionId);
   if (!jsonlPath) return null;
@@ -700,7 +700,7 @@ function getCustomTitle(sessionId: string): string | null {
   return null;
 }
 
-/** Sync session name to Claude Code's JSONL so /sessions list matches. */
+/** Sync session name to Antigravity CLI's JSONL so /sessions list matches. */
 function syncNameToJsonl(sessionId: string, title: string): void {
   const jsonlPath = findSessionJsonl(sessionId);
   if (!jsonlPath) return;
@@ -854,7 +854,7 @@ function extractSlashCommandName(rawPrompt: string): string | null {
   return null;
 }
 
-/** Case-insensitive membership test against ~/.claude/commands/*.md and ~/.claude/skills/<dir>/. */
+/** Case-insensitive membership test against ~/Projects/LifeOS-AGY/commands/*.md and ~/Projects/LifeOS-AGY/.agents/skills/<dir>/. */
 function isKnownCommandOrSkill(token: string): boolean {
   const lower = token.toLowerCase();
   try {

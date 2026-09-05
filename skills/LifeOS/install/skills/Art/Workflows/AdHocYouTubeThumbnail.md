@@ -128,7 +128,7 @@ Topic context: [EXTRACTED TOPIC]
 ### Generate Command
 
 ```bash
-bun run ~/.claude/skills/Art/Tools/Generate.ts \
+bun run ~/Projects/LifeOS-AGY/.agents/skills/Art/Tools/Generate.ts \
   --workflow=AdHocYouTubeThumbnail \
   --model nano-banana-pro \
   --prompt "[BACKGROUND PROMPT]" \
@@ -212,11 +212,11 @@ Rembrandt lighting pattern. Looking at camera. Ultra-tight crop on face only.
 ```bash
 TIMESTAMP=$(date +%Y%m%d-%H%M%S)
 
-bun ~/.claude/skills/<your-headshot-skill>/Tools/Headshot.ts \
+bun ~/Projects/LifeOS-AGY/.agents/skills/<your-headshot-skill>/Tools/Headshot.ts \
   --prompt "[FACE-ONLY HEADSHOT PROMPT]" \
-  --reference ~/.claude/skills/<your-headshot-skill>/Examples/reference.png \
-  --reference ~/.claude/skills/<your-headshot-skill>/Examples/studio-style.png \
-  --reference ~/.claude/skills/<your-headshot-skill>/Examples/clean-smile.png \
+  --reference ~/Projects/LifeOS-AGY/.agents/skills/<your-headshot-skill>/Examples/reference.png \
+  --reference ~/Projects/LifeOS-AGY/.agents/skills/<your-headshot-skill>/Examples/studio-style.png \
+  --reference ~/Projects/LifeOS-AGY/.agents/skills/<your-headshot-skill>/Examples/clean-smile.png \
   --size 2K \
   --aspect-ratio 1:1 \
   --output "${LIFEOS_DOWNLOADS_DIR:-$HOME/Downloads}"/yt-headshot-${TIMESTAMP}.png
@@ -227,7 +227,7 @@ bun ~/.claude/skills/<your-headshot-skill>/Tools/Headshot.ts \
 ### Remove Background
 
 ```bash
-bun ~/.claude/LIFEOS/TOOLS/RemoveBg.ts "${LIFEOS_DOWNLOADS_DIR:-$HOME/Downloads}"/yt-headshot-${TIMESTAMP}.png
+bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/RemoveBg.ts "${LIFEOS_DOWNLOADS_DIR:-$HOME/Downloads}"/yt-headshot-${TIMESTAMP}.png
 ```
 
 ---
@@ -239,7 +239,7 @@ bun ~/.claude/LIFEOS/TOOLS/RemoveBg.ts "${LIFEOS_DOWNLOADS_DIR:-$HOME/Downloads}
 ### Compose Command
 
 ```bash
-bun ~/.claude/skills/Art/Tools/ComposeThumbnail.ts \
+bun ~/Projects/LifeOS-AGY/.agents/skills/Art/Tools/ComposeThumbnail.ts \
   --background "${LIFEOS_DOWNLOADS_DIR:-$HOME/Downloads}"/yt-bg-${TIMESTAMP}.png \
   --headshot "${LIFEOS_DOWNLOADS_DIR:-$HOME/Downloads}"/yt-headshot-${TIMESTAMP}.png \
   --title "[TITLE]" \

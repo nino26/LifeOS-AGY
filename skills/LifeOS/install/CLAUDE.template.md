@@ -5,7 +5,7 @@
 
 @LIFEOS/DOCUMENTATION/ARCHITECTURE_SUMMARY.md
 # Identity @-imports below are activated by the agentic `/LifeOS setup` (via `skills/LifeOS/Tools/ActivateImports.ts`) once the principal scaffolds USER files.
-# Claude Code does not follow transitive @-imports, so each must be listed here directly.
+# Antigravity CLI does not follow transitive @-imports, so each must be listed here directly.
 # @LIFEOS/USER/TELOS/PRINCIPAL_TELOS.md
 # @LIFEOS/USER/PRINCIPAL/PRINCIPAL_IDENTITY.md
 # @LIFEOS/USER/DIGITAL_ASSISTANT/DA_IDENTITY.md
@@ -16,7 +16,7 @@
 
 Constitutional rules, the unified response format, verification doctrine, hard prohibitions, security protocol, and operational rules all live in the system prompt: `LIFEOS/LIFEOS_SYSTEM_PROMPT.md`. When this file and the system prompt disagree, the system prompt wins.
 
-This file is the **routing table** — it tells you where everything lives. The only mandatory startup `@`-import shipped with public LifeOS is `ARCHITECTURE_SUMMARY`. The five identity files (`PRINCIPAL_TELOS`, `PRINCIPAL_IDENTITY`, `DA_IDENTITY`, `PROJECTS`, `OPERATIONAL_RULES`) are commented out above — the agentic `/LifeOS setup` (via `skills/LifeOS/Tools/ActivateImports.ts`) uncomments them once the principal's USER scaffold is populated. Claude Code does not follow transitive `@`-imports from inside imported files, so each identity file must be listed here at top level. Everything below is **on-demand** lookup. Paths are relative to `~/.claude/` unless noted.
+This file is the **routing table** — it tells you where everything lives. The only mandatory startup `@`-import shipped with public LifeOS is `ARCHITECTURE_SUMMARY`. The five identity files (`PRINCIPAL_TELOS`, `PRINCIPAL_IDENTITY`, `DA_IDENTITY`, `PROJECTS`, `OPERATIONAL_RULES`) are commented out above — the agentic `/LifeOS setup` (via `skills/LifeOS/Tools/ActivateImports.ts`) uncomments them once the principal's USER scaffold is populated. Antigravity CLI does not follow transitive `@`-imports from inside imported files, so each identity file must be listed here at top level. Everything below is **on-demand** lookup. Paths are relative to `~/Projects/LifeOS-AGY/` unless noted.
 
 ## LifeOS System (paths under `LIFEOS/DOCUMENTATION/` unless noted)
 
@@ -67,7 +67,7 @@ This file is the **routing table** — it tells you where everything lives. The 
 - System/user boundary — `SystemUserBoundary.md` (which files are SYSTEM, which are USER, how the boundary is enforced)
 - AI writing patterns (system-level reference) — `Writing/AIWritingPatterns.md`
 - Browser automation — `Skill("Interceptor")` (real Chrome, mandatory for verification)
-- Claude Code knowledge — `Agent(subagent_type="claude-code-guide")`
+- Antigravity CLI knowledge — `Agent(subagent_type="claude-code-guide")`
 
 ## Principal — Identity & Voice (paths under `LIFEOS/USER/`)
 
@@ -97,8 +97,8 @@ Populated during `/LifeOS setup`. Typical layout:
 - Finances — `FINANCES/`
 - Integration configs — `INTEGRATIONS/*.yaml`
 - Work system — `WORK/config.yaml`
-- Secrets — `~/.claude/.env` (canonical; see OPERATIONAL_RULES.md)
+- Secrets — `~/Projects/LifeOS-AGY/.env` (canonical; see OPERATIONAL_RULES.md)
 
 ## Project-Specific Rules
 
-Drop project-scoped CLAUDE.md files alongside each project (e.g. `~/code/your-project/CLAUDE.md`) for rules that only apply inside that codebase. Claude Code merges them with this global file when sessions start in that directory. Use them for invariants that bite repeatedly — "always use the X helper, never bare Y" — so the rule lives next to the code it governs.
+Drop project-scoped CLAUDE.md files alongside each project (e.g. `~/code/your-project/CLAUDE.md`) for rules that only apply inside that codebase. Antigravity CLI merges them with this global file when sessions start in that directory. Use them for invariants that bite repeatedly — "always use the X helper, never bare Y" — so the rule lives next to the code it governs.

@@ -287,7 +287,7 @@ function deployAgents(ctx: Ctx): ComponentResult {
 }
 
 // commands mirrors agents exactly: copy the payload's install/commands/ into the
-// user's ~/.claude/commands/, never overwriting. The payload is already filtered
+// user's ~/Projects/LifeOS-AGY/commands/, never overwriting. The payload is already filtered
 // at emit time to public commands only (a command ships iff its target skill
 // ships), so there is nothing private-pointing to guard against here.
 function deployCommands(ctx: Ctx): ComponentResult {

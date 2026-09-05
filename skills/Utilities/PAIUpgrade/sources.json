@@ -110,7 +110,7 @@
   ],
   "changelogs": [
     {
-      "name": "Claude Code CHANGELOG",
+      "name": "Antigravity CLI CHANGELOG",
       "url": "https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md",
       "priority": "HIGH",
       "type": "changelog"

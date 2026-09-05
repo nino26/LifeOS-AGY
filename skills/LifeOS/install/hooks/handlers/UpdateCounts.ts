@@ -36,7 +36,7 @@ async function refreshUsageCache(paiDir: string): Promise<void> {
     let credJson: string;
     if (process.platform === 'darwin') {
       credJson = execSync(
-        'security find-generic-password -s "Claude Code-credentials" -w 2>/dev/null',
+        'security find-generic-password -s "Antigravity CLI-credentials" -w 2>/dev/null',
         { encoding: 'utf-8', timeout: 3000 }
       ).trim();
     } else {

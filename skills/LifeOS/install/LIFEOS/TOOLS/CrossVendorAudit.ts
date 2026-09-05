@@ -635,7 +635,7 @@ async function main() {
       // itself said was present — without ever testing B. Outcome happened to be
       // correct that time; the logic would have auto-passed a real absence.
       // Resolution per token is exact path, re-anchored under a named skill, or
-      // a UNIQUE basename anywhere (the carrier mangles prefixes like `~/.claude/`).
+      // a UNIQUE basename anywhere (the carrier mangles prefixes like `~/Projects/LifeOS-AGY/`).
       // Uniqueness is load-bearing (Max audit, 7.39.7 cut): a bare basename fallback
       // resolves "skills/Foo/SKILL.md" against any of the ~100 other SKILL.md files
       // and hands back a disproof of a claim nobody tested. One match or no match.

@@ -119,7 +119,7 @@ function SectionHeader({ icon: Icon, title, count, accentClass = "text-dim-freed
 }
 
 // ── Deny-rule grouping ──
-// Deny entries look like `Bash(rm -rf /)`, `Write(~/.claude/**/memory/**)`, `Edit(...)`.
+// Deny entries look like `Bash(rm -rf /)`, `Write(~/Projects/LifeOS-AGY/**/memory/**)`, `Edit(...)`.
 // Group by the leading tool so the list reads as policy, not a wall of regex.
 interface DenyGroup { tool: string; icon: LucideIcon; dim: Dim; entries: string[] }
 
@@ -375,7 +375,7 @@ function RiskRegisterSection({ tm }: { tm: PrivateData<ThreatModelData> }) {
         <SectionHeader icon={FileWarning} title="Risk Register" accentClass="text-warn" />
         <Panel>
           <p className="text-xs text-center py-6 text-ink-3">
-            No risk register yet — run <code className="mono text-ink-2">bun ~/.claude/skills/ThreatModel/Tools/RiskRegister.ts init</code>
+            No risk register yet — run <code className="mono text-ink-2">bun ~/Projects/LifeOS-AGY/.agents/skills/ThreatModel/Tools/RiskRegister.ts init</code>
           </p>
         </Panel>
       </div>
@@ -560,7 +560,7 @@ export default function SecurityPage() {
           </Panel>
         )}
         <p className="text-xs mt-3 ml-1 text-ink-3">
-          Hook wiring lives in <code className="text-ink-2">~/.claude/settings.json</code>.
+          Hook wiring lives in <code className="text-ink-2">~/Projects/LifeOS-AGY/settings.json</code>.
         </p>
       </div>
     </PageShell>

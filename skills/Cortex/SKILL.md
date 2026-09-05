@@ -19,9 +19,9 @@ Notes you save in isolation are notes you never find again. A flat folder of fac
 
 ## How It Works
 
-Manage the LifeOS Knowledge Archive at `~/.claude/LIFEOS/MEMORY/KNOWLEDGE/`. Each operation routes through a subcommand below; notes follow the archive schema and ship with typed cross-links.
+Manage the LifeOS Knowledge Archive at `~/Projects/LifeOS-AGY/LIFEOS/MEMORY/KNOWLEDGE/`. Each operation routes through a subcommand below; notes follow the archive schema and ship with typed cross-links.
 
-**Archive schema:** `~/.claude/LIFEOS/MEMORY/KNOWLEDGE/_schema.md`
+**Archive schema:** `~/Projects/LifeOS-AGY/LIFEOS/MEMORY/KNOWLEDGE/_schema.md`
 
 **Hard rule — never write KNOWLEDGE/ directly.** All writes route through this skill (`add`, `harvest`, `ingest`, `develop`) — never `cp`, `mv`, `Write`, or `Edit` straight into the directory, even during migration or bulk import. The skill enforces typed frontmatter, mandatory cross-links, and domain classification; raw filesystem writes skip those guarantees and corrupt the graph silently (broken links don't fail loudly — they produce phantom entries retrieval misses). Migration tooling MUST call this skill per chunk, never shell out to `cp`. The one sanctioned exception is the Algorithm's LEARN phase, which writes to `KNOWLEDGE/` directly because it holds the best context and applies the same schemas (see Gotchas).
 
@@ -57,7 +57,7 @@ If `$ARGUMENTS` doesn't match a subcommand, treat it as a search query.
 Run the harvester status command and display results:
 
 ```bash
-bun ~/.claude/LIFEOS/TOOLS/KnowledgeHarvester.ts status
+bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/KnowledgeHarvester.ts status
 ```
 
 Also show:
@@ -76,17 +76,17 @@ Search the Knowledge Archive for notes matching `$ARGUMENTS`.
 
 **Step 1 — Lexical search:**
 ```bash
-rg -i "$ARGUMENTS" ~/.claude/LIFEOS/MEMORY/KNOWLEDGE/ --type md -l
+rg -i "$ARGUMENTS" ~/Projects/LifeOS-AGY/LIFEOS/MEMORY/KNOWLEDGE/ --type md -l
 ```
 
 **Step 2 — Frontmatter search (tags and titles):**
 ```bash
-rg -i "title:.*$ARGUMENTS|tags:.*$ARGUMENTS" ~/.claude/LIFEOS/MEMORY/KNOWLEDGE/ --type md -l
+rg -i "title:.*$ARGUMENTS|tags:.*$ARGUMENTS" ~/Projects/LifeOS-AGY/LIFEOS/MEMORY/KNOWLEDGE/ --type md -l
 ```
 
 **Step 3 — Wikilink search:**
 ```bash
-rg "\[\[.*$ARGUMENTS.*\]\]" ~/.claude/LIFEOS/MEMORY/KNOWLEDGE/ --type md -l
+rg "\[\[.*$ARGUMENTS.*\]\]" ~/Projects/LifeOS-AGY/LIFEOS/MEMORY/KNOWLEDGE/ --type md -l
 ```
 
 Deduplicate results across all three. For each match, read the first 5 lines of frontmatter to show title, domain, status, tags.
@@ -113,7 +113,7 @@ Create a new note manually in the specified entity type.
 7. Verify every slug in `related:` exists in the archive before saving
 8. Regenerate the type's MOC:
 ```bash
-bun ~/.claude/LIFEOS/TOOLS/KnowledgeHarvester.ts index
+bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/KnowledgeHarvester.ts index
 ```
 
 **Topic is a tag, not a type.** A security insight is an Idea with a `security` tag. A security company is a Company with a `security` tag. The entity type determines the schema; the tag determines the topic.
@@ -153,13 +153,13 @@ related:
 **How to find related notes before writing:**
 ```bash
 # By topic/keyword
-rg -l "TOPIC" ~/.claude/LIFEOS/MEMORY/KNOWLEDGE/ --type md
+rg -l "TOPIC" ~/Projects/LifeOS-AGY/LIFEOS/MEMORY/KNOWLEDGE/ --type md
 
 # By tag overlap
-rg "^tags:.*TAG" ~/.claude/LIFEOS/MEMORY/KNOWLEDGE/ --type md -l
+rg "^tags:.*TAG" ~/Projects/LifeOS-AGY/LIFEOS/MEMORY/KNOWLEDGE/ --type md -l
 
 # For People/Companies — grep by name
-rg -l "Person Name" ~/.claude/LIFEOS/MEMORY/KNOWLEDGE/
+rg -l "Person Name" ~/Projects/LifeOS-AGY/LIFEOS/MEMORY/KNOWLEDGE/
 ```
 
 **Enforcement:**
@@ -175,7 +175,7 @@ rg -l "Person Name" ~/.claude/LIFEOS/MEMORY/KNOWLEDGE/
 Run the KnowledgeHarvester to pull new knowledge from all LifeOS sources:
 
 ```bash
-bun ~/.claude/LIFEOS/TOOLS/KnowledgeHarvester.ts harvest
+bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/KnowledgeHarvester.ts harvest
 ```
 
 Display results. If nothing was harvested, explain that sources are already up to date.
@@ -190,7 +190,7 @@ The weekly gardening workflow. Surface seedling notes that are ready for enrichm
 
 **Step 1 — Find seedlings:**
 ```bash
-rg "^status: seedling" ~/.claude/LIFEOS/MEMORY/KNOWLEDGE/ --type md -l
+rg "^status: seedling" ~/Projects/LifeOS-AGY/LIFEOS/MEMORY/KNOWLEDGE/ --type md -l
 ```
 
 **Step 2 — For each seedling:**
@@ -241,10 +241,10 @@ Search for existing notes that relate to this new content:
 
 ```bash
 # Search by extracted tags
-rg -i "TAG1|TAG2|TAG3" ~/.claude/LIFEOS/MEMORY/KNOWLEDGE/ --type md -l --glob '!_*'
+rg -i "TAG1|TAG2|TAG3" ~/Projects/LifeOS-AGY/LIFEOS/MEMORY/KNOWLEDGE/ --type md -l --glob '!_*'
 
 # Search by key entities/concepts mentioned
-rg -i "ENTITY1|ENTITY2" ~/.claude/LIFEOS/MEMORY/KNOWLEDGE/ --type md -l --glob '!_*'
+rg -i "ENTITY1|ENTITY2" ~/Projects/LifeOS-AGY/LIFEOS/MEMORY/KNOWLEDGE/ --type md -l --glob '!_*'
 ```
 
 For each related note found (up to 10):
@@ -288,7 +288,7 @@ Append to `KNOWLEDGE/_log.md`:
 
 Regenerate MOCs:
 ```bash
-bun ~/.claude/LIFEOS/TOOLS/KnowledgeHarvester.ts index
+bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/KnowledgeHarvester.ts index
 ```
 
 Present in NATIVE mode.
@@ -303,7 +303,7 @@ Find and review conflicting claims across Knowledge notes.
 
 Run the KnowledgeHarvester contradiction finder:
 ```bash
-bun ~/.claude/LIFEOS/TOOLS/KnowledgeHarvester.ts contradictions
+bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/KnowledgeHarvester.ts contradictions
 ```
 
 This outputs pairs of notes with high tag overlap (2+ shared tags), ranked by overlap count.
@@ -356,21 +356,21 @@ Navigate the Knowledge Archive as a graph.
 
 **No argument — stats overview:**
 ```bash
-bun ~/.claude/LIFEOS/TOOLS/KnowledgeGraph.ts stats
+bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/KnowledgeGraph.ts stats
 ```
 
 Show node count, edge count, top clusters, most connected hubs, and isolated nodes.
 
 **With slug — traverse from a note:**
 ```bash
-bun ~/.claude/LIFEOS/TOOLS/KnowledgeGraph.ts traverse <slug> --hops 2
+bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/KnowledgeGraph.ts traverse <slug> --hops 2
 ```
 
 Show all notes connected within 2 hops via tags, wikilinks, and typed relationships. Useful for exploring how knowledge connects across domains.
 
 **Related notes only:**
 ```bash
-bun ~/.claude/LIFEOS/TOOLS/KnowledgeGraph.ts related <slug>
+bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/KnowledgeGraph.ts related <slug>
 ```
 
 Present in NATIVE mode.
@@ -382,14 +382,14 @@ Present in NATIVE mode.
 Compressed context retrieval over the Knowledge Archive using BM25-lite scoring.
 
 ```bash
-bun ~/.claude/LIFEOS/TOOLS/MemoryRetriever.ts "<query>" --top 5
+bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/MemoryRetriever.ts "<query>" --top 5
 ```
 
 Returns the top matching notes with compressed summaries, ranked by title match, tag overlap, and content frequency. Useful for loading relevant knowledge context without reading full files.
 
 For raw excerpts without LLM compression:
 ```bash
-bun ~/.claude/LIFEOS/TOOLS/MemoryRetriever.ts "<query>" --raw
+bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/MemoryRetriever.ts "<query>" --raw
 ```
 
 Present in NATIVE mode.
@@ -401,14 +401,14 @@ Present in NATIVE mode.
 Mine recent conversations for memory candidates (decisions, preferences, milestones, problems).
 
 ```bash
-bun ~/.claude/LIFEOS/TOOLS/SessionHarvester.ts --mine --recent 10
+bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/SessionHarvester.ts --mine --recent 10
 ```
 
 Candidates are written to `KNOWLEDGE/_harvest-queue/` for review — never directly to KNOWLEDGE/. Use `/knowledge harvest` to process the queue.
 
 For dry run (preview only):
 ```bash
-bun ~/.claude/LIFEOS/TOOLS/SessionHarvester.ts --mine --recent 10 --dry-run
+bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/SessionHarvester.ts --mine --recent 10 --dry-run
 ```
 
 Present in NATIVE mode.
@@ -419,12 +419,12 @@ Present in NATIVE mode.
 
 Weekly harvest of the archive into routed outputs. **Distill is a router, not a destination**: every item lands in the system of record that already owns it, and the digest is an index pointing at those destinations. It never creates or edits KNOWLEDGE notes (mutations belong to `develop`/`contradictions`/`ingest`), and it never re-surfaces an item a previous run already routed.
 
-**Done looks like:** a dated digest at `~/.claude/LIFEOS/MEMORY/DIGESTS/YYYY-MM-DD-distill.md` with ≤10 items across three lanes, every item citing its source notes and linking its routed destination; ≤5 content-idea issues filed; ≤5 upgrades filed; all surfaced items marked in state. Overflow is named with a dropped-count, never silently truncated.
+**Done looks like:** a dated digest at `~/Projects/LifeOS-AGY/LIFEOS/MEMORY/DIGESTS/YYYY-MM-DD-distill.md` with ≤10 items across three lanes, every item citing its source notes and linking its routed destination; ≤5 content-idea issues filed; ≤5 upgrades filed; all surfaced items marked in state. Overflow is named with a dropped-count, never silently truncated.
 
 ### Step 1 — Gather (deterministic)
 
 ```bash
-bun ~/.claude/LIFEOS/TOOLS/KnowledgeDistill.ts gather --days 7
+bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/KnowledgeDistill.ts gather --days 7
 ```
 
 Returns JSON: in-window notes (created/updated, minus previously surfaced), hot tag clusters (window count vs archive baseline), seedling and contradiction stats.
@@ -448,7 +448,7 @@ No config file → skip the issue lane and list content candidates in the digest
 
 System lane (≤5; dedupe is claim-hash based, duplicates exit 0 silently):
 ```bash
-bun ~/.claude/LIFEOS/TOOLS/Upgrades.ts add --claim "<one sentence>" --source autonomous \
+bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/Upgrades.ts add --claim "<one sentence>" --source autonomous \
   --recommendation "<proposed encoding>" --target <hook|doctrine|rule|skill|settings|context> \
   --evidence "<source note path>"
 ```
@@ -458,14 +458,14 @@ bun ~/.claude/LIFEOS/TOOLS/Upgrades.ts add --claim "<one sentence>" --source aut
 Write the digest file (lanes as sections; every item: pitch, sources, destination link or "empty — <reason>"), then:
 
 ```bash
-bun ~/.claude/LIFEOS/TOOLS/KnowledgeDistill.ts mark --digest <digest-path>
+bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/KnowledgeDistill.ts mark --digest <digest-path>
 ```
 
 which records surfaced slugs and item hashes in `MEMORY/STATE/distill.json`.
 
 ### Headless / scheduled
 
-`bun ~/.claude/LIFEOS/TOOLS/KnowledgeDistill.ts run --headless [--dry-run]` performs all four steps unattended (synthesis via `Inference.ts`, never a nested `claude` session). The weekly launchd job `com.lifeos.distill` (Sun 09:00) runs exactly this. `--dry-run` prints the full routing plan and writes nothing.
+`bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/KnowledgeDistill.ts run --headless [--dry-run]` performs all four steps unattended (synthesis via `Inference.ts`, never a nested `claude` session). The weekly launchd job `com.lifeos.distill` (Sun 09:00) runs exactly this. `--dry-run` prints the full routing plan and writes nothing.
 
 Present in NATIVE mode.
 
@@ -476,7 +476,7 @@ Present in NATIVE mode.
 Find prior LifeOS work — sessions, ISAs, conversations — by topic, partial words, or date phrases like "yesterday" or "last week". A deterministic Bun CLI searches five sources in parallel (work registry, session names, work dir names, ISA bodies, conversation jsonl), scores by token-overlap × recency, applies date filters, and returns ranked results with snippets.
 
 ```bash
-bun run ~/.claude/skills/Cortex/Tools/ContextSearch.ts "$ARGUMENTS" --pretty --limit 10
+bun run ~/Projects/LifeOS-AGY/.agents/skills/Cortex/Tools/ContextSearch.ts "$ARGUMENTS" --pretty --limit 10
 ```
 
 Flag patterns: `--limit N` · `--since YYYY-MM-DD` · `--json | jq '.results[0]'`. Date phrases parse inline: `"yesterday markdown"` becomes a single-day since/until window plus token search for `markdown`.

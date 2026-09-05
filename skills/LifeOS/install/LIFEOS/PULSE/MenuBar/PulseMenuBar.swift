@@ -191,7 +191,7 @@ class PulseMenuBarApp: NSObject, NSApplicationDelegate, NSMenuDelegate {
 
     override init() {
         self.pulseDir = ProcessInfo.processInfo.environment["LIFEOS_PULSE_DIR"]
-            ?? NSString(string: "~/.claude/LIFEOS/PULSE").expandingTildeInPath
+            ?? NSString(string: "~/Projects/LifeOS-AGY/LIFEOS/PULSE").expandingTildeInPath
         super.init()
     }
 

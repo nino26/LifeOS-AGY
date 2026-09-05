@@ -31,7 +31,7 @@ LIFEOS/DOCUMENTATION/Terminal/
 **Preferred** — one command. Installs kitty and a Nerd Font if they're missing, moves an existing `~/.config/kitty` *directory* aside with a timestamped backup (if it's already a symlink, only the link is repointed and it tells you where it used to point), links Helm's config in, builds a `Helm.app` wrapper for Spotlight and the Dock, and puts `helm` on your PATH:
 
 ```bash
-bash ~/.claude/LIFEOS/DOCUMENTATION/Terminal/install.sh
+bash ~/Projects/LifeOS-AGY/LIFEOS/DOCUMENTATION/Terminal/install.sh
 ```
 
 Because the installer *links* rather than copies, updating LifeOS updates Helm — no separate update step. Run `helm doctor` any time to check the install. The installer is macOS-first: on Linux it expects you to have installed kitty yourself, then does everything else.
@@ -46,7 +46,7 @@ brew install --cask kitty font-hack-nerd-font
 
 # 2. Copy the config set into place (this overwrites — back up ~/.config/kitty first)
 mkdir -p ~/.config/kitty
-cp -R ~/.claude/LIFEOS/DOCUMENTATION/Terminal/kitty/ ~/.config/kitty/
+cp -R ~/Projects/LifeOS-AGY/LIFEOS/DOCUMENTATION/Terminal/kitty/ ~/.config/kitty/
 
 # 3. Launch kitty (or reload with shift+cmd+r inside it)
 ```

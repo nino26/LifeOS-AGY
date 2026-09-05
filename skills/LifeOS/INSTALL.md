@@ -8,13 +8,13 @@ LifeOS is AI-native, so the install is too. You hand this file (or its link) to 
 
 ## For you (the human) — 10 seconds
 
-Paste this to your AI — Claude Code, Cursor, Cline, Codex, Gemini CLI, or any coding assistant that can read files and run commands:
+Paste this to your AI — Antigravity CLI, Cursor, Cline, Codex, Gemini CLI, or any coding assistant that can read files and run commands:
 
 > **Read https://ourlifeos.ai/install and install LifeOS for me.**
 
 That's the primary path. Your AI reads the rest of this page and installs LifeOS for you.
 
-Prefer a terminal? There's a shell shortcut for Claude Code on macOS/Linux:
+Prefer a terminal? There's a shell shortcut for Antigravity CLI on macOS/Linux:
 
 ```
 curl -fsSL https://ourlifeos.ai/install.sh | bash
@@ -32,7 +32,7 @@ You are installing LifeOS for your human. The install is **additive**: you touch
 
 You need to be able to (1) read and write files on this machine, and (2) run shell commands. If you cannot do both — for example you're a chat-only assistant with no filesystem or command execution — **stop now** and tell your human:
 
-> "I can't install LifeOS from here — I don't have file and command access on your machine. Run this from a coding harness like Claude Code, Cursor, Cline, Codex, or Gemini CLI, or use the terminal shortcut on the install page."
+> "I can't install LifeOS from here — I don't have file and command access on your machine. Run this from a coding harness like Antigravity CLI, Cursor, Cline, Codex, or Gemini CLI, or use the terminal shortcut on the install page."
 
 Do not begin a partial install you can't finish.
 
@@ -51,7 +51,7 @@ Fetch the pinned LifeOS release for the repo and version on the install page (th
 bun Tools/DetectEnv.ts
 ```
 
-Read its output. It reports the OS (macOS / Linux / Windows), the harness (Claude Code / Cursor / Cline / Codex / Gemini / other), the config root, and whether LifeOS is already present. **Every path below comes from this — don't assume `~/.claude` or any single harness.**
+Read its output. It reports the OS (macOS / Linux / Windows), the harness (Antigravity CLI / Cursor / Cline / Codex / Gemini / other), the config root, and whether LifeOS is already present. **Every path below comes from this — don't assume `~/.claude` or any single harness.**
 
 ### 3. Scan for conflicts (read-only)
 
@@ -85,9 +85,9 @@ Both are dry-run without `--apply`, same as the previous step. Creates the perso
 
 This is the one place harnesses genuinely differ. Show the exact change and get a yes.
 
-- **Claude Code** — run `bun Tools/InstallHooks.ts --apply` (merges the hook set into `settings.json`, backing it up first) and `bun Tools/ActivateImports.ts --apply` (turns on the identity context imports). **Both need `--apply`** — without it they print a plan and write nothing. This is what lights up the always-on behavior: the LifeOS response format, the memory loop, and per-turn context injection.
+- **Antigravity CLI** — run `bun Tools/InstallHooks.ts --apply` (merges the hook set into `settings.json`, backing it up first) and `bun Tools/ActivateImports.ts --apply` (turns on the identity context imports). **Both need `--apply`** — without it they print a plan and write nothing. This is what lights up the always-on behavior: the LifeOS response format, the memory loop, and per-turn context injection.
 
-- **Any other harness (Cursor / Cline / Codex / Gemini / other)** — LifeOS's always-on behavior is enforced by Claude Code *hooks*, which are a Claude Code mechanism. They don't auto-wire on other harnesses **yet**. So instead:
+- **Any other harness (Cursor / Cline / Codex / Gemini / other)** — LifeOS's always-on behavior is enforced by Antigravity CLI *hooks*, which are a Antigravity CLI mechanism. They don't auto-wire on other harnesses **yet**. So instead:
   1. Write an `AGENTS.md` (or the harness's own context file — e.g. `.cursor/rules`) that points the harness at the LifeOS tree, so it loads the LifeOS context every session.
   2. Tell your human, plainly and honestly: *"On <harness>, the always-on hooks aren't wired yet. You get the skill, your USER data, Pulse, and context loading every session, and you run Setup and Interview on request. Full always-on behavior is on the roadmap for this harness."*
   3. **Do not** write Claude hook files or a Claude `settings.json` `hooks` block into a non-Claude harness — it would sit there inert and do nothing.
@@ -98,13 +98,13 @@ This is the step that makes LifeOS *load*. The constitutional layer — the resp
 
 The payload ships the launcher — `install/LIFEOS/TOOLS/lifeos.ts` — which spawns Claude with `--append-system-prompt-file <configRoot>/LIFEOS/LIFEOS_SYSTEM_PROMPT.md` (plus the banner and MCP-profile handling). Wire a `lifeos` command that calls it into your human's shell. **Show the exact line, back up the rc file first, wait for a yes.** Use the real `<configRoot>` from `DetectEnv` (e.g. `~/.claude`) — never hardcode a home path.
 
-- **Claude Code (zsh / bash)** — append to `~/.zshrc` (or `~/.bashrc`):
+- **Antigravity CLI (zsh / bash)** — append to `~/.zshrc` (or `~/.bashrc`):
   ```
   alias lifeos='bun <configRoot>/LIFEOS/TOOLS/lifeos.ts -s <configRoot>/LIFEOS/LIFEOS_SYSTEM_PROMPT.md'
   ```
   fish: `alias lifeos "bun <configRoot>/LIFEOS/TOOLS/lifeos.ts -s <configRoot>/LIFEOS/LIFEOS_SYSTEM_PROMPT.md"; funcsave lifeos`. After this, **`lifeos` launches Claude WITH the constitution**; plain `claude` stays vanilla (which is fine — the user opts in by launching `lifeos`).
 
-  **Upgrade path — migrate stale pre-7.x aliases.** Pre-7.x installs wired a `pai` launch alias (`cd ~/.claude && claude`, or `bun ~/.claude/PAI/ACTIONS/pai.ts`). The `PAI/` tree no longer exists and the bare-`claude` form launches without the constitution, so check the rc for these, and (with permission, rc backed up) comment them out and repoint the SAME alias name at the launcher above — the human's muscle-memory `pai` keeps working. `install.sh` does this automatically at bootstrap; do it here when the human ran setup without the bootstrap script. Never touch an alias containing `LIFEOS_SYSTEM_PROMPT` (current) or `ARBOL/Actions/lifeos.ts` (the maintainer-side Arbol CLI alias — that tree does not ship in the public payload, so if the string appears in an rc, leave it alone).
+  **Upgrade path — migrate stale pre-7.x aliases.** Pre-7.x installs wired a `pai` launch alias (`cd ~/.claude && claude`, or `bun ~/Projects/LifeOS-AGY/PAI/ACTIONS/pai.ts`). The `PAI/` tree no longer exists and the bare-`claude` form launches without the constitution, so check the rc for these, and (with permission, rc backed up) comment them out and repoint the SAME alias name at the launcher above — the human's muscle-memory `pai` keeps working. `install.sh` does this automatically at bootstrap; do it here when the human ran setup without the bootstrap script. Never touch an alias containing `LIFEOS_SYSTEM_PROMPT` (current) or `ARBOL/Actions/lifeos.ts` (the maintainer-side Arbol CLI alias — that tree does not ship in the public payload, so if the string appears in an rc, leave it alone).
 
 - **Any other harness** — use that harness's own system-prompt flag against the same file. e.g. pi: `pi --append-system-prompt <configRoot>/LIFEOS/LIFEOS_SYSTEM_PROMPT.md`. If a harness has no system-prompt flag, load `LIFEOS_SYSTEM_PROMPT.md` through its context file (AGENTS.md / rules) as the closest equivalent, and tell your human plainly that the constitution is loading as context, not as a true system-prompt layer.
 
@@ -125,7 +125,7 @@ LifeOS installs in **two layers**, and you present them that way.
 |---|---|---|
 | **hooks** | skill routing, the memory loop, voice, per-turn context injection — most behavior needs these (this is step 6) | **recommended** |
 | **statusline** | the LifeOS status line in your prompt — set `preferences.temperatureUnit` in `settings.json` to match your human's locale (payload default is `celsius`; suggest `fahrenheit` for US locales/timezones) | optional |
-| **tooltips** | custom Claude Code spinner tips | optional |
+| **tooltips** | custom Antigravity CLI spinner tips | optional |
 | **spinner verbs** | custom spinner verbs | optional |
 | **agents** | the named agent library | optional |
 | **Pulse** | the Life Dashboard — menu-bar app + `launchd` service on `:31337` | optional |
@@ -159,8 +159,8 @@ Run the **Setup** workflow (`Workflows/Setup.md`) to finish integration and veri
 
 | Harness / OS | Skill + USER data + Pulse | Always-on behavior (response format, memory loop, context injection) |
 |---|---|---|
-| **Claude Code — macOS / Linux** | ✅ | ✅ full (native hooks) |
-| **Claude Code — Windows** | ✅ (USER tree links as a directory junction — no admin needed) | ✅ full |
+| **Antigravity CLI — macOS / Linux** | ✅ | ✅ full (native hooks) |
+| **Antigravity CLI — Windows** | ✅ (USER tree links as a directory junction — no admin needed) | ✅ full |
 | **Cursor / Cline / Codex / Gemini / other** | ✅ | ⚠️ context loads every session via `AGENTS.md`; workflows run on request; always-on hooks not wired yet (roadmap) |
 | **Chat-only assistants (no files / no commands)** | ❌ | ❌ — install stops at the capability gate |
 

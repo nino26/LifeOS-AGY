@@ -3,7 +3,7 @@
 ## Available Templates
 
 ```
-~/.claude/Templates/Evals/
+~/Projects/LifeOS-AGY/Templates/Evals/
 ├── Judge.hbs       # Configurable LLM-as-Judge prompts
 ├── Rubric.hbs      # Evaluation criteria definitions
 ├── TestCase.hbs    # Test case specifications
@@ -18,10 +18,10 @@
 Use the JUDGE template for custom evaluation:
 
 ```bash
-bun run ~/.claude/skills/Prompting/Tools/RenderTemplate.ts \
+bun run ~/Projects/LifeOS-AGY/.agents/skills/Prompting/Tools/RenderTemplate.ts \
   -t Evals/Judge.hbs \
-  -d ~/.claude/skills/Evals/UseCases/<name>/judge-config.yaml \
-  -o ~/.claude/skills/Evals/UseCases/<name>/judge-prompt.md
+  -d ~/Projects/LifeOS-AGY/.agents/skills/Evals/UseCases/<name>/judge-config.yaml \
+  -o ~/Projects/LifeOS-AGY/.agents/skills/Evals/UseCases/<name>/judge-prompt.md
 ```
 
 ### Judge Config Example
@@ -55,10 +55,10 @@ output:
 Use the RUBRIC template for scoring criteria:
 
 ```bash
-bun run ~/.claude/skills/Prompting/Tools/RenderTemplate.ts \
+bun run ~/Projects/LifeOS-AGY/.agents/skills/Prompting/Tools/RenderTemplate.ts \
   -t Evals/Rubric.hbs \
-  -d ~/.claude/skills/Evals/UseCases/<name>/rubric.yaml \
-  -o ~/.claude/skills/Evals/UseCases/<name>/rubric.md
+  -d ~/Projects/LifeOS-AGY/.agents/skills/Evals/UseCases/<name>/rubric.yaml \
+  -o ~/Projects/LifeOS-AGY/.agents/skills/Evals/UseCases/<name>/rubric.md
 ```
 
 ---

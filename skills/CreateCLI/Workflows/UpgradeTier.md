@@ -44,7 +44,7 @@ Convert Tier 1 CLI (llcli-style) to Tier 2 (Commander.js) when complexity demand
 ### 1. Install Commander.js
 
 ```bash
-cd ~/.claude/LIFEOS/TOOLS/[cli-name]/
+cd ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/[cli-name]/
 bun add commander
 ```
 

@@ -107,7 +107,7 @@ The infrastructure serves the philosophy. If the philosophy is clear, the infras
 ## Directory Structure
 
 ```
-~/.claude/                           # Claude Code native directory
+~/Projects/LifeOS-AGY/                           # Antigravity CLI native directory
   CLAUDE.md                          # Operational instructions (directly edited)
   settings.json                      # Runtime settings (directly edited)
   .env                               # Secrets (gitignored; canonical env — see OPERATIONAL_RULES)
@@ -203,14 +203,14 @@ Explicit permission to say "I don't know" prevents hallucinations. Fabricating a
 The LifeOS live tree and the public release are structurally identical modulo a symlink — system data and user data live in two physically separate trees, joined at runtime. The separation is enforced at three independent layers; each catches drift the others would miss.
 
 **Physical layout (post-Phase-A→G migration, 2026-05-20→23):**
-- `~/.claude/` — public LifeOS SYSTEM tree (what ships on GitHub). Contains the symlink `LIFEOS/USER → ~/.config/LIFEOS/USER`.
-- `~/.config/LIFEOS/USER/` — private user-data git working tree (the user's own private USER-data repo). Mounted via symlink so Claude Code's `@`-import resolver reaches identity/TELOS/config files at session start.
+- `~/Projects/LifeOS-AGY/` — public LifeOS SYSTEM tree (what ships on GitHub). Contains the symlink `LIFEOS/USER → ~/.config/LIFEOS/USER`.
+- `~/.config/LIFEOS/USER/` — private user-data git working tree (the user's own private USER-data repo). Mounted via symlink so Antigravity CLI's `@`-import resolver reaches identity/TELOS/config files at session start.
 - `~/.config/LIFEOS/USER/MEMORY/` — durable subset of memory (KNOWLEDGE, WORK/<slug>/ISA.md, RELATIONSHIP, WISDOM, PLANS, RESEARCH, STATE/work.json, BOOKMARKS, REFERENCE, SKILLS, PROJECT, TEAMS, SYSTEMUPDATES, VERIFICATION) git-tracked in the user's private USER-data repo; ephemeral subset (OBSERVABILITY, STATE caches, LEARNING signals, SECURITY artifacts, VOICE event log, _BROWSER_STATE) gitignored locally.
 
 **Four allowed access patterns** (any fifth pattern is a boundary violation):
 1. `LifeosConfig.load()` typed loader (`LIFEOS/TOOLS/LifeosConfig.ts`) — primary channel for identity, voice, integrations, paths
 2. Paths computed from `LifeosConfig.paths.userDir + relative` — never from literal `LIFEOS/USER/` strings in system code
-3. At-startup `@`-imports declared at the top of `~/.claude/CLAUDE.md` (CC does NOT follow transitive `@`-imports)
+3. At-startup `@`-imports declared at the top of `~/Projects/LifeOS-AGY/CLAUDE.md` (CC does NOT follow transitive `@`-imports)
 4. HTTP/IPC via the Pulse server at `localhost:31337`
 
 **Three enforcement layers:**
@@ -226,7 +226,7 @@ Configuration files (`settings.json`, `CLAUDE.md`, `LIFEOS_SYSTEM_PROMPT.md`) ar
 
 ## Instruction Hierarchy -- The Model's Input Chain
 
-LifeOS injects instructions into Claude Code sessions through a 4-layer hierarchy. Each layer has different authority, persistence, and purpose.
+LifeOS injects instructions into Antigravity CLI sessions through a 4-layer hierarchy. Each layer has different authority, persistence, and purpose.
 
 ```
 Layer 1: SYSTEM PROMPT (highest authority, survives compaction)
@@ -236,7 +236,7 @@ Layer 1: SYSTEM PROMPT (highest authority, survives compaction)
   operational rules, security protocol.
 
 Layer 2: CLAUDE.MD (user context, loaded natively, survives compaction)
-  File: ~/.claude/CLAUDE.md (directly edited)
+  File: ~/Projects/LifeOS-AGY/CLAUDE.md (directly edited)
   Contains: Routing table only -- @-imports, where each subsystem doc lives,
   pointers into {{PRINCIPAL_NAME}}'s identity/voice/TELOS/work content. ~75 lines.
 
@@ -264,8 +264,8 @@ Layer 4: DYNAMIC CONTEXT (session-specific, ephemeral, does NOT survive compacti
 | File | Purpose |
 |------|---------|
 | `LIFEOS/LIFEOS_SYSTEM_PROMPT.md` | Constitutional rules (system prompt layer) |
-| `~/.claude/CLAUDE.md` | Routing table — @-imports + subsystem pointers (directly edited) |
-| `~/.claude/settings.json` | Runtime settings (directly edited) |
+| `~/Projects/LifeOS-AGY/CLAUDE.md` | Routing table — @-imports + subsystem pointers (directly edited) |
+| `~/Projects/LifeOS-AGY/settings.json` | Runtime settings (directly edited) |
 | `LIFEOS/TOOLS/lifeos.ts` | Launcher -- wires `--append-system-prompt-file` |
 | `hooks/LoadContext.hook.ts` | Injects startup files + dynamic context |
 
@@ -320,20 +320,20 @@ Operation vocabulary, never conflated: **UpdateKaiRepo** = private sync + tag (v
 
 **Composite skills are the organizational unit for all domain expertise.**
 
-Each skill lives in `~/.claude/skills/<Skillname>/` with a mandatory `SKILL.md` defining triggers, workflows, and tools. Skills self-activate based on user intent via `USE WHEN` descriptions parsed by Claude Code. **Naming encodes the public/private boundary** — public skills use `TitleCase` (templated, safe, ships in LifeOS public release); private skills use `_ALLCAPS` with a leading underscore (anything personal, identity-bound, customer-bound, or environment-specific; excluded from release tooling via `skills/_*/**` in `hooks/lib/containment-zones.ts`). Within a skill, sub-files (workflows, references, tools) always use `TitleCase` regardless of the parent skill's form.
+Each skill lives in `~/Projects/LifeOS-AGY/.agents/skills/<Skillname>/` with a mandatory `SKILL.md` defining triggers, workflows, and tools. Skills self-activate based on user intent via `USE WHEN` descriptions parsed by Antigravity CLI. **Naming encodes the public/private boundary** — public skills use `TitleCase` (templated, safe, ships in LifeOS public release); private skills use `_ALLCAPS` with a leading underscore (anything personal, identity-bound, customer-bound, or environment-specific; excluded from release tooling via `skills/_*/**` in `hooks/lib/containment-zones.ts`). Within a skill, sub-files (workflows, references, tools) always use `TitleCase` regardless of the parent skill's form.
 
 - **Status:** Active
-- **Location:** `~/.claude/skills/`
+- **Location:** `~/Projects/LifeOS-AGY/.agents/skills/`
 - **Full doc:** `LIFEOS/DOCUMENTATION/Skills/SkillSystem.md`
 
 ### Hook System
 
 **Event-driven automation infrastructure across the session lifecycle.**
 
-Hooks are executable scripts (TypeScript) that run automatically in response to Claude Code events: SessionStart, PreToolUse, PostToolUse, UserPromptSubmit, Stop, SessionEnd, PreCompact, PostCompact, PermissionRequest, and more. Most hooks run asynchronously and fail gracefully. Security is one consolidated hook: `Safety.hook.ts` dispatches by `hook_event_name` — PermissionRequest path auto-approves safe shapes via the shape classifier in `lib/safety-classifier.ts` (DANGEROUS_PATTERNS / CREDENTIAL_PATHS / INJECTION_SHAPES / READ_ONLY_COMMAND_PATTERNS / SEARCH_TOOLS / DEV_BINARIES / TRUSTED_PREFIXES + a shell-aware single-quote pre-pass that distinguishes data from execution); PostToolUse path on WebFetch/WebSearch annotates external content with the "treat as data" header plus an `[INJECTION SHAPE DETECTED: ...]` marker when the shared INJECTION_SHAPES catalog matches. All hooks emit structured events to `events.jsonl` for observability. Includes RTK (Rust Token Killer) integration via ContextReduction hook -- transparently rewrites Bash commands through `rtk` for 60-90% token savings on dev operations.
+Hooks are executable scripts (TypeScript) that run automatically in response to Antigravity CLI events: SessionStart, PreToolUse, PostToolUse, UserPromptSubmit, Stop, SessionEnd, PreCompact, PostCompact, PermissionRequest, and more. Most hooks run asynchronously and fail gracefully. Security is one consolidated hook: `Safety.hook.ts` dispatches by `hook_event_name` — PermissionRequest path auto-approves safe shapes via the shape classifier in `lib/safety-classifier.ts` (DANGEROUS_PATTERNS / CREDENTIAL_PATHS / INJECTION_SHAPES / READ_ONLY_COMMAND_PATTERNS / SEARCH_TOOLS / DEV_BINARIES / TRUSTED_PREFIXES + a shell-aware single-quote pre-pass that distinguishes data from execution); PostToolUse path on WebFetch/WebSearch annotates external content with the "treat as data" header plus an `[INJECTION SHAPE DETECTED: ...]` marker when the shared INJECTION_SHAPES catalog matches. All hooks emit structured events to `events.jsonl` for observability. Includes RTK (Rust Token Killer) integration via ContextReduction hook -- transparently rewrites Bash commands through `rtk` for 60-90% token savings on dev operations.
 
 - **Status:** Active (LifeOS 5.0.0)
-- **Location:** `~/.claude/hooks/`
+- **Location:** `~/Projects/LifeOS-AGY/hooks/`
 - **Configuration:** `settings.json` under `hooks` key
 - **Full doc:** `LIFEOS/DOCUMENTATION/Hooks/HookSystem.md`
 
@@ -359,10 +359,10 @@ Two storage layers: LifeOS MEMORY (`LIFEOS/MEMORY/`) for structured, hook-driven
 
 **Three distinct agent systems that serve different purposes.**
 
-Task Tool Subagent Types are pre-built agents in Claude Code (Architect, Engineer, Explore, etc.) for internal workflow use. `BrowserAgent`, `UIReviewer`, `QATester`, `Artist`, `Algorithm`, and `Anvil` (Kimi K2.6) were removed 2026-06-10 by principal directive — browser validation runs through the **Interceptor** skill (real Chrome, no CDP fingerprint). Cross-vendor agents extend coverage: **Forge** (OpenAI-family GPT-5.6 Sol via `codex exec`) writes production-grade code in **build mode** and runs the optional cross-vendor **audit mode** in VERIFY when the Algorithm elects it (Algorithm Rule 2a — discretionary, not a mandatory gate; the former standalone Cato agent folded into Forge audit mode 2026-06-17; the E-tier election thresholds retired with the tier system 2026-07-11). Named Agents are persistent identities with backstories and ElevenLabs voices for recurring work. Custom Agents are dynamic compositions via ComposeAgent from base traits. The word "custom" is the routing trigger -- when the user says "custom agents," invoke the Agents skill, never Task tool subagent types. Background agents are supervised by the Agent Watchdog (`Tools/AgentWatchdog.ts`) — a Monitor-tool script that detects hung agents via tool-activity.jsonl silence, auto-triggered by the Pulse agent-guard hook.
+Task Tool Subagent Types are pre-built agents in Antigravity CLI (Architect, Engineer, Explore, etc.) for internal workflow use. `BrowserAgent`, `UIReviewer`, `QATester`, `Artist`, `Algorithm`, and `Anvil` (Kimi K2.6) were removed 2026-06-10 by principal directive — browser validation runs through the **Interceptor** skill (real Chrome, no CDP fingerprint). Cross-vendor agents extend coverage: **Forge** (OpenAI-family GPT-5.6 Sol via `codex exec`) writes production-grade code in **build mode** and runs the optional cross-vendor **audit mode** in VERIFY when the Algorithm elects it (Algorithm Rule 2a — discretionary, not a mandatory gate; the former standalone Cato agent folded into Forge audit mode 2026-06-17; the E-tier election thresholds retired with the tier system 2026-07-11). Named Agents are persistent identities with backstories and ElevenLabs voices for recurring work. Custom Agents are dynamic compositions via ComposeAgent from base traits. The word "custom" is the routing trigger -- when the user says "custom agents," invoke the Agents skill, never Task tool subagent types. Background agents are supervised by the Agent Watchdog (`Tools/AgentWatchdog.ts`) — a Monitor-tool script that detects hung agents via tool-activity.jsonl silence, auto-triggered by the Pulse agent-guard hook.
 
 - **Status:** Active
-- **Location:** `~/.claude/agents/`
+- **Location:** `~/Projects/LifeOS-AGY/agents/`
 - **Full doc:** `LIFEOS/DOCUMENTATION/Agents/AgentSystem.md`
 
 ### Delegation System
@@ -377,7 +377,7 @@ Task Tool Subagent Types are pre-built agents in Claude Code (Architect, Enginee
 
 **Direct editing of configuration files with shadow release for public sanitization.**
 
-Configuration files (`settings.json`, `CLAUDE.md`, `LIFEOS_SYSTEM_PROMPT.md`) are directly edited. User config lives in `LIFEOS/USER/CONFIG/LIFEOS_CONFIG.toml` (read by `LIFEOS/TOOLS/LifeosConfig.ts`); secrets live only in `~/.claude/.env`. The Shadow Release system (`ShadowRelease.ts`) produces public staging via **containment**: rsync clone with hard exclusions → delete sensitive zones (USER, MEMORY, skills/_*) → overlay fixed public templates → scaffold → run the release gate set (G1–G14 + G17–G25). The shipped release is then emitted from that staging tree as the single self-contained `LifeOS/` skill (`EmitSkill.ts`) — the `.claude/` staging clone is an intermediate, not the published artifact.
+Configuration files (`settings.json`, `CLAUDE.md`, `LIFEOS_SYSTEM_PROMPT.md`) are directly edited. User config lives in `LIFEOS/USER/CONFIG/LIFEOS_CONFIG.toml` (read by `LIFEOS/TOOLS/LifeosConfig.ts`); secrets live only in `~/Projects/LifeOS-AGY/.env`. The Shadow Release system (`ShadowRelease.ts`) produces public staging via **containment**: rsync clone with hard exclusions → delete sensitive zones (USER, MEMORY, skills/_*) → overlay fixed public templates → scaffold → run the release gate set (G1–G14 + G17–G25). The shipped release is then emitted from that staging tree as the single self-contained `LifeOS/` skill (`EmitSkill.ts`) — the `.claude/` staging clone is an intermediate, not the published artifact.
 
 - **Status:** Active (containment-based since v5; retired filter-walker/reverse-templating)
 - **Location:** maintainer tree only — the release skill's `ShadowRelease` tool and its `RELEASE_TEMPLATES/` (settings.public.json, CLAUDE.public.md, USER/). This is the machinery that BUILDS a release; it is a private skill and is absent from a public install.
@@ -388,7 +388,7 @@ Configuration files (`settings.json`, `CLAUDE.md`, `LIFEOS_SYSTEM_PROMPT.md`) ar
 
 **Minimal v3 — three layers + one consolidated hook + one shared lib.**
 
-The model is the security boundary; the hook is a deterministic gate around it. Three layers: (1) Constitutional Security Protocol in `LIFEOS/LIFEOS_SYSTEM_PROMPT.md` — model treats external content as data, refuses embedded instructions, reports injection attempts. (2) Native Claude Code `permissions.deny` + `permissions.ask` in `settings.json` — declarative block/prompt list for irrecoverable shell, disk, and filesystem operations and credential reads. (3) `hooks/Safety.hook.ts` — one file, two events. **PermissionRequest path** (matcher: `Write|Edit|MultiEdit|Bash` + `mcp__.*`) auto-approves safe shapes via the classifier in `lib/safety-classifier.ts`, defers dangerous-shape / credential-path / injection-shape commands to the native prompt; logs every decision to `MEMORY/OBSERVABILITY/permission-decisions.jsonl` with hashed prefixes; sha-keyed cache at `MEMORY/STATE/permission-cache.json`. **PostToolUse path** on WebFetch/WebSearch prepends "treat as data" header + injection marker. The classifier includes a shell-aware single-quote pre-pass: when the outer command is NOT a wrapper (`bash -c`, `eval`, language interpreters with `-c`/`-e`), single-quoted regions are stripped before pattern matching (literal data, not execution); when it IS a wrapper, the inner content is also matched directly. A narrow `for|while|until` loop gate then auto-allows control-flow whose body has no shell-execution sub-shapes — so test loops over dangerous-string fixtures auto-approve while loops with `bash -c "$x"`/`eval "$x"`/pipe-to-shell bodies still neutral. Decision-tree invariant: dangerous + credential checks precede every allow path except `mcp__` pre-vetted (verified by Advisor + Cato on 2026-05-13 after a `cat ~/.aws/credentials` bypass was caught and closed). Consolidates the prior `SmartApprover.hook.ts` + `PromptInjection.hook.ts` split (2026-05-14). Replaces the 4,200-LOC v4.0 inspector-pipeline architecture (deleted 2026-05-06).
+The model is the security boundary; the hook is a deterministic gate around it. Three layers: (1) Constitutional Security Protocol in `LIFEOS/LIFEOS_SYSTEM_PROMPT.md` — model treats external content as data, refuses embedded instructions, reports injection attempts. (2) Native Antigravity CLI `permissions.deny` + `permissions.ask` in `settings.json` — declarative block/prompt list for irrecoverable shell, disk, and filesystem operations and credential reads. (3) `hooks/Safety.hook.ts` — one file, two events. **PermissionRequest path** (matcher: `Write|Edit|MultiEdit|Bash` + `mcp__.*`) auto-approves safe shapes via the classifier in `lib/safety-classifier.ts`, defers dangerous-shape / credential-path / injection-shape commands to the native prompt; logs every decision to `MEMORY/OBSERVABILITY/permission-decisions.jsonl` with hashed prefixes; sha-keyed cache at `MEMORY/STATE/permission-cache.json`. **PostToolUse path** on WebFetch/WebSearch prepends "treat as data" header + injection marker. The classifier includes a shell-aware single-quote pre-pass: when the outer command is NOT a wrapper (`bash -c`, `eval`, language interpreters with `-c`/`-e`), single-quoted regions are stripped before pattern matching (literal data, not execution); when it IS a wrapper, the inner content is also matched directly. A narrow `for|while|until` loop gate then auto-allows control-flow whose body has no shell-execution sub-shapes — so test loops over dangerous-string fixtures auto-approve while loops with `bash -c "$x"`/`eval "$x"`/pipe-to-shell bodies still neutral. Decision-tree invariant: dangerous + credential checks precede every allow path except `mcp__` pre-vetted (verified by Advisor + Cato on 2026-05-13 after a `cat ~/.aws/credentials` bypass was caught and closed). Consolidates the prior `SmartApprover.hook.ts` + `PromptInjection.hook.ts` split (2026-05-14). Replaces the 4,200-LOC v4.0 inspector-pipeline architecture (deleted 2026-05-06).
 
 - **Status:** Active (Minimal v3, 2026-05-14 — SmartApprover + PromptInjection consolidated into Safety.hook.ts; shell-aware classifier added)
 - **Location:** `hooks/Safety.hook.ts`, `hooks/lib/safety-classifier.ts`
@@ -428,7 +428,7 @@ LifeOS is the OS. Pulse is the Dashboard. Everything a human (or the DA) can *se
 **Implementation:** A single Bun process managed by launchd (`com.lifeos.pulse`), listening on port 31337. Pulse absorbed all previously separate daemon services into a module architecture: voice notifications (`VoiceServer/voice.ts`), observability server (`Observability/observability.ts`), iMessage bot (`modules/imessage.ts`), the Siri bridge (`modules/siri.ts`), and session hooks (`modules/hooks.ts`). (The Telegram bot module was removed entirely 2026-07-15.) Reads job definitions from PULSE.toml, evaluates cron schedules, executes due jobs (shell scripts or Claude CLI invocations), and routes output through existing notification channels. Circuit breaker pattern: 3 consecutive failures skip the job, with a 6h cooldown retry (2026-07-15) so transient outages never permanently kill a job.
 
 - **Version:** 2.0.0
-- **Location:** `~/.claude/LIFEOS/PULSE/`
+- **Location:** `~/Projects/LifeOS-AGY/LIFEOS/PULSE/`
 - **Launchd:** `com.lifeos.pulse`
 - **Port:** 31337
 - **API:** ~40 endpoints across 8 categories (observability, algorithm, life, user-index, security, knowledge, wiki, DA, voice, hooks). Full reference: `LIFEOS/DOCUMENTATION/Observability/ObservabilitySystem.md` → "API Reference"
@@ -462,7 +462,7 @@ Walks `USER/` (root + one level), parses frontmatter + body of each `.md`, compu
 Formalizes how Pulse instantiates, manages, and evolves a Digital Assistant. Replaces manual DA_IDENTITY.md editing with a structured YAML schema, adds proactive heartbeat evaluation (2-layer: free context gathering + cheap Haiku eval), natural-language scheduled tasks, and bounded identity growth over time. Supports multiple DAs via a registry with primary/worker roles.
 
 - **Status:** Active
-- **Location:** `~/.claude/LIFEOS/USER/DIGITAL_ASSISTANT/` (identity data), `~/.claude/` (runtime)
+- **Location:** `~/Projects/LifeOS-AGY/LIFEOS/USER/DIGITAL_ASSISTANT/` (identity data), `~/Projects/LifeOS-AGY/` (runtime)
 - **Full doc:** `LIFEOS/DOCUMENTATION/Pulse/DaSubsystem.md`, `LIFEOS/DOCUMENTATION/Pulse/PulseSystem.md` (DA Module section)
 
 ### Browser Automation
@@ -472,7 +472,7 @@ Formalizes how Pulse instantiates, manages, and evolves a Digital Assistant. Rep
 Handles screenshots, multi-step sessions, authenticated browsing, and DOM/console/network inspection through the actual browser UI, so it stays logged in and passes bot detection. Legacy built-in agents (BrowserAgent, UIReviewer, QATester) were removed 2026-06-10, and the headless agent-browser wrapper (the Browser skill) was retired 2026-07-04 in favor of Interceptor. All web-based output MUST be verified through the **Interceptor skill** before showing to the user. Playwright is banned across LifeOS.
 
 - **Status:** Active
-- **Location:** `~/.claude/skills/Interceptor/` (real-Chrome automation + computer use, mandatory for verification)
+- **Location:** `~/Projects/LifeOS-AGY/.agents/skills/Interceptor/` (real-Chrome automation + computer use, mandatory for verification)
 
 ### Cloud Execution (Arbol)
 
@@ -502,7 +502,7 @@ Monitors content sources, processes everything through an AI pipeline (ingest, s
 LifeOS executes Fabric patterns natively by reading `Patterns/{name}/system.md` and applying instructions directly. Use `fabric` CLI only for YouTube transcript extraction (`-y URL`). Patterns cover summarization, wisdom extraction, threat modeling, and dozens of other content operations.
 
 - **Status:** Active (240+ patterns)
-- **Location:** `~/.claude/skills/Fabric/`
+- **Location:** `~/Projects/LifeOS-AGY/.agents/skills/Fabric/`
 - **Full doc:** `LIFEOS/DOCUMENTATION/Fabric/FabricSystem.md`
 
 ### Terminal Tab System
@@ -552,8 +552,8 @@ Five states with distinct colors: Inference (purple), Working (orange), Complete
 
 ```
 PRIVATE (never make public):
-  ~/.claude/           -- hooks, skills, settings, agents, CLAUDE.md
-  ~/.claude/LIFEOS/       -- ALGORITHM, TOOLS, MEMORY, PULSE (unified daemon)
+  ~/Projects/LifeOS-AGY/           -- hooks, skills, settings, agents, CLAUDE.md
+  ~/Projects/LifeOS-AGY/LIFEOS/       -- ALGORITHM, TOOLS, MEMORY, PULSE (unified daemon)
 
 PUBLIC (sanitized):
   ~/Projects/LIFEOS/      -- Sanitized examples, generic templates, community sharing
@@ -586,7 +586,7 @@ System file inventory by pipeline. When you modify a file, trace its pipeline to
 | **Security** | `LIFEOS/LIFEOS_SYSTEM_PROMPT.md` § Security Protocol (constitutional rule), `settings.json` `permissions.deny` (native harness denylist), `hooks/Safety.hook.ts` (consolidated PermissionRequest + PostToolUse on WebFetch \| WebSearch), `hooks/lib/safety-classifier.ts` (shape catalog + shell-aware classifier with single-quote pre-pass). Deployed-estate monitoring is server-side: the Arbol infra-security scanner (hourly outsider scan), which IS the Bunker Security plane — one system, never a parallel build (private ops: `LIFEOS/USER/SECURITY/MONITORING.md`). **Incident response is credential-graph-driven** (2026-07-24): compromise-tier membership is matched by shape at run time across the env file AND the Atlas graph rather than an enumerated name list (the enumerated version silently missed a live mailbox credential for two months), the credential registry is generated rather than hand-maintained, and scoping an incident is a graph traversal (`atlas exposed <asset>`). `/ic` check 14 `credential-registry` fails on registry drift or unclassified credentials |
 | **Algorithm** | `Algorithm/LATEST` → `Algorithm/v{VERSION}.md` (current version per `LATEST`, never restated here; v8.4.3 was the claims restructure: Loop preamble + teeth-annotated done-claims + AlgorithmNudge event layer (unified 2026-07-11: run-scoped + always-on skill-routing/late-ISA/spend; depth-directive row added v8.4.0, 2026-07-12; Grok cross-vendor voice removed v8.4.1, 2026-07-13; execution-class Opus-delegate spend fact + always-on nudge row added v8.4.3, 2026-07-15; ISA close teeth added 2026-07-24 — StopGates now composes ISACloseGate (stale-ISA-at-completion block, fed by AlgorithmNudge's `toolCallsSinceIsaEditAbs`) and ISAGate (structural `phase: complete` block via `LIFEOS/TOOLS/ISAGate.ts`)); capabilities.md removed at v7, the system-prompt skill list is the sole capability inventory), `Algorithm/archive/mode-detection.md`, `hooks/ISASync.hook.ts` → `MEMORY/WORK/{slug}/ISA.md`, `skills/ISA/` (canonical Scaffold/Append/Reconcile workflows); **work registry event-sourced (2026-06-10):** all `work.json` writes go through `isa-utils.writeRegistry` → field-level diff events appended to `MEMORY/STATE/work-events.jsonl` (`hooks/lib/work-events.ts`) → locked fold to the derived `work.json` snapshot (offset-stamped, 1MB compaction); `readRegistry` serves snapshot+suffix live views; Pulse SSE triggers off `fs.watch` on STATE with the 100ms poll as fallback; model choice follows the role-based rung classes in OPERATIONAL_RULES § Model selection (2026-07-28: MAX to think, HIGH to execute scoped work, MEDIUM for trivial execution; 2026-07-29, v8.17.0: the MAIN LOOP is the top rung by config — `settings.json` pins `"model"` to the top-rung alias — so design and planning happen natively inline and the only elected rung move is the DOWNSHIFT for execution; the same-day v8.16.0 "elect MAX explicitly" rule is superseded because it produced a run that asked which rung to use and dispatched its design leg to the `Max` agent); `EFFORT_MODEL` in `LIFEOS/TOOLS/models.ts` remains the `Inference.ts --level` dial |
 | **Cortex (Memory)** | `hooks/WorkCompletionLearning.hook.ts`, `hooks/SatisfactionCapture.hook.ts` (RelationshipMemory hook deleted 7.0.0 — dead code), `Tools/KnowledgeHarvester.ts` → `MEMORY/KNOWLEDGE/`, `MEMORY/LEARNING/`; `Tools/SessionHarvester.ts --mine` → `KNOWLEDGE/_harvest-queue/`; `Tools/MemoryRetriever.ts` (BM25 retrieval over typed-item corpus including `_MEMORY.md` hot-layer files), `Tools/KnowledgeGraph.ts` (graph navigation) — read-only. **Autonomic loop (2026-05):** `hooks/MemoryTurnStart.hook.ts` (UserPromptSubmit) + `hooks/MemoryReviewFire.hook.ts` (Stop; cadence merged 2026-07-11) drive `Tools/MemoryReviewer.ts` on cadence (turn≥8 ∧ minutes≥30 ∧ idle≥2). Reviewer emits typed items routed by `Tools/MemorySystem.ts` (single `add(item)` API) over the `Tools/MemoryTypes.ts` registry; `Tools/MutationTier.ts` gates by tier A/B/C/D. Tier-C proposals enqueue to `MEMORY/OBSERVABILITY/pending-proposals.jsonl`; `PULSE/lib/memory-proposals.ts` owns queue I/O and edit application (Telegram surfacing removed 2026-07-15 — pending rows surface via Pulse and the 🧠 MEMORY line). `Tools/MemoryStatus.ts` is the read-only memory-status CLI. **kb-v3 knowledge schema (2026-07-05):** `Tools/KnowledgeSchema.ts` is the pure-data SoT for the KNOWLEDGE archive object-schema (`person\|company\|idea\|blog\|research` — distinct from the write-registry above) + body-safe parse/normalize/validate; `Tools/KnowledgeLint.ts` validates conformance (envelope % vs per-type completeness); `Tools/MigrateKnowledge.ts` migrated the full archive onto it (body-byte-preserving, idempotent, dry-run default); `Tools/KnowledgeQuery.ts` (`kb query`) filters/sorts on the now-consistent typed fields; `Tools/GenerateKnowledgeSchemaDoc.ts` regenerates `MEMORY/KNOWLEDGE/_schema.md` from the schema; `MemorySystem.renderInitialNote` emits the kb-v3 envelope so new autonomic notes are born conformant. |
-| **Router** (RETIRED 2026-07-11) | Classify → route-effort stages retired 2026-07-11 with the mode/tier abolition (`TheRouter.hook.ts` deleted; MINIMAL/NATIVE/ALGORITHM + E1–E5 gone, no successor classifier). **Surviving model routing:** `LIFEOS/TOOLS/models.ts` `EFFORT_MODEL` maps level→model (max→fable / high→opus / medium→sonnet / low→haiku; `LEVEL_TO_HARNESS_EFFORT`; cross-vendor pins; egress-class ceilings) → **dispatch** via `model` param on `Agent()` / `Workflow agent()`; dispatches that omit it inherit the session default (no injector — `hooks/AgentInvocation.hook.ts` observes and logs only). `LIFEOS/TOOLS/Inference.ts` applies model selection to utility inference, and is the genuine `max`/Fable carrier (subprocess spawns `claude --model claude-fable-5`; Agent `model:fable` dispatch downgrades to Opus). It verifies the executed model against the JSON envelope's `modelUsage` and logs downgrades to `MEMORY/OBSERVABILITY/model-verification.jsonl` (v6.29.0 — reports what RAN, not what was requested). Full doc (history only): `LIFEOS/DOCUMENTATION/Router/RouterSystem.md` |
+| **Router** (RETIRED 2026-07-11) | Classify → route-effort stages retired 2026-07-11 with the mode/tier abolition (`TheRouter.hook.ts` deleted; MINIMAL/NATIVE/ALGORITHM + E1–E5 gone, no successor classifier). **Surviving model routing:** `LIFEOS/TOOLS/models.ts` `EFFORT_MODEL` maps level→model (max→fable / high→opus / medium→sonnet / low→haiku; `LEVEL_TO_HARNESS_EFFORT`; cross-vendor pins; egress-class ceilings) → **dispatch** via `model` param on `Agent()` / `Workflow agent()`; dispatches that omit it inherit the session default (no injector — `hooks/AgentInvocation.hook.ts` observes and logs only). `LIFEOS/TOOLS/Inference.ts` applies model selection to utility inference, and is the genuine `max`/Fable carrier (subprocess spawns `agy --model claude-fable-5`; Agent `model:fable` dispatch downgrades to Opus). It verifies the executed model against the JSON envelope's `modelUsage` and logs downgrades to `MEMORY/OBSERVABILITY/model-verification.jsonl` (v6.29.0 — reports what RAN, not what was requested). Full doc (history only): `LIFEOS/DOCUMENTATION/Router/RouterSystem.md` |
 | **Hooks** | `hooks/*.hook.ts`, `hooks/handlers/*.ts`, `hooks/lib/*.ts`, `settings.json` |
 | **Observability** | `hooks/EventLogger.hook.ts` (consolidated 2026-07-11 — absorbed ToolActivityTracker, ToolFailureTracker, SkillExecutionLog, ConfigAudit, StopFailureHandler; appends directly via `fs.appendFileSync`) → `MEMORY/OBSERVABILITY/*.jsonl` |
 | **Pulse** | `Pulse/pulse.ts` (port 31337), `Pulse/modules/{hooks,wiki,imessage,siri,user-index,work,bunker}.ts`, `Pulse/Observability/observability.ts`, `Pulse/VoiceServer/voice.ts`, `Pulse/PULSE.toml`, `Pulse/Observability/src/`, `Pulse/Assistant/module.ts` (DA subsystem — private-only, not in the release payload) |
@@ -703,7 +703,7 @@ The running log of the load-bearing choices that shape LifeOS — what we decide
 
 - **Decided:** 2026-06-14
 - **Decision:** Detect tool-call loops (exact-repeat, A-B oscillation, same-tool hammering) with a `*`-matcher PostToolUse hook (`hooks/LoopDetector.hook.ts`) that injects one labeled, one-shot circuit-breaker via `hookSpecificOutput.additionalContext`. State lives in a small per-session JSON file.
-- **Why:** Addresses the #1 complaint cluster (Tool/System Failures) and the self-talk loop. Achieved entirely on the stock Claude Code hook surface — the context-injection capability already exists (proven by `Safety.hook.ts`), so no harness modification is needed. LifeOS deliberately builds on top of the stock harness, never forks it.
+- **Why:** Addresses the #1 complaint cluster (Tool/System Failures) and the self-talk loop. Achieved entirely on the stock Antigravity CLI hook surface — the context-injection capability already exists (proven by `Safety.hook.ts`), so no harness modification is needed. LifeOS deliberately builds on top of the stock harness, never forks it.
 - **Replaced:** No in-session loop intervention (failures were only logged post-hoc to observability).
 - **Source:** manual (backfill 2026-06-14)
 <!-- ad-src: manual#loop-detector -->

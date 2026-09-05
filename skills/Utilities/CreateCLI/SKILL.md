@@ -6,7 +6,7 @@ description: Generate production-ready TypeScript CLIs with 3-tier template syst
 ## Customization
 
 **Before executing, check for user customizations at:**
-`~/.claude/PAI/USER/SKILLCUSTOMIZATIONS/CreateCLI/`
+`~/Projects/LifeOS-AGY/PAI/USER/SKILLCUSTOMIZATIONS/CreateCLI/`
 
 If this directory exists, load and apply any PREFERENCES.md, configurations, or resources found there. These override default behavior. If the directory does not exist, proceed with skill defaults.
 
@@ -162,7 +162,7 @@ Generated CLIs follow PAI standards:
 ### Repository Placement
 
 Generated CLIs go to:
-- `~/.claude/Bin/[cli-name]/` - Personal CLIs (like llcli)
+- `~/Projects/LifeOS-AGY/Bin/[cli-name]/` - Personal CLIs (like llcli)
 - `~/Projects/[project-name]/` - Project-specific CLIs
 - `${PROJECTS_DIR}/PAI/Examples/clis/` - Example CLIs (PUBLIC repo)
 
@@ -204,7 +204,7 @@ Every generated CLI follows:
 
 **Generated Structure:**
 ```
-~/.claude/Bin/ghcli/
+~/Projects/LifeOS-AGY/Bin/ghcli/
 ├── ghcli.ts              # 350 lines, complete implementation
 ├── package.json          # Bun + TypeScript
 ├── tsconfig.json         # Strict mode
@@ -230,7 +230,7 @@ ghcli --help
 
 **Generated Structure:**
 ```
-~/.claude/Bin/md2html/
+~/Projects/LifeOS-AGY/Bin/md2html/
 ├── md2html.ts
 ├── package.json
 ├── README.md
@@ -253,7 +253,7 @@ md2html extract-frontmatter post.md
 
 **Generated Structure:**
 ```
-~/.claude/Bin/data-cli/
+~/Projects/LifeOS-AGY/Bin/data-cli/
 ├── data-cli.ts           # Commander.js with subcommands
 ├── package.json
 ├── README.md

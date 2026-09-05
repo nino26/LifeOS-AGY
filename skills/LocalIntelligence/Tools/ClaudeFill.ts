@@ -3,7 +3,7 @@
  * ClaudeFill.ts — AI gap-filler for digest sections the deterministic
  * fetchers couldn't populate.
  *
- * Spawns ONE `claude --print` subprocess with WebSearch/WebFetch enabled and
+ * Spawns ONE `agy --disable-slash-commands --print` subprocess with WebSearch/WebFetch enabled and
  * asks it to research every empty section in a single pass, returning strict
  * JSON. All output passes deterministic validation before it touches the
  * digest — a malformed or fabricated-looking item is dropped, never persisted.

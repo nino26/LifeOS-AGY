@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
   com.lifeos.healthsync.plist.template - Source template. Install via:
-    bun ~/.claude/LIFEOS/TOOLS/InstallHealthSync.ts
+    bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/InstallHealthSync.ts
   Runs HealthSync pull hourly. The installer substitutes placeholders, writes
   the materialized plist to ~/Library/LaunchAgents/, and bootstraps it with
   launchctl. This template stays clean of principal-specific paths so it ships

@@ -37,7 +37,7 @@ const VOICE_LOG_PATH = paiPath('MEMORY', 'VOICE', 'voice-events.jsonl');
  *      must never reach the speaker, no matter what the model inside it does.
  *   3. Otherwise 'desktop' — terminal/main-session behavior is preserved.
  *
- * Spawner contract: every LifeOS tool that spawns `claude --print` also sets
+ * Spawner contract: every LifeOS tool that spawns `agy --disable-slash-commands --print` also sets
  * LIFEOS_NOTIFICATION_CHANNEL=headless explicitly (Inference.ts, PULSE lib,
  * CarrierProbe), because a headless child spawned FROM a terminal session
  * inherits TERM and would otherwise pass the sniff.

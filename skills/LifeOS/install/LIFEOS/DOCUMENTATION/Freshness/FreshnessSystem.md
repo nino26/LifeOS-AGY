@@ -90,7 +90,7 @@ Statusline FRESH line and `/api/freshness/summary` both surface these grades.
 
 ## Library
 
-Single source: `~/.claude/LIFEOS/TOOLS/TelosFreshness.ts` (named for historical reasons; covers all constitutional files).
+Single source: `~/Projects/LifeOS-AGY/LIFEOS/TOOLS/TelosFreshness.ts` (named for historical reasons; covers all constitutional files).
 
 ```ts
 // TELOS-specific (per-section)
@@ -160,22 +160,22 @@ Override per-installation by editing the `STALENESS_THRESHOLDS` map.
 
 ```bash
 # Per-section TELOS freshness (the original surface)
-bun ~/.claude/LIFEOS/TOOLS/TelosFreshness.ts
-bun ~/.claude/LIFEOS/TOOLS/TelosFreshness.ts --json
-bun ~/.claude/LIFEOS/TOOLS/TelosFreshness.ts --bump goals
+bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/TelosFreshness.ts
+bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/TelosFreshness.ts --json
+bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/TelosFreshness.ts --bump goals
 
 # Multi-file constitutional freshness
-bun ~/.claude/LIFEOS/TOOLS/TelosFreshness.ts context
-bun ~/.claude/LIFEOS/TOOLS/TelosFreshness.ts context --json
+bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/TelosFreshness.ts context
+bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/TelosFreshness.ts context --json
 
 # Content quality audit (read-only)
-bun ~/.claude/LIFEOS/TOOLS/ContextAudit.ts
-bun ~/.claude/LIFEOS/TOOLS/ContextAudit.ts --json
+bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/ContextAudit.ts
+bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/ContextAudit.ts --json
 ```
 
 ## Pulse routes
 
-Pulse module at `~/.claude/LIFEOS/PULSE/modules/telos.ts` exposes the same data over HTTP:
+Pulse module at `~/Projects/LifeOS-AGY/LIFEOS/PULSE/modules/telos.ts` exposes the same data over HTTP:
 
 - `GET /api/telos/freshness` — full TELOS per-section freshness
 - `GET /api/telos/freshness/stale` — TELOS stale sections only
@@ -190,7 +190,7 @@ Response is cached for 60s. Reload via Pulse `/reload` invalidates the cache and
 The statusline FRESH line cannot afford a network call on every refresh (1s interval, blocking on Pulse-down would freeze rendering). `LIFEOS/TOOLS/FreshnessCache.ts` writes a tiny mirror of `/api/freshness/summary` to a private file the statusline reads directly with `jq`.
 
 ```
-~/.claude/LIFEOS/USER/CACHE/freshness.json
+~/Projects/LifeOS-AGY/LIFEOS/USER/CACHE/freshness.json
 ```
 
 The file is private (under `USER/`, never released), atomically written (temp file + rename), shape-identical to `/api/freshness/summary` plus a `generated_at` timestamp, and capped under 4KB.
@@ -216,7 +216,7 @@ Pulse remains the canonical reader for the dashboard; the cache file is the cano
 
 ## Interview integration
 
-`/interview` runs the **ContextCheckin** workflow at `~/.claude/skills/Interview/Workflows/ContextCheckin.md`. Since 2026-08-11 the interview is evidence-grounded: `StateEvidence.ts` caches observed data per domain (`USER/CACHE/state-evidence.json`), `InterviewDue.ts` computes a deterministic due-verdict (`USER/CACHE/interview-due.json`, refreshed daily by launchd `com.lifeos.interviewdue`, rendered as the 🎤 statusline chip), and the conversation opens with claim-vs-evidence contradictions. `InterviewDue.ts --mark-done` at wrap records completion (`MEMORY/STATE/interview.json`) and silences the chip. The workflow:
+`/interview` runs the **ContextCheckin** workflow at `~/Projects/LifeOS-AGY/.agents/skills/Interview/Workflows/ContextCheckin.md`. Since 2026-08-11 the interview is evidence-grounded: `StateEvidence.ts` caches observed data per domain (`USER/CACHE/state-evidence.json`), `InterviewDue.ts` computes a deterministic due-verdict (`USER/CACHE/interview-due.json`, refreshed daily by launchd `com.lifeos.interviewdue`, rendered as the 🎤 statusline chip), and the conversation opens with claim-vs-evidence contradictions. `InterviewDue.ts --mark-done` at wrap records completion (`MEMORY/STATE/interview.json`) and silences the chip. The workflow:
 
 1. Reads `readContextFreshness()` plus `readTelosFreshness()` for the per-section detail, plus `readStateFreshness()` for the dimension files, plus the evidence cache.
 2. Identifies stale files and stale TELOS sections, sorted most-stale-first.

@@ -14,4 +14,4 @@ Skill("ISA", "grill me on $ARGUMENTS")
 
 If `$ARGUMENTS` is empty, ask what idea/plan/decision to grill, then proceed.
 
-Grill walks the design tree one question at a time (recommending an answer each turn, exploring the codebase instead of asking when it can), checkpoints every turn to `~/.claude/LIFEOS/MEMORY/WORK/{slug}/grill.md`, runs a pre-mortem→ISC pass, and hands off to `ISA Scaffold`. Full procedure: `~/.claude/skills/ISA/Workflows/Grill.md`.
+Grill walks the design tree one question at a time (recommending an answer each turn, exploring the codebase instead of asking when it can), checkpoints every turn to `~/Projects/LifeOS-AGY/LIFEOS/MEMORY/WORK/{slug}/grill.md`, runs a pre-mortem→ISC pass, and hands off to `ISA Scaffold`. Full procedure: `~/Projects/LifeOS-AGY/.agents/skills/ISA/Workflows/Grill.md`.

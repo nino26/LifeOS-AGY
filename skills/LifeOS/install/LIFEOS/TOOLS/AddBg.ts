@@ -12,7 +12,7 @@
  *   add-bg input.png "#EAE9DF" output.png
  *   add-bg input.png --ul-brand output.png
  *
- * @see ~/.claude/skills/Art/SKILL.md
+ * @see ~/Projects/LifeOS-AGY/.agents/skills/Art/SKILL.md
  */
 
 import { existsSync } from "node:fs";

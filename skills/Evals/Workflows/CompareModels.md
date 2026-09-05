@@ -46,7 +46,7 @@ models:
 
 ### Step 3: Create Model Comparison Config
 
-Create `~/.claude/skills/Evals/UseCases/<name>/model-comparisons/<comparison-name>.yaml`:
+Create `~/Projects/LifeOS-AGY/.agents/skills/Evals/UseCases/<name>/model-comparisons/<comparison-name>.yaml`:
 
 ```yaml
 model_comparison:
@@ -98,18 +98,18 @@ Run the same suite once per model via `EvalRunner.ts`, then collect the per-run 
 
 ```bash
 # Sequential — three runs, one per model
-bun run ~/.claude/skills/Evals/Tools/EvalRunner.ts -s <use-case>-claude
-bun run ~/.claude/skills/Evals/Tools/EvalRunner.ts -s <use-case>-gpt
-bun run ~/.claude/skills/Evals/Tools/EvalRunner.ts -s <use-case>-gemini
+bun run ~/Projects/LifeOS-AGY/.agents/skills/Evals/Tools/EvalRunner.ts -s <use-case>-claude
+bun run ~/Projects/LifeOS-AGY/.agents/skills/Evals/Tools/EvalRunner.ts -s <use-case>-gpt
+bun run ~/Projects/LifeOS-AGY/.agents/skills/Evals/Tools/EvalRunner.ts -s <use-case>-gemini
 
 # Parallel — same three runs in the background
-bun run ~/.claude/skills/Evals/Tools/EvalRunner.ts -s <use-case>-claude &
-bun run ~/.claude/skills/Evals/Tools/EvalRunner.ts -s <use-case>-gpt &
-bun run ~/.claude/skills/Evals/Tools/EvalRunner.ts -s <use-case>-gemini &
+bun run ~/Projects/LifeOS-AGY/.agents/skills/Evals/Tools/EvalRunner.ts -s <use-case>-claude &
+bun run ~/Projects/LifeOS-AGY/.agents/skills/Evals/Tools/EvalRunner.ts -s <use-case>-gpt &
+bun run ~/Projects/LifeOS-AGY/.agents/skills/Evals/Tools/EvalRunner.ts -s <use-case>-gemini &
 wait
 ```
 
-Each run's `results.json` lands at `~/.claude/LIFEOS/MEMORY/STATE/Evals-Results/<use-case>-<model>/<run-id>/results.json`. Side-by-side comparison is done by reading those JSONs (`jq`) — there is no built-in cross-model comparison CLI in this skill.
+Each run's `results.json` lands at `~/Projects/LifeOS-AGY/LIFEOS/MEMORY/STATE/Evals-Results/<use-case>-<model>/<run-id>/results.json`. Side-by-side comparison is done by reading those JSONs (`jq`) — there is no built-in cross-model comparison CLI in this skill.
 5. View side-by-side results
 
 ### Step 5: Collect Results
@@ -123,10 +123,10 @@ Results stored in:
 Use Report template:
 
 ```bash
-bun run ~/.claude/skills/Prompting/Tools/RenderTemplate.ts \
+bun run ~/Projects/LifeOS-AGY/.agents/skills/Prompting/Tools/RenderTemplate.ts \
   -t Evals/Report.hbs \
-  -d ~/.claude/LIFEOS/MEMORY/STATE/Evals-Results/<use-case>/models/<run-id>/summary.yaml \
-  -o ~/.claude/LIFEOS/MEMORY/STATE/Evals-Results/<use-case>/models/<run-id>/report.md
+  -d ~/Projects/LifeOS-AGY/LIFEOS/MEMORY/STATE/Evals-Results/<use-case>/models/<run-id>/summary.yaml \
+  -o ~/Projects/LifeOS-AGY/LIFEOS/MEMORY/STATE/Evals-Results/<use-case>/models/<run-id>/report.md
 ```
 
 ### Step 7: Analyze Results

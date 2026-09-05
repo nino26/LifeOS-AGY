@@ -156,7 +156,7 @@ const LEVEL_CONFIG: Record<InferenceLevel, { model: string; defaultTimeout: numb
  * (keyed by executed model id). The integrity primitive behind executed-model
  * verification: the system reports what RAN, not what it requested.
  *
- * How the answer model is identified: Claude Code fires a background haiku pass
+ * How the answer model is identified: Antigravity CLI fires a background haiku pass
  * (conversation title / summary) on every turn that SHARES this envelope and can
  * carry MORE input AND output tokens than a short answer (observed: haiku 528 in
  * / 11 out vs the fable answer 179 in / 13 out). So we FILTER haiku first (unless
@@ -170,7 +170,7 @@ export function verifyExecutedModel(modelUsage: unknown, expectedTier: string): 
   if (!modelUsage || typeof modelUsage !== 'object') return {};
   const keys = Object.keys(modelUsage as Record<string, unknown>);
   if (keys.length === 0) return {};
-  // Background utility model in Claude Code is haiku (title/summary). Filter it so
+  // Background utility model in Antigravity CLI is haiku (title/summary). Filter it so
   // it can't be mistaken for the answer — UNLESS haiku was the requested tier.
   const answerKeys = expectedTier === 'haiku' ? keys : keys.filter((k) => !k.includes('haiku'));
   const pool = answerKeys.length > 0 ? answerKeys : keys; // only-haiku (downgrade-to-haiku) edge
@@ -211,14 +211,14 @@ async function inferenceAttempt(options: InferenceOptions, modelOverride?: strin
 
   return new Promise((resolve) => {
     // Unset CLAUDECODE so nested `claude` invocations don't trigger the
-    // nested-session guard (hooks run inside Claude Code's environment).
+    // nested-session guard (hooks run inside Antigravity CLI's environment).
     const env = { ...process.env };
     delete env.CLAUDECODE;
 
     // BILLING: Always use subscription. Anthropic's credential precedence chain
     // (https://code.claude.com/docs/en/authentication#authentication-precedence)
     // puts BOTH ANTHROPIC_API_KEY and ANTHROPIC_AUTH_TOKEN above CLAUDE_CODE_OAUTH_TOKEN,
-    // so either one in env will silently override OAuth. Bun auto-loads ~/.claude/.env
+    // so either one in env will silently override OAuth. Bun auto-loads ~/Projects/LifeOS-AGY/.env
     // into child processes, and some MCP/plugin setups export ANTHROPIC_AUTH_TOKEN —
     // either path leaks subscription work onto API-key billing. Scrub both.
     delete env.ANTHROPIC_API_KEY;
@@ -277,7 +277,7 @@ async function inferenceAttempt(options: InferenceOptions, modelOverride?: strin
       stdio: ['pipe', 'pipe', 'pipe'],
     });
 
-    // #1158: `claude --print` parses a leading-slash prompt ("/interview") as a
+    // #1158: `agy --disable-slash-commands --print` parses a leading-slash prompt ("/interview") as a
     // CLI slash command → "Unknown command: /X" → downstream JSON-parse failure.
     // Prefix such prompts so they always reach the model as plain text. Guards
     // every caller (router classifier included), not just one call site.

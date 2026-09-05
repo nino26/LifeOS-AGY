@@ -615,7 +615,7 @@ async function generateNarrativeWithAI(
     .map(c => `- ${c.path} (${c.category || 'other'})`)
     .join('\n');
 
-  const prompt = `You are analyzing a Claude Code session to generate documentation for a LifeOS system update.
+  const prompt = `You are analyzing a Antigravity CLI session to generate documentation for a LifeOS system update.
 
 ## Session Transcript (most recent messages)
 ${contextSummary}
@@ -653,7 +653,7 @@ Return ONLY the JSON object, no other text.`;
   try {
     console.error('[IntegrityMaintenance] Calling inference tool for narrative generation...');
 
-    const systemPrompt = 'You are analyzing a Claude Code session to generate documentation. Return ONLY valid JSON, no other text.';
+    const systemPrompt = 'You are analyzing a Antigravity CLI session to generate documentation. Return ONLY valid JSON, no other text.';
 
     const result = await inference({
       systemPrompt,
@@ -722,7 +722,7 @@ async function generateVerboseNarrative(
         future_impact: aiNarrative.future_impact,
         future_bullets: aiNarrative.future_bullets,
         verification_steps: aiNarrative.verification_steps,
-        verification_commands: [`ls -t ~/.claude/LIFEOS/MEMORY/SYSTEMUPDATES | head`],
+        verification_commands: [`ls -t ~/Projects/LifeOS-AGY/LIFEOS/MEMORY/SYSTEMUPDATES | head`],
         confidence: 'high',
       },
       aiTitle: aiNarrative.title,
@@ -752,7 +752,7 @@ async function generateVerboseNarrative(
       future_impact: `The ${changeType.replace('_', ' ')} will use updated behavior.`,
       future_bullets: ['Changes are active for future sessions'],
       verification_steps: ['Changes applied via automatic detection'],
-      verification_commands: [`ls -t ~/.claude/LIFEOS/MEMORY/SYSTEMUPDATES | head`],
+      verification_commands: [`ls -t ~/Projects/LifeOS-AGY/LIFEOS/MEMORY/SYSTEMUPDATES | head`],
       confidence: 'medium',
     },
   };

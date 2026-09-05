@@ -35,7 +35,7 @@ Three doctrinal moves collapsed earlier redundancy into the structure above:
 
 1. **Goal is not a mode** — it's a frontmatter property (`principal_stated_goal:`) on any Algorithm run. Captured automatically when the classifier detects GOAL_SIGNAL (v6.4.0). Every Loop run has one (mandatory). Most Iterate/Optimize/Ideate runs have one when the user states an explicit goal. Surfaced in Pulse via a filter pill (planned), not a separate tab.
 
-2. **Loop absorbed Goal** — `/loop` and Claude Code's native `/goal` were two names for the same primitive: *"iterate toward a stated end-state."* Differences were vocabulary (target vs condition) and halt shape (count cap vs predicate) — both expressions of the same axis. The unified primitive lives in [`loop.md`](loop.md).
+2. **Loop absorbed Goal** — `/loop` and Antigravity CLI's native `/goal` were two names for the same primitive: *"iterate toward a stated end-state."* Differences were vocabulary (target vs condition) and halt shape (count cap vs predicate) — both expressions of the same axis. The unified primitive lives in [`loop.md`](loop.md).
 
 3. **Modes are skills are doctrine** — when they describe a cognitive pattern, the three surfaces (skill file, mode value, doctrine file) are different *views* of the same thing. Skills become thin router stubs; doctrine lives in this directory; mode frontmatter is the runtime marker. One source per layer.
 
@@ -110,8 +110,8 @@ E-level sets the tier; mode sets the execution pattern. Both can be set simultan
 - Pulse tab source of truth: `LIFEOS/PULSE/Observability/src/app/agents/page.tsx` lines 23-30
 - Dashboard components: `LIFEOS/PULSE/Observability/src/components/activity/{UnifiedWorkDashboard,OptimizeDashboard,LoopDashboard,NativeDashboard,NoveltyDashboard}.tsx`
 - Ladder page: `LIFEOS/PULSE/Observability/src/app/ladder/page.tsx`
-- Loop skill: `~/.claude/skills/Loop/SKILL.md`
-- Ideate skill (router stub): `~/.claude/skills/Ideate/SKILL.md`
+- Loop skill: `~/Projects/LifeOS-AGY/.agents/skills/Loop/SKILL.md`
+- Ideate skill (router stub): `~/Projects/LifeOS-AGY/.agents/skills/Ideate/SKILL.md`
 - Parameter schema: `../parameter-schema.md`
 - Capabilities: the system-prompt skill list is the sole inventory (capabilities.md removed at v7.0.0)
 - Target types: `../target-types.md`

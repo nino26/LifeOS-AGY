@@ -1,6 +1,6 @@
 # Handoff Bundle Specification
 
-Reference for the structure and semantics of a Claude Design → Claude Code handoff bundle.
+Reference for the structure and semantics of a Claude Design → Antigravity CLI handoff bundle.
 
 ## Bundle Layout
 
@@ -196,10 +196,10 @@ Claude Design emits framework-specific files depending on the `framework` field:
 
 ## Bundle Validation
 
-Before feeding a bundle to Claude Code, validate structure:
+Before feeding a bundle to Antigravity CLI, validate structure:
 
 ```bash
-bun ~/.claude/skills/Webdesign/Tools/ProcessHandoffBundle.ts <bundle-dir>
+bun ~/Projects/LifeOS-AGY/.agents/skills/Webdesign/Tools/ProcessHandoffBundle.ts <bundle-dir>
 ```
 
 The tool checks:
@@ -216,7 +216,7 @@ Two paths:
 
 ### Path A — Full code generation (ExportToCode workflow)
 
-Feed the bundle to Claude Code. The `frontend-design` plugin auto-activates, reads PROMPT.md, applies tokens.json, and produces production code.
+Feed the bundle to Antigravity CLI. The `frontend-design` plugin auto-activates, reads PROMPT.md, applies tokens.json, and produces production code.
 
 ### Path B — Integration into existing app (IntegrateIntoApp workflow)
 

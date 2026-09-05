@@ -7,7 +7,7 @@
  * than Markdown because models are less likely to corrupt structured data.
  *
  * Usage:
- *   bun run ~/.claude/Tools/FeatureRegistry.ts <command> [options]
+ *   bun run ~/Projects/LifeOS-AGY/Tools/FeatureRegistry.ts <command> [options]
  *
  * Commands:
  *   init <project>              Initialize feature registry for project

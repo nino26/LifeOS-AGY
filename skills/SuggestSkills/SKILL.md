@@ -11,7 +11,7 @@ A read-only analytics pass over your own work. It answers one question: given wh
 ## Customization
 
 **Before executing, check for user customizations at:**
-`~/.claude/LIFEOS/USER/CUSTOMIZATIONS/SKILLS/SuggestSkills/`
+`~/Projects/LifeOS-AGY/LIFEOS/USER/CUSTOMIZATIONS/SKILLS/SuggestSkills/`
 
 If this directory exists, load and apply any PREFERENCES.md found there (default window, store paths, review location). If not, proceed with defaults.
 

@@ -244,7 +244,7 @@ Difficulty is read off the claims and their evidence gates, not guessed from a l
 
 - **The Algorithm file (the contract):** `LIFEOS/ALGORITHM/LATEST` → `v{LATEST}.md` · changelog: `LIFEOS/ALGORITHM/changelog.md`
 - **The ISA (the artifact):** `LIFEOS/DOCUMENTATION/ISA/ISASystem.md` · format: `ISA/ISAFormat.md` · hierarchy: `ISA/ISAHierarchy.md`
-- **ISA skill:** `~/.claude/skills/ISA/SKILL.md`
+- **ISA skill:** `~/Projects/LifeOS-AGY/.agents/skills/ISA/SKILL.md`
 - **LifeOS thesis (the loop at OS scale):** `LIFEOS/DOCUMENTATION/LifeOs/LifeOsThesis.md`
 - **Ideal-state prompting doctrine:** `LIFEOS/RULES/Philosophy.md` § Ideal-State Prompting
 - **Hooks (the teeth):** `LIFEOS/DOCUMENTATION/Hooks/HookSystem.md`

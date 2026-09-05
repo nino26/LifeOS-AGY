@@ -2,9 +2,9 @@
 /**
  * InstallBlogDiscovery.ts — Materialize com.lifeos.blogdiscovery.plist.template and bootstrap it.
  *
- *   bun ~/.claude/LIFEOS/TOOLS/InstallBlogDiscovery.ts             # install
- *   bun ~/.claude/LIFEOS/TOOLS/InstallBlogDiscovery.ts --uninstall # remove
- *   bun ~/.claude/LIFEOS/TOOLS/InstallBlogDiscovery.ts --status    # check
+ *   bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/InstallBlogDiscovery.ts             # install
+ *   bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/InstallBlogDiscovery.ts --uninstall # remove
+ *   bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/InstallBlogDiscovery.ts --status    # check
  *
  * Runs BlogDiscovery harvest once a day (04:30), queueing new indie-blog
  * candidates for review. Promotion to the feed stays manual (`approve`).

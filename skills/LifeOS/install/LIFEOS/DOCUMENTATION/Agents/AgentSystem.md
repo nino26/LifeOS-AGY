@@ -60,7 +60,7 @@ Agent({ subagent_type: "general-purpose", prompt: "You are a skeptical UX critic
 | (Cross-vendor audit, OPTIONAL — Algorithm's discretion) | Forge in audit mode (read-only, OpenAI lineage) | `Agent({ subagent_type: "Forge", prompt: "MODE: audit\n…" })` |
 | (Heavy analysis on a hard problem, OR scrutiny on super-sensitive work: public releases, security boundaries, irreversible actions, OR named "Max") | Max (Anthropic top rung via the `fable` alias, read-only) | `Agent({ subagent_type: "Max" })` |
 | (Architecture/design) | `general-purpose` + system-design brief | `Agent({ subagent_type: "general-purpose", prompt: "System design / distributed systems. …" })` |
-| (Claude Code hooks, settings, commands, MCP, agents, API) | Claude Code Guide | `Agent({ subagent_type: "claude-code-guide" })` — verify latest features before implementing |
+| (Antigravity CLI hooks, settings, commands, MCP, agents, API) | Antigravity CLI Guide | `Agent({ subagent_type: "claude-code-guide" })` — verify latest features before implementing |
 
 ### Custom Agent Creation Flow
 
@@ -83,7 +83,7 @@ Agent({ subagent_type: "general-purpose", prompt: "You are an analytical, synthe
 
 **These are NOT for user-requested custom/specialized agents.** When the user asks for specialized agents, custom agents, or agents with unique perspectives, write an inline brief and launch with `general-purpose` (as Council/RedTeam/Ideate do). See Routing Rules above.
 
-These are the types available to the **Agent** tool — built-ins plus the file-backed agents in `~/.claude/agents/`. The dispatch tool is `Agent(...)`; the older `Task(...)` call is retired and blocked by the `/ic` `retired-tokens` gate.
+These are the types available to the **Agent** tool — built-ins plus the file-backed agents in `~/Projects/LifeOS-AGY/agents/`. The dispatch tool is `Agent(...)`; the older `Task(...)` call is retired and blocked by the `/ic` `retired-tokens` gate.
 
 | Subagent Type | Purpose | When Used |
 |---------------|---------|-----------|
@@ -92,7 +92,7 @@ These are the types available to the **Agent** tool — built-ins plus the file-
 | `Plan` | Implementation planning | Plan mode |
 | `Forge` | Cross-vendor coder + auditor (OpenAI lineage via `codex exec`; model resolved from `CROSS_VENDOR` in models.ts) — `MODE: build` writes production code, `MODE: audit` is the read-only cross-vendor VERIFY pass (folded in the former Cato agent) | Production-grade code; optional cross-vendor audit on high-impact work (Algorithm's discretion — effort tiers were retired 2026-07-11) |
 | `Max` | Anthropic-family deep-analysis agent (top rung via the `fable` alias; Edit/Write denied at the permission layer). Shares one personality with Forge — inlined byte-identically in both agent files, held there by the `/ic` `agent-shared-blocks` gate, so the two characters cannot drift | Genuinely hard analysis, and the added scrutiny pass on super-sensitive work (public LifeOS releases, security boundaries, irreversible actions). On public-or-permanent work, run alongside Forge: Max brings depth, Forge brings a different vendor's distribution |
-| `claude-code-guide` | Claude Code knowledge (hooks, settings, slash commands, MCP, agent types, keybindings, IDE, Agent SDK, Claude API) | Any task involving Claude Code internals — freshness check before implementing |
+| `claude-code-guide` | Antigravity CLI knowledge (hooks, settings, slash commands, MCP, agent types, keybindings, IDE, Agent SDK, Claude API) | Any task involving Antigravity CLI internals — freshness check before implementing |
 | `ClaudeResearcher` | Ava Sterling — academic/scholarly research via Claude WebSearch; query decomposition, strategic framing | Research skill workflows |
 | `GeminiResearcher` | Alex Rivera — multi-perspective research via `GeminiSearch.ts` (REST + Search grounding; the `gemini` CLI cannot auth non-interactively here); 3–10 angles, stress-tested conclusions. Research lane only (trusted-vendor rule keeps reasoning/audit on Anthropic + OpenAI) | Research skill workflows |
 | `PerplexityResearcher` | Ava Chen — investigative research via `LIFEOS/TOOLS/PerplexitySearch.ts`; source credibility, evidence trail | Research skill workflows |
@@ -171,13 +171,13 @@ Agent({
 
 ## Knowledge Archive Access
 
-Agents can query the **Knowledge Archive** (`~/.claude/LIFEOS/MEMORY/KNOWLEDGE/`) for accumulated knowledge organized by 4 entity types: People (human beings), Companies (organizations), Ideas (insights/theses/analyses), Research (longer-form research notes). Topic is a tag, not a domain. Managed by Algorithm LEARN phase (direct writes), `LIFEOS/TOOLS/KnowledgeHarvester.ts` (validation/maintenance), and the `/knowledge` skill. Particularly useful for research agents and custom agents composed with specialized traits.
+Agents can query the **Knowledge Archive** (`~/Projects/LifeOS-AGY/LIFEOS/MEMORY/KNOWLEDGE/`) for accumulated knowledge organized by 4 entity types: People (human beings), Companies (organizations), Ideas (insights/theses/analyses), Research (longer-form research notes). Topic is a tag, not a domain. Managed by Algorithm LEARN phase (direct writes), `LIFEOS/TOOLS/KnowledgeHarvester.ts` (validation/maintenance), and the `/knowledge` skill. Particularly useful for research agents and custom agents composed with specialized traits.
 
 ---
 
 ## Managed Agents (Cloud API)
 
-Anthropic's hosted agent service for long-horizon, unattended work. **Separate from Claude Code** — runs on Anthropic's cloud infrastructure with durable sessions and sandboxed execution.
+Anthropic's hosted agent service for long-horizon, unattended work. **Separate from Antigravity CLI** — runs on Anthropic's cloud infrastructure with durable sessions and sandboxed execution.
 
 **Status:** Beta. All API accounts have access. Beta header: `anthropic-beta: managed-agents-2026-04-01` (SDK handles automatically).
 **Pricing:** Standard token costs + $0.08/active session-hour (pro-rated).
@@ -299,7 +299,7 @@ The diagram is the routing table collapsed to the one question that matters at e
 
 ## References
 
-- **Master Architecture:** `~/.claude/LIFEOS/DOCUMENTATION/LifeosSystemArchitecture.md` — authoritative system-of-systems reference
+- **Master Architecture:** `~/Projects/LifeOS-AGY/LIFEOS/DOCUMENTATION/LifeosSystemArchitecture.md` — authoritative system-of-systems reference
 - **Agent Personalities:** Individual `agents/*.md` files — Named agent backstories and voice settings
 - **Managed Agents:** https://www.anthropic.com/engineering/managed-agents — Anthropic cloud agent API
 

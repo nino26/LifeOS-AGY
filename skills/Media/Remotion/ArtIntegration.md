@@ -6,7 +6,7 @@
 
 1. **Load Art preferences:**
    ```
-   ~/.claude/PAI/USER/SKILLCUSTOMIZATIONS/Art/PREFERENCES.md
+   ~/Projects/LifeOS-AGY/PAI/USER/SKILLCUSTOMIZATIONS/Art/PREFERENCES.md
    ```
 
 2. **Apply the PAI Theme** derived from Art preferences:
@@ -21,18 +21,18 @@
 
 3. **Use Theme Constants:**
    ```
-   ~/.claude/skills/Remotion/Tools/Theme.ts
+   ~/Projects/LifeOS-AGY/.agents/skills/Remotion/Tools/Theme.ts
    ```
 
 4. **Reference images** (when visual style reference needed):
    ```
-   ~/.claude/skills/Media/Art/Examples/
+   ~/Projects/LifeOS-AGY/.agents/skills/Media/Art/Examples/
    ```
 
 ## PAI Theme Quick Reference
 
 ```typescript
-import { PAI_THEME } from '~/.claude/skills/Remotion/Tools/Theme'
+import { PAI_THEME } from '~/Projects/LifeOS-AGY/.agents/skills/Remotion/Tools/Theme'
 
 // Colors
 PAI_THEME.colors.background    // #0f172a - Deep slate
@@ -59,7 +59,7 @@ PAI_THEME.spacing.element      // 30px between elements
 ## Using the Theme in Components
 
 ```typescript
-import { PAI_THEME, titleScreenStyle, fadeInterpolation } from '~/.claude/skills/Remotion/Tools/Theme'
+import { PAI_THEME, titleScreenStyle, fadeInterpolation } from '~/Projects/LifeOS-AGY/.agents/skills/Remotion/Tools/Theme'
 
 export const MyScene: React.FC = () => {
   const frame = useCurrentFrame()

@@ -243,14 +243,14 @@ Task({ subagent_type: "GrokResearcher", prompt: "Final verification sweep for [c
 ## File Organization
 
 ```
-~/.claude/MEMORY/WORK/$(jq -r '.work_dir' ~/.claude/MEMORY/STATE/current-work.json)/YYYY-MM-DD-HHMMSS_due-diligence-[company]/
+~/Projects/LifeOS-AGY/MEMORY/WORK/$(jq -r '.work_dir' ~/Projects/LifeOS-AGY/MEMORY/STATE/current-work.json)/YYYY-MM-DD-HHMMSS_due-diligence-[company]/
   phase1-domains.md
   phase2-technical.md
   phase3-research.md
   phase4-vetting.md
   phase5-report.md
 
-~/.claude/History/research/YYYY-MM/[company]-due-diligence/
+~/Projects/LifeOS-AGY/History/research/YYYY-MM/[company]-due-diligence/
   comprehensive-report.md
   risk-assessment.md
   metadata.json

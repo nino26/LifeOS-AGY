@@ -47,7 +47,7 @@ export function parseHookStdin(raw: string): Validated<Record<string, unknown>> 
   return { ok: true, value: parsed };
 }
 
-/** The fields common to every Claude Code hook event. */
+/** The fields common to every Antigravity CLI hook event. */
 export interface BaseHookInput {
   session_id: string;
   transcript_path: string;

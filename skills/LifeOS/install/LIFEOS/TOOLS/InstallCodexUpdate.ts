@@ -2,9 +2,9 @@
 /**
  * InstallCodexUpdate.ts — Materialize com.lifeos.codexupdate.plist.template and bootstrap it.
  *
- *   bun ~/.claude/LIFEOS/TOOLS/InstallCodexUpdate.ts             # install
- *   bun ~/.claude/LIFEOS/TOOLS/InstallCodexUpdate.ts --uninstall # remove
- *   bun ~/.claude/LIFEOS/TOOLS/InstallCodexUpdate.ts --status    # check
+ *   bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/InstallCodexUpdate.ts             # install
+ *   bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/InstallCodexUpdate.ts --uninstall # remove
+ *   bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/InstallCodexUpdate.ts --status    # check
  *
  * Reads $HOME, substitutes {{HOME}}/{{BUN}}/{{BUN_DIR}} in the template, writes
  * ~/Library/LaunchAgents/com.lifeos.codexupdate.plist, and runs `launchctl bootstrap`.

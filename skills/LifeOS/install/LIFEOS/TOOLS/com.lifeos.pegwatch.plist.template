@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
   com.lifeos.pegwatch.plist.template - Source template. Install via:
-    bun ~/.claude/LIFEOS/TOOLS/InstallPegWatch.ts
+    bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/InstallPegWatch.ts
   Runs PegWatch.ts every 960s: pegged-CPU/GPU detection with cause heuristics
   and a silent Pulse banner on findings. Template stays clean of
   principal-specific paths so it ships in the public LifeOS release.

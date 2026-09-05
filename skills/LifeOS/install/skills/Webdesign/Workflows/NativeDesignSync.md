@@ -1,6 +1,6 @@
 # NativeDesignSync
 
-First-party Claude Design ↔ Claude Code sync via the native `/design` and `/design-sync` commands. This is **Path 2** — the preferred route for any code-bound design work. It replaces the hand-rolled Interceptor handoff-bundle apparatus (Path 3).
+First-party Claude Design ↔ Antigravity CLI sync via the native `/design` and `/design-sync` commands. This is **Path 2** — the preferred route for any code-bound design work. It replaces the hand-rolled Interceptor handoff-bundle apparatus (Path 3).
 
 ## Trigger Phrases
 
@@ -8,11 +8,11 @@ First-party Claude Design ↔ Claude Code sync via the native `/design` and `/de
 
 ## What These Commands Are
 
-Anthropic shipped both commands inside Claude Code in the June 2026 Claude Design update. GA on Pro, Max, Team, and Enterprise at no extra cost. Official reference: `support.claude.com/en/articles/14604416-get-started-with-claude-design`.
+Anthropic shipped both commands inside Antigravity CLI in the June 2026 Claude Design update. GA on Pro, Max, Team, and Enterprise at no extra cost. Official reference: `support.claude.com/en/articles/14604416-get-started-with-claude-design`.
 
 | Command | What it does |
 |---------|-------------|
-| **`/design`** | Create, edit, and sync designs from inside the Claude Code terminal — no switch to the web app or desktop sidebar. |
+| **`/design`** | Create, edit, and sync designs from inside the Antigravity CLI terminal — no switch to the web app or desktop sidebar. |
 | **`/design-sync`** | Bidirectional sync between the codebase and Claude Design. **Pull:** import the local codebase's real design system into Claude Design so generated designs use your actual components and tokens. **Push:** sync implemented code changes back into Claude Design so the canvas stays current. |
 
 ## Why This Path Wins for Code Work
@@ -24,10 +24,10 @@ The whole point of the old Path 3 bundle apparatus (`ExtractDesignSystem` → `C
 ### 1. Preflight
 
 ```bash
-claude --version    # ensure a current build; if /design* is missing, run /update inside Claude Code
+claude --version    # ensure a current build; if /design* is missing, run /update inside Antigravity CLI
 ```
 
-The commands appear only on a current Claude Code with a Claude Design–enabled subscription. If they don't show, run `/update`.
+The commands appear only on a current Antigravity CLI with a Claude Design–enabled subscription. If they don't show, run `/update`.
 
 ### 2. Pull the codebase design system into Claude Design
 
@@ -52,7 +52,7 @@ Native sync does not exempt you from the skill's verification standard. For any 
 
 ## Gotchas
 
-- **These are Claude Code CLI commands, not LifeOS skills or REST APIs.** There is still no public Claude Design REST API or MCP server — the CLI commands are the programmatic surface.
+- **These are Antigravity CLI CLI commands, not LifeOS skills or REST APIs.** There is still no public Claude Design REST API or MCP server — the CLI commands are the programmatic surface.
 - **Subscription-gated.** Free tier has no Claude Design access; the commands won't function.
-- **`/update` if missing.** The single most common "the command doesn't exist" cause is a stale Claude Code build.
+- **`/update` if missing.** The single most common "the command doesn't exist" cause is a stale Antigravity CLI build.
 - **Sync direction is explicit.** `/design-sync` is bidirectional — be deliberate about pull (code → Claude Design) vs push (Claude Design → code) so you don't overwrite the side you meant to keep.

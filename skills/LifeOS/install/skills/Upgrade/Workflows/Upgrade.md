@@ -30,10 +30,10 @@ To ground Prior Status tags, the run needs verified current state before synthes
 
 ## Constraints
 
-- **The source sweep runs as a script, not as loose dispatches.** `~/.claude/workflows/UpgradeFanout.js` owns the deadline, the fail-open behaviour, and the return shape; invoke it with `Workflow({scriptPath: "~/.claude/workflows/UpgradeFanout.js", args: {sources: [{key, model, prompt}], groundingBrief}})`. Each source's brief still lives here, because this file is the source of truth for what a source is and how it is fetched — the script only orchestrates. It returns `{findings, coverage, grounding, totals}`; the report is still written by me, since the output format is a voice contract a script can't hold. Two contract facts learned the hard way (2026-08-06): `args` arrives as a JSON **string** even when passed as a JSON value, and `AbortSignal` does not exist in the runtime.
+- **The source sweep runs as a script, not as loose dispatches.** `~/Projects/LifeOS-AGY/workflows/UpgradeFanout.js` owns the deadline, the fail-open behaviour, and the return shape; invoke it with `Workflow({scriptPath: "~/Projects/LifeOS-AGY/workflows/UpgradeFanout.js", args: {sources: [{key, model, prompt}], groundingBrief}})`. Each source's brief still lives here, because this file is the source of truth for what a source is and how it is fetched — the script only orchestrates. It returns `{findings, coverage, grounding, totals}`; the report is still written by me, since the output format is a voice contract a script can't hold. Two contract facts learned the hard way (2026-08-06): `args` arrives as a JSON **string** even when passed as a JSON value, and `AbortSignal` does not exist in the runtime.
 - **Deadline is a ceiling:** ~4 minutes, fail-open, enforced by the script. A source that times out or dies comes back in `coverage` with that status and is reported as `⏳ timed out` in Sources Processed. Never re-fire a slow agent.
 - **Fan-out ~8 agents.** Delegates get explicit models per the operative model-selection rules. GitHub trending is inspiration-only — shortest budget, first to drop.
-- **Claude Code internals get verified, not recalled:** anything touching hooks, settings, slash commands, MCP, agent types, or the SDK/API goes through `Agent(subagent_type="claude-code-guide")` against the live surface.
+- **Antigravity CLI internals get verified, not recalled:** anything touching hooks, settings, slash commands, MCP, agent types, or the SDK/API goes through `Agent(subagent_type="claude-code-guide")` against the live surface.
 - **Recommendations must not break existing skills, hooks, or workflows** — check compatibility before recommending adoption.
 
 ## Tool Contracts
@@ -45,7 +45,7 @@ See `SKILL.md` § Sources & Tools for the full table (Anthropic.ts, yt-dlp, GetT
 Recommendations are no longer ephemeral. Before delivering the report, write every 🔴/🟠/🟡 recommendation as one record in the Upgrades store:
 
 ```bash
-bun ~/.claude/LIFEOS/TOOLS/Upgrades.ts add --source upgrade-skill \
+bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/Upgrades.ts add --source upgrade-skill \
   --claim "<one-sentence recommendation>" \
   --current "<what the system does today>" \
   --recommendation "<the proposed encoding>" \
@@ -53,7 +53,7 @@ bun ~/.claude/LIFEOS/TOOLS/Upgrades.ts add --source upgrade-skill \
   --confidence <0-1> --evidence "<source URL or report ref>"
 ```
 
-The store dedups by claim hash — re-running a scan never double-writes. Prior-Status grounding gains a source: check `bun ~/.claude/LIFEOS/TOOLS/Upgrades.ts list --json` for already-rejected (🚫) or already-applied (💬) claims alongside the existing `MEMORY/KNOWLEDGE/REJECTED/` check. Records surface in Pulse `/upgrades`; the applied half lands in the Ledger via `CreateUpdate.ts --upgrade-id`.
+The store dedups by claim hash — re-running a scan never double-writes. Prior-Status grounding gains a source: check `bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/Upgrades.ts list --json` for already-rejected (🚫) or already-applied (💬) claims alongside the existing `MEMORY/KNOWLEDGE/REJECTED/` check. Records surface in Pulse `/upgrades`; the applied half lands in the Ledger via `CreateUpdate.ts --upgrade-id`.
 
 ## Registry Feedback
 

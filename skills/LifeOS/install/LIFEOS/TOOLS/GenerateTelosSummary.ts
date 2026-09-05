@@ -3,10 +3,10 @@
  * GenerateTelosSummary.ts — Reads TELOS source files and generates a compressed
  * ~60-line summary for boot context loading.
  *
- * Usage: bun run ~/.claude/LIFEOS/TOOLS/GenerateTelosSummary.ts
+ * Usage: bun run ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/GenerateTelosSummary.ts
  *
- * Reads from: ~/.claude/LIFEOS/USER/TELOS/*.md (source files)
- * Writes to:  ~/.claude/LIFEOS/USER/TELOS/PRINCIPAL_TELOS.md
+ * Reads from: ~/Projects/LifeOS-AGY/LIFEOS/USER/TELOS/*.md (source files)
+ * Writes to:  ~/Projects/LifeOS-AGY/LIFEOS/USER/TELOS/PRINCIPAL_TELOS.md
  *
  * Design decisions (from Council debate 2026-03-26):
  * - Generated, never hand-authored (Reed's precondition)

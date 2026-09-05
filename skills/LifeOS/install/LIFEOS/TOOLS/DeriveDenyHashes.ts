@@ -4,9 +4,9 @@
  * leak filter, so the guard can block private data appearing in shipping code
  * WITHOUT the filter ever containing that data in the clear.
  *
- *   bun ~/.claude/LIFEOS/TOOLS/DeriveDenyHashes.ts            # regenerate DENY_HASHES.json
- *   bun ~/.claude/LIFEOS/TOOLS/DeriveDenyHashes.ts --dry-run  # counts only, write nothing
- *   bun ~/.claude/LIFEOS/TOOLS/DeriveDenyHashes.ts --show-tokens  # LOCAL review: print derived
+ *   bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/DeriveDenyHashes.ts            # regenerate DENY_HASHES.json
+ *   bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/DeriveDenyHashes.ts --dry-run  # counts only, write nothing
+ *   bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/DeriveDenyHashes.ts --show-tokens  # LOCAL review: print derived
  *                                                                  # plaintext tokens (never persisted)
  *
  * WHY THIS EXISTS: the hand-maintained DENY_LIST.txt is a BLOCKLIST — it only
@@ -19,7 +19,7 @@
  *
  * OUTPUT: LIFEOS/USER/SECURITY/DENY_HASHES.json (USER tree -> excluded from release):
  *   { version, algo, ngramSizes, count, hashes: ["<hex>", ...] }   <- hashes only, no plaintext.
- * SALT: ~/.claude/.env `DENYLIST_SALT` (generated once; never ships). The guard reads
+ * SALT: ~/Projects/LifeOS-AGY/.env `DENYLIST_SALT` (generated once; never ships). The guard reads
  *   the same salt to reproduce hashes at scan time.
  *
  * FALSE-POSITIVE CONTROL is entirely on THIS side: only distinctive proper-noun-ish

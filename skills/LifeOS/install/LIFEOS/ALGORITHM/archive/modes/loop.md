@@ -128,7 +128,7 @@ When `mode: loop`, the ISA gains a `## Iteration History` section. Each iteratio
 - Summary (80 tokens): Auth retry implemented and verified for callsite B. ...
 ```
 
-This section is what makes fresh-context-per-iteration work — each fresh `claude -p` subprocess reads the last 1-2 entries from THIS section, not the full transcript.
+This section is what makes fresh-context-per-iteration work — each fresh `agy --disable-slash-commands -p` subprocess reads the last 1-2 entries from THIS section, not the full transcript.
 
 ## The fresh-context substrate (LoopRunner.ts — next ISA)
 
@@ -144,7 +144,7 @@ while not halted:
      - last 1-2 iteration summaries from ## Iteration History
      - dead ends (if any)
      - explicit instruction to do ONE iteration at bounded budget
-  4. spawn fresh `claude -p <directive>` subprocess (via Inference.ts pattern)
+  4. spawn fresh `agy --disable-slash-commands -p <directive>` subprocess (via Inference.ts pattern)
   5. parse subprocess output for ISA updates
   6. apply updates: tick ISCs, append iteration summary, increment iteration, write
   7. halt detection: Haiku call (fast tier) reading ISA state
@@ -177,7 +177,7 @@ The ID-stability rule (v6.5.0) is preserved across iterations: ISC IDs never re-
 |----------------|-----------------|
 | `/loop --target X --goal "<text>"` | `mode: loop` ISA with `principal_stated_goal: "<text>"` (same substrate until LoopRunner.ts ships) |
 | `/loop --autoresearch` | `mode: loop` with `supervision: autonomous`, `halt.asymptote` set |
-| Claude Code's native `/goal` | aliased to Loop mode with `halt.condition` filled from /goal text |
+| Antigravity CLI's native `/goal` | aliased to Loop mode with `halt.condition` filled from /goal text |
 | Concept "Goal mode" | deleted — never exists; Loop with a goal IS goal mode |
 
 ## Cross-references
@@ -185,6 +185,6 @@ The ID-stability rule (v6.5.0) is preserved across iterations: ISC IDs never re-
 - All modes: [`README.md`](README.md)
 - Goal anchor mechanism: `../v6.5.0.md` § "Principal-Stated Goal"
 - Density gate (one-question pattern): `../v6.5.0.md` § "Density × Tier Gate"
-- Loop skill (router): `~/.claude/skills/Loop/SKILL.md`
+- Loop skill (router): `~/Projects/LifeOS-AGY/.agents/skills/Loop/SKILL.md`
 - LoopRunner.ts (pending): LIFEOS/TOOLS/LoopRunner.ts — next ISA, not yet on disk
 - Algorithm v6.6.0 doctrine bump (pending): `../v6.6.0.md` — paired with LoopRunner ship

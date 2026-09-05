@@ -9,7 +9,7 @@ description: "Generic civic intelligence aggregator for any US city — daily lo
 ## Customization
 
 **Before executing, check for user customizations at:**
-`~/.claude/LIFEOS/USER/CUSTOMIZATIONS/SKILLS/LocalIntelligence/`
+`~/Projects/LifeOS-AGY/LIFEOS/USER/CUSTOMIZATIONS/SKILLS/LocalIntelligence/`
 
 If this directory exists, load and apply any `PREFERENCES.md`, optional source-list overrides, or per-source API keys (e.g., OpenStates, Google News topic ID). These override defaults. If the directory does not exist, proceed with skill defaults — universal sources only.
 
@@ -53,7 +53,7 @@ import { readHometown } from "./Tools/Hometown.ts"
 const { city, state, zip, county } = await readHometown()
 ```
 
-`Tools/Hometown.ts` parses the `**Hometown:**` line from `~/.claude/LIFEOS/USER/PRINCIPAL/PRINCIPAL_IDENTITY.md`. If absent, every workflow surfaces a clear "no hometown set" message and refuses to fetch. There is no fallback city.
+`Tools/Hometown.ts` parses the `**Hometown:**` line from `~/Projects/LifeOS-AGY/LIFEOS/USER/PRINCIPAL/PRINCIPAL_IDENTITY.md`. If absent, every workflow surfaces a clear "no hometown set" message and refuses to fetch. There is no fallback city.
 
 ## Workflow Routing
 
@@ -101,7 +101,7 @@ LocalIntelligence/
     └── DataSources.md        catalog of universal civic sources keyed off {city,state}
 ```
 
-Output: `~/.claude/LIFEOS/MEMORY/DATA/LocalIntelligence/<YYYY-MM-DD>_<city>_<state>_digest.json` (dated history — the Week/Month/Year views aggregate these) plus `latest.json` written to BOTH `LIFEOS/USER/CUSTOMIZATIONS/SKILLS/LocalIntelligence/` (the Pulse module's primary read path) and `MEMORY/DATA/LocalIntelligence/` (legacy fallback).
+Output: `~/Projects/LifeOS-AGY/LIFEOS/MEMORY/DATA/LocalIntelligence/<YYYY-MM-DD>_<city>_<state>_digest.json` (dated history — the Week/Month/Year views aggregate these) plus `latest.json` written to BOTH `LIFEOS/USER/CUSTOMIZATIONS/SKILLS/LocalIntelligence/` (the Pulse module's primary read path) and `MEMORY/DATA/LocalIntelligence/` (legacy fallback).
 
 **`--fill` mode:** `bun run Tools/Refresh.ts --fill` runs the fetchers, then `ClaudeFill.ts` researches any empty/unavailable sections via one web-enabled claude subprocess with deterministic output validation. The daily Pulse cron and the dashboard Refresh button both use `--fill`; a bare invocation stays purely deterministic.
 
@@ -123,8 +123,8 @@ Fetchers return the empty/unavailable case rather than throwing. `Refresh.ts` ru
 
 The skill writes JSON; Pulse reads it. Coupling lives in two places:
 
-1. **Pulse module** at `~/.claude/LIFEOS/PULSE/modules/local-intelligence.ts` — read-only over `MEMORY/DATA/LocalIntelligence/latest.json`. Endpoints: `GET /api/local-intelligence`, `POST /api/local-intelligence/refresh`.
-2. **Pulse dashboard tab** at `~/.claude/LIFEOS/PULSE/Observability/src/app/local/page.tsx` — fetches the JSON and renders nine section cards. Nav entry in `AppHeader.tsx` `lifeNav` between `LIFE` and `WORK`.
+1. **Pulse module** at `~/Projects/LifeOS-AGY/LIFEOS/PULSE/modules/local-intelligence.ts` — read-only over `MEMORY/DATA/LocalIntelligence/latest.json`. Endpoints: `GET /api/local-intelligence`, `POST /api/local-intelligence/refresh`.
+2. **Pulse dashboard tab** at `~/Projects/LifeOS-AGY/LIFEOS/PULSE/Observability/src/app/local/page.tsx` — fetches the JSON and renders nine section cards. Nav entry in `AppHeader.tsx` `lifeNav` between `LIFE` and `WORK`.
 
 Daily refresh: `[[job]]` in `PULSE.toml` at `0 6 * * *` running `bun run skills/LocalIntelligence/Tools/Refresh.ts`.
 
@@ -180,7 +180,7 @@ User clicks "Refresh now" on the LOCAL tab
 This skill body is generic by design. Pre-flight grep:
 
 ```bash
-rg -i "<your-city>|<your-zip>|<your-county>|/Users/[a-z]+/" ~/.claude/skills/LocalIntelligence/
+rg -i "<your-city>|<your-zip>|<your-county>|/Users/[a-z]+/" ~/Projects/LifeOS-AGY/.agents/skills/LocalIntelligence/
 ```
 
 Zero matches required before treating the skill as releasable. The principal's actual hometown lives in `PRINCIPAL_IDENTITY.md`, never here.
@@ -190,5 +190,5 @@ Zero matches required before treating the skill as releasable. The principal's a
 After completing any workflow, append a single JSONL entry:
 
 ```bash
-echo '{"ts":"'$(date -u +%Y-%m-%dT%H:%M:%SZ)'","skill":"LocalIntelligence","workflow":"WORKFLOW_USED","input":"8_WORD_SUMMARY","status":"ok|error","duration_s":SECONDS}' >> ~/.claude/LIFEOS/MEMORY/SKILLS/execution.jsonl
+echo '{"ts":"'$(date -u +%Y-%m-%dT%H:%M:%SZ)'","skill":"LocalIntelligence","workflow":"WORKFLOW_USED","input":"8_WORD_SUMMARY","status":"ok|error","duration_s":SECONDS}' >> ~/Projects/LifeOS-AGY/LIFEOS/MEMORY/SKILLS/execution.jsonl
 ```

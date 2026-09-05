@@ -15,8 +15,8 @@ version: 1.4.3
 
 **Event-Driven Automation Infrastructure**
 
-**Location:** `~/.claude/hooks/`
-**Configuration:** `~/.claude/settings.json` (GENERATED — merged from `settings.system.json` + `LIFEOS/USER/CONFIG/settings.user.json` by `MergeSettings.ts`; for events the user file defines as a plain array — UserPromptSubmit, PostToolUse, PreToolUse, Stop, SessionEnd — the user array REPLACES the system array, so `settings.json` is the only registration truth. `settings.user.json` does not exist on a fresh install — `MergeSettings` no-ops cleanly until you create it to carry user-side overrides)
+**Location:** `~/Projects/LifeOS-AGY/hooks/`
+**Configuration:** `~/Projects/LifeOS-AGY/settings.json` (GENERATED — merged from `settings.system.json` + `LIFEOS/USER/CONFIG/settings.user.json` by `MergeSettings.ts`; for events the user file defines as a plain array — UserPromptSubmit, PostToolUse, PreToolUse, Stop, SessionEnd — the user array REPLACES the system array, so `settings.json` is the only registration truth. `settings.user.json` does not exist on a fresh install — `MergeSettings` no-ops cleanly until you create it to carry user-side overrides)
 **Status:** Active — hook counts below are hand-maintained (the `UpdateCounts.ts` count-cache write was removed 2026-05-06; statusline/Banner read live via `GetCounts.ts`)
 
 > **Post-consolidation state (2026-07-11 hooks-BPE pass).** 40 distinct `.hook.ts` files are registered in `settings.json` (41 counting `ContextReduction.hook.sh`), plus 2 Pulse HTTP routes; **52 `.hook.ts` files exist on disk (2026-08-08 count — includes `ComplexityRatchet`, registered 2026-08-08; `KnowledgeWriteGuard` registered 2026-07-29; stale 30/46 figures flagged in public issues #1596/#1629, @anikinsasha/@elhoim).** The 12 files that are on disk but NOT registered directly are not dead — each is imported as a `run()`/`check()` module by a consolidating dispatcher and still runnable standalone via its own shim: `SystemFileGuard`, `CommunicationSkillGuard`, `EgressClassGuard` → `PreToolGuard`; `FormatGate`, `VerificationGate`, `ISACloseGate`, `ISAFoldGate`, `ISAGate`, `WritingGate` → `StopGates`; `LoadMemory`, `MemoryDeltaSurface` → `MemoryTurnStart`; `SystemChangeSurface` → `PostToolObserver`. (`LoopDetector` graduated to a direct PostToolUse + PostToolUseFailure registration and is no longer dispatcher-only.) The consolidation retired `TheRouter` entirely (removed 2026-07-11) (mode/tier classification abolished; model rungs now live in `LIFEOS/TOOLS/models.ts` + `AgentInvocation.hook.ts`) and folded a family of single-purpose loggers/gates/painters into `EventLogger`, `TabState`, `StopGates`, `MemoryTurnStart`, `MemoryReviewFire`, and `PostToolObserver`. Details per event below.
@@ -25,12 +25,12 @@ version: 1.4.3
 
 ## Overview
 
-The LifeOS hook system is an event-driven automation infrastructure built on the AI engine's native hook support (Claude Code today). Hooks are executable scripts (TypeScript/Python) that run automatically in response to specific events during sessions.
+The LifeOS hook system is an event-driven automation infrastructure built on the AI engine's native hook support (Antigravity CLI today). Hooks are executable scripts (TypeScript/Python) that run automatically in response to specific events during sessions.
 
 **Core Capabilities:**
 - **Session Management** - Auto-load context, capture summaries, manage state
 - **Voice Notifications** - Text-to-speech announcements for task completions
-- **History Capture** - Automatic work/learning documentation to `~/.claude/LIFEOS/MEMORY/`
+- **History Capture** - Automatic work/learning documentation to `~/Projects/LifeOS-AGY/LIFEOS/MEMORY/`
 - **Security Validation** - Active (v5+, consolidated 2026-05-14) — Single `Safety.hook.ts` dispatching by `hook_event_name`: PermissionRequest gates outgoing tool calls via the shape classifier in `lib/safety-classifier.ts` (auto-allows safe shapes, neutral on dangerous/credential/injection); PostToolUse tags WebFetch/WebSearch responses with the "treat as data" warning + injection marker. Replaces the prior split between `SmartApprover.hook.ts` and `PromptInjection.hook.ts`. The v4.0 Inspector Pipeline was deleted 2026-05-06. See `LIFEOS/DOCUMENTATION/Security/README.md`.
 - **Multi-Agent Support** - Agent-specific hooks with voice routing
 - **Tab Titles** - Dynamic terminal tab updates with task context
@@ -44,10 +44,10 @@ The LifeOS hook system is an event-driven automation infrastructure built on the
 
 ## Available Hook Types
 
-Claude Code supports the following hook events:
+Antigravity CLI supports the following hook events:
 
 ### 1. **SessionStart**
-**When:** Claude Code session begins (new conversation)
+**When:** Antigravity CLI session begins (new conversation)
 **Use Cases:**
 - Load LifeOS context (CLAUDE.md auto-loads routing + identity + PRINCIPAL_TELOS via @-imports)
 - Initialize session state
@@ -81,7 +81,7 @@ Claude Code supports the following hook events:
 ---
 
 ### 2. **SessionEnd**
-**When:** Claude Code session terminates (conversation ends)
+**When:** Antigravity CLI session terminates (conversation ends)
 **Use Cases:**
 - Capture work completions and learning moments
 - Generate session summaries
@@ -446,7 +446,7 @@ Each check is wrapped in its own try/catch so one guard throwing can never suppr
 
 ### 8. **SubagentStart** *(not registered)*
 **When:** A subagent is spawned (command-only event)
-**Status:** Not present in `settings.json`. Claude Code's built-in `SubagentStart` payload omits `subagent_type` / `description` / `prompt`, so LifeOS tracks subagent lifecycle at the `PreToolUse:Agent` boundary via `AgentInvocation.hook.ts` (see Sections 5–6) where that data is reliably present.
+**Status:** Not present in `settings.json`. Antigravity CLI's built-in `SubagentStart` payload omits `subagent_type` / `description` / `prompt`, so LifeOS tracks subagent lifecycle at the `PreToolUse:Agent` boundary via `AgentInvocation.hook.ts` (see Sections 5–6) where that data is reliably present.
 
 ---
 
@@ -603,11 +603,11 @@ To restore: `git revert c43dbc019`.
 ## Configuration
 
 ### Location
-**File:** `~/.claude/settings.json`
+**File:** `~/Projects/LifeOS-AGY/settings.json`
 **Section:** `"hooks": { ... }`
 
 ### Environment Variables
-Hooks have access to all environment variables from `~/.claude/settings.json` `"env"` section:
+Hooks have access to all environment variables from `~/Projects/LifeOS-AGY/settings.json` `"env"` section:
 
 ```json
 {
@@ -813,7 +813,7 @@ else if (hookData.cwd && hookData.cwd.includes('/agents/')) {
 }
 ```
 
-**Session Mapping:** `~/.claude/LIFEOS/MEMORY/STATE/agent-sessions.json`
+**Session Mapping:** `~/Projects/LifeOS-AGY/LIFEOS/MEMORY/STATE/agent-sessions.json`
 ```json
 {
   "session-id-abc123": "engineer",
@@ -860,7 +860,7 @@ else if (hookData.cwd && hookData.cwd.includes('/agents/')) {
 - 🧠 Brain - AI inference in progress (Haiku/Sonnet thinking)
 - ⚙️ Gear - Processing/working state
 
-**Full Documentation:** See `~/.claude/LIFEOS/DOCUMENTATION/Pulse/TerminalTabs.md`
+**Full Documentation:** See `~/Projects/LifeOS-AGY/LIFEOS/DOCUMENTATION/Pulse/TerminalTabs.md`
 
 ---
 
@@ -883,7 +883,7 @@ Bun.spawn(['bun', `${paiDir}/hooks/PromptProcessing.hook.ts`, prompt], {
 process.exit(0);  // Exit immediately
 ```
 
-**Key Principle:** Hooks must never block Claude Code. Always exit quickly, use background processes for slow work.
+**Key Principle:** Hooks must never block Antigravity CLI. Always exit quickly, use background processes for slow work.
 
 ---
 
@@ -904,7 +904,7 @@ async function main() {
 }
 ```
 
-**Why:** If hooks crash, Claude Code may freeze. Always exit cleanly.
+**Why:** If hooks crash, Antigravity CLI may freeze. Always exit cleanly.
 
 ---
 
@@ -954,7 +954,7 @@ main();
 
 ### Step 3: Make Executable
 ```bash
-chmod +x ~/.claude/hooks/my-custom-hook.ts
+chmod +x ~/Projects/LifeOS-AGY/hooks/my-custom-hook.ts
 ```
 > **Note:** LifeOS hooks are registered BARE (`$HOME/.claude/hooks/<Name>.hook.ts`, no `bun` prefix — 62 of 63 commands; `HookHealer` is the one exception), so the shebang + execute bit ARE required. A `bun` prefix would make them optional, but that is not how settings.json is wired (contradiction flagged in public issue #1600, @cristbc).
 
@@ -979,10 +979,10 @@ chmod +x ~/.claude/hooks/my-custom-hook.ts
 ### Step 5: Test
 ```bash
 # Test hook directly
-echo '{"session_id":"test","transcript_path":"/tmp/test.jsonl","hook_event_name":"Stop"}' | bun ~/.claude/hooks/my-custom-hook.ts
+echo '{"session_id":"test","transcript_path":"/tmp/test.jsonl","hook_event_name":"Stop"}' | bun ~/Projects/LifeOS-AGY/hooks/my-custom-hook.ts
 ```
 
-### Step 6: Restart Claude Code
+### Step 6: Restart Antigravity CLI
 Hooks are loaded at startup. Restart to apply changes.
 
 ---
@@ -1005,7 +1005,7 @@ Hooks are loaded at startup. Restart to apply changes.
 - Fail silently if optional services are offline
 
 ### 4. **Stdin Reading**
-- Use timeout when reading stdin (Claude Code may not send data immediately)
+- Use timeout when reading stdin (Antigravity CLI may not send data immediately)
 - Handle empty/invalid input gracefully
 
 ```typescript
@@ -1041,24 +1041,24 @@ await Promise.race([readPromise, timeoutPromise]);
 ### Hook Not Running
 
 **Check:**
-1. Is hook script executable? `chmod +x ~/.claude/hooks/my-hook.ts` (required: LifeOS registers hooks bare, without a `bun` prefix)
+1. Is hook script executable? `chmod +x ~/Projects/LifeOS-AGY/hooks/my-hook.ts` (required: LifeOS registers hooks bare, without a `bun` prefix)
 2. Is path correct in settings.json? Use `$HOME/.claude/hooks/...` (bare, matching every existing registration except `HookHealer`)
-3. Is settings.json valid JSON? `jq . ~/.claude/settings.json`
+3. Is settings.json valid JSON? `jq . ~/Projects/LifeOS-AGY/settings.json`
 4. Can the hook process find `bun`? Bare registration + `#!/usr/bin/env bun` means the harness's PATH must reach bun; a stripped environment fails every `.ts` hook with `env: bun: No such file or directory` (public issues #1368/#1600, @cristbc)
-4. Did you restart Claude Code after editing settings.json?
+4. Did you restart Antigravity CLI after editing settings.json?
 
 **Debug:**
 ```bash
 # Test hook directly
-echo '{"session_id":"test","transcript_path":"/tmp/test.jsonl","hook_event_name":"Stop"}' | bun ~/.claude/hooks/my-hook.ts
+echo '{"session_id":"test","transcript_path":"/tmp/test.jsonl","hook_event_name":"Stop"}' | bun ~/Projects/LifeOS-AGY/hooks/my-hook.ts
 
 # Check hook logs (stderr output)
-tail -f ~/.claude/hooks/debug.log  # If you add logging
+tail -f ~/Projects/LifeOS-AGY/hooks/debug.log  # If you add logging
 ```
 
 ---
 
-### Hook Hangs/Freezes Claude Code
+### Hook Hangs/Freezes Antigravity CLI
 
 **Cause:** Hook not exiting (infinite loop, waiting for input, blocking operation)
 
@@ -1085,7 +1085,7 @@ setTimeout(() => {
 1. Is voice server running? `curl http://localhost:31337/health`
 2. Is voice_id correct? See `settings.json` `daidentity.voices` for mappings
 3. Is message format correct? `{"message":"...", "voice_id":"...", "title":"..."}`
-4. Is ElevenLabs API key in `~/.claude/.env`?
+4. Is ElevenLabs API key in `~/Projects/LifeOS-AGY/.env`?
 
 **Debug:**
 ```bash
@@ -1105,40 +1105,40 @@ curl -X POST http://localhost:31337/notify \
 ### Work Not Capturing
 
 **Check:**
-1. Does `~/.claude/LIFEOS/MEMORY/` directory exist?
-2. Does `work.json` contain an entry for this session? `jq '.sessions | to_entries[] | select(.value.sessionUUID == "<uuid>")' ~/.claude/LIFEOS/MEMORY/STATE/work.json`
-3. Is hook actually running? Check `~/.claude/LIFEOS/MEMORY/RAW/` for events
-4. File permissions? `ls -la ~/.claude/LIFEOS/MEMORY/WORK/`
+1. Does `~/Projects/LifeOS-AGY/LIFEOS/MEMORY/` directory exist?
+2. Does `work.json` contain an entry for this session? `jq '.sessions | to_entries[] | select(.value.sessionUUID == "<uuid>")' ~/Projects/LifeOS-AGY/LIFEOS/MEMORY/STATE/work.json`
+3. Is hook actually running? Check `~/Projects/LifeOS-AGY/LIFEOS/MEMORY/RAW/` for events
+4. File permissions? `ls -la ~/Projects/LifeOS-AGY/LIFEOS/MEMORY/WORK/`
 
 **Debug:**
 ```bash
 # All sessions in the registry, sorted by recency:
-jq '.sessions | to_entries | map({slug: .key, phase: .value.phase, mode: .value.mode, updatedAt: .value.updatedAt}) | sort_by(.updatedAt) | reverse' ~/.claude/LIFEOS/MEMORY/STATE/work.json
+jq '.sessions | to_entries | map({slug: .key, phase: .value.phase, mode: .value.mode, updatedAt: .value.updatedAt}) | sort_by(.updatedAt) | reverse' ~/Projects/LifeOS-AGY/LIFEOS/MEMORY/STATE/work.json
 
 # Hot session list via the Pulse API (uses the same data):
 curl -s http://localhost:31337/api/algorithm | jq '.algorithms | map({sessionId, phase: .currentPhase, active})'
 
 # Check recent work directories
-ls -lt ~/.claude/LIFEOS/MEMORY/WORK/ | head -10
-ls -lt ~/.claude/LIFEOS/MEMORY/LEARNING/$(date +%Y-%m)/ | head -10
+ls -lt ~/Projects/LifeOS-AGY/LIFEOS/MEMORY/WORK/ | head -10
+ls -lt ~/Projects/LifeOS-AGY/LIFEOS/MEMORY/LEARNING/$(date +%Y-%m)/ | head -10
 
 # Check UUID-collision anomalies (multiple ISAs on one harness UUID):
-tail ~/.claude/LIFEOS/MEMORY/OBSERVABILITY/work-anomalies.jsonl
+tail ~/Projects/LifeOS-AGY/LIFEOS/MEMORY/OBSERVABILITY/work-anomalies.jsonl
 ```
 
 **Common Issues:**
 - No entry in `work.json` for this sessionUUID → ISASync didn't fire (ISA never written), or PromptProcessing's `upsertSession` was skipped (rare)
 - Session aged out → cleanup thresholds in `hooks/lib/isa-utils.ts` (native 4h, complete 24h, everything else 7d) — bump if you want longer
 - Duplicate native rows for one UUID → upstream of native idempotency fix; clear with `jq` or wait for the cleanup pass
-- UUID collision (two ISAs sharing one harness UUID) → check `work-anomalies.jsonl`; resolve by closing one ISA or by starting a fresh Claude Code session
+- UUID collision (two ISAs sharing one harness UUID) → check `work-anomalies.jsonl`; resolve by closing one ISA or by starting a fresh Antigravity CLI session
 
 ---
 
 ### Stop Event Not Firing (RESOLVED)
 
-**Original Issue:** Stop events were not firing consistently in earlier Claude Code versions, causing voice notifications and work capture to fail silently.
+**Original Issue:** Stop events were not firing consistently in earlier Antigravity CLI versions, causing voice notifications and work capture to fail silently.
 
-**Resolution:** Fixed in Claude Code updates. The Stop hooks now fire reliably. The individual hook pattern (each `.hook.ts` delegating to `handlers/`) was implemented in part to work around this — and remains the production architecture.
+**Resolution:** Fixed in Antigravity CLI updates. The Stop hooks now fire reliably. The individual hook pattern (each `.hook.ts` delegating to `handlers/`) was implemented in part to work around this — and remains the production architecture.
 
 **Status:** RESOLVED — Stop events now fire reliably. Individual Stop hooks handle all post-response work.
 
@@ -1147,17 +1147,17 @@ tail ~/.claude/LIFEOS/MEMORY/OBSERVABILITY/work-anomalies.jsonl
 ### Agent Detection Failing
 
 **Check:**
-1. Is `~/.claude/LIFEOS/MEMORY/STATE/agent-sessions.json` writable?
+1. Is `~/Projects/LifeOS-AGY/LIFEOS/MEMORY/STATE/agent-sessions.json` writable?
 2. Is `[AGENT:type]` tag in `🎯 COMPLETED:` line?
 3. Is agent running from correct directory? (`/agents/name/`)
 
 **Debug:**
 ```bash
 # Check session mappings
-cat ~/.claude/LIFEOS/MEMORY/STATE/agent-sessions.json | jq .
+cat ~/Projects/LifeOS-AGY/LIFEOS/MEMORY/STATE/agent-sessions.json | jq .
 
 # Check subagent-stop debug log
-tail -f ~/.claude/hooks/subagent-stop-debug.log
+tail -f ~/Projects/LifeOS-AGY/hooks/subagent-stop-debug.log
 ```
 
 **Fix:**
@@ -1171,7 +1171,7 @@ tail -f ~/.claude/hooks/subagent-stop-debug.log
 
 **Symptom:** Context reading functions return empty results even though transcript has data
 
-**Root Cause:** Claude Code transcripts use `type: "user"` but hooks were checking for `type: "human"`.
+**Root Cause:** Antigravity CLI transcripts use `type: "user"` but hooks were checking for `type: "human"`.
 
 **Affected Hooks:**
 - `PromptProcessing.hook.ts` - Couldn't read user messages for context
@@ -1184,7 +1184,7 @@ tail -f ~/.claude/hooks/subagent-stop-debug.log
 **Verification:**
 ```bash
 # Check transcript type field
-grep '"type":"user"' "$(ls -d ~/.claude/projects/*/ | head -1)"*.jsonl | head -1 | jq '.type'
+grep '"type":"user"' "$(ls -d ~/Projects/LifeOS-AGY/projects/*/ | head -1)"*.jsonl | head -1 | jq '.type'
 # Should output: "user" (not "human")
 ```
 
@@ -1195,14 +1195,14 @@ grep '"type":"user"' "$(ls -d ~/.claude/projects/*/ | head -1)"*.jsonl | head -1
 ### Context Loading Issues (SessionStart)
 
 **Check:**
-1. Does `~/.claude/CLAUDE.md` exist?
+1. Does `~/Projects/LifeOS-AGY/CLAUDE.md` exist?
 2. Is `LoadContext.hook.ts` executable?
 3. Is `LIFEOS_DIR` env variable set correctly?
 
 **Debug:**
 ```bash
 # Test context loading directly
-bun ~/.claude/hooks/LoadContext.hook.ts
+bun ~/Projects/LifeOS-AGY/hooks/LoadContext.hook.ts
 
 # Should output <system-reminder> with SKILL.md content
 ```
@@ -1210,7 +1210,7 @@ bun ~/.claude/hooks/LoadContext.hook.ts
 **Common Issues:**
 - Subagent sessions loading main context → Fixed (subagent detection in hook)
 - File not found → Check `LIFEOS_DIR` environment variable
-- Permission denied → `chmod +x ~/.claude/hooks/LoadContext.hook.ts` (required — LifeOS hooks are registered bare, without a `bun` prefix)
+- Permission denied → `chmod +x ~/Projects/LifeOS-AGY/hooks/LoadContext.hook.ts` (required — LifeOS hooks are registered bare, without a `bun` prefix)
 
 ---
 
@@ -1373,9 +1373,9 @@ The test is the one the whole system uses: if a smarter model would still need t
 
 ## Related Documentation
 
-- **Voice System:** `~/.claude/`
+- **Voice System:** `~/Projects/LifeOS-AGY/`
 - **Agent System:** `LIFEOS/DOCUMENTATION/Agents/AgentSystem.md`
-- **History/Memory:** `~/.claude/LIFEOS/DOCUMENTATION/Memory/MemorySystem.md`
+- **History/Memory:** `~/Projects/LifeOS-AGY/LIFEOS/DOCUMENTATION/Memory/MemorySystem.md`
 
 ---
 
@@ -1384,12 +1384,12 @@ The test is the one the whole system uses: if a smarter model would still need t
 ```
 HOOK LIFECYCLE:
 1. Event occurs (SessionStart, Stop, etc.)
-2. Claude Code writes hook data to stdin
+2. Antigravity CLI writes hook data to stdin
 3. Hook script executes
 4. Hook reads stdin (with timeout)
 5. Hook performs actions (voice, capture, etc.)
 6. Hook exits 0 (always succeeds)
-7. Claude Code continues
+7. Antigravity CLI continues
 
 HOOKS BY EVENT (11 events wired in settings.json; regenerated 2026-08-10 from the
 generated settings.json. 40 distinct .hook.ts registered
@@ -1503,23 +1503,23 @@ RETIRED IN THE 2026-07-11 HOOKS-BPE PASS (deleted or folded):
   SystemFileGuard+CommunicationSkillGuard+EgressClassGuard → PreToolGuard.
 
 KEY FILES:
-~/.claude/settings.json              Hook configuration (GENERATED by MergeSettings.ts — read, don't hand-edit)
-~/.claude/settings.system.json       System-side hook/permission source (SYSTEM)
-~/.claude/LIFEOS/USER/CONFIG/settings.user.json  User-side source (USER); its plain-array events REPLACE the system array
-~/.claude/LIFEOS/TOOLS/MergeSettings.ts  Merges system + user → settings.json (runs async at SessionStart)
-~/.claude/hooks/                     Hook scripts (53 files: 52 .hook.ts + ContextReduction.hook.sh; 40 .hook.ts registered)
-~/.claude/hooks/handlers/            Handler modules (9 files)
-~/.claude/hooks/lib/                 Shared libraries (32 files)
-~/.claude/hooks/lib/learning-utils.ts Learning categorization
-~/.claude/hooks/lib/time.ts          PST timestamp utilities
-~/.claude/LIFEOS/MEMORY/WORK/               Work tracking
-~/.claude/LIFEOS/MEMORY/LEARNING/           Learning captures
-~/.claude/LIFEOS/MEMORY/STATE/              Runtime state
-~/.claude/LIFEOS/MEMORY/STATE/events.jsonl  Unified event log (append-only)
-~/.claude/LIFEOS/MEMORY/OBSERVABILITY/      Tool failures, agent spawns, config changes
+~/Projects/LifeOS-AGY/settings.json              Hook configuration (GENERATED by MergeSettings.ts — read, don't hand-edit)
+~/Projects/LifeOS-AGY/settings.system.json       System-side hook/permission source (SYSTEM)
+~/Projects/LifeOS-AGY/LIFEOS/USER/CONFIG/settings.user.json  User-side source (USER); its plain-array events REPLACE the system array
+~/Projects/LifeOS-AGY/LIFEOS/TOOLS/MergeSettings.ts  Merges system + user → settings.json (runs async at SessionStart)
+~/Projects/LifeOS-AGY/hooks/                     Hook scripts (53 files: 52 .hook.ts + ContextReduction.hook.sh; 40 .hook.ts registered)
+~/Projects/LifeOS-AGY/hooks/handlers/            Handler modules (9 files)
+~/Projects/LifeOS-AGY/hooks/lib/                 Shared libraries (32 files)
+~/Projects/LifeOS-AGY/hooks/lib/learning-utils.ts Learning categorization
+~/Projects/LifeOS-AGY/hooks/lib/time.ts          PST timestamp utilities
+~/Projects/LifeOS-AGY/LIFEOS/MEMORY/WORK/               Work tracking
+~/Projects/LifeOS-AGY/LIFEOS/MEMORY/LEARNING/           Learning captures
+~/Projects/LifeOS-AGY/LIFEOS/MEMORY/STATE/              Runtime state
+~/Projects/LifeOS-AGY/LIFEOS/MEMORY/STATE/events.jsonl  Unified event log (append-only)
+~/Projects/LifeOS-AGY/LIFEOS/MEMORY/OBSERVABILITY/      Tool failures, agent spawns, config changes
 
 INFERENCE TOOL (for hooks needing AI):
-Path: ~/.claude/LIFEOS/TOOLS/Inference.ts
+Path: ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/Inference.ts
 Import: import { inference } from '../../.claude/LIFEOS/TOOLS/Inference'
 Levels: fast (haiku/15s) | standard (sonnet/30s) | smart (opus/90s)
 
@@ -1652,7 +1652,7 @@ Hooks call `appendEvent()` as a secondary write **alongside** their existing sta
 
 ```typescript
 // Inside an existing hook, AFTER the normal state write:
-// appendEvent() writes to ~/.claude/LIFEOS/MEMORY/STATE/events.jsonl
+// appendEvent() writes to ~/Projects/LifeOS-AGY/LIFEOS/MEMORY/STATE/events.jsonl
 appendEvent({ type: 'work.created', source: 'ISASync', slug: 'my-task' });
 ```
 
@@ -1701,10 +1701,10 @@ A checker that reports a set of problems uses `emitFindingSet()`, which adds
 
 ```bash
 # Live tail (real-time monitoring)
-tail -f ~/.claude/LIFEOS/MEMORY/STATE/events.jsonl | jq
+tail -f ~/Projects/LifeOS-AGY/LIFEOS/MEMORY/STATE/events.jsonl | jq
 
 # Filter by type
-tail -f ~/.claude/LIFEOS/MEMORY/STATE/events.jsonl | jq 'select(.type | startswith("algorithm."))'
+tail -f ~/Projects/LifeOS-AGY/LIFEOS/MEMORY/STATE/events.jsonl | jq 'select(.type | startswith("algorithm."))'
 
 # Programmatic (Node/Bun fs.watch)
 import { watch } from 'fs';

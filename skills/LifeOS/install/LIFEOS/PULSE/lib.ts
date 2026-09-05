@@ -598,7 +598,7 @@ export async function spawnClaude(prompt: string, opts: { model: string; timeout
   //      OAuth/keychain entirely. That was the root cause of the Apr 2026 Haiku
   //      $22.66 line item on the Anthropic invoice (heartbeat + tasks + memory
   //      consolidation all used --bare, all billed API).
-  //   2. Strip ANTHROPIC_API_KEY from env — bun auto-loads ~/.claude/.env, and if the
+  //   2. Strip ANTHROPIC_API_KEY from env — bun auto-loads ~/Projects/LifeOS-AGY/.env, and if the
   //      key is present `claude` CLI prefers it over subscription even without
   //      --bare. Mirrors LIFEOS/TOOLS/Inference.ts:114.
   // Flag set mirrors Inference.ts: --tools '' and --setting-sources '' keep the

@@ -363,7 +363,7 @@ Cannot proceed - fix logical issues before rendering
 **MANDATORY: Apply LifeOS Theme**
 ```typescript
 // public issue #1760, @jacobo-ortiz — the theme file is Tools/Theme.ts
-import { LIFEOS_THEME } from '~/.claude/skills/Remotion/Tools/Theme'
+import { LIFEOS_THEME } from '~/Projects/LifeOS-AGY/.agents/skills/Remotion/Tools/Theme'
 
 // All components MUST use:
 // - LIFEOS_THEME.colors for all colors
@@ -546,6 +546,6 @@ User: animate this content: "The three pillars of AI safety are..."
 ## Integration with Art Skill
 
 This workflow inherits visual theming from Art preferences:
-- Load: `~/.claude/LIFEOS/USER/CUSTOMIZATIONS/SKILLS/Art/PREFERENCES.md`
+- Load: `~/Projects/LifeOS-AGY/LIFEOS/USER/CUSTOMIZATIONS/SKILLS/Art/PREFERENCES.md`
 - Apply: Charcoal aesthetic, purple accents, organic animations
-- Reference: `~/.claude/skills/Art/Examples/` <!-- public issue #1760, @jacobo-ortiz — path was truncated mid-string -->
+- Reference: `~/Projects/LifeOS-AGY/.agents/skills/Art/Examples/` <!-- public issue #1760, @jacobo-ortiz — path was truncated mid-string -->

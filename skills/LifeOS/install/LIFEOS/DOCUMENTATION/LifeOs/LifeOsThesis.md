@@ -119,7 +119,7 @@ The path from "I use ChatGPT sometimes" to "my DA runs my life" is not one step 
 - Able to take action on your behalf across every system you use
 - Integrated so deeply that talking to it feels like thinking out loud
 
-Most of what people call "AI assistants" today are AS1, maybe AS1.5. Claude Code with LifeOS is pushing into AS2. AS3 is where we're going. Every LifeOS upgrade, every new skill, every memory system improvement is measured against: *does this move us closer to AS3?*
+Most of what people call "AI assistants" today are AS1, maybe AS1.5. Antigravity CLI with LifeOS is pushing into AS2. AS3 is where we're going. Every LifeOS upgrade, every new skill, every memory system improvement is measured against: *does this move us closer to AS3?*
 
 ---
 
@@ -186,7 +186,7 @@ All LifeOS documentation, public marketing, and system prompts should describe L
 - **Never say** "prompt engineering is dead" or position intent engineering as a post-prompting discipline (contradicts the canonical essays; invites the rename critique)
 - **Don't say** "LifeOS is a dashboard"
 - **Do say** "Pulse is the Life Dashboard; LifeOS is the OS behind it"
-- **Reserve "AI harness"** for LifeOS itself; the underlying coding agent (Claude Code, Cursor, Codex) is the **AI engine**
+- **Reserve "AI harness"** for LifeOS itself; the underlying coding agent (Antigravity CLI, Cursor, Codex) is the **AI engine**
 - **Don't hardcode a DA name** in public-facing content
 - **Do say** "your DA" or "the DA"
 - **Always anchor** to the LifeOS Maturity Model (AS3 target) and The Real Internet of Things (lineage)

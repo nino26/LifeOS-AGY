@@ -91,9 +91,9 @@ const EXCLUDE_PATH_PREFIXES = [
   'plans',
   'plugins',        // third-party plugin cache — not LifeOS system
   'Plugins',        // plugin marketplaces cache (external plugins reference their own repo-relative paths) — not LifeOS system
-  'cache',          // Claude Code internal cache
-  'tasks',          // Claude Code internal task state
-  'teams',          // Claude Code internal team state
+  'cache',          // Antigravity CLI internal cache
+  'tasks',          // Antigravity CLI internal task state
+  'teams',          // Antigravity CLI internal team state
   'sessions',
   'session-env',
   'shell-snapshots',
@@ -292,7 +292,7 @@ const EXT = '\\.\\w+(?:\\.\\w+)*';
 const REF_PATTERNS: { re: RegExp; label: string; fenceSafe?: true }[] = [
   // Backtick-quoted paths with top-level anchor
   { re: new RegExp('`((?:LifeOS|hooks|skills|agents|Pulse|USER|MEMORY|Components|Algorithm|Tools|Workflows|References)\\/[\\w/@.-]+?' + EXT + ')`', 'g'), label: 'backtick-anchored' },
-  // Backtick-quoted paths starting with ~/.claude/
+  // Backtick-quoted paths starting with ~/Projects/LifeOS-AGY/
   { re: new RegExp('`~\\/\\.claude\\/([\\w/@.-]+?' + EXT + ')`', 'g'), label: 'backtick-home' },
   // Backtick-quoted paths with $HOME/.claude/ or ${HOME}/.claude/
   { re: new RegExp('`\\$(?:HOME|\\{HOME\\})\\/\\.claude\\/([\\w/@.-]+?' + EXT + ')`', 'g'), label: 'backtick-env-home' },
@@ -308,7 +308,7 @@ const REF_PATTERNS: { re: RegExp; label: string; fenceSafe?: true }[] = [
   { re: /from\s+["'](\.\.?\/[\w/@.-]+?)["']/g, label: 'ts-import' },
   // settings.json style: "command": "... $HOME/.claude/hooks/Foo.hook.ts ..."
   { re: new RegExp('\\$\\{?HOME\\}?\\/\\.claude\\/((?:hooks|LifeOS|skills|agents)\\/[\\w/@.-]+?' + EXT + ')', 'g'), label: 'json-home' },
-  // Bare command invocations: `bun ~/.claude/LIFEOS/TOOLS/Foo.ts --flag`.
+  // Bare command invocations: `bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/Foo.ts --flag`.
   // Every other tilde pattern above is backtick-anchored (backtick-home needs the
   // backtick immediately before `~`), and json-home only matches the $HOME form —
   // so an inline or fenced command naming a tool path matched nothing at all, and
@@ -432,7 +432,7 @@ function extractRefs(content: string, referringFile: string): RefHit[] {
       // Stand-in names in authoring docs. The angle-bracket forms above cover
       // `<name>`, but the how-to-write-a-hook and how-to-write-a-skill guides
       // use bare illustrative names in runnable-looking command blocks —
-      // `bun ~/.claude/hooks/my-hook.ts`, `skills/SkillName/Tools/ToolName.ts`.
+      // `bun ~/Projects/LifeOS-AGY/hooks/my-hook.ts`, `skills/SkillName/Tools/ToolName.ts`.
       // Nothing should exist at those paths; flagging them trains the reader to
       // ignore the checker. public issue #1679, @christauff
       if (PLACEHOLDER_NAME_RE.test(raw)) continue;
@@ -672,7 +672,7 @@ for (const [file, refs] of fileRefs) {
 // Orphan detection — narrow to top-level LifeOS docs only.
 // Agent files under agents/ are invoked by subagent_type name, not file path,
 // so they are NOT orphans even when nothing references them in prose.
-// Skill SKILL.md files are auto-discovered by Claude Code harness via frontmatter.
+// Skill SKILL.md files are auto-discovered by Antigravity CLI harness via frontmatter.
 if (includeOrphans) {
   for (const file of allFiles) {
     const rel = relative(CLAUDE_DIR, file);

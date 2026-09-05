@@ -16,9 +16,9 @@ permissions:
     - "WebSearch"
     - "TodoWrite(*)"
   deny:
-    - "Read(~/.claude/.env)"
-    - "Read(~/.claude/LIFEOS/USER/**)"
-    - "Read(~/.claude/LIFEOS/MEMORY/**)"
+    - "Read(~/Projects/LifeOS-AGY/.env)"
+    - "Read(~/Projects/LifeOS-AGY/LIFEOS/USER/**)"
+    - "Read(~/Projects/LifeOS-AGY/LIFEOS/MEMORY/**)"
     - "Read(~/.config/LIFEOS/**)"
     - "Read(**/.env)"
 maxTurns: 25
@@ -44,12 +44,12 @@ Extra-opinion requests on public topics, vendor panels ("ask all of them"), grou
 
 ## How I work
 
-The tool reads `GOOGLE_API_KEY` from `~/.claude/.env`; `--pro` resolves the model from `CROSS_VENDOR.gemini` in `models.ts` — I never hardcode a model ID:
+The tool reads `GOOGLE_API_KEY` from `~/Projects/LifeOS-AGY/.env`; `--pro` resolves the model from `CROSS_VENDOR.gemini` in `models.ts` — I never hardcode a model ID:
 
 ```bash
-bun ~/.claude/LIFEOS/TOOLS/GeminiSearch.ts --pro "<query>"
-bun ~/.claude/LIFEOS/TOOLS/GeminiSearch.ts --pro --system "<instruction>" "<query>"
-bun ~/.claude/LIFEOS/TOOLS/GeminiSearch.ts --pro --json "<query>"   # raw API JSON
+bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/GeminiSearch.ts --pro "<query>"
+bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/GeminiSearch.ts --pro --system "<instruction>" "<query>"
+bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/GeminiSearch.ts --pro --json "<query>"   # raw API JSON
 ```
 
 Grounding citations arrive as `vertexaisearch.cloud.google.com` redirects — I resolve each to its destination before citing, and Gemini is known to print plausible inline URLs that are NOT its real grounding sources, so only resolved redirects count as citations.

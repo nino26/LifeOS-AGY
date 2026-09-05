@@ -313,7 +313,7 @@ export function executesSingleQuotedArg(cmd: string): boolean {
  * stdbuf [opts], plus absolute paths in /bin, /usr/bin, /usr/local/bin,
  * /opt/homebrew/bin.
  *
- * The bare-assignment peel mirrors Claude Code 2.1.145's fix for the
+ * The bare-assignment peel mirrors Antigravity CLI 2.1.145's fix for the
  * `FOO=bar somecmd` auto-approve bypass: without it, a leading assignment
  * keeps `bash -c '…'` off the start of the string, so executesSingleQuotedArg
  * stays false, the single-quoted body gets blanked instead of scanned, and a
@@ -603,8 +603,8 @@ export function classifyCommand(tc: ToolCall): Classification {
   if (tc.filePath) {
     // CREDENTIAL_PATHS was consulted only on the Bash branch above, so the
     // trusted-prefix allow below short-circuited it for file tools. Because
-    // ~/.claude IS a trusted prefix, `Edit`/`Write` on ~/.claude/.env
-    // auto-approved with no prompt, while the identical `cat ~/.claude/.env`
+    // ~/.claude IS a trusted prefix, `Edit`/`Write` on ~/Projects/LifeOS-AGY/.env
+    // auto-approved with no prompt, while the identical `cat ~/Projects/LifeOS-AGY/.env`
     // correctly deferred — the same guard, enforced on one path only. Standing
     // rule is to ask before modifying .env, so the credential check runs first
     // on this branch too. This only ever removes an auto-approve (allow ->

@@ -234,7 +234,7 @@ function foldFile(path: string, fs_: FileState, state: State): FileState {
   return { offset: newOffset, size, ids };
 }
 
-/** Locate the session's main transcript: ~/.claude/projects/<slug>/<session>.jsonl */
+/** Locate the session's main transcript: ~/Projects/LifeOS-AGY/projects/<slug>/<session>.jsonl */
 function findTranscript(sessionId: string): string | null {
   if (!existsSync(PROJECTS_DIR)) return null;
   for (const slug of readdirSync(PROJECTS_DIR)) {

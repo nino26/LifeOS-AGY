@@ -144,7 +144,7 @@ CRITICAL:
 ### Step 5: Generate Wallpaper
 
 ```bash
-bun run ~/.claude/skills/Art/Tools/Generate.ts \
+bun run ~/Projects/LifeOS-AGY/.agents/skills/Art/Tools/Generate.ts \
   --workflow=LogoWallpaper \
   --model nano-banana-pro \
   --prompt "[CONSTRUCTED_PROMPT]" \

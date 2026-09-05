@@ -17,10 +17,10 @@
  * principal's interactive CLI is left exactly as it was.
  *
  * Usage:
- *   bun ~/.claude/LIFEOS/TOOLS/GeminiSearch.ts "<query>"
- *   bun ~/.claude/LIFEOS/TOOLS/GeminiSearch.ts --model gemini-3.6-flash "<query>"
- *   bun ~/.claude/LIFEOS/TOOLS/GeminiSearch.ts --no-search "<query>"
- *   bun ~/.claude/LIFEOS/TOOLS/GeminiSearch.ts --json "<query>"
+ *   bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/GeminiSearch.ts "<query>"
+ *   bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/GeminiSearch.ts --model gemini-3.6-flash "<query>"
+ *   bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/GeminiSearch.ts --no-search "<query>"
+ *   bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/GeminiSearch.ts --json "<query>"
  *
  * Options:
  *   --model <id>       Gemini model id (default: CROSS_VENDOR.geminiResearcher)
@@ -32,7 +32,7 @@
  *   -h, --help         Usage — costs nothing, sends no request
  *
  * Environment:
- *   GOOGLE_API_KEY     Gemini API key from ~/.claude/.env (required)
+ *   GOOGLE_API_KEY     Gemini API key from ~/Projects/LifeOS-AGY/.env (required)
  *
  * Exit codes: 0 ok, 1 error (missing key, API failure, empty response)
  *
@@ -52,7 +52,7 @@ const colors = {
 
 const API_BASE = 'https://generativelanguage.googleapis.com/v1beta/models'
 
-const USAGE = `Usage: bun ~/.claude/LIFEOS/TOOLS/GeminiSearch.ts [options] "<query>"
+const USAGE = `Usage: bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/GeminiSearch.ts [options] "<query>"
 
 Options:
   --model <id>       Gemini model id (default: ${CROSS_VENDOR.geminiResearcher})
@@ -63,7 +63,7 @@ Options:
   --json             Emit raw API JSON
   -h, --help         this message — costs nothing, sends no request`
 
-/** Canonical .env is ~/.claude/.env — never $LIFEOS_CONFIG_DIR/.env. */
+/** Canonical .env is ~/Projects/LifeOS-AGY/.env — never $LIFEOS_CONFIG_DIR/.env. */
 function loadEnv(): Record<string, string> {
   const envPath = join(homedir(), '.claude', '.env')
   const env: Record<string, string> = {}
@@ -163,7 +163,7 @@ async function main() {
   const { opts, query } = parseArgs(argv)
 
   if (!API_KEY) {
-    console.error(`${colors.red}Error: GOOGLE_API_KEY not set in ~/.claude/.env${colors.reset}`)
+    console.error(`${colors.red}Error: GOOGLE_API_KEY not set in ~/Projects/LifeOS-AGY/.env${colors.reset}`)
     process.exit(1)
   }
   if (!query) {

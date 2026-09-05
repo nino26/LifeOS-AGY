@@ -82,7 +82,7 @@ export async function handleRequest(_req: Request, pathname: string): Promise<Re
   if (!existsSync(REGISTER_PATH)) {
     return Response.json({
       available: false,
-      error: "no risk register — run: bun ~/.claude/skills/ThreatModel/Tools/RiskRegister.ts init",
+      error: "no risk register — run: bun ~/Projects/LifeOS-AGY/.agents/skills/ThreatModel/Tools/RiskRegister.ts init",
     });
   }
 

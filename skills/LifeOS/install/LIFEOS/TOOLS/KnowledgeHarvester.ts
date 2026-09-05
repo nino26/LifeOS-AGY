@@ -1,5 +1,5 @@
 #!/usr/bin/env bun
-// Normalize env path vars Claude Code may inject unexpanded — literal $HOME/${HOME}
+// Normalize env path vars Antigravity CLI may inject unexpanded — literal $HOME/${HOME}
 // in LIFEOS_DIR/LIFEOS_CONFIG_DIR/PROJECTS_DIR resolves to a shadow dir (#1404 / PR #1451, author jbmml).
 for (const __k of ["LIFEOS_DIR", "LIFEOS_CONFIG_DIR", "PROJECTS_DIR"]) {
   const __v = process.env[__k];
@@ -11,7 +11,7 @@ for (const __k of ["LIFEOS_DIR", "LIFEOS_CONFIG_DIR", "PROJECTS_DIR"]) {
  *
  * Harvest STAGES candidates into KNOWLEDGE/_harvest-queue/<Domain>/ for review;
  * notes only enter KNOWLEDGE/<Domain>/ via an explicit `promote` (#1171/#1351).
- * Memory scanning is multi-instance: every ~/.claude/projects/<project>/memory
+ * Memory scanning is multi-instance: every ~/Projects/LifeOS-AGY/projects/<project>/memory
  * dir is covered, overridable via LIFEOS_AUTO_MEMORY_DIR (#1170).
  *
  * Commands:
@@ -38,7 +38,7 @@ import * as fs from "fs";
 import * as path from "path";
 import { homedir } from "node:os";
 
-// Normalize env path vars that Claude Code injects without shell expansion (LifeOS#1404)
+// Normalize env path vars that Antigravity CLI injects without shell expansion (LifeOS#1404)
 for (const k of ["LIFEOS_DIR", "LIFEOS_CONFIG_DIR", "PROJECTS_DIR"]) {
   const v = process.env[k];
   if (v && /^\$\{?HOME\}?(\/|$)/.test(v)) process.env[k] = v.replace(/^\$\{?HOME\}?/, process.env.HOME ?? "~");
@@ -105,7 +105,7 @@ function computeBacklinks(): Map<string, number> {
 /**
  * Auto-memory dirs — multi-instance aware (#1170).
  * Override with LIFEOS_AUTO_MEMORY_DIR (colon-separated absolute paths).
- * Otherwise every ~/.claude/projects/<project>/memory dir is scanned, not just
+ * Otherwise every ~/Projects/LifeOS-AGY/projects/<project>/memory dir is scanned, not just
  * the single hardcoded -Users-<user>--claude instance.
  */
 function getAutoMemoryDirs(): Array<{ dir: string; project: string }> {
@@ -1243,7 +1243,7 @@ function cmdContradictions(): void {
     console.log(`  ... and ${pairs.length - 20} more pairs.`);
   }
 
-  console.log("  Run `/knowledge contradictions` in Claude Code for semantic review.");
+  console.log("  Run `/knowledge contradictions` in Antigravity CLI for semantic review.");
 }
 
 function cmdIndex(): void {
@@ -1298,7 +1298,7 @@ Commands:
 
 Env:
   LIFEOS_AUTO_MEMORY_DIR   Colon-separated memory dirs to scan (default: all
-                           ~/.claude/projects/*/memory instances)
+                           ~/Projects/LifeOS-AGY/projects/*/memory instances)
 
 Examples:
   bun KnowledgeHarvester.ts harvest

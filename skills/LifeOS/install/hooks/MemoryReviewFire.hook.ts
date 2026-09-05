@@ -195,7 +195,7 @@ function logFire(payload: Record<string, unknown>): void {
 }
 
 /**
- * Claude Code hands every Stop hook a JSON payload on stdin carrying
+ * Antigravity CLI hands every Stop hook a JSON payload on stdin carrying
  * session_id and transcript_path — the identity of the session that just
  * fired. Read it so the reviewer analyzes THIS session's transcript instead
  * of guessing via globally-newest-mtime, which grabs a concurrent session's

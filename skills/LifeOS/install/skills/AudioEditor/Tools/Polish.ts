@@ -1,5 +1,5 @@
 #!/usr/bin/env bun
-// Normalize env path vars Claude Code may inject unexpanded — literal $HOME/${HOME}
+// Normalize env path vars Antigravity CLI may inject unexpanded — literal $HOME/${HOME}
 // in LIFEOS_DIR/LIFEOS_CONFIG_DIR/PROJECTS_DIR resolves to a shadow dir (#1404 / PR #1451, author jbmml).
 for (const __k of ["LIFEOS_DIR", "LIFEOS_CONFIG_DIR", "PROJECTS_DIR"]) {
   const __v = process.env[__k];
@@ -25,7 +25,7 @@ import { existsSync, readFileSync } from "fs";
 import { basename, dirname, extname, join, resolve } from "path";
 import { homedir } from "os";
 
-// Normalize env path vars that Claude Code injects without shell expansion (LifeOS#1404)
+// Normalize env path vars that Antigravity CLI injects without shell expansion (LifeOS#1404)
 for (const k of ["LIFEOS_DIR", "LIFEOS_CONFIG_DIR", "PROJECTS_DIR"]) {
   const v = process.env[k];
   if (v && /^\$\{?HOME\}?(\/|$)/.test(v)) process.env[k] = v.replace(/^\$\{?HOME\}?/, process.env.HOME ?? "~");
@@ -33,12 +33,12 @@ for (const k of ["LIFEOS_DIR", "LIFEOS_CONFIG_DIR", "PROJECTS_DIR"]) {
 
 
 // ============================================================================
-// Environment Loading — keys from ~/.claude/.env
+// Environment Loading — keys from ~/Projects/LifeOS-AGY/.env
 // ============================================================================
 
 function loadEnv(): void {
-  // Canonical .env is ~/.claude/.env — never $LIFEOS_CONFIG_DIR/.env, which
-  // resolves to the dead ~/.claude/LIFEOS/.env path (public issue #1490).
+  // Canonical .env is ~/Projects/LifeOS-AGY/.env — never $LIFEOS_CONFIG_DIR/.env, which
+  // resolves to the dead ~/Projects/LifeOS-AGY/LIFEOS/.env path (public issue #1490).
   const envPath = resolve(homedir(), ".claude/.env");
   try {
     const content = readFileSync(envPath, "utf-8");
@@ -84,7 +84,7 @@ if (!existsSync(audioFile)) {
 
 const apiKey = process.env.CLEANVOICE_API_KEY;
 if (!apiKey) {
-  console.error("CLEANVOICE_API_KEY not found. Set it in ~/.claude/.env");
+  console.error("CLEANVOICE_API_KEY not found. Set it in ~/Projects/LifeOS-AGY/.env");
   console.error("Get key at: https://cleanvoice.ai → Dashboard → Settings → API Key");
   process.exit(1);
 }

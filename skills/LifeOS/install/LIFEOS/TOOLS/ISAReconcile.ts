@@ -18,10 +18,10 @@
 // Extracted from public PR #1714, @anikinsasha.
 //
 // Usage:
-//   bun run ~/.claude/LIFEOS/TOOLS/ISAReconcile.ts                       (default: --audit)
-//   bun run ~/.claude/LIFEOS/TOOLS/ISAReconcile.ts --audit               (report drift, no writes)
-//   bun run ~/.claude/LIFEOS/TOOLS/ISAReconcile.ts --fix                 (sync drift into work.json)
-//   bun run ~/.claude/LIFEOS/TOOLS/ISAReconcile.ts --json                (machine-readable)
+//   bun run ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/ISAReconcile.ts                       (default: --audit)
+//   bun run ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/ISAReconcile.ts --audit               (report drift, no writes)
+//   bun run ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/ISAReconcile.ts --fix                 (sync drift into work.json)
+//   bun run ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/ISAReconcile.ts --json                (machine-readable)
 //
 
 import { readFileSync, readdirSync, existsSync, statSync } from "fs";

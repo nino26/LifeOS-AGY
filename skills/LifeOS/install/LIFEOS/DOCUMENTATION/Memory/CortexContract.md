@@ -22,7 +22,7 @@ Cortex v1 is a **local Bun CLI over the existing file-backed memory system**. It
 bun LIFEOS/TOOLS/Cortex.ts <command> [arguments] [options]
 ```
 
-The root resolves in this order: the test/runtime override, `--memory-root`, `CORTEX_MEMORY_ROOT`, then `~/.claude/LIFEOS/MEMORY`. The intentional top-level canonical alias is allowed: Cortex resolves it once with `realpath`, verifies the target is a directory, pins that resolved directory as the trust boundary, and reports the pinned path in status. This is how the default `LIFEOS/MEMORY` symlink into the private user-data repository works; callers do not need to resolve it manually.
+The root resolves in this order: the test/runtime override, `--memory-root`, `CORTEX_MEMORY_ROOT`, then `~/Projects/LifeOS-AGY/LIFEOS/MEMORY`. The intentional top-level canonical alias is allowed: Cortex resolves it once with `realpath`, verifies the target is a directory, pins that resolved directory as the trust boundary, and reports the pinned path in status. This is how the default `LIFEOS/MEMORY` symlink into the private user-data repository works; callers do not need to resolve it manually.
 
 Symlinks **beneath** the pinned root remain forbidden. Nested directory/file symlinks, realpath escapes, duplicate IDs, malformed JSONL, impossible timestamps, and non-regular canonical files fail with `integrity_error` and exit 4. A verified live `status` resolves the default alias to the private user-data repository under `~/.config/LIFEOS/USER/MEMORY` and reports the pinned path plus the canonical record count.
 

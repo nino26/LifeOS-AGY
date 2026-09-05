@@ -5,8 +5,8 @@
 
 ## Template Usage
 
-- **Built-in agents** (`~/.claude/agents/*.md`): Use this format for the persona section
-- **Custom agents** (`~/.claude/custom-agents/*.md`): Use this format for the entire file
+- **Built-in agents** (`~/Projects/LifeOS-AGY/agents/*.md`): Use this format for the persona section
+- **Custom agents** (`~/Projects/LifeOS-AGY/custom-agents/*.md`): Use this format for the entire file
 - **Dynamic agents** (ComposeAgent ephemeral): Generated prompts follow this structure
 
 ---
@@ -37,7 +37,7 @@ persona:
   title: ""                 # Character archetype (e.g., "The Verification Purist")
   background: ""            # 2-3 sentence summary of who they are
 
-# === Permissions (Claude Code tool access) ===
+# === Permissions (Antigravity CLI tool access) ===
 permissions:
   allow:
     - "Bash"
@@ -185,7 +185,7 @@ SUMMARY, ANALYSIS, ACTIONS, RESULTS, STATUS, CAPTURE, NEXT, STORY EXPLANATION, C
 
 | Aspect | Built-in (`agents/*.md`) | Custom (`custom-agents/*.md`) |
 |--------|-------------------------|-------------------------------|
-| Location | `~/.claude/agents/` | `~/.claude/custom-agents/` |
+| Location | `~/Projects/LifeOS-AGY/agents/` | `~/Projects/LifeOS-AGY/custom-agents/` |
 | `custom_agent` field | Omitted | `true` |
 | `created` field | Omitted | ISO date |
 | `traits` field | Omitted | ComposeAgent trait keys |

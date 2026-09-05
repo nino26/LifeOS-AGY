@@ -3,7 +3,7 @@
  * lifeos — the LifeOS launcher CLI
  * (Canonical name `lifeos`; alias it to whatever you like — public PR #1631, @elhoim.)
  *
- * Comprehensive CLI for managing Claude Code with dynamic MCP loading,
+ * Comprehensive CLI for managing Antigravity CLI with dynamic MCP loading,
  * updates, version checking, and profile management.
  *
  * Usage:
@@ -13,7 +13,7 @@
  *   lifeos -r / --resume  Resume a session (picker, or pass a session ID)
  *   lifeos --local     Stay in current directory (don't cd to ~/.claude)
  *   lifeos -- <flags...>  Forward everything after -- verbatim to `claude`
- *   lifeos update      Update Claude Code
+ *   lifeos update      Update Antigravity CLI
  *   lifeos version     Show version info
  *   lifeos profiles    List available profiles
  *   lifeos mcp list    List available MCPs
@@ -36,7 +36,7 @@ const ACTIVE_MCP = join(CLAUDE_DIR, ".mcp.json");
 const BANNER_SCRIPT = join(homedir(), ".claude", "LIFEOS", "TOOLS", "Banner.ts");
 const VOICE_SERVER = `${PULSE_BASE}/notify/personality`;
 const WALLPAPER_DIR = join(homedir(), "Projects", "Wallpaper");
-// Note: RAW archiving removed - Claude Code handles its own cleanup (30-day retention in projects/)
+// Note: RAW archiving removed - Antigravity CLI handles its own cleanup (30-day retention in projects/)
 
 // MCP shorthand mappings
 const MCP_SHORTCUTS: Record<string, string> = {
@@ -200,12 +200,12 @@ function displayBanner() {
   }
 }
 
-// The launcher wraps the Claude Code CLI. On machines without it (e.g. an
+// The launcher wraps the Antigravity CLI CLI. On machines without it (e.g. an
 // OpenCode-driven install, #1448) fail with directions, not a bare ENOENT.
 function requireClaudeCli() {
   if (Bun.which("claude")) return;
-  console.error("❌ Claude Code CLI not found on PATH — `lifeos` wraps the `claude` binary.");
-  console.error("   Either install Claude Code (https://claude.com/claude-code), or launch your");
+  console.error("❌ Antigravity CLI CLI not found on PATH — `lifeos` wraps the `claude` binary.");
+  console.error("   Either install Antigravity CLI (https://claude.com/claude-code), or launch your");
   console.error("   own harness with its system-prompt flag pointed at LIFEOS/LIFEOS_SYSTEM_PROMPT.md");
   console.error("   (see INSTALL.md step 7 for the non-Claude-Code launch shape).");
   process.exit(1);
@@ -312,7 +312,7 @@ function setMcpProfile(profile: string) {
   // Create symlink
   symlinkSync(profileFile, ACTIVE_MCP);
   log(`Switched to '${profile}' profile`, "✅");
-  log("Restart Claude Code to apply", "⚠️");
+  log("Restart Antigravity CLI to apply", "⚠️");
 }
 
 function setMcpCustom(mcpNames: string[]) {
@@ -498,7 +498,7 @@ async function cmdLaunch(options: { mcp?: string; resume?: boolean; resumeId?: s
   displayBanner();
   const args = ["claude"];
 
-  // LifeOS System Prompt — constitutional rules appended to Claude Code's system prompt
+  // LifeOS System Prompt — constitutional rules appended to Antigravity CLI's system prompt
   // These rules get highest instruction authority (system prompt layer > CLAUDE.md layer)
   const systemPromptFile = options.systemPrompt ?? join(CLAUDE_DIR, "LIFEOS", "LIFEOS_SYSTEM_PROMPT.md");
   if (existsSync(systemPromptFile)) {
@@ -591,7 +591,7 @@ async function cmdUpdate() {
     return;
   }
 
-  log("Updating Claude Code...", "🔄");
+  log("Updating Antigravity CLI...", "🔄");
 
   // Step 1: Update Bun
   log("Step 1/2: Updating Bun...", "📦");
@@ -602,13 +602,13 @@ async function cmdUpdate() {
     log("Bun updated", "✅");
   }
 
-  // Step 2: Update Claude Code
-  log("Step 2/2: Installing latest Claude Code...", "🤖");
+  // Step 2: Update Antigravity CLI
+  log("Step 2/2: Installing latest Antigravity CLI...", "🤖");
   const claudeResult = spawnSync(["bash", "-c", "curl -fsSL https://claude.ai/install.sh | bash"]);
   if (claudeResult.exitCode !== 0) {
-    error("Claude Code installation failed");
+    error("Antigravity CLI installation failed");
   }
-  log("Claude Code updated", "✅");
+  log("Antigravity CLI updated", "✅");
 
   // Show final version
   const newVersion = getCurrentVersion();
@@ -700,7 +700,7 @@ async function cmdPrompt(prompt: string) {
   const args = ["claude", "-p", prompt];
 
   // Same constitutional layer as interactive launches — without this, one-shots
-  // ran bare Claude Code (CLAUDE.md only, no output format, no security protocol).
+  // ran bare Antigravity CLI (CLAUDE.md only, no output format, no security protocol).
   const systemPromptFile = join(CLAUDE_DIR, "LIFEOS", "LIFEOS_SYSTEM_PROMPT.md");
   if (existsSync(systemPromptFile)) {
     args.push("--append-system-prompt-file", systemPromptFile);
@@ -734,7 +734,7 @@ USAGE:
   lifeos -- <flags...>     Forward everything after -- straight to \`claude\`
 
 COMMANDS:
-  lifeos update            Update Claude Code to latest version
+  lifeos update            Update Antigravity CLI to latest version
   lifeos version, -v       Show version information
   lifeos profiles          List available MCP profiles
   lifeos mcp list          List all available MCPs
@@ -760,7 +760,7 @@ EXAMPLES:
   lifeos -m bd,ap          Start with multiple MCPs
   lifeos -r                Resume a session (picker), or 'lifeos -r <id>' for a specific one
   lifeos mcp set research  Switch to research profile
-  lifeos update            Update Claude Code
+  lifeos update            Update Antigravity CLI
   lifeos prompt "What time is it?"  One-shot prompt
   lifeos -w                List available wallpapers
   lifeos -w circuit-board  Switch wallpaper (Kitty + macOS)
@@ -768,7 +768,7 @@ EXAMPLES:
 
 NOTE:
   Flags this CLI doesn't know are ignored, not rejected. To hand a native
-  Claude Code flag to the underlying \`claude\` process, put it after \`--\`.
+  Antigravity CLI flag to the underlying \`claude\` process, put it after \`--\`.
 `);
 }
 

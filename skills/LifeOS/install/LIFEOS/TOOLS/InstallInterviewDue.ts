@@ -2,9 +2,9 @@
 /**
  * InstallInterviewDue.ts - Materialize com.lifeos.interviewdue.plist.template and bootstrap it.
  *
- *   bun ~/.claude/LIFEOS/TOOLS/InstallInterviewDue.ts             # install
- *   bun ~/.claude/LIFEOS/TOOLS/InstallInterviewDue.ts --uninstall # remove
- *   bun ~/.claude/LIFEOS/TOOLS/InstallInterviewDue.ts --status    # check
+ *   bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/InstallInterviewDue.ts             # install
+ *   bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/InstallInterviewDue.ts --uninstall # remove
+ *   bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/InstallInterviewDue.ts --status    # check
  *
  * Daily (07:10, plus once at load) refresh of the interview caches:
  * state-evidence.json, freshness.json, interview-due.json. Cache writes only —

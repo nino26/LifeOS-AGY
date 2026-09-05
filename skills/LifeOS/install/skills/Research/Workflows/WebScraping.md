@@ -55,5 +55,5 @@ Web scraping and crawling using WebFetch for simple pages, BrightData MCP for CA
 - Don't overwhelm servers
 
 ## Supplementary Resources
-For advanced scraping: `read ~/.claude/docs/web-scraping-advanced.md`
-For MCP tools: `read ~/.claude/docs/mcp-servers-reference.md`
+For advanced scraping: `read ~/Projects/LifeOS-AGY/docs/web-scraping-advanced.md`
+For MCP tools: `read ~/Projects/LifeOS-AGY/docs/mcp-servers-reference.md`

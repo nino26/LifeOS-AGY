@@ -16,7 +16,7 @@ version: 1.2.7
 
 Through LifeOS v4 and v5, the live LifeOS tree and the public release artifact diverged because there was no enforced architectural separation between system code (intended to ship) and user data (must never ship). Defenses were exclusively build-time: a fourteen-gate scrubber (since grown to eighteen), a deny-list pattern grep, and a containment-zone path inventory. The runtime guard hook was removed in the 2026-05-06 security simplification, leaving no write-time enforcement at all. Drift accumulated between releases; every release required a re-sanitization sweep; the community ran a different artifact than the maintainer.
 
-This document declares the canonical boundary. Every file in `~/.claude/` falls into exactly one of four zones. The boundary is enforced at three layers: at write time by a runtime hook, at PR time by GitHub Actions, at release time by the existing build-time gates as a backstop.
+This document declares the canonical boundary. Every file in `~/Projects/LifeOS-AGY/` falls into exactly one of four zones. The boundary is enforced at three layers: at write time by a runtime hook, at PR time by GitHub Actions, at release time by the existing build-time gates as a backstop.
 
 ## The four zones
 
@@ -26,42 +26,42 @@ Public-by-construction code, documentation, and templates that ship in every Lif
 
 | Path | Status |
 |------|--------|
-| `~/.claude/CLAUDE.md` | SYSTEM (after Phase C — split into system router + user @-imports) |
-| `~/.claude/settings.json` | SYSTEM (after Phase B — split into system defaults + user overlay merged at startup) |
-| `~/.claude/skills/LifeOS/install/install.sh` | SYSTEM (installer bootstrap — ships inside the `LifeOS/` skill; there is no root-level `install.sh` in a release) |
-| `~/.claude/LICENSE` | SYSTEM |
-| `~/.claude/.gitignore`, `.gitattributes`, `.gitmodules`, `.mcp.json`, `.lsp.json`, `bunfig.toml` | SYSTEM (config) |
-| `~/.claude/LIFEOS/LIFEOS_SYSTEM_PROMPT.md` | SYSTEM (after Phase C — operational rules with user-specific content move out) |
-| `~/.claude/LIFEOS/VERSION` | SYSTEM |
-| `~/.claude/LIFEOS/LIFEOS_StatusLine.sh` | SYSTEM |
-| `~/.claude/LIFEOS/ALGORITHM/**` | SYSTEM |
-| `~/.claude/LIFEOS/DOCUMENTATION/**` | SYSTEM (after Phase D — categorical placeholders only) |
-| `~/.claude/LIFEOS/PULSE/` (source code only — excludes `Assistant/state/`, `state/`, `logs/`, `Plans/`, `Observability/out/`) | SYSTEM (after Phase F — parameterized via LifeosConfig) |
-| `~/.claude/LIFEOS/TOOLS/**` (after the few user-path leaks are scrubbed) | SYSTEM |
-| `~/.claude/LIFEOS/ScheduledTasks/**` (system-shipped scheduled task templates, NOT user instances) | SYSTEM |
-| `~/.claude/hooks/**` | SYSTEM |
-| `~/.claude/skills/<name>/**` where `<name>` does NOT start with `_` | SYSTEM |
-| `~/.claude/commands/**` | SYSTEM |
-| `~/.claude/agents/**` (shipped agent definitions) | SYSTEM |
+| `~/Projects/LifeOS-AGY/CLAUDE.md` | SYSTEM (after Phase C — split into system router + user @-imports) |
+| `~/Projects/LifeOS-AGY/settings.json` | SYSTEM (after Phase B — split into system defaults + user overlay merged at startup) |
+| `~/Projects/LifeOS-AGY/.agents/skills/LifeOS/install/install.sh` | SYSTEM (installer bootstrap — ships inside the `LifeOS/` skill; there is no root-level `install.sh` in a release) |
+| `~/Projects/LifeOS-AGY/LICENSE` | SYSTEM |
+| `~/Projects/LifeOS-AGY/.gitignore`, `.gitattributes`, `.gitmodules`, `.mcp.json`, `.lsp.json`, `bunfig.toml` | SYSTEM (config) |
+| `~/Projects/LifeOS-AGY/LIFEOS/LIFEOS_SYSTEM_PROMPT.md` | SYSTEM (after Phase C — operational rules with user-specific content move out) |
+| `~/Projects/LifeOS-AGY/LIFEOS/VERSION` | SYSTEM |
+| `~/Projects/LifeOS-AGY/LIFEOS/LIFEOS_StatusLine.sh` | SYSTEM |
+| `~/Projects/LifeOS-AGY/LIFEOS/ALGORITHM/**` | SYSTEM |
+| `~/Projects/LifeOS-AGY/LIFEOS/DOCUMENTATION/**` | SYSTEM (after Phase D — categorical placeholders only) |
+| `~/Projects/LifeOS-AGY/LIFEOS/PULSE/` (source code only — excludes `Assistant/state/`, `state/`, `logs/`, `Plans/`, `Observability/out/`) | SYSTEM (after Phase F — parameterized via LifeosConfig) |
+| `~/Projects/LifeOS-AGY/LIFEOS/TOOLS/**` (after the few user-path leaks are scrubbed) | SYSTEM |
+| `~/Projects/LifeOS-AGY/LIFEOS/ScheduledTasks/**` (system-shipped scheduled task templates, NOT user instances) | SYSTEM |
+| `~/Projects/LifeOS-AGY/hooks/**` | SYSTEM |
+| `~/Projects/LifeOS-AGY/.agents/skills/<name>/**` where `<name>` does NOT start with `_` | SYSTEM |
+| `~/Projects/LifeOS-AGY/commands/**` | SYSTEM |
+| `~/Projects/LifeOS-AGY/agents/**` (shipped agent definitions) | SYSTEM |
 
 ### USER
 
 Private, user-owned data that ships in the user's own private repo and is mounted into the LifeOS tree via symlink or git submodule. USER files may contain anything — they are never inspected by the public release pipeline because they live outside the system tree.
 
-**Physical mount (post-Phase-G, 2026-05-22):** `~/.claude/LIFEOS/USER/` is a symlink to `~/.config/LIFEOS/USER/` (XDG-style data location). The actual git working tree for the user's private USER-data repo lives at `~/.config/LIFEOS/USER/` — the symlink at `~/.claude/LIFEOS/USER/` exists only so Claude Code's `@`-import resolver (which evaluates paths relative to `~/.claude/`) can reach identity / TELOS / config files at session start. Boundary semantics are unchanged: the "USER zone" still refers to anything under `~/.claude/LIFEOS/USER/**` logically; the only difference is that the bytes live at the XDG path on disk.
+**Physical mount (post-Phase-G, 2026-05-22):** `~/Projects/LifeOS-AGY/LIFEOS/USER/` is a symlink to `~/.config/LIFEOS/USER/` (XDG-style data location). The actual git working tree for the user's private USER-data repo lives at `~/.config/LIFEOS/USER/` — the symlink at `~/Projects/LifeOS-AGY/LIFEOS/USER/` exists only so Antigravity CLI's `@`-import resolver (which evaluates paths relative to `~/Projects/LifeOS-AGY/`) can reach identity / TELOS / config files at session start. Boundary semantics are unchanged: the "USER zone" still refers to anything under `~/Projects/LifeOS-AGY/LIFEOS/USER/**` logically; the only difference is that the bytes live at the XDG path on disk.
 
 | Path | Status |
 |------|--------|
-| `~/.claude/.env`, `.env.*` | USER (secrets) |
-| `~/.claude/LIFEOS/USER/**` (symlink → `~/.config/LIFEOS/USER/**`) | USER (identity, TELOS, projects, integrations, contacts, finances, health, business, customizations) |
-| `~/.claude/LIFEOS/MEMORY/**` (symlink → `~/.config/LIFEOS/USER/MEMORY/**`, post-Phase-G.2, 2026-05-23) | USER (work history, knowledge graph, learning signals, observability logs, research, reflections, relationships). Durable subset (KNOWLEDGE, WORK/<slug>/ISA.md, RELATIONSHIP, WISDOM, PLANS, RESEARCH, STATE/work.json, BOOKMARKS, REFERENCE, SKILLS, PROJECT, TEAMS, SYSTEMUPDATES, VERIFICATION) is git-tracked in the user's private USER-data repo; ephemeral subset (OBSERVABILITY JSONLs, _BROWSER_STATE, LEARNING signals, SECURITY artifacts, VOICE event log, STATE caches, per-skill runtime state, PULSE_DATA, SCRATCHPAD, RAW, AUTO, CALLS, INBOX, ARCHIVE, DATA, WORK/<slug>/* intermediates) gitignored from the private repo, local-only. |
-| `~/.claude/LIFEOS/ARBOL/**` | USER (private cloud worker code) |
-| `~/.claude/LIFEOS/Backups/**` | USER (backup state) |
-| `~/.claude/skills/_<name>/**` (underscore-prefixed) | USER (private/proprietary skills) |
-| `~/.claude/daemon/`, `daemon.log` | USER (private daemon profile state) |
-| `~/.claude/jobs/**` (user-instance scheduled tasks) | USER |
-| `~/.claude/downloads/**` | USER (working files) |
-| `~/.claude/MEMORY/**` (root-level orphan; should migrate to `LIFEOS/MEMORY/`) | USER (orphan — Phase A cleanup) |
+| `~/Projects/LifeOS-AGY/.env`, `.env.*` | USER (secrets) |
+| `~/Projects/LifeOS-AGY/LIFEOS/USER/**` (symlink → `~/.config/LIFEOS/USER/**`) | USER (identity, TELOS, projects, integrations, contacts, finances, health, business, customizations) |
+| `~/Projects/LifeOS-AGY/LIFEOS/MEMORY/**` (symlink → `~/.config/LIFEOS/USER/MEMORY/**`, post-Phase-G.2, 2026-05-23) | USER (work history, knowledge graph, learning signals, observability logs, research, reflections, relationships). Durable subset (KNOWLEDGE, WORK/<slug>/ISA.md, RELATIONSHIP, WISDOM, PLANS, RESEARCH, STATE/work.json, BOOKMARKS, REFERENCE, SKILLS, PROJECT, TEAMS, SYSTEMUPDATES, VERIFICATION) is git-tracked in the user's private USER-data repo; ephemeral subset (OBSERVABILITY JSONLs, _BROWSER_STATE, LEARNING signals, SECURITY artifacts, VOICE event log, STATE caches, per-skill runtime state, PULSE_DATA, SCRATCHPAD, RAW, AUTO, CALLS, INBOX, ARCHIVE, DATA, WORK/<slug>/* intermediates) gitignored from the private repo, local-only. |
+| `~/Projects/LifeOS-AGY/LIFEOS/ARBOL/**` | USER (private cloud worker code) |
+| `~/Projects/LifeOS-AGY/LIFEOS/Backups/**` | USER (backup state) |
+| `~/Projects/LifeOS-AGY/.agents/skills/_<name>/**` (underscore-prefixed) | USER (private/proprietary skills) |
+| `~/Projects/LifeOS-AGY/daemon/`, `daemon.log` | USER (private daemon profile state) |
+| `~/Projects/LifeOS-AGY/jobs/**` (user-instance scheduled tasks) | USER |
+| `~/Projects/LifeOS-AGY/downloads/**` | USER (working files) |
+| `~/Projects/LifeOS-AGY/MEMORY/**` (root-level orphan; should migrate to `LIFEOS/MEMORY/`) | USER (orphan — Phase A cleanup) |
 
 ### INTERFACE
 
@@ -69,11 +69,11 @@ The boundary itself — the documented contract by which SYSTEM code reads USER 
 
 | Path | Status |
 |------|--------|
-| `~/.claude/LIFEOS/TOOLS/LifeosConfig.ts` | INTERFACE — typed loader, ships in SYSTEM (after Phase F) |
-| `~/.claude/LIFEOS/USER/CONFIG/LIFEOS_CONFIG.{json\|yaml\|toml}` | INTERFACE — user-supplied implementation (after Phase F; format pending ISC-56.1) |
-| `~/.claude/LIFEOS/USER/CONFIG/settings.user.json` | INTERFACE — user settings overlay (after Phase B) |
-| `~/.claude/LIFEOS/USER/CONFIG/OPERATIONAL_RULES.md` | INTERFACE — user-specific operational rules (after Phase C); @-imported directly from `~/.claude/CLAUDE.md` since CC does not follow transitive @-imports |
-| `~/.claude/LIFEOS/USER/INTEGRATIONS/*.yaml` | INTERFACE — typed config for integrations (homebridge, unifi, airgradient, work-system, etc.) |
+| `~/Projects/LifeOS-AGY/LIFEOS/TOOLS/LifeosConfig.ts` | INTERFACE — typed loader, ships in SYSTEM (after Phase F) |
+| `~/Projects/LifeOS-AGY/LIFEOS/USER/CONFIG/LIFEOS_CONFIG.{json\|yaml\|toml}` | INTERFACE — user-supplied implementation (after Phase F; format pending ISC-56.1) |
+| `~/Projects/LifeOS-AGY/LIFEOS/USER/CONFIG/settings.user.json` | INTERFACE — user settings overlay (after Phase B) |
+| `~/Projects/LifeOS-AGY/LIFEOS/USER/CONFIG/OPERATIONAL_RULES.md` | INTERFACE — user-specific operational rules (after Phase C); @-imported directly from `~/Projects/LifeOS-AGY/CLAUDE.md` since CC does not follow transitive @-imports |
+| `~/Projects/LifeOS-AGY/LIFEOS/USER/INTEGRATIONS/*.yaml` | INTERFACE — typed config for integrations (homebridge, unifi, airgradient, work-system, etc.) |
 
 ### RUNTIME-STATE
 
@@ -81,15 +81,15 @@ Harness-owned or LifeOS-runtime-owned ephemeral files. Never shipped, never user
 
 | Path | Status | Gitignored |
 |------|--------|------------|
-| `~/.claude/sessions/`, `todos/`, `tasks/`, `teams/` | RUNTIME (Claude Code harness) | yes |
-| `~/.claude/history.jsonl` | RUNTIME (Claude Code) | yes (under root anchors) |
-| `~/.claude/cache/`, `shell-snapshots/`, `session-env/`, `paste-cache/`, `file-history/` | RUNTIME (harness/LifeOS) | yes |
-| `~/.claude/.next/`, `.wrangler/`, `.venv/`, `coverage/`, `test-results/`, `telemetry/` | RUNTIME (build/test) | partial — telemetry/ is NOT gitignored and contains identity-bearing data; add to .gitignore in Phase A |
-| `~/.claude/plugins/`, `Plugins/` | RUNTIME (Claude Code plugin install state) | partial |
-| `~/.claude/ide/` | RUNTIME (Claude Code IDE state) | implied |
-| `~/.claude/.DS_Store`, `.last-cleanup`, `.quote-cache` | RUNTIME (OS / harness) | yes |
-| `~/.claude/interceptor-screenshot-*.{png,jpg}` (root) | RUNTIME (debug captures) | yes |
-| `~/.claude/LIFEOS/PULSE/{state,logs,Assistant/state,.playwright-cli,Observability/out}/**` | RUNTIME (Pulse runtime) | implied |
+| `~/Projects/LifeOS-AGY/sessions/`, `todos/`, `tasks/`, `teams/` | RUNTIME (Antigravity CLI harness) | yes |
+| `~/Projects/LifeOS-AGY/history.jsonl` | RUNTIME (Antigravity CLI) | yes (under root anchors) |
+| `~/Projects/LifeOS-AGY/cache/`, `shell-snapshots/`, `session-env/`, `paste-cache/`, `file-history/` | RUNTIME (harness/LifeOS) | yes |
+| `~/Projects/LifeOS-AGY/.next/`, `.wrangler/`, `.venv/`, `coverage/`, `test-results/`, `telemetry/` | RUNTIME (build/test) | partial — telemetry/ is NOT gitignored and contains identity-bearing data; add to .gitignore in Phase A |
+| `~/Projects/LifeOS-AGY/plugins/`, `Plugins/` | RUNTIME (Antigravity CLI plugin install state) | partial |
+| `~/Projects/LifeOS-AGY/ide/` | RUNTIME (Antigravity CLI IDE state) | implied |
+| `~/Projects/LifeOS-AGY/.DS_Store`, `.last-cleanup`, `.quote-cache` | RUNTIME (OS / harness) | yes |
+| `~/Projects/LifeOS-AGY/interceptor-screenshot-*.{png,jpg}` (root) | RUNTIME (debug captures) | yes |
+| `~/Projects/LifeOS-AGY/LIFEOS/PULSE/{state,logs,Assistant/state,.playwright-cli,Observability/out}/**` | RUNTIME (Pulse runtime) | implied |
 
 ## The four allowed access patterns
 
@@ -104,7 +104,7 @@ Anything else — direct `Read('LIFEOS/USER/...')`, hardcoded voice IDs in modul
 
 ## Two-repo sync (post-Phase-G.1, 2026-05-22)
 
-The USER tree is its own private git repo: `~/.config/LIFEOS/USER/` → the user's `<your-username>/<your-user-data-repo>` (PRIVATE GitHub). The SYSTEM tree is `~/.claude/` → the user's `<your-username>/.claude` (PRIVATE GitHub). There is no pre-push auto-sync git hook (a stale claim corrected 2026-07-04): both repos are committed, pushed, and version-tagged together by the UpdateKaiRepo workflow ("push both repos"), which runs four boundary gates: (G1) USER-zone leak check on pending `~/.claude` changes, (G2) `DenyListCheck.ts` must return 0 real-leaks, (G3) both remotes confirmed private via `gh repo view --json isPrivate`, (G4) post-push HEAD verification on both repos via `git ls-remote`. **Pre-flight refuses to proceed if the public LifeOS repo appears in either remote** — this workflow is explicit private-only. Public LifeOS release goes through the shadow-release pipeline (`ShadowRelease.ts`) with the separate 23-gate sanitization; the shipped distribution unit is the single `LifeOS/` skill emitted from that staging tree, not the `.claude/` clone.
+The USER tree is its own private git repo: `~/.config/LIFEOS/USER/` → the user's `<your-username>/<your-user-data-repo>` (PRIVATE GitHub). The SYSTEM tree is `~/Projects/LifeOS-AGY/` → the user's `<your-username>/.claude` (PRIVATE GitHub). There is no pre-push auto-sync git hook (a stale claim corrected 2026-07-04): both repos are committed, pushed, and version-tagged together by the UpdateKaiRepo workflow ("push both repos"), which runs four boundary gates: (G1) USER-zone leak check on pending `~/.claude` changes, (G2) `DenyListCheck.ts` must return 0 real-leaks, (G3) both remotes confirmed private via `gh repo view --json isPrivate`, (G4) post-push HEAD verification on both repos via `git ls-remote`. **Pre-flight refuses to proceed if the public LifeOS repo appears in either remote** — this workflow is explicit private-only. Public LifeOS release goes through the shadow-release pipeline (`ShadowRelease.ts`) with the separate 23-gate sanitization; the shipped distribution unit is the single `LifeOS/` skill emitted from that staging tree, not the `.claude/` clone.
 
 ## Enforcement layers
 

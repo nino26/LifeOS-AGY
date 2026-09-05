@@ -6,7 +6,7 @@ description: 4-tier progressive URL scraping and multi-page crawling — WebFetc
 ## Customization
 
 **Before executing, check for user customizations at:**
-`~/.claude/PAI/USER/SKILLCUSTOMIZATIONS/BrightData/`
+`~/Projects/LifeOS-AGY/PAI/USER/SKILLCUSTOMIZATIONS/BrightData/`
 
 If this directory exists, load and apply any PREFERENCES.md, configurations, or resources found there. These override default behavior. If the directory does not exist, proceed with skill defaults.
 
@@ -98,7 +98,7 @@ Examples: "crawl this site", "crawl all pages under /docs", "spider this domain"
 ## Core Capabilities
 
 **Progressive Escalation Strategy:**
-1. **Tier 1: WebFetch** - Fast, simple, built-in Claude Code tool
+1. **Tier 1: WebFetch** - Fast, simple, built-in Antigravity CLI tool
 2. **Tier 2: Customized Curl** - Chrome-like browser headers to bypass basic bot detection
 3. **Tier 3: Browser Automation** - Full browser automation using Playwright for JavaScript-heavy sites
 4. **Tier 4: Bright Data MCP** - Professional scraping service that handles CAPTCHA and advanced bot detection
@@ -129,7 +129,7 @@ Examples: "crawl this site", "crawl all pages under /docs", "spider this domain"
 ## Extended Context
 
 **Integration Points:**
-- **WebFetch Tool** - Built-in Claude Code tool for basic URL fetching
+- **WebFetch Tool** - Built-in Antigravity CLI tool for basic URL fetching
 - **Bash Tool** - For executing curl commands with custom headers
 - **Browser Automation** - Playwright-based browser automation for JavaScript rendering
 - **Bright Data MCP** - `mcp__Brightdata__scrape_as_markdown` and `scrape_batch` for advanced scraping
@@ -142,7 +142,7 @@ Examples: "crawl this site", "crawl all pages under /docs", "spider this domain"
 - **Tier 4 (Bright Data):** Sites with CAPTCHA, advanced bot detection, residential proxy requirements
 
 **Configuration:**
-No configuration required - all tools are available by default in Claude Code
+No configuration required - all tools are available by default in Antigravity CLI
 
 ---
 
@@ -197,7 +197,7 @@ Skill Response:
 ---
 
 **Related Documentation:**
-- `~/.claude/PAI/SkillSystem.md` - Canonical structure guide
-- `~/.claude/PAI/CONSTITUTION.md` - Overall PAI philosophy
+- `~/Projects/LifeOS-AGY/PAI/SkillSystem.md` - Canonical structure guide
+- `~/Projects/LifeOS-AGY/PAI/CONSTITUTION.md` - Overall PAI philosophy
 
 **Last Updated:** 2026-02-22

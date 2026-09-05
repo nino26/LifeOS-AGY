@@ -152,7 +152,7 @@ function captureGroundTruth(toolName: string, input: Record<string, unknown>, re
 
   if (BASH_TOOLS.has(toolName) && typeof input.command === 'string') {
     gt.command = truncate(input.command, 500);
-    // Claude Code puts stdout/stderr/exit in tool_response — shape varies.
+    // Antigravity CLI puts stdout/stderr/exit in tool_response — shape varies.
     if (response && typeof response === 'object') {
       const r = response as Record<string, unknown>;
       if ('stdout' in r && typeof r.stdout === 'string') {
@@ -375,7 +375,7 @@ function handleStopFailure(raw: string): void {
   }
 
   // Log-only. Nothing here speaks, and re-adding voice is a regression, not a feature:
-  // Claude Code already prints the error on screen, so a spoken StopFailure carries zero
+  // Antigravity CLI already prints the error on screen, so a spoken StopFailure carries zero
   // new information. Suppression lists do not fix this — any kind the list fails to name
   // (e.g. "unknown") speaks anyway. The JSONL above is the record.
 }

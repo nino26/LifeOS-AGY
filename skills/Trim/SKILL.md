@@ -47,5 +47,5 @@ Shrink an always-on context file that has gotten too big. `/trim <file>` walks t
 After completing the workflow, append a single JSONL entry:
 
 ```bash
-echo '{"ts":"'$(date -u +%Y-%m-%dT%H:%M:%SZ)'","skill":"Trim","workflow":"Trim","input":"8_WORD_SUMMARY","status":"ok|error","duration_s":SECONDS}' >> ~/.claude/LIFEOS/MEMORY/SKILLS/execution.jsonl
+echo '{"ts":"'$(date -u +%Y-%m-%dT%H:%M:%SZ)'","skill":"Trim","workflow":"Trim","input":"8_WORD_SUMMARY","status":"ok|error","duration_s":SECONDS}' >> ~/Projects/LifeOS-AGY/LIFEOS/MEMORY/SKILLS/execution.jsonl
 ```

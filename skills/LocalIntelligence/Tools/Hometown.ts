@@ -7,7 +7,7 @@
  * there are no hardcoded city strings anywhere else.
  *
  * Identity file location is configurable via env var `LIFEOS_PRINCIPAL_IDENTITY`,
- * defaulting to `~/.claude/LIFEOS/USER/PRINCIPAL/PRINCIPAL_IDENTITY.md`.
+ * defaulting to `~/Projects/LifeOS-AGY/LIFEOS/USER/PRINCIPAL/PRINCIPAL_IDENTITY.md`.
  *
  * Expected line shape (Quick Reference bullet):
  *   - **Hometown:** <City>, <ST> (ZIP <zip>, <County> County)

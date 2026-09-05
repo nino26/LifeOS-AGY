@@ -7,11 +7,11 @@
  * base config with user customizations from the CUSTOMIZATIONS/SKILLS directory.
  *
  * Usage:
- *   import { loadSkillConfig } from '~/.claude/LIFEOS/TOOLS/LoadSkillConfig';
+ *   import { loadSkillConfig } from '~/Projects/LifeOS-AGY/LIFEOS/TOOLS/LoadSkillConfig';
  *   const config = loadSkillConfig<MyConfigType>(__dirname, 'config.json');
  *
  * Or CLI:
- *   bun ~/.claude/LIFEOS/TOOLS/LoadSkillConfig.ts <skill-dir> <filename>
+ *   bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/LoadSkillConfig.ts <skill-dir> <filename>
  */
 
 import { readFileSync, existsSync, readdirSync } from 'fs';
@@ -250,7 +250,7 @@ Usage:
   bun LoadSkillConfig.ts --check <skill-name>      Check if skill has customizations
 
 Examples:
-  bun LoadSkillConfig.ts ~/.claude/skills/Upgrade sources.json
+  bun LoadSkillConfig.ts ~/Projects/LifeOS-AGY/.agents/skills/Upgrade sources.json
   bun LoadSkillConfig.ts --list
   bun LoadSkillConfig.ts --check Upgrade
 `);

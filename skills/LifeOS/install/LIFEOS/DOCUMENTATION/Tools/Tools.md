@@ -16,33 +16,33 @@ This file documents single-purpose CLI utilities that have been consolidated fro
 
 ## Inference.ts - Unified AI Inference Tool
 
-**Location:** `~/.claude/LIFEOS/TOOLS/Inference.ts`
+**Location:** `~/Projects/LifeOS-AGY/LIFEOS/TOOLS/Inference.ts`
 
 **Use this — never import `@anthropic-ai/sdk` directly.** Inference.ts handles auth, retries, timeouts, and LifeOS-specific defaults. Hooks, skills, agents, and ad-hoc Bash all route through it.
 
 Single inference tool with four run levels for different speed/capability trade-offs — the same four-level abstraction as `EFFORT_MODEL` in `models.ts` (max→fable, high→opus, medium→sonnet, low→haiku; one-line mapping edit on a lineup change).
 
-**Executed-model verification (v6.29.0).** `--level max` genuinely runs Fable (spawns `claude --model claude-fable-5`), unlike an `Agent(model:fable)` dispatch which downgrades to Opus — so this is the real Fable carrier for max-level reasoning. Every run reads the executed model back from the JSON envelope's `modelUsage` (`verifyExecutedModel` — filters Claude Code's per-turn background haiku pass, then takes the highest-output model as the answer's author and checks its family; presence alone can't tell a tiny classifier pass from real authorship). The result carries `executedModel` + `modelDowngraded`; the CLI prints a `[model] requested=… → executed=…` line to stderr (stdout stays the clean answer); any downgrade is logged to `MEMORY/OBSERVABILITY/model-verification.jsonl`. The tool reports what RAN, never what it requested.
+**Executed-model verification (v6.29.0).** `--level max` genuinely runs Fable (spawns `agy --model claude-fable-5`), unlike an `Agent(model:fable)` dispatch which downgrades to Opus — so this is the real Fable carrier for max-level reasoning. Every run reads the executed model back from the JSON envelope's `modelUsage` (`verifyExecutedModel` — filters Antigravity CLI's per-turn background haiku pass, then takes the highest-output model as the answer's author and checks its family; presence alone can't tell a tiny classifier pass from real authorship). The result carries `executedModel` + `modelDowngraded`; the CLI prints a `[model] requested=… → executed=…` line to stderr (stdout stays the clean answer); any downgrade is logged to `MEMORY/OBSERVABILITY/model-verification.jsonl`. The tool reports what RAN, never what it requested.
 
 **Usage:**
 ```bash
 # Low (Haiku) - quick tasks, simple generation
-bun ~/.claude/LIFEOS/TOOLS/Inference.ts --level low "System prompt" "User prompt"
+bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/Inference.ts --level low "System prompt" "User prompt"
 
 # Medium (Sonnet) - balanced reasoning, typical analysis
-bun ~/.claude/LIFEOS/TOOLS/Inference.ts --level medium "System prompt" "User prompt"
+bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/Inference.ts --level medium "System prompt" "User prompt"
 
 # High (Opus) - deep reasoning, strategic decisions
-bun ~/.claude/LIFEOS/TOOLS/Inference.ts --level high "System prompt" "User prompt"
+bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/Inference.ts --level high "System prompt" "User prompt"
 
 # Max (Fable) - hardest reasoning, top tier
-bun ~/.claude/LIFEOS/TOOLS/Inference.ts --level max "System prompt" "User prompt"
+bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/Inference.ts --level max "System prompt" "User prompt"
 
 # With JSON output
-bun ~/.claude/LIFEOS/TOOLS/Inference.ts --json --level low "Return JSON" "Input"
+bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/Inference.ts --json --level low "Return JSON" "Input"
 
 # Custom timeout
-bun ~/.claude/LIFEOS/TOOLS/Inference.ts --level medium --timeout 60000 "Prompt" "Input"
+bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/Inference.ts --level medium --timeout 60000 "Prompt" "Input"
 ```
 
 **Run Levels:**
@@ -55,7 +55,7 @@ bun ~/.claude/LIFEOS/TOOLS/Inference.ts --level medium --timeout 60000 "Prompt" 
 
 **Programmatic Usage:**
 ```typescript
-// From hooks (at ~/.claude/hooks/):
+// From hooks (at ~/Projects/LifeOS-AGY/hooks/):
 import { inference } from '../../.claude/LIFEOS/TOOLS/Inference';
 
 const result = await inference({
@@ -88,20 +88,20 @@ if (result.success) {
 
 ## RemoveBg.ts - Remove Image Backgrounds
 
-**Location:** `~/.claude/LIFEOS/TOOLS/RemoveBg.ts`
+**Location:** `~/Projects/LifeOS-AGY/LIFEOS/TOOLS/RemoveBg.ts`
 
 Remove backgrounds from images using local `rembg` (no external API).
 
 **Usage:**
 ```bash
 # Remove background from single image (overwrites; renames .jpg→.png)
-bun ~/.claude/LIFEOS/TOOLS/RemoveBg.ts /path/to/image.png
+bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/RemoveBg.ts /path/to/image.png
 
 # Remove background and save to different path
-bun ~/.claude/LIFEOS/TOOLS/RemoveBg.ts /path/to/input.png /path/to/output.png
+bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/RemoveBg.ts /path/to/input.png /path/to/output.png
 
 # Process multiple images
-bun ~/.claude/LIFEOS/TOOLS/RemoveBg.ts image1.png image2.png image3.png
+bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/RemoveBg.ts image1.png image2.png image3.png
 ```
 
 **Requirements:**
@@ -117,17 +117,17 @@ bun ~/.claude/LIFEOS/TOOLS/RemoveBg.ts image1.png image2.png image3.png
 
 ## AddBg.ts - Add Background Color
 
-**Location:** `~/.claude/LIFEOS/TOOLS/AddBg.ts`
+**Location:** `~/Projects/LifeOS-AGY/LIFEOS/TOOLS/AddBg.ts`
 
 Add solid background color to transparent images.
 
 **Usage:**
 ```bash
 # Add specific background color
-bun ~/.claude/LIFEOS/TOOLS/AddBg.ts /path/to/transparent.png "#EAE9DF" /path/to/output.png
+bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/AddBg.ts /path/to/transparent.png "#EAE9DF" /path/to/output.png
 
 # Add your brand background color (uses the color from LifeOS config)
-bun ~/.claude/LIFEOS/TOOLS/AddBg.ts /path/to/transparent.png --brand /path/to/output.png
+bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/AddBg.ts /path/to/transparent.png --brand /path/to/output.png
 ```
 
 **When to Use:**
@@ -141,17 +141,17 @@ bun ~/.claude/LIFEOS/TOOLS/AddBg.ts /path/to/transparent.png --brand /path/to/ou
 
 ## GetTranscript.ts - Extract YouTube Transcripts
 
-**Location:** `~/.claude/LIFEOS/TOOLS/GetTranscript.ts`
+**Location:** `~/Projects/LifeOS-AGY/LIFEOS/TOOLS/GetTranscript.ts`
 
 Extract transcripts from YouTube videos using yt-dlp (via fabric).
 
 **Usage:**
 ```bash
 # Extract transcript to stdout
-bun ~/.claude/LIFEOS/TOOLS/GetTranscript.ts "https://www.youtube.com/watch?v=VIDEO_ID"
+bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/GetTranscript.ts "https://www.youtube.com/watch?v=VIDEO_ID"
 
 # Save transcript to file
-bun ~/.claude/LIFEOS/TOOLS/GetTranscript.ts "https://www.youtube.com/watch?v=VIDEO_ID" --save /path/to/transcript.txt
+bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/GetTranscript.ts "https://www.youtube.com/watch?v=VIDEO_ID" --save /path/to/transcript.txt
 ```
 
 **Supported URL Formats:**
@@ -175,23 +175,23 @@ bun ~/.claude/LIFEOS/TOOLS/GetTranscript.ts "https://www.youtube.com/watch?v=VID
 
 ## MemoryRetriever.ts - Compressed Knowledge Retrieval
 
-**Location:** `~/.claude/LIFEOS/TOOLS/MemoryRetriever.ts`
+**Location:** `~/Projects/LifeOS-AGY/LIFEOS/TOOLS/MemoryRetriever.ts`
 
 BM25-lite search across the Knowledge Archive with optional LLM compression. Finds relevant notes by keyword matching, tag co-occurrence, and content frequency, then compresses results into a dense context-efficient summary.
 
 **Usage:**
 ```bash
 # Search and return compressed results (default: top 3)
-bun ~/.claude/LIFEOS/TOOLS/MemoryRetriever.ts "memory architecture"
+bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/MemoryRetriever.ts "memory architecture"
 
 # Return top 5 results
-bun ~/.claude/LIFEOS/TOOLS/MemoryRetriever.ts "security policy" --top 5
+bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/MemoryRetriever.ts "security policy" --top 5
 
 # Skip LLM compression, return raw excerpts
-bun ~/.claude/LIFEOS/TOOLS/MemoryRetriever.ts "karpathy" --raw
+bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/MemoryRetriever.ts "karpathy" --raw
 
 # Custom token budget for output
-bun ~/.claude/LIFEOS/TOOLS/MemoryRetriever.ts "threat model" --budget 800
+bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/MemoryRetriever.ts "threat model" --budget 800
 ```
 
 **Scoring:**
@@ -212,29 +212,29 @@ bun ~/.claude/LIFEOS/TOOLS/MemoryRetriever.ts "threat model" --budget 800
 
 ## KnowledgeGraph.ts - Associative Knowledge Navigation
 
-**Location:** `~/.claude/LIFEOS/TOOLS/KnowledgeGraph.ts`
+**Location:** `~/Projects/LifeOS-AGY/LIFEOS/TOOLS/KnowledgeGraph.ts`
 
 Builds an in-memory graph from Knowledge Archive frontmatter (tags, wikilinks, related fields) and enables BFS traversal for associative recall. No persistent storage — computed from existing markdown files at query time.
 
 **Usage:**
 ```bash
 # BFS traversal from a note (default: 2 hops)
-bun ~/.claude/LIFEOS/TOOLS/KnowledgeGraph.ts traverse karpathy
+bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/KnowledgeGraph.ts traverse karpathy
 
 # Traverse with custom depth
-bun ~/.claude/LIFEOS/TOOLS/KnowledgeGraph.ts traverse mempalace --hops 3
+bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/KnowledgeGraph.ts traverse mempalace --hops 3
 
 # Show directly connected notes
-bun ~/.claude/LIFEOS/TOOLS/KnowledgeGraph.ts related mempalace
+bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/KnowledgeGraph.ts related mempalace
 
 # Graph summary: nodes, edges, clusters
-bun ~/.claude/LIFEOS/TOOLS/KnowledgeGraph.ts stats
+bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/KnowledgeGraph.ts stats
 
 # Top 10 most-connected notes
-bun ~/.claude/LIFEOS/TOOLS/KnowledgeGraph.ts hubs
+bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/KnowledgeGraph.ts hubs
 
 # Find all notes with a specific tag
-bun ~/.claude/LIFEOS/TOOLS/KnowledgeGraph.ts find architecture
+bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/KnowledgeGraph.ts find architecture
 ```
 
 **Edge Types:**
@@ -289,7 +289,7 @@ sleep 2
 - "perform this"
 
 **Technical Details:**
-- Pulse must be running (voice handler lives at `~/.claude/LIFEOS/PULSE/VoiceServer/voice.ts`, port 31337)
+- Pulse must be running (voice handler lives at `~/Projects/LifeOS-AGY/LIFEOS/PULSE/VoiceServer/voice.ts`, port 31337)
 - Segments longer than 450 chars should be split
 - Natural 2-second pauses between segments for storytelling flow
 - Uses ElevenLabs API under the hood
@@ -298,14 +298,14 @@ sleep 2
 
 ## extract-transcript.py - Transcribe Audio/Video Files
 
-**Location:** `~/.claude/LIFEOS/TOOLS/extract-transcript.py`
+**Location:** `~/Projects/LifeOS-AGY/LIFEOS/TOOLS/extract-transcript.py`
 
 Local transcription using faster-whisper (4x faster than OpenAI Whisper, 50% less memory). Self-contained UV script for offline transcription.
 
 **Usage:**
 ```bash
 # Transcribe single file (base.en model - recommended)
-cd ~/.claude/LIFEOS/TOOLS/
+cd ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/
 uv run extract-transcript.py /path/to/audio.m4a
 
 # Use different model
@@ -359,24 +359,24 @@ uv run extract-transcript.py /path/to/folder/ --batch --model base.en
 
 ## YouTubeApi.ts - YouTube Channel & Video Stats
 
-**Location:** `~/.claude/LIFEOS/TOOLS/YouTubeApi.ts`
+**Location:** `~/Projects/LifeOS-AGY/LIFEOS/TOOLS/YouTubeApi.ts`
 
 Wrapper around YouTube Data API v3 for channel statistics and video metrics.
 
 **Usage:**
 ```bash
 # Get channel statistics
-bun ~/.claude/LIFEOS/TOOLS/YouTubeApi.ts --channel-stats
+bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/YouTubeApi.ts --channel-stats
 
 # Get video statistics
-bun ~/.claude/LIFEOS/TOOLS/YouTubeApi.ts --video-stats VIDEO_ID
+bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/YouTubeApi.ts --video-stats VIDEO_ID
 
 # Get latest uploads
-bun ~/.claude/LIFEOS/TOOLS/YouTubeApi.ts --latest-videos
+bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/YouTubeApi.ts --latest-videos
 ```
 
 **Environment Variables:**
-- `YOUTUBE_API_KEY` - Required for API access (from `~/.claude/.env`)
+- `YOUTUBE_API_KEY` - Required for API access (from `~/Projects/LifeOS-AGY/.env`)
 - `YOUTUBE_CHANNEL_ID` - Default channel ID
 
 **When to Use:**
@@ -451,7 +451,7 @@ brew install trufflehog
 
 **Repository:** [github.com/rtk-ai/rtk](https://github.com/rtk-ai/rtk) (MIT license)
 
-Transparent CLI proxy that compresses the output of a few high-volume commands before it reaches Claude Code's context. Integrated via a PreToolUse hook that rewrites matching commands to their `rtk` equivalents before execution.
+Transparent CLI proxy that compresses the output of a few high-volume commands before it reaches Antigravity CLI's context. Integrated via a PreToolUse hook that rewrites matching commands to their `rtk` equivalents before execution.
 
 **`rtk` is an OPTIONAL dependency, not bundled by the installer.** Without `rtk` on PATH the hook is an inert passthrough — it never errors and never blocks a command. To enable it, install rtk separately (see Location above). This is deliberate: the installer ships no third-party binary.
 
@@ -472,7 +472,7 @@ rtk --help            # supported subcommands
 - 3-tier parsing: JSON → regex → passthrough (graceful degradation)
 - SQLite tracking database at `~/.config/rtk/history.db`
 - Hook requires `jq` (for JSON stdin parsing) in addition to `rtk`
-- Regression gate: `cd ~/.claude/hooks && bun test ContextReduction.test.ts`
+- Regression gate: `cd ~/Projects/LifeOS-AGY/hooks && bun test ContextReduction.test.ts`
 
 ---
 
@@ -525,7 +525,7 @@ Monitor({
   description: "Pulse error watcher",
   persistent: true,
   timeout_ms: 300000,
-  command: "tail -f ~/.claude/Pulse/logs/pulse-stdout.log | grep --line-buffered -i -E '(error|fatal|crash|unhandled)'"
+  command: "tail -f ~/Projects/LifeOS-AGY/Pulse/logs/pulse-stdout.log | grep --line-buffered -i -E '(error|fatal|crash|unhandled)'"
 })
 ```
 
@@ -597,7 +597,7 @@ Monitor({
 
 When adding a new utility tool to this system:
 
-1. **Add tool file:** Place `.ts` or `.py` file directly in `~/.claude/LIFEOS/TOOLS/`
+1. **Add tool file:** Place `.ts` or `.py` file directly in `~/Projects/LifeOS-AGY/LIFEOS/TOOLS/`
    - Use **Title Case** for filenames (e.g., `GetTranscript.ts`, not `get-transcript.ts`)
    - Keep the directory flat — a single-file tool goes directly in `TOOLS/`, never in a folder of its own.
      Subdirectories are the named exception, not a free choice: `Conveyor/` (a multi-file subsystem) and
@@ -608,7 +608,7 @@ When adding a new utility tool to this system:
 
 
 2. **Document here:** Add section to this file with:
-   - Tool location (e.g., `~/.claude/`)
+   - Tool location (e.g., `~/Projects/LifeOS-AGY/`)
    - Usage examples
    - When to use triggers
    - Environment variables (if any)
@@ -638,26 +638,26 @@ Archived skill files have been removed.
 
 ## KnowledgeHarvester.ts - Knowledge Archive Harvester
 
-**Location:** `~/.claude/LIFEOS/TOOLS/KnowledgeHarvester.ts`
+**Location:** `~/Projects/LifeOS-AGY/LIFEOS/TOOLS/KnowledgeHarvester.ts`
 
 Validate and maintain the KNOWLEDGE/ archive (4 entity types: People, Companies, Ideas, Research). Validates against schemas in `_schema.md`, handles MOC regeneration and maintenance. Note: Algorithm LEARN phase writes knowledge directly; harvester reflections are disabled. The harvester's primary role is now validation, maintenance, and index regeneration.
 
 **Usage:**
 ```bash
 # Harvest from all sources
-bun ~/.claude/LIFEOS/TOOLS/KnowledgeHarvester.ts harvest
+bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/KnowledgeHarvester.ts harvest
 
 # Harvest from specific source
-bun ~/.claude/LIFEOS/TOOLS/KnowledgeHarvester.ts harvest --source work
+bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/KnowledgeHarvester.ts harvest --source work
 
 # Preview without writing
-bun ~/.claude/LIFEOS/TOOLS/KnowledgeHarvester.ts harvest --dry-run
+bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/KnowledgeHarvester.ts harvest --dry-run
 
 # Archive health dashboard
-bun ~/.claude/LIFEOS/TOOLS/KnowledgeHarvester.ts status
+bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/KnowledgeHarvester.ts status
 
 # Regenerate all MOC dashboards
-bun ~/.claude/LIFEOS/TOOLS/KnowledgeHarvester.ts index
+bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/KnowledgeHarvester.ts index
 ```
 
 **Sources:**
@@ -678,7 +678,7 @@ bun ~/.claude/LIFEOS/TOOLS/KnowledgeHarvester.ts index
 
 ## models.ts + UpdateModels.ts — Model ID Registry & Release Auto-Track
 
-**Location:** `~/.claude/LIFEOS/TOOLS/models.ts` (registry) + `~/.claude/LIFEOS/TOOLS/UpdateModels.ts` (updater).
+**Location:** `~/Projects/LifeOS-AGY/LIFEOS/TOOLS/models.ts` (registry) + `~/Projects/LifeOS-AGY/LIFEOS/TOOLS/UpdateModels.ts` (updater).
 
 `models.ts` is the **single source of truth** for current Claude model IDs (`CURRENT.opus/sonnet/haiku`) plus cross-vendor pins (inventory only). The rule of the road:
 
@@ -688,24 +688,24 @@ bun ~/.claude/LIFEOS/TOOLS/KnowledgeHarvester.ts index
 
 **On a new model release (propose-not-auto):**
 1. The AI-news skill's Anthropic monitor (`CheckAnthropicChanges.ts`) scans fetched source bodies for a new Claude ID and, on a hit, records it to `LIFEOS/MEMORY/OBSERVABILITY/model-releases.jsonl` and best-effort fires `/notify` (voice/ntfy). It never edits the registry. (A model bump is a command, not a markdown-section text edit, so it deliberately does NOT use the `pending-proposals.jsonl` proposal queue — that queue's apply path only appends text under a header.)
-2. A human reviews, then bumps the one edit point: `bun ~/.claude/LIFEOS/TOOLS/UpdateModels.ts --apply <tier> <new-id>`.
-3. Confirm nothing else drifted: `bun ~/.claude/LIFEOS/TOOLS/UpdateModels.ts --check` (also runnable any time as a drift alarm; exit 1 on drift).
+2. A human reviews, then bumps the one edit point: `bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/UpdateModels.ts --apply <tier> <new-id>`.
+3. Confirm nothing else drifted: `bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/UpdateModels.ts --check` (also runnable any time as a drift alarm; exit 1 on drift).
 
 Historical Algorithm doctrine snapshots (`LIFEOS/ALGORITHM/v*.md`), the Algorithm changelog, co-located `.test.ts` fixtures, skill `/State/` runtime caches, eval configs (which pin a model on purpose for reproducible comparison), and price tables keyed by past IDs are all excluded from the drift scan — see `SCAN_EXCLUDES`. `--check` reports two classes: **stale** (wrong now) and **pinned-but-current** (right today, will rot on the next bump — prefer an alias).
 
 ## ArchitectureSummaryGenerator.ts - Architecture Summary Generator
 
-**Location:** `~/.claude/LIFEOS/TOOLS/ArchitectureSummaryGenerator.ts`
+**Location:** `~/Projects/LifeOS-AGY/LIFEOS/TOOLS/ArchitectureSummaryGenerator.ts`
 
 Generate `ARCHITECTURE_SUMMARY.md` from LifeosSystemArchitecture.md and subsystem docs. Provides a compact architecture overview derived from the master architecture document.
 
 **Usage:**
 ```bash
 # Generate/regenerate the architecture summary
-bun ~/.claude/LIFEOS/TOOLS/ArchitectureSummaryGenerator.ts generate
+bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/ArchitectureSummaryGenerator.ts generate
 
 # Check if summary is stale (exit 1 if stale, 0 if fresh)
-bun ~/.claude/LIFEOS/TOOLS/ArchitectureSummaryGenerator.ts check
+bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/ArchitectureSummaryGenerator.ts check
 ```
 
 **When to Use:**
@@ -717,7 +717,7 @@ bun ~/.claude/LIFEOS/TOOLS/ArchitectureSummaryGenerator.ts check
 
 ## Doctor.ts - Capability Prober & Health Manifest
 
-**Location:** `~/.claude/LIFEOS/TOOLS/Doctor.ts`
+**Location:** `~/Projects/LifeOS-AGY/LIFEOS/TOOLS/Doctor.ts`
 
 Probes the external tools LifeOS doctrine assumes but the core install does not ship — `codex` (cross-vendor audit), Interceptor (browser verification), Cloudflare/wrangler (scheduled flows), ElevenLabs (voice) — plus core wiring, and writes an **advisory** capability manifest at `MEMORY/STATE/capabilities.json`. Born from onboarding-friction feedback (discussion #1461): capabilities assumed but never verified degrade silently, and change-scoped checks can't see what's dormant at rest.
 
@@ -726,18 +726,18 @@ Four states per capability: `live` / `broken` / `declined` / `stale`. The manife
 **Usage:**
 ```bash
 # Probe (offline checks), human table
-bun ~/.claude/LIFEOS/TOOLS/Doctor.ts
+bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/Doctor.ts
 
 # Include network probes (only for configured capabilities — no pre-consent egress)
-bun ~/.claude/LIFEOS/TOOLS/Doctor.ts --network
+bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/Doctor.ts --network
 
-bun ~/.claude/LIFEOS/TOOLS/Doctor.ts --json          # machine-readable
-bun ~/.claude/LIFEOS/TOOLS/Doctor.ts --verify        # integrity-check the manifest (exit 2 on tamper)
-bun ~/.claude/LIFEOS/TOOLS/Doctor.ts --reconcile     # hooks declared-on-disk vs registered-in-settings
-bun ~/.claude/LIFEOS/TOOLS/Doctor.ts --statusline    # one glyph if a NEW regression since ack, else empty
-bun ~/.claude/LIFEOS/TOOLS/Doctor.ts decline <cap>   # permanent silent opt-out
-bun ~/.claude/LIFEOS/TOOLS/Doctor.ts enable <cap>    # undo a decline
-bun ~/.claude/LIFEOS/TOOLS/Doctor.ts ack             # acknowledge the current broken set (statusline delta base)
+bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/Doctor.ts --json          # machine-readable
+bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/Doctor.ts --verify        # integrity-check the manifest (exit 2 on tamper)
+bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/Doctor.ts --reconcile     # hooks declared-on-disk vs registered-in-settings
+bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/Doctor.ts --statusline    # one glyph if a NEW regression since ack, else empty
+bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/Doctor.ts decline <cap>   # permanent silent opt-out
+bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/Doctor.ts enable <cap>    # undo a decline
+bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/Doctor.ts ack             # acknowledge the current broken set (statusline delta base)
 ```
 
 **Consumers (read the manifest, never write it):** the statusline delta line (precomputed sidecar), the `AlgorithmNudge` capability row (fires at the moment a broken capability's command fails — reads only `state`, fix command is a static in-hook constant), and the Pulse System Health panel (`/api/doctor`). Never install-fatal: the default run always exits 0; every probe is timeout-bounded.
@@ -750,7 +750,7 @@ bun ~/.claude/LIFEOS/TOOLS/Doctor.ts ack             # acknowledge the current b
 
 ## MCP Servers
 
-**Config:** `~/.claude/.mcp.json`
+**Config:** `~/Projects/LifeOS-AGY/.mcp.json`
 
 LifeOS connects to external MCP servers for domain-specific tool access.
 
@@ -759,7 +759,7 @@ LifeOS connects to external MCP servers for domain-specific tool access.
 | **vendor-mcp** | HTTP | `vendor-protect-mcp.YOUR-SUBDOMAIN.workers.dev/mcp` | Yes (your CF Worker) |
 | **cloudflare** | HTTP | `mcp.cloudflare.com/mcp` | No (external) |
 
-### Result Size Override (Claude Code v2.1.91+)
+### Result Size Override (Antigravity CLI v2.1.91+)
 
 MCP tool results are truncated by default. Servers can override this by adding `_meta["anthropic/maxResultSizeChars"]` to their tool result annotations, allowing results up to **500K characters** without truncation.
 
@@ -788,7 +788,7 @@ MCP tool results are truncated by default. Servers can override this by adding `
 You need the transcript of a YouTube talk. The wrong move is to reach for `yt-dlp` flags and stitch together caption parsing by hand every time. The right move is one line:
 
 ```bash
-bun ~/.claude/LIFEOS/TOOLS/GetTranscript.ts "https://www.youtube.com/watch?v=VIDEO_ID"
+bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/GetTranscript.ts "https://www.youtube.com/watch?v=VIDEO_ID"
 ```
 
 The tool already handles the URL formats, prefers manual captions, falls back to auto-generated, and detects the language. It is documented here rather than wrapped in a skill because it is exactly one deterministic command with parameters — nothing to orchestrate, no state to carry, no judgment to make. The prompt decides *when* to run it; the code does the work the same way every time.
@@ -819,8 +819,8 @@ The default bias is toward the bottom-left branch: most needs are one command, a
 
 ## Related Documentation
 
-- **Architecture**: `~/.claude/LIFEOS/DOCUMENTATION/LifeosSystemArchitecture.md` (master architecture reference)
-- **CLI Tools**: `~/.claude/LIFEOS/DOCUMENTATION/Tools/Cli.md` (Arbol CLI; the former Algorithm CLI was retired 2026-07-14)
+- **Architecture**: `~/Projects/LifeOS-AGY/LIFEOS/DOCUMENTATION/LifeosSystemArchitecture.md` (master architecture reference)
+- **CLI Tools**: `~/Projects/LifeOS-AGY/LIFEOS/DOCUMENTATION/Tools/Cli.md` (Arbol CLI; the former Algorithm CLI was retired 2026-07-14)
 
 ---
 

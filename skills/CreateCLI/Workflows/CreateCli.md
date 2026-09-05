@@ -202,8 +202,8 @@ const DEFAULTS = {
  * Load configuration from environment
  */
 function loadConfig(): Config {
-  // Canonical .env is ~/.claude/.env — never $LIFEOS_CONFIG_DIR/.env, which
-  // resolves to the dead ~/.claude/LIFEOS/.env path (public issue #1490).
+  // Canonical .env is ~/Projects/LifeOS-AGY/.env — never $LIFEOS_CONFIG_DIR/.env, which
+  // resolves to the dead ~/Projects/LifeOS-AGY/LIFEOS/.env path (public issue #1490).
   const envPath = join(homedir(), '.claude', '.env');
 
   try {
@@ -218,7 +218,7 @@ function loadConfig(): Config {
       ?.replace(/^["']|["']$/g, '');
 
     if (!apiKey) {
-      console.error('Error: {{ENV_VAR_NAME}} not found in ~/.claude/.env');
+      console.error('Error: {{ENV_VAR_NAME}} not found in ~/Projects/LifeOS-AGY/.env');
       process.exit(1);
     }
 
@@ -228,8 +228,8 @@ function loadConfig(): Config {
       {{ADDITIONAL_CONFIG}}
     };
   } catch (error) {
-    console.error('Error: Cannot read ~/.claude/.env file');
-    console.error('Make sure {{ENV_VAR_NAME}} is set in ~/.claude/.env');
+    console.error('Error: Cannot read ~/Projects/LifeOS-AGY/.env file');
+    console.error('Make sure {{ENV_VAR_NAME}} is set in ~/Projects/LifeOS-AGY/.env');
     process.exit(1);
   }
 }
@@ -281,7 +281,7 @@ const format = formatIdx !== -1 ? args[formatIdx + 1] : 'json';
 4. **Value flags**: `--flag <value>` for choices
 5. **Composable**: Flags should combine logically
 
-**Reference:** `~/.claude/LIFEOS/DOCUMENTATION/Tools/CliFirstArchitecture.md` (Configuration Flags section)
+**Reference:** `~/Projects/LifeOS-AGY/LIFEOS/DOCUMENTATION/Tools/CliFirstArchitecture.md` (Configuration Flags section)
 
 ---
 
@@ -376,7 +376,7 @@ PHILOSOPHY:
   - Documented: Full help and examples
   - Testable: Predictable behavior
 
-For more information, see ~/.claude/LIFEOS/TOOLS/{{CLI_NAME}}/README.md
+For more information, see ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/{{CLI_NAME}}/README.md
 
 Version: 1.0.0
 `);
@@ -542,7 +542,7 @@ main().catch((error) => {
 
 ## Full Documentation
 
-See: ~/.claude/LIFEOS/TOOLS/{{CLI_NAME}}/README.md
+See: ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/{{CLI_NAME}}/README.md
 ```
 
 ---
@@ -608,7 +608,7 @@ See: ~/.claude/LIFEOS/TOOLS/{{CLI_NAME}}/README.md
 
 **Validation Commands:**
 ```bash
-cd ~/.claude/LIFEOS/TOOLS/{{CLI_NAME}}/
+cd ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/{{CLI_NAME}}/
 chmod +x {{CLI_NAME}}.ts
 ./{{CLI_NAME}}.ts --help
 ./{{CLI_NAME}}.ts --version
@@ -616,7 +616,7 @@ chmod +x {{CLI_NAME}}.ts
 
 **Report to user:**
 ```
-✅ CLI Created: ~/.claude/LIFEOS/TOOLS/{{CLI_NAME}}/
+✅ CLI Created: ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/{{CLI_NAME}}/
 
 Files generated:
 - {{CLI_NAME}}.ts ({{LINE_COUNT}} lines)
@@ -627,11 +627,11 @@ Files generated:
 - QUICKSTART.md
 
 Next steps:
-1. Configure: Add {{ENV_VAR_NAME}} to ~/.claude/.env
+1. Configure: Add {{ENV_VAR_NAME}} to ~/Projects/LifeOS-AGY/.env
 2. Test: ./{{CLI_NAME}}.ts --help
 3. Use: ./{{CLI_NAME}}.ts {{EXAMPLE_COMMAND}}
 
-Documentation: ~/.claude/LIFEOS/TOOLS/{{CLI_NAME}}/README.md
+Documentation: ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/{{CLI_NAME}}/README.md
 ```
 
 ---
@@ -643,7 +643,7 @@ Documentation: ~/.claude/LIFEOS/TOOLS/{{CLI_NAME}}/README.md
 
 **Generated Output:**
 ```
-✅ CLI Created: ~/.claude/LIFEOS/TOOLS/notioncli/
+✅ CLI Created: ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/notioncli/
 
 Files generated:
 - notioncli.ts (342 lines)
@@ -660,9 +660,9 @@ Commands available:
 - notioncli --help                       # Show full help
 
 Next steps:
-1. Add NOTION_API_KEY=your_key to ~/.claude/.env
+1. Add NOTION_API_KEY=your_key to ~/Projects/LifeOS-AGY/.env
 2. Test: notioncli databases
-3. Read: ~/.claude/LIFEOS/TOOLS/notioncli/README.md
+3. Read: ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/notioncli/README.md
 
 The CLI follows llcli pattern with type safety, error handling,
 and comprehensive documentation.

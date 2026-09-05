@@ -20,7 +20,7 @@ import { DAILY_DIR, dailyPathsFor } from "./paths.ts";
 import type { ConduitEvent, DailyBlock, DailyRecord } from "./types.ts";
 
 /** Label marks the number as inferred, so a reader never mistakes it for measured focus. */
-const DERIVED_LABEL = "Claude Code (derived from session cadence)";
+const DERIVED_LABEL = "Antigravity CLI (derived from session cadence)";
 
 /**
  * Time between consecutive claude-session events, capped so an overnight gap is not

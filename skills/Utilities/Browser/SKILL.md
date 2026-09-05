@@ -7,7 +7,7 @@ version: 3.3.0
 ## Customization
 
 **Before executing, check for user customizations at:**
-`~/.claude/PAI/USER/SKILLCUSTOMIZATIONS/Browser/`
+`~/Projects/LifeOS-AGY/PAI/USER/SKILLCUSTOMIZATIONS/Browser/`
 
 If this directory exists, load and apply any PREFERENCES.md, configurations, or resources found there. These override default behavior. If the directory does not exist, proceed with skill defaults.
 
@@ -75,7 +75,7 @@ Every browser task enters this tree. Pick the FIRST match:
 
 Browser automation should use standard CLI tools, not custom code. `playwright-cli` provides named sessions with ref-based interaction for multi-step work. `bunx playwright` handles one-shot screenshots and PDFs. BrowserAgent provides AI reasoning for complex tasks. No custom code to maintain.
 
-**Headless by default.** All automation runs headless. When the user says "show me", open the URL in their preferred browser from `~/.claude/PAI/USER/TECHSTACKPREFERENCES.md`:
+**Headless by default.** All automation runs headless. When the user says "show me", open the URL in their preferred browser from `~/Projects/LifeOS-AGY/PAI/USER/TECHSTACKPREFERENCES.md`:
 
 ```bash
 open -a "$BROWSER" "<url>"  # BROWSER from tech stack prefs
@@ -254,7 +254,7 @@ For tasks requiring AI decision-making about what to do next. Both agents use `p
 - Structured user story validation with defined steps and assertions
 - Parallel test execution (one UIReviewer per story)
 
-**Agent definitions:** `~/.claude/agents/BrowserAgent.md` and `~/.claude/agents/UIReviewer.md`
+**Agent definitions:** `~/Projects/LifeOS-AGY/agents/BrowserAgent.md` and `~/Projects/LifeOS-AGY/agents/UIReviewer.md`
 
 **Usage:**
 
@@ -288,7 +288,7 @@ Task(subagent_type="BrowserAgent", prompt="Check http://localhost:3000/page2")
 
 For tasks requiring your logged-in browser state, extensions, or cookies.
 
-**How it works:** Claude Code's `--chrome` flag connects to your actual Chrome browser. Single session, not parallelizable, but has access to all your cookies, sessions, and extensions.
+**How it works:** Antigravity CLI's `--chrome` flag connects to your actual Chrome browser. Single session, not parallelizable, but has access to all your cookies, sessions, and extensions.
 
 **When to use:**
 - Sites requiring login you can't easily replicate (SSO, 2FA)
@@ -298,7 +298,7 @@ For tasks requiring your logged-in browser state, extensions, or cookies.
 
 **Usage:**
 ```bash
-# Proper way: launch Claude Code with Chrome integration
+# Proper way: launch Antigravity CLI with Chrome integration
 claude --chrome
 ```
 

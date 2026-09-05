@@ -316,7 +316,7 @@ export default function AssistantPage() {
     setEditError(null);
   }
 
-  // Heuristic: is a Claude Code trigger actually a loop?
+  // Heuristic: is a Antigravity CLI trigger actually a loop?
   // Triggers populated by `claude triggers list` may include /loop sessions —
   // surface those distinctly so {{PRINCIPAL_NAME}} can tell them apart from one-shot crons.
   function detectLoop(task: UnifiedTask): boolean {
@@ -350,7 +350,7 @@ export default function AssistantPage() {
   const scheduleTabs: TabSpec<typeof scheduleTab>[] = [
     { id: "pulse", label: "Pulse Cron", dim: "rhythms", hint: cronData ? `${cronData.counts.enabled}/${cronData.counts.total}` : undefined },
     { id: "launchd", label: "launchd", dim: "freedom", hint: tasksData?.by_source.launchd || undefined },
-    { id: "claude-code", label: "Claude Code", dim: "freedom", hint: tasksData?.by_source["claude-code"] || undefined },
+    { id: "claude-code", label: "Antigravity CLI", dim: "freedom", hint: tasksData?.by_source["claude-code"] || undefined },
     { id: "arbol", label: "Arbol", dim: "creative", hint: tasksData?.by_source.arbol || undefined },
     { id: "hermes", label: "Hermes", dim: "relationships", hint: tasksData?.by_source.hermes || undefined },
   ];
@@ -559,19 +559,19 @@ export default function AssistantPage() {
             )}
 
             {scheduleTab === "claude-code" && (
-            <Section title="Scheduled Tasks · Claude Code" icon={Terminal} dimension="freedom">
+            <Section title="Scheduled Tasks · Antigravity CLI" icon={Terminal} dimension="freedom">
               <div className="text-xs mono mb-1 text-ink-2">
-                Claude Code harness · <code className="mono">claude triggers list</code> (not under ~/.claude/LIFEOS/)
+                Antigravity CLI harness · <code className="mono">claude triggers list</code> (not under ~/Projects/LifeOS-AGY/LIFEOS/)
               </div>
               <div className="text-xs mb-3 text-ink-3">
-                Built into Claude Code — triggers and active <code className="mono bg-surface-1 px-1.5 py-px rounded">/loop</code> sessions managed by the harness, not by Pulse. Pulse polls every 60s.
+                Built into Antigravity CLI — triggers and active <code className="mono bg-surface-1 px-1.5 py-px rounded">/loop</code> sessions managed by the harness, not by Pulse. Pulse polls every 60s.
               </div>
               {(() => {
                 const ccTasks = tasksData?.tasks.filter((t) => t.source === "claude-code") ?? [];
                 if (ccTasks.length === 0) {
                   return (
                     <div className="text-[13px] text-ink-3">
-                      No Claude Code triggers or loops detected. <span className="muted">(Pulse polls <code className="mono">claude triggers list</code> every 60s.)</span>
+                      No Antigravity CLI triggers or loops detected. <span className="muted">(Pulse polls <code className="mono">claude triggers list</code> every 60s.)</span>
                     </div>
                   );
                 }
@@ -589,7 +589,7 @@ export default function AssistantPage() {
                           <div className="flex-1 min-w-0">
                             <div className="flex items-center gap-2">
                               <span className="text-sm truncate text-ink-1">{task.name}</span>
-                              <Pill dim="freedom" className={TAG_CLS} title="Source: Claude Code harness">Claude Code</Pill>
+                              <Pill dim="freedom" className={TAG_CLS} title="Source: Antigravity CLI harness">Antigravity CLI</Pill>
                               {isLoop && (
                                 <Pill dim="creative" className={TAG_CLS} title="Active /loop session">Loop</Pill>
                               )}
@@ -635,8 +635,8 @@ export default function AssistantPage() {
               }
             >
               <div className="text-xs mono mb-1 space-y-0.5 text-ink-2">
-                <div>~/.claude/LIFEOS/PULSE/PULSE.toml <span className="text-ink-3">(system · ships with LifeOS, never written by this UI)</span></div>
-                <div>~/.claude/LIFEOS/USER/CONFIG/PULSE.user.toml <span style={{ color: "var(--creative)" }}>(user · all edits/deletes from this UI write here)</span></div>
+                <div>~/Projects/LifeOS-AGY/LIFEOS/PULSE/PULSE.toml <span className="text-ink-3">(system · ships with LifeOS, never written by this UI)</span></div>
+                <div>~/Projects/LifeOS-AGY/LIFEOS/USER/CONFIG/PULSE.user.toml <span style={{ color: "var(--creative)" }}>(user · all edits/deletes from this UI write here)</span></div>
               </div>
               <div className="text-xs mb-3 text-ink-3">
                 LifeOS&apos;s scheduling system — runs inside Pulse on this machine. Click any row to see full detail and edit interval / command / output.

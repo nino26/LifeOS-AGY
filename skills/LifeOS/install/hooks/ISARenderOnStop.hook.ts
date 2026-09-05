@@ -11,7 +11,7 @@
  * at least once before. Pre-completion edits never fire renders here — this is
  * the doctrinal gate that prevents "constant remaking" during active authoring.
  *
- * State file: ~/.claude/LIFEOS/MEMORY/STATE/isa-render-debounce/<session_id>.json
+ * State file: ~/Projects/LifeOS-AGY/LIFEOS/MEMORY/STATE/isa-render-debounce/<session_id>.json
  * Cleared after each Stop fire.
  *
  * Hook MUST NOT block Stop longer than ~100ms. Renders are spawned detached

@@ -6,7 +6,7 @@ Claude Design handoff bundle → production code via the `frontend-design` plugi
 
 ## Trigger Phrases
 
-"export to code", "ship to code", "send to Claude Code", "process handoff bundle", "turn this into a component"
+"export to code", "ship to code", "send to Antigravity CLI", "process handoff bundle", "turn this into a component"
 
 ## Inputs
 
@@ -26,7 +26,7 @@ Optional:
 OUT="${LIFEOS_DOWNLOADS_DIR:-$HOME/Downloads}"/webdesign/export/$(date +%Y%m%d-%H%M%S)
 mkdir -p "$OUT"
 
-bun ~/.claude/skills/Webdesign/Tools/DriveClaudeDesign.ts export bundle "$OUT/bundle"
+bun ~/Projects/LifeOS-AGY/.agents/skills/Webdesign/Tools/DriveClaudeDesign.ts export bundle "$OUT/bundle"
 ```
 
 The `bundle` format produces a directory containing:
@@ -39,15 +39,15 @@ The `bundle` format produces a directory containing:
 ### 2. Parse the Bundle
 
 ```bash
-bun ~/.claude/skills/Webdesign/Tools/ProcessHandoffBundle.ts "$OUT/bundle" > "$OUT/bundle.json"
-bun ~/.claude/skills/Webdesign/Tools/ProcessHandoffBundle.ts "$OUT/bundle" --brief > "$OUT/integration-brief.md"
+bun ~/Projects/LifeOS-AGY/.agents/skills/Webdesign/Tools/ProcessHandoffBundle.ts "$OUT/bundle" > "$OUT/bundle.json"
+bun ~/Projects/LifeOS-AGY/.agents/skills/Webdesign/Tools/ProcessHandoffBundle.ts "$OUT/bundle" --brief > "$OUT/integration-brief.md"
 ```
 
 The `--brief` flag emits a markdown summary ready to feed into the next agent (the `frontend-design` plugin).
 
 ### 3. Hand Off to the `frontend-design` Plugin
 
-The Anthropic `frontend-design` plugin auto-activates in Claude Code whenever a frontend build request arrives. Feed it the bundle + brief:
+The Anthropic `frontend-design` plugin auto-activates in Antigravity CLI whenever a frontend build request arrives. Feed it the bundle + brief:
 
 > "Build the frontend from this handoff bundle: $OUT/bundle. Follow the integration brief at $OUT/integration-brief.md. Target framework: $FRAMEWORK. Place output in $OUT/code/."
 
@@ -64,7 +64,7 @@ DEV_PID=$!
 sleep 3
 
 # Screenshot the running app
-bun ~/.claude/skills/Webdesign/Tools/VerifyDesign.ts http://localhost:5173 "$OUT/verify"
+bun ~/Projects/LifeOS-AGY/.agents/skills/Webdesign/Tools/VerifyDesign.ts http://localhost:5173 "$OUT/verify"
 
 kill $DEV_PID
 ```
@@ -74,7 +74,7 @@ Compare `$OUT/verify/screenshot.png` against `$OUT/bundle/preview.html` — fide
 ### 5. Accessibility Check
 
 ```bash
-bun ~/.claude/skills/Webdesign/Tools/VerifyDesign.ts --a11y http://localhost:5173 "$OUT/a11y"
+bun ~/Projects/LifeOS-AGY/.agents/skills/Webdesign/Tools/VerifyDesign.ts --a11y http://localhost:5173 "$OUT/a11y"
 ```
 
 Any critical or serious a11y violations block shipping. Fix in code before proceeding.

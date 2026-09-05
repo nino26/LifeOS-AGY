@@ -14,9 +14,9 @@
  * deny rules enforce the read side; this header is the send-side contract.
  *
  * Usage:
- *   bun ~/.claude/LIFEOS/TOOLS/GrokQuery.ts "<query>"
- *   bun ~/.claude/LIFEOS/TOOLS/GrokQuery.ts --model grok-4.6 "<query>"
- *   bun ~/.claude/LIFEOS/TOOLS/GrokQuery.ts --json "<query>"
+ *   bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/GrokQuery.ts "<query>"
+ *   bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/GrokQuery.ts --model grok-4.6 "<query>"
+ *   bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/GrokQuery.ts --json "<query>"
  *
  * Options:
  *   --model <id>       Grok model id (default: CROSS_VENDOR.grok)
@@ -51,7 +51,7 @@ const colors = {
 const XAI_URL = 'https://api.x.ai/v1/chat/completions'
 const OPENROUTER_URL = 'https://openrouter.ai/api/v1/chat/completions'
 
-const USAGE = `Usage: bun ~/.claude/LIFEOS/TOOLS/GrokQuery.ts [options] "<query>"
+const USAGE = `Usage: bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/GrokQuery.ts [options] "<query>"
 
 ⚠️ PUBLIC data only — never Restricted Data in a prompt (see file header).
 
@@ -62,7 +62,7 @@ Options:
   --json             Emit raw API JSON
   -h, --help         this message — costs nothing, sends no request`
 
-/** Canonical .env is ~/.claude/.env — never $LIFEOS_CONFIG_DIR/.env. */
+/** Canonical .env is ~/Projects/LifeOS-AGY/.env — never $LIFEOS_CONFIG_DIR/.env. */
 function loadEnv(): Record<string, string> {
   const envPath = join(homedir(), '.claude', '.env')
   const env: Record<string, string> = {}
@@ -157,7 +157,7 @@ async function main() {
   const { opts, query } = parseArgs(argv)
 
   if (!ROUTE) {
-    console.error(`${colors.red}Error: neither XAI_API_KEY nor OPENROUTER_API_KEY set in ~/.claude/.env${colors.reset}`)
+    console.error(`${colors.red}Error: neither XAI_API_KEY nor OPENROUTER_API_KEY set in ~/Projects/LifeOS-AGY/.env${colors.reset}`)
     process.exit(1)
   }
   if (!query) {

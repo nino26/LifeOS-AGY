@@ -18,10 +18,10 @@ export const CONFIG = {
 
   // Local paths
   paths: {
-    root: '~/.claude/skills/hacking/bug-bounties',
-    state: '~/.claude/skills/hacking/bug-bounties/state.json',
-    cache: '~/.claude/skills/hacking/bug-bounties/cache',
-    logs: '~/.claude/skills/hacking/bug-bounties/logs',
+    root: '~/Projects/LifeOS-AGY/.agents/skills/hacking/bug-bounties',
+    state: '~/Projects/LifeOS-AGY/.agents/skills/hacking/bug-bounties/state.json',
+    cache: '~/Projects/LifeOS-AGY/.agents/skills/hacking/bug-bounties/cache',
+    logs: '~/Projects/LifeOS-AGY/.agents/skills/hacking/bug-bounties/logs',
   },
 
   // GitHub API

@@ -1,4 +1,4 @@
-// Normalize env path vars Claude Code may inject unexpanded — literal $HOME/${HOME}
+// Normalize env path vars Antigravity CLI may inject unexpanded — literal $HOME/${HOME}
 // in LIFEOS_DIR/LIFEOS_CONFIG_DIR/PROJECTS_DIR resolves to a shadow dir (#1404 / PR #1451, author jbmml).
 for (const __k of ["LIFEOS_DIR", "LIFEOS_CONFIG_DIR", "PROJECTS_DIR"]) {
   const __v = process.env[__k];
@@ -11,7 +11,7 @@ for (const __k of ["LIFEOS_DIR", "LIFEOS_CONFIG_DIR", "PROJECTS_DIR"]) {
  * The deriver loop (LearningPatternSynthesis.ts --hypothesize, run nightly via
  * com.lifeos.deriver launchd) writes hypothesis notes to:
  *
- *   ~/.claude/LIFEOS/MEMORY/WISDOM/FRAMES/_hypotheses/YYYY-MM-DD_<slug>.md
+ *   ~/Projects/LifeOS-AGY/LIFEOS/MEMORY/WISDOM/FRAMES/_hypotheses/YYYY-MM-DD_<slug>.md
  *
  * This module reads them, parses the YAML frontmatter + body sections, and
  * serves them as JSON. Rendering happens in the Observability Next.js app at
@@ -35,7 +35,7 @@ import { existsSync, readFileSync, readdirSync, writeFileSync, unlinkSync, mkdir
 import { join } from "path";
 import { homedir } from "node:os";
 
-// Normalize env path vars that Claude Code injects without shell expansion (LifeOS#1404)
+// Normalize env path vars that Antigravity CLI injects without shell expansion (LifeOS#1404)
 for (const k of ["LIFEOS_DIR", "LIFEOS_CONFIG_DIR", "PROJECTS_DIR"]) {
   const v = process.env[k];
   if (v && /^\$\{?HOME\}?(\/|$)/.test(v)) process.env[k] = v.replace(/^\$\{?HOME\}?/, process.env.HOME ?? "~");

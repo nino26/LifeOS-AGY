@@ -1,9 +1,9 @@
 #!/usr/bin/env bun
 /**
- * Cost Aggregator — scans Claude Code session JSONLs for token usage data
+ * Cost Aggregator — scans Antigravity CLI session JSONLs for token usage data
  * and computes per-session costs.
  *
- * Data source: ~/.claude/projects/{project}/{uuid}.jsonl
+ * Data source: ~/Projects/LifeOS-AGY/projects/{project}/{uuid}.jsonl
  * Output: MEMORY/OBSERVABILITY/session-costs.jsonl
  *
  * Runs incrementally: tracks last scan time, only processes new/modified files.

@@ -32,7 +32,7 @@
  * harness's own subagents/agent-*.jsonl transcript mtime (statusline reads it
  * directly — no hook bookkeeping can go stale).
  *
- * Claude Code's built-in SubagentStart/SubagentStop payloads do NOT include
+ * Antigravity CLI's built-in SubagentStart/SubagentStop payloads do NOT include
  * subagent_type / description / prompt reliably — the prior tracker wrote
  * "unknown" for 5844 of 5846 historical events. This hook captures the data
  * at PreToolUse:Agent / PostToolUse:Agent where tool_input and tool_response

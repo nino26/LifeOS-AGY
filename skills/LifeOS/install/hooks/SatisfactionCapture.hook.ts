@@ -1,5 +1,5 @@
 #!/usr/bin/env bun
-// Normalize env path vars Claude Code may inject unexpanded — literal $HOME/${HOME}
+// Normalize env path vars Antigravity CLI may inject unexpanded — literal $HOME/${HOME}
 // in LIFEOS_DIR/LIFEOS_CONFIG_DIR/PROJECTS_DIR resolves to a shadow dir (#1404 / PR #1451, author jbmml).
 for (const __k of ["LIFEOS_DIR", "LIFEOS_CONFIG_DIR", "PROJECTS_DIR"]) {
   const __v = process.env[__k];
@@ -47,7 +47,7 @@ import { addUpgrade } from '../LIFEOS/TOOLS/Upgrades';
 import { addRatingPulse } from './lib/isa-utils';
 import { homedir } from "node:os";
 
-// Normalize env path vars that Claude Code injects without shell expansion (LifeOS#1404)
+// Normalize env path vars that Antigravity CLI injects without shell expansion (LifeOS#1404)
 for (const k of ["LIFEOS_DIR", "LIFEOS_CONFIG_DIR", "PROJECTS_DIR"]) {
   const v = process.env[k];
   if (v && /^\$\{?HOME\}?(\/|$)/.test(v)) process.env[k] = v.replace(/^\$\{?HOME\}?/, process.env.HOME ?? "~");
@@ -523,7 +523,7 @@ async function main() {
     }
 
     // ── 7.0.0 BPE: implicit-sentiment inference REMOVED ──
-    // This path spawned a `claude --print` subprocess (2s stagger + ≤15s) on essentially
+    // This path spawned a `agy --disable-slash-commands --print` subprocess (2s stagger + ≤15s) on essentially
     // every neutral prompt to guess a 1–10 mood number — the highest-compute, lowest-signal
     // per-turn scaffolding in the system. Explicit ratings and direct praise (the fast-paths
     // above) are the real signal and stay. Implicit sentiment, if wanted, belongs in a

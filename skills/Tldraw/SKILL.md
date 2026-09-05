@@ -11,7 +11,7 @@ Deterministic read/write for tldraw canvases. The `.tldr` format is plain JSON (
 ## Customization
 
 **Before executing, check for user customizations at:**
-`~/.claude/LIFEOS/USER/CUSTOMIZATIONS/SKILLS/Tldraw/`
+`~/Projects/LifeOS-AGY/LIFEOS/USER/CUSTOMIZATIONS/SKILLS/Tldraw/`
 
 If this directory exists, load and apply any PREFERENCES.md found there (default canvas directory, preferred colors/register, default open surface). If not, proceed with defaults.
 
@@ -41,7 +41,7 @@ If this directory exists, load and apply any PREFERENCES.md found there (default
 
 ## Quick Reference
 
-- Tool: `bun ~/.claude/skills/Tldraw/Tools/Tldr.ts <create|inspect|add|remove|move|settext|validate> <file.tldr> [flags]`
+- Tool: `bun ~/Projects/LifeOS-AGY/.agents/skills/Tldraw/Tools/Tldr.ts <create|inspect|add|remove|move|settext|validate> <file.tldr> [flags]`
 - Record shapes, spec format, coordinate conventions: `References/TldrFormat.md`
 - Vendored schema (tldraw 5.2.5): `References/SchemaSnapshot.json`
 
@@ -85,5 +85,5 @@ User: "I dumped ideas on my canvas — structure them"
 After completing any workflow, append a single JSONL entry:
 
 ```bash
-echo '{"ts":"'$(date -u +%Y-%m-%dT%H:%M:%SZ)'","skill":"Tldraw","workflow":"WORKFLOW_USED","input":"8_WORD_SUMMARY","status":"ok|error","duration_s":SECONDS}' >> ~/.claude/LIFEOS/MEMORY/SKILLS/execution.jsonl
+echo '{"ts":"'$(date -u +%Y-%m-%dT%H:%M:%SZ)'","skill":"Tldraw","workflow":"WORKFLOW_USED","input":"8_WORD_SUMMARY","status":"ok|error","duration_s":SECONDS}' >> ~/Projects/LifeOS-AGY/LIFEOS/MEMORY/SKILLS/execution.jsonl
 ```

@@ -2,9 +2,9 @@
 /**
  * InstallConveyorWatcher.ts — Materialize com.lifeos.conveyor-watcher.plist.template and bootstrap it.
  *
- *   bun ~/.claude/LIFEOS/TOOLS/InstallConveyorWatcher.ts             # install
- *   bun ~/.claude/LIFEOS/TOOLS/InstallConveyorWatcher.ts --uninstall # remove
- *   bun ~/.claude/LIFEOS/TOOLS/InstallConveyorWatcher.ts --status    # check
+ *   bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/InstallConveyorWatcher.ts             # install
+ *   bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/InstallConveyorWatcher.ts --uninstall # remove
+ *   bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/InstallConveyorWatcher.ts --status    # check
  *
  * Reads $HOME, substitutes {{HOME}} in the template, writes
  * ~/Library/LaunchAgents/com.lifeos.conveyor-watcher.plist, and runs `launchctl bootstrap`.

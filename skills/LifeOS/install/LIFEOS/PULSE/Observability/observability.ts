@@ -1,4 +1,4 @@
-// Normalize env path vars Claude Code may inject unexpanded — literal $HOME/${HOME}
+// Normalize env path vars Antigravity CLI may inject unexpanded — literal $HOME/${HOME}
 // in LIFEOS_DIR/LIFEOS_CONFIG_DIR/PROJECTS_DIR resolves to a shadow dir (#1404 / PR #1451, author jbmml).
 for (const __k of ["LIFEOS_DIR", "LIFEOS_CONFIG_DIR", "PROJECTS_DIR"]) {
   const __v = process.env[__k];
@@ -37,7 +37,7 @@ import { PULSE_BASE } from "../endpoint"
 import { RUN_ACTIVITY } from "../../TOOLS/ascent"
 import { loadLifeosConfig } from "../../TOOLS/LifeosConfig"
 
-// Normalize env path vars that Claude Code injects without shell expansion (LifeOS#1404)
+// Normalize env path vars that Antigravity CLI injects without shell expansion (LifeOS#1404)
 for (const k of ["LIFEOS_DIR", "LIFEOS_CONFIG_DIR", "PROJECTS_DIR"]) {
   const v = process.env[k];
   if (v && /^\$\{?HOME\}?(\/|$)/.test(v)) process.env[k] = v.replace(/^\$\{?HOME\}?/, process.env.HOME ?? "~");
@@ -1247,7 +1247,7 @@ function handleLadderApi(): Response {
 //
 // As of 2026-05-06, the {{DA_NAME}} security system is intentionally minimal:
 // 1. Constitutional Security Protocol in LIFEOS_SYSTEM_PROMPT.md
-// 2. Native Claude Code permissions.deny in settings.json
+// 2. Native Antigravity CLI permissions.deny in settings.json
 // 3. One consolidated Safety.hook.ts (PermissionRequest + PostToolUse on WebFetch|WebSearch)
 // (See LIFEOS/DOCUMENTATION/Security/README.md for the full model.)
 //
@@ -4477,7 +4477,7 @@ function telosPersonalized(): boolean {
 //   1. Build-time env flag — `LIFEOS_TEMPLATE_MODE=1` set during ShadowRelease
 //      build. The flag is baked into the static export via Next.js, so
 //      releases ship banner-on regardless of runtime state.
-//   2. Runtime marker file — `~/.claude/LIFEOS/USER/.template-mode`. Written by
+//   2. Runtime marker file — `~/Projects/LifeOS-AGY/LIFEOS/USER/.template-mode`. Written by
 //      `install.sh` on fresh install.
 // The banner DISARMS the moment the user has real TELOS content, regardless of
 // either signal. The marker was historically never deleted after

@@ -1,4 +1,4 @@
-// Normalize env path vars Claude Code may inject unexpanded (LifeOS#1404).
+// Normalize env path vars Antigravity CLI may inject unexpanded (LifeOS#1404).
 for (const __k of ["LIFEOS_DIR", "LIFEOS_CONFIG_DIR", "PROJECTS_DIR"]) {
   const __v = process.env[__k];
   if (__v && /^\$\{?HOME\}?(\/|$)/.test(__v)) process.env[__k] = __v.replace(/^\$\{?HOME\}?/, process.env.HOME ?? "~");

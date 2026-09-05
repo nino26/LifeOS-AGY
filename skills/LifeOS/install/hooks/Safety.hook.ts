@@ -305,7 +305,7 @@ function isAttackerWritableSource(toolName: string): boolean {
   // a TOCTOU surface with no schema-load hook event upstream. Scanning the
   // ToolSearch RESULT gives the schemas the same data-not-instructions
   // framing + injection-shape scan as WebFetch output. The full fix (a
-  // ToolSchemaLoaded hook event) is an upstream Claude Code feature request.
+  // ToolSchemaLoaded hook event) is an upstream Antigravity CLI feature request.
   if (toolName === "ToolSearch") return true;
   // Every MCP server is attacker-writable by default. public PR #1654, @elhoim
   // seeded a mail/drive/calendar/inbox/dropbox regex; that allowlist shape missed

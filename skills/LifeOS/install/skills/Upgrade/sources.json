@@ -196,7 +196,7 @@
   ],
   "changelogs": [
     {
-      "name": "Claude Code CHANGELOG",
+      "name": "Antigravity CLI CHANGELOG",
       "url": "https://raw.githubusercontent.com/anthropics/claude-code/refs/heads/main/CHANGELOG.md",
       "priority": "HIGH",
       "type": "changelog"
@@ -210,7 +210,7 @@
   ],
   "documentation": [
     {
-      "name": "Claude Code Docs",
+      "name": "Antigravity CLI Docs",
       "url": "https://code.claude.com/docs/en/overview",
       "priority": "HIGH",
       "type": "docs"

@@ -63,7 +63,7 @@ async function demonstrateCodeFirstApproach() {
 
   console.log('\nStep 2: Model writes code to execute operations')
   const codeExample = `
-import { Apify } from '~/.claude/skills/Apify'
+import { Apify } from '~/Projects/LifeOS-AGY/.agents/skills/Apify'
 
 const apify = new Apify()
 

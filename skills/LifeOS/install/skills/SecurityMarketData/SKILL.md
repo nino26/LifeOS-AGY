@@ -10,7 +10,7 @@ Query Return on Security's Signal data through its live MCP interface, with evid
 
 ## Customization
 
-Before executing, check `~/.claude/LIFEOS/USER/CUSTOMIZATIONS/SKILLS/SecurityMarketData/`. If present, load enabled preferences and configuration; otherwise use these defaults.
+Before executing, check `~/Projects/LifeOS-AGY/LIFEOS/USER/CUSTOMIZATIONS/SKILLS/SecurityMarketData/`. If present, load enabled preferences and configuration; otherwise use these defaults.
 
 ## Voice Notification
 

@@ -101,14 +101,14 @@ The learning system captures signals across multiple sources. Read ALL of them �
 #### 2a: Algorithm Reflections (primary)
 
 ```
-Read ~/.claude/LIFEOS/MEMORY/LEARNING/REFLECTIONS/algorithm-reflections.jsonl
+Read ~/Projects/LifeOS-AGY/LIFEOS/MEMORY/LEARNING/REFLECTIONS/algorithm-reflections.jsonl
 Parse each line as JSON. This is the richest source — Q1/Q2/Q3 self-reflection after each Algorithm run.
 ```
 
 #### 2b: Rating Signals
 
 ```
-Read ~/.claude/LIFEOS/MEMORY/LEARNING/SIGNALS/ratings.jsonl
+Read ~/Projects/LifeOS-AGY/LIFEOS/MEMORY/LEARNING/SIGNALS/ratings.jsonl
 Focus on entries with rating <= 5. Extract the response_preview and sentiment_summary
 to understand WHAT went wrong from the user's perspective (not just the algorithm's self-assessment).
 ```
@@ -116,7 +116,7 @@ to understand WHAT went wrong from the user's perspective (not just the algorith
 #### 2c: Algorithm-Specific Learnings
 
 ```
-Read all files in ~/.claude/LIFEOS/MEMORY/LEARNING/ALGORITHM/ (latest month first, then previous month)
+Read all files in ~/Projects/LifeOS-AGY/LIFEOS/MEMORY/LEARNING/ALGORITHM/ (latest month first, then previous month)
 These are detailed learning captures from low-sentiment sessions — they contain root cause analysis
 that reflections alone may miss.
 ```
@@ -124,7 +124,7 @@ that reflections alone may miss.
 #### 2d: Failure Patterns
 
 ```
-Read ~/.claude/LIFEOS/MEMORY/LEARNING/FAILURES/ (latest month, plus ROOT_CAUSE_ANALYSIS.md)
+Read ~/Projects/LifeOS-AGY/LIFEOS/MEMORY/LEARNING/FAILURES/ (latest month, plus ROOT_CAUSE_ANALYSIS.md)
 These capture recurring failure patterns. Cross-reference against the Algorithm digest from Step 1
 to identify which Algorithm rules SHOULD have prevented these failures but didn't.
 ```
@@ -141,19 +141,19 @@ Use Agent tool with subagent_type=general-purpose:
 You have four data sources to analyze:
 
 SOURCE 1: algorithm-reflections.jsonl (Step 2a)
-Read ~/.claude/LIFEOS/MEMORY/LEARNING/REFLECTIONS/algorithm-reflections.jsonl
+Read ~/Projects/LifeOS-AGY/LIFEOS/MEMORY/LEARNING/REFLECTIONS/algorithm-reflections.jsonl
 Parse each line as JSON.
 For EACH entry, analyze Q2 (algorithm improvements).
 
 SOURCE 2: Low-rated sessions from ratings.jsonl (Step 2b)
-Read ~/.claude/LIFEOS/MEMORY/LEARNING/SIGNALS/ratings.jsonl
+Read ~/Projects/LifeOS-AGY/LIFEOS/MEMORY/LEARNING/SIGNALS/ratings.jsonl
 Filter to rating <= 5. For each, extract what went wrong.
 
 SOURCE 3: Algorithm learning files (Step 2c)
-Read files in ~/.claude/LIFEOS/MEMORY/LEARNING/ALGORITHM/ (2026-03/ then 2026-02/)
+Read files in ~/Projects/LifeOS-AGY/LIFEOS/MEMORY/LEARNING/ALGORITHM/ (2026-03/ then 2026-02/)
 
 SOURCE 4: Failure patterns (Step 2d)
-Read ~/.claude/LIFEOS/MEMORY/LEARNING/FAILURES/ latest month + ROOT_CAUSE_ANALYSIS.md
+Read ~/Projects/LifeOS-AGY/LIFEOS/MEMORY/LEARNING/FAILURES/ latest month + ROOT_CAUSE_ANALYSIS.md
 
 For EACH signal across ALL sources, classify the theme using this routing table:
 
@@ -204,22 +204,22 @@ If file doesn't exist or is empty, return { 'entries_analyzed': 0 }
 EFFORT LEVEL: Return within 60 seconds."
 ```
 
-### Step 3.5: Claude Code Freshness Validation
+### Step 3.5: Antigravity CLI Freshness Validation
 
-Before proposing Algorithm changes, verify that the Algorithm's Claude Code references (Platform Capabilities table, agent types, hook events, slash commands) are current:
+Before proposing Algorithm changes, verify that the Algorithm's Antigravity CLI references (Platform Capabilities table, agent types, hook events, slash commands) are current:
 
 ```
 Use Agent tool with subagent_type=claude-code-guide:
 
-"The LifeOS Algorithm has a Platform Capabilities table referencing Claude Code features.
-Read the current Algorithm spec at ~/.claude/LIFEOS/ALGORITHM/v{VERSION}.md (get version from ~/.claude/LIFEOS/ALGORITHM/LATEST).
+"The LifeOS Algorithm has a Platform Capabilities table referencing Antigravity CLI features.
+Read the current Algorithm spec at ~/Projects/LifeOS-AGY/LIFEOS/ALGORITHM/v{VERSION}.md (get version from ~/Projects/LifeOS-AGY/LIFEOS/ALGORITHM/LATEST).
 
 Verify that:
 1. All subagent_type values in the table are valid current types
 2. All slash commands referenced (e.g., /simplify, /batch, /debug) still exist
-3. Hook event types referenced match the current Claude Code hook API
-4. Any Claude Code features mentioned are current (not deprecated or renamed)
-5. Any MISSING Claude Code features that should be in the Algorithm's awareness
+3. Hook event types referenced match the current Antigravity CLI hook API
+4. Any Antigravity CLI features mentioned are current (not deprecated or renamed)
+5. Any MISSING Antigravity CLI features that should be in the Algorithm's awareness
 
 Return:
 {

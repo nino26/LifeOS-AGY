@@ -51,7 +51,7 @@ version: 1.6.3
 ### Public skills (`TitleCase`) — ship in the LifeOS public release
 - ONLY templated, safe, public, ready content
 - Generic instructions any LifeOS user could follow; placeholder values, public API references
-- Can reference `~/.claude/LIFEOS/USER/CUSTOMIZATIONS/SKILLS/<SkillName>/` at runtime for per-user tweaks
+- Can reference `~/Projects/LifeOS-AGY/LIFEOS/USER/CUSTOMIZATIONS/SKILLS/<SkillName>/` at runtime for per-user tweaks
 - Exported to the public LifeOS repository as-is
 
 **Forbidden in public skills:**
@@ -67,7 +67,7 @@ version: 1.6.3
 ### Private skills (`_ALLCAPS`) — never leave the local repo
 - Anything goes: real names, real domains, real customers, real internal infra
 - The underscore IS the safety boundary; release tooling skips them
-- The decision rule: *"Could this skill be dropped, as-is, into a stranger's `~/.claude/skills/` and just work?"* If no, it must be `_ALLCAPS`
+- The decision rule: *"Could this skill be dropped, as-is, into a stranger's `~/Projects/LifeOS-AGY/.agents/skills/` and just work?"* If no, it must be `_ALLCAPS`
 
 **Decision test — these triggers FORCE `_ALLCAPS` naming:**
 
@@ -87,12 +87,12 @@ version: 1.6.3
 
 **Listing skills by category:**
 ```bash
-ls -1 ~/.claude/skills/ | grep -v '^_'   # Public (TitleCase)
-ls -1 ~/.claude/skills/ | grep '^_'      # Private (_ALLCAPS)
+ls -1 ~/Projects/LifeOS-AGY/.agents/skills/ | grep -v '^_'   # Public (TitleCase)
+ls -1 ~/Projects/LifeOS-AGY/.agents/skills/ | grep '^_'      # Private (_ALLCAPS)
 ```
 
 **Pattern for per-user layering in public skills:**
-A public skill can be templated to load runtime customizations from `~/.claude/LIFEOS/USER/CUSTOMIZATIONS/SKILLS/<SkillName>/PREFERENCES.md`. The skill body stays generic; the customization file overlays per-instance context. **Do not use CUSTOMIZATIONS/SKILLS to smuggle private content into a public skill** — if the skill *requires* private context to function, it must be renamed `_ALLCAPS`.
+A public skill can be templated to load runtime customizations from `~/Projects/LifeOS-AGY/LIFEOS/USER/CUSTOMIZATIONS/SKILLS/<SkillName>/PREFERENCES.md`. The skill body stays generic; the customization file overlays per-instance context. **Do not use CUSTOMIZATIONS/SKILLS to smuggle private content into a public skill** — if the skill *requires* private context to function, it must be renamed `_ALLCAPS`.
 
 **NEVER hardcode personal data in public skills.**
 
@@ -112,7 +112,7 @@ All skills include this standard instruction block after the YAML frontmatter:
 ## Customization
 
 **Before executing, check for user customizations at:**
-`~/.claude/LIFEOS/USER/CUSTOMIZATIONS/SKILLS/{SkillName}/`
+`~/Projects/LifeOS-AGY/LIFEOS/USER/CUSTOMIZATIONS/SKILLS/{SkillName}/`
 
 If this directory exists, load and apply:
 - `PREFERENCES.md` - User preferences and configuration
@@ -124,7 +124,7 @@ These define user-specific preferences. If the directory does not exist, proceed
 ### Directory Structure
 
 ```
-~/.claude/LIFEOS/USER/CUSTOMIZATIONS/SKILLS/
+~/Projects/LifeOS-AGY/LIFEOS/USER/CUSTOMIZATIONS/SKILLS/
 ├── README.md                    # Documentation for this system
 ├── Art/                         # Art skill customizations
 │   ├── EXTEND.yaml              # Extension manifest
@@ -177,7 +177,7 @@ description: "What this customization adds"
 
 ### Creating a Customization
 
-1. **Create directory**: `mkdir -p ~/.claude/LIFEOS/USER/CUSTOMIZATIONS/SKILLS/SkillName`
+1. **Create directory**: `mkdir -p ~/Projects/LifeOS-AGY/LIFEOS/USER/CUSTOMIZATIONS/SKILLS/SkillName`
 2. **Create EXTEND.yaml**: Define what files to load and merge strategy
 3. **Create PREFERENCES.md**: User preferences for this skill
 4. **Add additional files**: Any skill-specific configurations
@@ -220,9 +220,9 @@ science_cycle_time: meso         # Optional: micro | meso | macro
 **Rules:**
 - `name` uses **TitleCase**
 - `description` is a **single line** (not multi-line with `|`)
-- `USE WHEN` keyword is **MANDATORY** (Claude Code parses this for skill activation)
+- `USE WHEN` keyword is **MANDATORY** (Antigravity CLI parses this for skill activation)
 - Use intent-based triggers with `OR` for multiple conditions
-- **Max 500 characters recommended, 650 hard ceiling.** Claude Code has a total character budget for all skill descriptions combined. In practice, descriptions over ~650 chars cause skills to be silently dropped from the session listing — the skill becomes invisible and unroutable. Keep descriptions tight: brief prose summary + USE WHEN trigger keywords. Move detailed explanations to the SKILL.md body, not the YAML description.
+- **Max 500 characters recommended, 650 hard ceiling.** Antigravity CLI has a total character budget for all skill descriptions combined. In practice, descriptions over ~650 chars cause skills to be silently dropped from the session listing — the skill becomes invisible and unroutable. Keep descriptions tight: brief prose summary + USE WHEN trigger keywords. Move detailed explanations to the SKILL.md body, not the YAML description.
 - **NO separate `triggers:` or `workflows:` arrays in YAML**
 
 **Execution-context fields — `context` and `background`** (public PR #1570, @elhoim):
@@ -232,7 +232,7 @@ science_cycle_time: meso         # Optional: micro | meso | macro
 | `context` | `fork` (or absent) | `fork` runs the skill in a forked subagent context instead of inline in the main thread |
 | `background` | `true` / `false` | Whether a `context: fork` skill runs as a background subagent (result arrives as a task notification) or blocks and returns inline |
 
-**The 2.1.218 gotcha:** Claude Code 2.1.218 changed the default — `context: fork` skills now run as **background subagents by default** where they previously blocked the main thread. A backgrounded skill's answer does not arrive in the invoking turn. The test for which way to set it: if the user expects the answer *in that turn* (interactive lookups like Knowledge), set `background: false` explicitly; long-running deliberation skills (Council, Research, Ideate) are better left on the background default — detaching them is the point.
+**The 2.1.218 gotcha:** Antigravity CLI 2.1.218 changed the default — `context: fork` skills now run as **background subagents by default** where they previously blocked the main thread. A backgrounded skill's answer does not arrive in the invoking turn. The test for which way to set it: if the user expects the answer *in that turn* (interactive lookups like Knowledge), set `background: false` explicitly; long-running deliberation skills (Council, Research, Ideate) are better left on the background default — detaching them is the point.
 
 ### Science Protocol Compliance (Optional)
 
@@ -261,7 +261,7 @@ science_cycle_time: meso
 - **Research** - Investigation through hypotheses and evidence gathering
 - **Council** - Debate as parallel hypothesis testing
 
-**See:** `~/.claude/skills/Science/Protocol.md` for the full protocol interface
+**See:** `~/Projects/LifeOS-AGY/.agents/skills/Science/Protocol.md` for the full protocol interface
 
 ### 2. Markdown Body (Workflow Routing + Examples + Documentation)
 
@@ -287,7 +287,7 @@ science_cycle_time: meso
    Running the **WorkflowName** workflow in the **SkillName** skill to ACTION...
    ```
 
-**Full documentation:** `~/.claude/LIFEOS/DOCUMENTATION/Notifications/NotificationSystem.md`
+**Full documentation:** `~/Projects/LifeOS-AGY/LIFEOS/DOCUMENTATION/Notifications/NotificationSystem.md`
 
 ## Workflow Routing
 
@@ -462,7 +462,7 @@ SkillSearch('art tools')        # Loads Tools.md from skill root
 Or reference them directly:
 ```bash
 # Read specific context file
-Read ~/.claude/skills/Art/Aesthetic.md
+Read ~/Projects/LifeOS-AGY/.agents/skills/Art/Aesthetic.md
 ```
 
 Context files can reference workflows and tools:
@@ -547,7 +547,7 @@ Don't bother for:
 
 Use the CreateSkill skill's CanonicalizeSkill workflow:
 ```
-~/.claude/skills/CreateSkill/Workflows/CanonicalizeSkill.md
+~/Projects/LifeOS-AGY/.agents/skills/CreateSkill/Workflows/CanonicalizeSkill.md
 ```
 
 Or manually:
@@ -555,14 +555,14 @@ Or manually:
 2. Update YAML frontmatter to single-line description
 3. Add `## Workflow Routing` table
 4. Add `## Examples` section
-5. Move backups to `~/.claude/LIFEOS/MEMORY/Backups/`
+5. Move backups to `~/Projects/LifeOS-AGY/LIFEOS/MEMORY/Backups/`
 6. Verify against checklist
 
 ### How to Test Effectiveness
 
 After creating or canonicalizing a skill, verify it actually improves outcomes:
 ```
-~/.claude/skills/CreateSkill/Workflows/TestSkill.md
+~/Projects/LifeOS-AGY/.agents/skills/CreateSkill/Workflows/TestSkill.md
 ```
 
 This runs the skill against real prompts with a no-skill baseline comparison. If the skill underperforms, use `ImproveSkill.md` to iterate. If the description doesn't trigger reliably, use `OptimizeDescription.md` to test and refine trigger accuracy.
@@ -626,7 +626,7 @@ description: Complete blog workflow. USE WHEN user mentions doing anything with 
 
 ## Complete Canonical Example: a personal blogging skill
 
-**Reference:** any well-formed skill in `~/.claude/skills/` follows the same pattern; private personal skills use the `_NAME/` form below.
+**Reference:** any well-formed skill in `~/Projects/LifeOS-AGY/.agents/skills/` follows the same pattern; private personal skills use the `_NAME/` form below.
 
 ```yaml
 ---
@@ -655,7 +655,7 @@ Complete blog workflow.
    Running the **WorkflowName** workflow in the **Blogging** skill to ACTION...
    ```
 
-**Full documentation:** `~/.claude/LIFEOS/DOCUMENTATION/Notifications/NotificationSystem.md`
+**Full documentation:** `~/Projects/LifeOS-AGY/LIFEOS/DOCUMENTATION/Notifications/NotificationSystem.md`
 
 ## Core Paths
 
@@ -869,7 +869,7 @@ bun ToolName.ts \
 \`\`\`
 ```
 
-**See:** `~/.claude/LIFEOS/DOCUMENTATION/Tools/CliFirstArchitecture.md` (Workflow-to-Tool Integration section)
+**See:** `~/Projects/LifeOS-AGY/LIFEOS/DOCUMENTATION/Tools/CliFirstArchitecture.md` (Workflow-to-Tool Integration section)
 
 ---
 
@@ -974,7 +974,7 @@ bun Generate.ts \
 4. **Value flags**: `--flag <value>` for choices
 5. **Composable**: Flags should combine logically
 
-**See:** `~/.claude/LIFEOS/DOCUMENTATION/Tools/CliFirstArchitecture.md` (Configuration Flags section) for full documentation
+**See:** `~/Projects/LifeOS-AGY/LIFEOS/DOCUMENTATION/Tools/CliFirstArchitecture.md` (Configuration Flags section) for full documentation
 
 ### Tool Structure
 
@@ -984,7 +984,7 @@ bun Generate.ts \
  * ToolName.ts - Brief description
  *
  * Usage:
- *   bun ~/.claude/skills/SkillName/Tools/ToolName.ts <command> [options]
+ *   bun ~/Projects/LifeOS-AGY/.agents/skills/SkillName/Tools/ToolName.ts <command> [options]
  *
  * Commands:
  *   start     Start the thing
@@ -1002,7 +1002,7 @@ bun Generate.ts \
 
 ## How It Works
 
-1. **Skill Activation**: Claude Code reads skill descriptions at startup. The `USE WHEN` clause in the description determines when the skill activates based on user intent.
+1. **Skill Activation**: Antigravity CLI reads skill descriptions at startup. The `USE WHEN` clause in the description determines when the skill activates based on user intent.
 
 2. **Workflow Routing**: Once the skill is active, the `## Workflow Routing` section determines which workflow file to execute.
 
@@ -1111,7 +1111,7 @@ Someone wants a skill that converts between units — Celsius/Fahrenheit, kg/lb,
 - **Body:** a `## Workflow Routing` table pointing at a `Convert` workflow under `Workflows/`, plus a `## Examples` section with two or three real request-to-result patterns.
 - **Structure:** `SKILL.md` at the root, a `Tools/` directory (present even though a converter is simple), and any context files like `ConversionTables.md` in the root — never in a `Docs/` or `Resources/` subdirectory.
 
-Because it holds only generic logic, it drops into any stranger's `~/.claude/skills/` and just works — which is the whole test for whether a skill is allowed to be public.
+Because it holds only generic logic, it drops into any stranger's `~/Projects/LifeOS-AGY/.agents/skills/` and just works — which is the whole test for whether a skill is allowed to be public.
 
 ### The fork: what forces a private name
 
@@ -1135,5 +1135,5 @@ The diagram is the naming convention as a gate: the leading underscore is the pu
 
 ## Related Systems
 
-- **Master Architecture:** `~/.claude/LIFEOS/DOCUMENTATION/LifeosSystemArchitecture.md` — authoritative system-of-systems reference
-- **Knowledge Archive:** `~/.claude/LIFEOS/MEMORY/KNOWLEDGE/` — entity-based archive with 4 types (People, Companies, Ideas, Research), managed by Algorithm LEARN phase (direct writes), `LIFEOS/TOOLS/KnowledgeHarvester.ts` (validation/maintenance), and the `/knowledge` skill. Topic is a tag, not a domain. Skills that perform research or analysis can query the archive for accumulated knowledge.
+- **Master Architecture:** `~/Projects/LifeOS-AGY/LIFEOS/DOCUMENTATION/LifeosSystemArchitecture.md` — authoritative system-of-systems reference
+- **Knowledge Archive:** `~/Projects/LifeOS-AGY/LIFEOS/MEMORY/KNOWLEDGE/` — entity-based archive with 4 types (People, Companies, Ideas, Research), managed by Algorithm LEARN phase (direct writes), `LIFEOS/TOOLS/KnowledgeHarvester.ts` (validation/maintenance), and the `/knowledge` skill. Topic is a tag, not a domain. Skills that perform research or analysis can query the archive for accumulated knowledge.

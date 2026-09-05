@@ -2,9 +2,9 @@
 /**
  * InstallAtlas.ts — Materialize the Atlas tick unit(s) and bootstrap them.
  *
- *   bun ~/.claude/LIFEOS/ATLAS/InstallAtlas.ts             # install
- *   bun ~/.claude/LIFEOS/ATLAS/InstallAtlas.ts --uninstall # remove
- *   bun ~/.claude/LIFEOS/ATLAS/InstallAtlas.ts --status    # check
+ *   bun ~/Projects/LifeOS-AGY/LIFEOS/ATLAS/InstallAtlas.ts             # install
+ *   bun ~/Projects/LifeOS-AGY/LIFEOS/ATLAS/InstallAtlas.ts --uninstall # remove
+ *   bun ~/Projects/LifeOS-AGY/LIFEOS/ATLAS/InstallAtlas.ts --status    # check
  *
  * Same two-backend pattern as LIFEOS/TOOLS/InstallWorkSweep.ts:
  *

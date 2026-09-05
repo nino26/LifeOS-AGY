@@ -29,7 +29,7 @@ try {
   });
   const report = JSON.parse(out);
   if (report.overall === "critical") {
-    console.error(`🚨 Memory health: CRITICAL — ${report.counts.critical} blocker(s). Run: bun ~/.claude/LIFEOS/TOOLS/MemoryHealthCheck.ts`);
+    console.error(`🚨 Memory health: CRITICAL — ${report.counts.critical} blocker(s). Run: bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/MemoryHealthCheck.ts`);
   } else if (report.overall === "warn") {
     console.error(`⚠️  Memory health: WARN — ${report.counts.warn} finding(s).`);
   }
@@ -42,7 +42,7 @@ try {
     if (stdout) {
       const report = JSON.parse(stdout);
       if (report.overall === "critical") {
-        console.error(`🚨 Memory health: CRITICAL — ${report.counts.critical} blocker(s). Run: bun ~/.claude/LIFEOS/TOOLS/MemoryHealthCheck.ts`);
+        console.error(`🚨 Memory health: CRITICAL — ${report.counts.critical} blocker(s). Run: bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/MemoryHealthCheck.ts`);
       } else if (report.overall === "warn") {
         console.error(`⚠️  Memory health: WARN — ${report.counts.warn} finding(s).`);
       }

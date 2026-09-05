@@ -1,8 +1,8 @@
 #!/usr/bin/env bun
 /**
- * SessionHarvester - Extract learnings from Claude Code session transcripts
+ * SessionHarvester - Extract learnings from Antigravity CLI session transcripts
  *
- * Harvests insights from ~/.claude/projects/ sessions and writes to LEARNING/
+ * Harvests insights from ~/Projects/LifeOS-AGY/projects/ sessions and writes to LEARNING/
  *
  * Commands:
  *   --recent N     Harvest from N most recent sessions (default: 10)
@@ -537,7 +537,7 @@ const { values } = parseArgs({
 
 if (values.help) {
   console.log(`
-SessionHarvester - Extract learnings from Claude Code session transcripts
+SessionHarvester - Extract learnings from Antigravity CLI session transcripts
 
 Usage:
   bun run SessionHarvester.ts --recent 10    Harvest from 10 most recent sessions

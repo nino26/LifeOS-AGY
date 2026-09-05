@@ -2,9 +2,9 @@
 /**
  * InstallDerivedSync.ts - Materialize com.lifeos.derivedsync.plist.template and bootstrap it.
  *
- *   bun ~/.claude/LIFEOS/TOOLS/InstallDerivedSync.ts             # install
- *   bun ~/.claude/LIFEOS/TOOLS/InstallDerivedSync.ts --uninstall # remove
- *   bun ~/.claude/LIFEOS/TOOLS/InstallDerivedSync.ts --status    # check
+ *   bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/InstallDerivedSync.ts             # install
+ *   bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/InstallDerivedSync.ts --uninstall # remove
+ *   bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/InstallDerivedSync.ts --status    # check
  */
 
 import { existsSync, readFileSync, writeFileSync, mkdirSync, unlinkSync, realpathSync } from "fs";

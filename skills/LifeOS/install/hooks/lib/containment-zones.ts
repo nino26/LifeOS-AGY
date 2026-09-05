@@ -82,7 +82,7 @@ export const CONTAINMENT_ZONES: readonly ContainmentZone[] = [
       "ids.txt",
       "checkpoint-repos.txt",
     ],
-    description: "Claude Code runtime install state written by the harness — plugin registry (both Plugins/ and Linux's lowercase plugins/), history, remote-settings.json, and debug/ session transcripts (the debug/latest symlink and per-session .txt dumps; runtime output, never ships)",
+    description: "Antigravity CLI runtime install state written by the harness — plugin registry (both Plugins/ and Linux's lowercase plugins/), history, remote-settings.json, and debug/ session transcripts (the debug/latest symlink and per-session .txt dumps; runtime output, never ships)",
   },
   {
     name: "private-infra",

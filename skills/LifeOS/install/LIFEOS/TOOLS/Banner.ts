@@ -169,12 +169,12 @@ function getStats(): SystemStats {
     }
   } catch {}
   try {
-    // LifeOS version: ~/.claude/LIFEOS/VERSION (single source of truth)
+    // LifeOS version: ~/Projects/LifeOS-AGY/LIFEOS/VERSION (single source of truth)
     const versionPath = join(CLAUDE_DIR, "LIFEOS", "VERSION");
     if (existsSync(versionPath)) {
       paiVersion = readFileSync(versionPath, "utf-8").trim() || paiVersion;
     }
-    // Algorithm version: ~/.claude/LIFEOS/ALGORITHM/LATEST
+    // Algorithm version: ~/Projects/LifeOS-AGY/LIFEOS/ALGORITHM/LATEST
     const latestPath = join(CLAUDE_DIR, "LIFEOS", "ALGORITHM", "LATEST");
     if (existsSync(latestPath)) {
       algorithmVersion = readFileSync(latestPath, "utf-8").trim().replace(/^v/i, "") || algorithmVersion;

@@ -3,7 +3,7 @@
  * @version 1.2.4
  * LoadMemory — UserPromptSubmit hook that injects the two hot-layer memory
  * files (PRINCIPAL_MEMORY.md, DA_MEMORY.md) as additionalContext on every
- * prompt, so the Claude Code CLI session sees the same memory the remote
+ * prompt, so the Antigravity CLI CLI session sees the same memory the remote
  * channels (iMessage, Siri) inject via buildLifeosContextBlock.
  *
  * Closes the CLI-vs-remote-channel parity gap (the autonomic loop was

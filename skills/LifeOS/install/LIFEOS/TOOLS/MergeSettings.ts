@@ -194,7 +194,7 @@ function expandLeadingHome(value: string, home: string): string {
 
 /**
  * Expand leading $HOME/${HOME}/~ references in settings `env` values to the real
- * home directory, in place. The Claude Code harness sets `env` values verbatim —
+ * home directory, in place. The Antigravity CLI harness sets `env` values verbatim —
  * it does NOT expand shell variables — so a shipped value like
  * "$HOME/.claude/LIFEOS" would be exported literally, making LIFEOS_DIR resolve
  * to the string "$HOME/…" and breaking every downstream path (worst on fresh
@@ -212,7 +212,7 @@ export function expandEnvHomeReferences(settings: any, home: string): void {
 }
 
 /**
- * Tool names the Claude Code harness accepts in permission rules.
+ * Tool names the Antigravity CLI harness accepts in permission rules.
  * Source: core tools always present + the deferred-tool registry surfaced via
  * ToolSearch. When the harness adds or removes a tool, update this set — a rule
  * naming a tool not in here is pruned at merge time (the harness rejects it
@@ -240,9 +240,9 @@ export type DroppedRule = { array: string; rule: string; reason: string };
  * tool — so `Write(/etc/**)` is dead weight next to `Edit(/etc/**)`, and dead
  * weight the CLI complains about at startup.
  *
- * Verified live, not counted: with only `Edit(~/.claude/projects/**\/memory/**)`
+ * Verified live, not counted: with only `Edit(~/Projects/LifeOS-AGY/projects/**\/memory/**)`
  * present and no Write twin, the Write tool was DENIED there; with no Write allow
- * rule present, Write to `~/.claude/` was ALLOWED (commit b68b1a5c4, 2026-07-26).
+ * rule present, Write to `~/Projects/LifeOS-AGY/` was ALLOWED (commit b68b1a5c4, 2026-07-26).
  *
  * This has been "fixed" the wrong way three times — 2026-07-16 (dropped), 07-25
  * (restored on a config-shape count), 07-27 (restored again) — each time from an

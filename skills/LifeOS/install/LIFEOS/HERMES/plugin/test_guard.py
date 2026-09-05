@@ -25,7 +25,7 @@ HOME = os.path.expanduser("~")
 CASES = [
     # ── must DENY ────────────────────────────────────────────────────────────
     ("read_file", {"path": f"{HOME}/.claude/.env"}, True, "vault env file"),
-    ("read_file", {"path": "~/.claude/.env"}, True, "tilde form"),
+    ("read_file", {"path": "~/Projects/LifeOS-AGY/.env"}, True, "tilde form"),
     ("read_file", {"path": f"{HOME}/.claude/.ENV"}, True, "case variant (macOS)"),
     ("read_file", {"path": f"{HOME}/.claude/LIFEOS/../.env"}, True, "traversal"),
     ("read_file", {"path": f"{HOME}/.ssh/id_rsa"}, True, "ssh private key"),
@@ -37,9 +37,9 @@ CASES = [
     ("read_file", {"path": f"{HOME}/.claude/LIFEOS/USER/SECURITY/SecurityPosture.md"}, True, "security state"),
     ("read_file", {"path": ".env"}, True, "bare relative env"),
     ("read_file", {"path": f"{HOME}/certs/server.pem"}, True, "private key by extension"),
-    ("terminal", {"command": "cat ~/.claude/.env"}, True, "shell read of env"),
+    ("terminal", {"command": "cat ~/Projects/LifeOS-AGY/.env"}, True, "shell read of env"),
     ("terminal", {"command": "cp ~/.ssh/id_rsa /tmp/x"}, True, "shell key exfil"),
-    ("terminal", {"command": "grep -r TOKEN ~/.claude/.env"}, True, "shell grep of env"),
+    ("terminal", {"command": "grep -r TOKEN ~/Projects/LifeOS-AGY/.env"}, True, "shell grep of env"),
     # Bare dotfile in the cwd names a denied file with no slash — the tokenizer
     # extracts it so the existing deny rules fire (a real gap in the matcher).
     # Shell-string obfuscation ($IFS, $(...), base64) is deliberately NOT chased
@@ -50,7 +50,7 @@ CASES = [
     ("grep", {"path": f"{HOME}/.ssh"}, True, "grep over key dir"),
 
     ("execute_code", {"code": "print(open('/Users/x/.aws/credentials').read())"}, True, "code-exec credential read"),
-    ("execute_code", {"code": "open(os.path.expanduser('~/.claude/.env')).read()"}, True, "code-exec env read"),
+    ("execute_code", {"code": "open(os.path.expanduser('~/Projects/LifeOS-AGY/.env')).read()"}, True, "code-exec env read"),
     ("execute_code", {"code": "print(2+2)"}, False, "benign code exec"),
 
     # Desktop speaker: Hermes delivers over its own channels; a VoiceServer call
@@ -69,8 +69,8 @@ CASES = [
     ("read_file", {"path": f"{HOME}/.claude/LIFEOS/MEMORY/KNOWLEDGE/Ideas/x.md"}, False, "knowledge archive"),
     ("read_file", {"path": f"{HOME}/.claude/skills/_COFFEE/SKILL.md"}, False, "private skill"),
     ("read_file", {"path": f"{HOME}/.claude/LIFEOS/LIFEOS_SYSTEM_PROMPT.md"}, False, "system prompt"),
-    ("terminal", {"command": "bun ~/.claude/LIFEOS/TOOLS/Upgrades.ts list"}, False, "CLI-first tool call"),
-    ("terminal", {"command": "ls ~/.claude/skills"}, False, "list skills"),
+    ("terminal", {"command": "bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/Upgrades.ts list"}, False, "CLI-first tool call"),
+    ("terminal", {"command": "ls ~/Projects/LifeOS-AGY/skills"}, False, "list skills"),
     ("read_file", {"path": f"{HOME}/HermesWorkspace/notes.md"}, False, "workspace file"),
 
     # Cron read carve-out: the sidecar may READ its own job output, but job
@@ -150,7 +150,7 @@ def run_taint_suite() -> list:
         guard.annotate("terminal", {"command": command}, "some fetched output text", task)
         verdict = guard.evaluate(
             "terminal",
-            {"command": "bun ~/.claude/skills/_COMMUNICATION/run.ts sendtext 'done'"},
+            {"command": "bun ~/Projects/LifeOS-AGY/.agents/skills/_COMMUNICATION/run.ts sendtext 'done'"},
             task,
         )
         tainted = verdict is not None

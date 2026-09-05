@@ -75,7 +75,7 @@ These pattern classes are baked into the filter. Specific names that match them 
 The aggregator strips any path that matches:
 
 - `/Users/<your-username>/` (or `/home/<your-username>/` on Linux) — strips your home dir from any output
-- `~/.claude/` — internal LifeOS paths
+- `~/Projects/LifeOS-AGY/` — internal LifeOS paths
 - Common cloud-storage mount points and typical local-project root dirs
 
 User-specific additional path patterns can be added to a free-form per-user file in `LIFEOS/USER/DAEMON/` (one path or glob per line).

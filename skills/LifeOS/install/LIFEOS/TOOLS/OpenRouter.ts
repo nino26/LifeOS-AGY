@@ -18,7 +18,7 @@
  * here to harden it anyway:
  *   - provider.data_collection = "deny"  → only providers that don't train on / retain data
  *   - provider.allow_fallbacks per --pin → optionally pin to a known provider
- * Reads OPENROUTER_API_KEY from ~/.claude/.env. NO Anthropic credential path.
+ * Reads OPENROUTER_API_KEY from ~/Projects/LifeOS-AGY/.env. NO Anthropic credential path.
  *
  * USAGE:
  *   bun OpenRouter.ts [--level low|medium|high|max] [--json] [--timeout <ms>]
@@ -104,7 +104,7 @@ export async function openrouter(options: ORandOptions): Promise<ORResult> {
 
   const apiKey = getApiKey();
   if (!apiKey) {
-    return { success: false, output: "", error: "OPENROUTER_API_KEY not set in environment (~/.claude/.env)", latencyMs: 0, model, level };
+    return { success: false, output: "", error: "OPENROUTER_API_KEY not set in environment (~/Projects/LifeOS-AGY/.env)", latencyMs: 0, model, level };
   }
 
   const controller = new AbortController();

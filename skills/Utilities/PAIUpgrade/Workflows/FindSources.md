@@ -48,7 +48,7 @@ Clarify what type of sources to find:
 Use web search to find relevant channels:
 
 ```
-Search: "Claude Code tutorial YouTube channel"
+Search: "Antigravity CLI tutorial YouTube channel"
 Search: "AI agent development YouTube"
 Search: "MCP server tutorial YouTube"
 ```
@@ -66,7 +66,7 @@ For each discovered channel, evaluate:
 Look for written content sources:
 
 ```
-Search: "Claude Code blog posts"
+Search: "Antigravity CLI blog posts"
 Search: "AI development newsletter"
 Search: "LLM engineering blog"
 ```
@@ -84,7 +84,7 @@ Evaluate each source for:
 Find repositories with useful patterns:
 
 ```
-Search: site:github.com "Claude Code" examples
+Search: site:github.com "Antigravity CLI" examples
 Search: site:github.com MCP server typescript
 Search: site:github.com AI agent framework
 ```
@@ -158,7 +158,7 @@ For each potential source, score:
 ## How to Add Sources
 
 ### For YouTube Channels:
-Edit `~/.claude/PAI/USER/SKILLCUSTOMIZATIONS/PAIUpgrade/youtube-channels.json`
+Edit `~/Projects/LifeOS-AGY/PAI/USER/SKILLCUSTOMIZATIONS/PAIUpgrade/youtube-channels.json`
 
 ### For Other Sources:
 Currently, non-YouTube sources are monitored via the base `sources.json`.
@@ -173,7 +173,7 @@ If user approves recommendations:
 
 ```bash
 # Read current user config
-cat ~/.claude/PAI/USER/SKILLCUSTOMIZATIONS/PAIUpgrade/youtube-channels.json
+cat ~/Projects/LifeOS-AGY/PAI/USER/SKILLCUSTOMIZATIONS/PAIUpgrade/youtube-channels.json
 
 # Add new channels (merge with existing)
 # Update the channels array with new entries

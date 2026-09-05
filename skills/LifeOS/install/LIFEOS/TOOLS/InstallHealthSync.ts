@@ -2,9 +2,9 @@
 /**
  * InstallHealthSync.ts - Materialize com.lifeos.healthsync.plist.template and bootstrap it.
  *
- *   bun ~/.claude/LIFEOS/TOOLS/InstallHealthSync.ts             # install
- *   bun ~/.claude/LIFEOS/TOOLS/InstallHealthSync.ts --uninstall # remove
- *   bun ~/.claude/LIFEOS/TOOLS/InstallHealthSync.ts --status    # check
+ *   bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/InstallHealthSync.ts             # install
+ *   bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/InstallHealthSync.ts --uninstall # remove
+ *   bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/InstallHealthSync.ts --status    # check
  */
 
 import { existsSync, readFileSync, writeFileSync, mkdirSync, unlinkSync } from "fs";

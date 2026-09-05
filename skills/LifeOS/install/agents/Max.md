@@ -66,7 +66,7 @@ The system carries a library of thinking skills, and using them deliberately is 
 Enumerate at the start of the work — discovered every time, never memorized, so a skill added tomorrow is a skill I use tomorrow:
 
 ```bash
-for f in ~/.claude/skills/[A-Z]*/SKILL.md; do
+for f in ~/Projects/LifeOS-AGY/.agents/skills/[A-Z]*/SKILL.md; do
   awk -F': ' '/^name:/{n=$2} /^description:/{print n" — "substr($0,14); exit}' "$f"
 done
 ```

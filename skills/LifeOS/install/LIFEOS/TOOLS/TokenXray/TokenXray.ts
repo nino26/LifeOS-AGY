@@ -1,8 +1,8 @@
 #!/usr/bin/env bun
 /**
- * TokenXray — reverse-engineer local Claude Code logs into where the tokens,
+ * TokenXray — reverse-engineer local Antigravity CLI logs into where the tokens,
  * time, and dollars actually go. TypeScript port of Coral-Bricks-AI's
- * claude-code-token-xray (Apache 2.0). Reads only `~/.claude/projects/*​/*.jsonl`;
+ * claude-code-token-xray (Apache 2.0). Reads only `~/Projects/LifeOS-AGY/projects/*​/*.jsonl`;
  * nothing leaves the machine.
  *
  * Subcommands:
@@ -281,7 +281,7 @@ function runActual(jsonOut: boolean): void {
     return;
   }
 
-  console.log("SUBSCRIPTION (~/.claude/projects/, OAuth-billed via Claude Max)");
+  console.log("SUBSCRIPTION (~/Projects/LifeOS-AGY/projects/, OAuth-billed via Claude Max)");
   console.log(`  counterfactual list-rate cost:  $${fmtMoney(ct.total)}`);
   console.log(`  actual marginal:                $0.00   (covered by Max subscription fee)`);
   if (snap?.subscription) {
@@ -859,7 +859,7 @@ function runReread(jsonOut: boolean): void {
 // ────────────────────────────────────────────────────────────────────
 
 function help(): void {
-  console.log(`TokenXray — local Claude Code token / time / cost analysis
+  console.log(`TokenXray — local Antigravity CLI token / time / cost analysis
 
 USAGE
   bun TokenXray.ts <subcommand> [--json]
@@ -875,7 +875,7 @@ FLAGS
   --json      Emit structured JSON instead of human tables
   --help, -h  Show this help
 
-Reads only ~/.claude/projects/*​/*.jsonl and LIFEOS/MEMORY/OBSERVABILITY/anthropic-cost.jsonl.
+Reads only ~/Projects/LifeOS-AGY/projects/*​/*.jsonl and LIFEOS/MEMORY/OBSERVABILITY/anthropic-cost.jsonl.
 Nothing leaves the machine.
 `);
 }

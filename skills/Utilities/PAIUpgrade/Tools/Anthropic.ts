@@ -395,7 +395,7 @@ function generateRecommendation(update: Update): string {
   // Commands/Slash Commands
   if (titleLower.includes('command') || titleLower.includes('slash command')) {
     return `**PAI Impact:** HIGH - Command system update\n` +
-      `**Why:** PAI uses slash commands extensively (~/.claude/Commands/). Changes affect our command architecture and user workflows.\n` +
+      `**Why:** PAI uses slash commands extensively (~/Projects/LifeOS-AGY/Commands/). Changes affect our command architecture and user workflows.\n` +
       `**Action:** Review for new command patterns or capabilities. Update PAI's command templates if conventions change.`;
   }
 
@@ -406,10 +406,10 @@ function generateRecommendation(update: Update): string {
       `**Action:** Check if this affects PAI's agent definitions or hook configurations. Test existing agent workflows.`;
   }
 
-  // Claude Code releases
+  // Antigravity CLI releases
   if (type === 'release' && source.includes('claude-code')) {
     return `**PAI Impact:** CRITICAL - Core platform update\n` +
-      `**Why:** PAI runs on Claude Code - releases may include new features, breaking changes, or performance improvements.\n` +
+      `**Why:** PAI runs on Antigravity CLI - releases may include new features, breaking changes, or performance improvements.\n` +
       `**Action:** Review changelog carefully. Test PAI's critical workflows. Update skills/commands if APIs changed.`;
   }
 
@@ -431,7 +431,7 @@ function generateRecommendation(update: Update): string {
   if (source.includes('cookbook') || source.includes('quickstart') || source.includes('courses')) {
     return `**PAI Impact:** MEDIUM - Implementation patterns\n` +
       `**Why:** Cookbooks/examples show best practices and patterns we can adopt in PAI's codebase.\n` +
-      `**Action:** Review for reusable patterns, especially around skills, agents, or Claude Code features. Extract learnings for PAI.`;
+      `**Action:** Review for reusable patterns, especially around skills, agents, or Antigravity CLI features. Extract learnings for PAI.`;
   }
 
   // GitHub commits
@@ -445,13 +445,13 @@ function generateRecommendation(update: Update): string {
   if (titleLower.includes('doc') || type === 'docs') {
     return `**PAI Impact:** MEDIUM - Capability discovery\n` +
       `**Why:** Doc updates often reveal new features or best practices not yet in PAI.\n` +
-      `**Action:** Review for new Claude Code features, API capabilities, or configuration options to leverage.`;
+      `**Action:** Review for new Antigravity CLI features, API capabilities, or configuration options to leverage.`;
   }
 
   // SDK releases
   if (source.includes('sdk')) {
     return `**PAI Impact:** LOW - SDK update\n` +
-      `**Why:** SDK updates are less relevant since PAI uses Claude Code CLI, not raw API SDKs.\n` +
+      `**Why:** SDK updates are less relevant since PAI uses Antigravity CLI CLI, not raw API SDKs.\n` +
       `**Action:** Note for reference. Only investigate if mentions features relevant to PAI's agent implementations.`;
   }
 
@@ -459,7 +459,7 @@ function generateRecommendation(update: Update): string {
   if (type === 'blog') {
     return `**PAI Impact:** LOW-MEDIUM - Awareness\n` +
       `**Why:** Blogs announce new features and directions that may eventually affect PAI.\n` +
-      `**Action:** Skim for strategic announcements about Claude Code, Skills, or MCP. Track for future planning.`;
+      `**Action:** Skim for strategic announcements about Antigravity CLI, Skills, or MCP. Track for future planning.`;
   }
 
   // Generic
@@ -533,7 +533,7 @@ function generateNarrative(updates: Update[]): string {
     themes.push(`**MCP Infrastructure** (${mcpUpdates.length} updates)`);
   }
   if (codeUpdates.length > 0) {
-    themes.push(`**Claude Code Platform** (${codeUpdates.length} updates)`);
+    themes.push(`**Antigravity CLI Platform** (${codeUpdates.length} updates)`);
   }
   if (cookbookUpdates.length > 0) {
     themes.push(`**Implementation Examples** (${cookbookUpdates.length} updates)`);
@@ -594,12 +594,12 @@ function generateNarrative(updates: Update[]): string {
     }
   }
 
-  // Claude Code analysis (platform)
+  // Antigravity CLI analysis (platform)
   if (codeUpdates.length > 0) {
     const highCode = codeUpdates.filter(u => u.priority === 'HIGH').length;
     if (highCode > 0) {
-      narrative += `**⚡ PLATFORM UPDATE: Claude Code Changes**\n`;
-      narrative += `**${highCode} HIGH-priority** Claude Code updates found. Since PAI runs on Claude Code, platform changes can affect everything. `;
+      narrative += `**⚡ PLATFORM UPDATE: Antigravity CLI Changes**\n`;
+      narrative += `**${highCode} HIGH-priority** Antigravity CLI updates found. Since PAI runs on Antigravity CLI, platform changes can affect everything. `;
 
       const codeRelease = codeUpdates.find(u => u.type === 'release');
       if (codeRelease) {
@@ -608,7 +608,7 @@ function generateNarrative(updates: Update[]): string {
 
       narrative += `\n\n**→ Priority Action:** Review changelog. Test PAI's core workflows after updating.\n\n`;
     } else {
-      narrative += `Claude Code has **${codeUpdates.length} updates** but lower priority. Likely maintenance commits.\n\n`;
+      narrative += `Antigravity CLI has **${codeUpdates.length} updates** but lower priority. Likely maintenance commits.\n\n`;
     }
   }
 
@@ -661,7 +661,7 @@ function generateNarrative(updates: Update[]): string {
     topItems.push('2. **MCP changes** - Test existing integrations, look for new capabilities');
   }
   if (codeUpdates.filter(u => u.priority === 'HIGH').length > 0) {
-    topItems.push('3. **Claude Code platform** - Review release notes, test workflows');
+    topItems.push('3. **Antigravity CLI platform** - Review release notes, test workflows');
   }
 
   if (topItems.length > 0) {

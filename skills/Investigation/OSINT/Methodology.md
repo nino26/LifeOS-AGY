@@ -246,7 +246,7 @@ Prevents intelligence gaps like missing investor-facing portals on alternative T
 ### Active Investigation
 
 ```
-~/.claude/MEMORY/WORK/$(jq -r '.work_dir' ~/.claude/MEMORY/STATE/current-work.json)/YYYY-MM-DD-HHMMSS_osint-[target]/
+~/Projects/LifeOS-AGY/MEMORY/WORK/$(jq -r '.work_dir' ~/Projects/LifeOS-AGY/MEMORY/STATE/current-work.json)/YYYY-MM-DD-HHMMSS_osint-[target]/
   phase1-collection.md
   phase2-analysis.md
   phase3-report.md
@@ -257,7 +257,7 @@ Prevents intelligence gaps like missing investor-facing portals on alternative T
 ### Archived Reports
 
 ```
-~/.claude/History/research/YYYY-MM/[target]-osint/
+~/Projects/LifeOS-AGY/History/research/YYYY-MM/[target]-osint/
   README.md
   comprehensive-report.md
   executive-summary.md

@@ -5,7 +5,7 @@
  * from the now-retired pre-6.x GUI installer engine (detect logic + types):
  * no web/electron wizard, no separate types module, plus
  * the bare-skill extras the wizard never needed — harness detection (the skill
- * installs into Claude Code / Hermes / Cursor / OpenClaw) and dev-tree refusal
+ * installs into Antigravity CLI / Hermes / Cursor / OpenClaw) and dev-tree refusal
  * (never mutate the author's source repo).
  *
  * All detection here is READ-ONLY and non-destructive. The 7 setup Tools import
@@ -46,7 +46,7 @@ export interface HarnessInfo {
    * "detected" = the harness binary was found on PATH; "assumed" = inferred
    * from a config dir alone, or the clean-machine default. The Setup workflow
    * must confirm an "assumed" harness with the user before branching (#1448 —
-   * a leftover ~/.claude dir sent an OpenCode install down the Claude Code path).
+   * a leftover ~/.claude dir sent an OpenCode install down the Antigravity CLI path).
    */
   confidence: "detected" | "assumed";
 }
@@ -350,7 +350,7 @@ const SKIP_DIRS = new Set(["node_modules", ".git", "MEMORY"]);
  * Extension of a path's BASENAME, lowercased; "" when there is none.
  *
  * Was `filePath.slice(filePath.lastIndexOf("."))`, which searches the whole path:
- * for `~/.claude/skills/Fabric/Patterns/raycast/yt` that returns
+ * for `~/Projects/LifeOS-AGY/.agents/skills/Fabric/Patterns/raycast/yt` that returns
  * ".claude/skills/Fabric/Patterns/raycast/yt" — the dot in `.claude`. Harmless by
  * accident (no such key in the set, so extension-less files were skipped), but it
  * would have mis-typed any file under a dotted directory the moment the set grew.
@@ -679,7 +679,7 @@ type HooksMap = Record<string, MatcherGroup[]>;
 /**
  * Normalize a hook command for dedup: collapse the harness/PAI path-var forms to
  * a single canonical token and squeeze whitespace, so the same hook expressed as
- * `${LIFEOS_DIR}/x`, `$LIFEOS_DIR/x`, or `~/.claude/x` dedupes to one.
+ * `${LIFEOS_DIR}/x`, `$LIFEOS_DIR/x`, or `~/Projects/LifeOS-AGY/x` dedupes to one.
  */
 function normalizeCommand(cmd: string): string {
   return cmd
@@ -749,7 +749,7 @@ export function activateImports(claudeMdPath: string, configRoot: string): { act
   if (!existsSync(claudeMdPath)) return { activated, skipped };
   const lines = readFileSync(claudeMdPath, "utf-8").split("\n");
   // Two dormant-import conventions: the public CLAUDE.md ships `# @LIFEOS/USER/...`
-  // (hash-prefixed so the @ isn't at line-start and Claude Code skips it); the
+  // (hash-prefixed so the @ isn't at line-start and Antigravity CLI skips it); the
   // older form is `<!-- @LIFEOS/USER/... -->`. Activation strips the prefix so the
   // import sits at line-start and resolves.
   const commented = /^\s*#\s+(@[\w./-]+)\s*$|^\s*<!--\s*(@[\w./-]+)\s*-->\s*$/;

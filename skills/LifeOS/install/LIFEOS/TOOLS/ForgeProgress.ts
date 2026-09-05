@@ -20,7 +20,7 @@
  * every OpenAI bump (2026-07-27 audit). `--model` still overrides explicitly.
  *
  * Usage:
- *   bun ~/.claude/LIFEOS/TOOLS/ForgeProgress.ts --slug <run-slug> [--prompt <text>]
+ *   bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/ForgeProgress.ts --slug <run-slug> [--prompt <text>]
  *     [--model <id>] [--effort high] [--sandbox workspace-write]
  *     [--timeout-ms 300000] [--pulse-url http://127.0.0.1:31337/notify]
  *

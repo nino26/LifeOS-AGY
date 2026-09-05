@@ -187,7 +187,7 @@ export default function ConduitPage() {
                     <div className="text-xs text-ink-3">
                       The insight job runs on the hour. Use <span className="text-ink-2 mono">run now</span> above, or
                       from a shell:{" "}
-                      <code className="text-ink-2 mono">bun ~/.claude/LIFEOS/PULSE/Conduit/BuildInsight.ts</code>
+                      <code className="text-ink-2 mono">bun ~/Projects/LifeOS-AGY/LIFEOS/PULSE/Conduit/BuildInsight.ts</code>
                     </div>
                   )
                 )}

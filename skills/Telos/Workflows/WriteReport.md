@@ -151,7 +151,7 @@ If artifacts don't exist, run the assessment workflow first (CreateNarrativePoin
 
 ```bash
 # Copy template to output directory (if not already done)
-cp -r ~/.claude/skills/Telos/report-template/* {output_dir}/
+cp -r ~/Projects/LifeOS-AGY/.agents/skills/Telos/report-template/* {output_dir}/
 
 # Install dependencies
 cd {output_dir} && bun install
@@ -463,7 +463,7 @@ cd {output_dir} && bun dev
 **CRITICAL: The report template lives at:**
 
 ```
-~/.claude/skills/Telos/report-template/
+~/Projects/LifeOS-AGY/.agents/skills/Telos/report-template/
 ```
 
 This template includes:
@@ -609,10 +609,10 @@ Before board presentation:
 **To update fonts:**
 ```bash
 # Copy latest fonts from ULSite
-cp ~/Projects/[your-site]/public/Fonts/*.woff2 ~/.claude/skills/Telos/ReportTemplate/public/Fonts/
+cp ~/Projects/[your-site]/public/Fonts/*.woff2 ~/Projects/LifeOS-AGY/.agents/skills/Telos/ReportTemplate/public/Fonts/
 ```
 
 **To update template components:**
-Edit files in `~/.claude/skills/Telos/report-template/components/`
+Edit files in `~/Projects/LifeOS-AGY/.agents/skills/Telos/report-template/components/`
 
 **To change color scheme:**

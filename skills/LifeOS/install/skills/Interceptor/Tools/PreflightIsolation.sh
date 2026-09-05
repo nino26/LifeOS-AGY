@@ -29,7 +29,7 @@
 #
 # Every browser workflow's first step. Source from a workflow:
 #
-#   if ! bash ~/.claude/skills/Interceptor/Tools/PreflightIsolation.sh; then
+#   if ! bash ~/Projects/LifeOS-AGY/.agents/skills/Interceptor/Tools/PreflightIsolation.sh; then
 #     exit 1   # surface to operator; do NOT fall back
 #   fi
 #
@@ -61,7 +61,7 @@ if [ -z "$REQUIRED_CONTEXT" ]; then
 
 REMEDIATION:
   Set INTERCEPTOR_TEST_CONTEXT_ID in
-    ~/.claude/LIFEOS/USER/CUSTOMIZATIONS/SKILLS/Interceptor/preferences.env
+    ~/Projects/LifeOS-AGY/LIFEOS/USER/CUSTOMIZATIONS/SKILLS/Interceptor/preferences.env
   to the pinned Interceptor test context (raw UUID today; durable fix is the
   friendly name "interceptor-test" set once in the extension popup). There is
   no default — running without an explicit pinned context could route a tab to
@@ -140,7 +140,7 @@ REMEDIATION (operator action — no auto-launch):
   1. Open the dedicated Interceptor test profile window.
   2. In that profile, open chrome://extensions/. If the Interceptor card is
      missing or shows an error: Load Unpacked
-       -> ~/.claude/skills/Interceptor/Extension/
+       -> ~/Projects/LifeOS-AGY/.agents/skills/Interceptor/Extension/
      and accept any new permissions.
   3. Click the Interceptor toolbar icon, set Context ID to the friendly name
      "interceptor-test", Save. Friendly names survive extension reloads; raw
@@ -179,7 +179,7 @@ CURRENT CONTEXTS above is the NEW one.
 
 REMEDIATION (UUID rot — most common):
   1. Compare the UUID(s) above against INTERCEPTOR_TEST_CONTEXT_ID in
-       ~/.claude/LIFEOS/USER/CUSTOMIZATIONS/SKILLS/Interceptor/preferences.env
+       ~/Projects/LifeOS-AGY/LIFEOS/USER/CUSTOMIZATIONS/SKILLS/Interceptor/preferences.env
   2. If the live UUID is the same test profile under a new value, copy it into
      preferences.env and re-run this preflight.
 
@@ -336,7 +336,7 @@ WHY THIS MATTERS:
 REMEDIATION:
   1. Re-pin via the Update workflow (runs Tools/Pin.sh).
   2. In the test profile: chrome://extensions/ -> Interceptor -> Load Unpacked
-       from ~/.claude/skills/Interceptor/Extension/ (or reload if already loaded).
+       from ~/Projects/LifeOS-AGY/.agents/skills/Interceptor/Extension/ (or reload if already loaded).
   3. Re-run this preflight.
 EOF
         exit 6

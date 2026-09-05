@@ -1,5 +1,5 @@
 #!/usr/bin/env bun
-// Normalize env path vars Claude Code may inject unexpanded — literal $HOME/${HOME}
+// Normalize env path vars Antigravity CLI may inject unexpanded — literal $HOME/${HOME}
 // in LIFEOS_DIR/LIFEOS_CONFIG_DIR/PROJECTS_DIR resolves to a shadow dir (#1404 / PR #1451, author jbmml).
 for (const __k of ["LIFEOS_DIR", "LIFEOS_CONFIG_DIR", "PROJECTS_DIR"]) {
   const __v = process.env[__k];
@@ -20,7 +20,7 @@ for (const __k of ["LIFEOS_DIR", "LIFEOS_CONFIG_DIR", "PROJECTS_DIR"]) {
  *      done when stage === "STAGE_SUCCESS" | "STAGE_FAILED"
  * Docs: https://docs.pangram.com/quickstart-rest
  *
- * Key: PANGRAM_API_KEY in ~/.claude/.env (not present yet — add it before running).
+ * Key: PANGRAM_API_KEY in ~/Projects/LifeOS-AGY/.env (not present yet — add it before running).
  * Override the endpoint with PANGRAM_API_URL if Pangram moves it.
  */
 
@@ -29,7 +29,7 @@ import { createHash } from "node:crypto";
 import { dirname, join } from "node:path";
 import { homedir } from "node:os";
 
-// Normalize env path vars that Claude Code injects without shell expansion (LifeOS#1404)
+// Normalize env path vars that Antigravity CLI injects without shell expansion (LifeOS#1404)
 for (const k of ["LIFEOS_DIR", "LIFEOS_CONFIG_DIR", "PROJECTS_DIR"]) {
   const v = process.env[k];
   if (v && /^\$\{?HOME\}?(\/|$)/.test(v)) process.env[k] = v.replace(/^\$\{?HOME\}?/, process.env.HOME ?? "~");
@@ -70,7 +70,7 @@ function loadKey(): string {
     const line = env.split("\n").find((l) => l.startsWith("PANGRAM_API_KEY="));
     if (line) return line.slice("PANGRAM_API_KEY=".length).replace(/^["']|["']$/g, "").trim();
   } catch {}
-  console.error("No PANGRAM_API_KEY found. Add it to ~/.claude/.env, then re-run.");
+  console.error("No PANGRAM_API_KEY found. Add it to ~/Projects/LifeOS-AGY/.env, then re-run.");
   process.exit(1);
 }
 

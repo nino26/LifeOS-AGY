@@ -97,7 +97,7 @@ const TAB_TITLES_DIR = paiPath('MEMORY', 'STATE', 'tab-titles');
 const KITTY_SESSIONS_DIR = paiPath('MEMORY', 'STATE', 'kitty-sessions');
 
 /**
- * Resolve the `kitten` binary path. When tab-setter runs from the Claude Code
+ * Resolve the `kitten` binary path. When tab-setter runs from the Antigravity CLI
  * process (inherits user PATH) `kitten` is on PATH. When it runs from the Pulse
  * daemon (launchd-restricted PATH) `kitten` is not on PATH and execSync fails
  * with "command not found". Fall back to the kitty.app location.
@@ -277,7 +277,7 @@ export function setTabState(opts: SetTabOptions): void {
     }
 
     // Set BOTH tab title AND window title. Kitty's tab_title_template uses
-    // {active_window.title} (the window title). OSC escape codes from Claude Code
+    // {active_window.title} (the window title). OSC escape codes from Antigravity CLI
     // reset set-tab-title overrides, so the template falls back to window title.
     // By setting both, our title survives OSC resets.
     const toArg = `--to=${kittyEnv.listenOn}`;

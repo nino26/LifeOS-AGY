@@ -28,7 +28,7 @@ One line per pipeline. Full wiring, file inventories, and incident notes: master
 | **Security** | Constitutional security protocol, native denylist, safety-classifier hooks; deployed estate scanned hourly server-side by the Arbol scanner = the Bunker Security plane | `LIFEOS/DOCUMENTATION/Security/README.md` |
 | **Algorithm** | Outcome-driven ISA execution — articulate done, hill-climb, close claims on tool evidence | `LIFEOS/DOCUMENTATION/Algorithm/AlgorithmSystem.md` |
 | **Cortex (Memory)** | Cortex, the memory system — autonomic capture, tiered curation, and retrieval across hot-layer, KNOWLEDGE, LEARNING | `LIFEOS/DOCUMENTATION/Memory/MemorySystem.md` |
-| **Hooks** | Deterministic enforcement and context injection at Claude Code events | `LIFEOS/DOCUMENTATION/Hooks/HookSystem.md` |
+| **Hooks** | Deterministic enforcement and context injection at Antigravity CLI events | `LIFEOS/DOCUMENTATION/Hooks/HookSystem.md` |
 | **Observability** | Tool activity and failures appended to JSONL, read by Pulse | `LIFEOS/DOCUMENTATION/Observability/ObservabilitySystem.md` |
 | **Pulse** | The Life Dashboard server on :31337 — voice, work kanban, wiki, iMessage/Siri | `LIFEOS/DOCUMENTATION/Pulse/PulseSystem.md` |
 | **Bunker** | Universal application harness — app state-of-record bunker.isa.md; Pulse /bunker tab; Security plane IS the Arbol infra-security scanner (server-side, hourly); reference implementation is private — the release ships the concept doc | `LIFEOS/DOCUMENTATION/Bunker/BunkerSystem.md` |

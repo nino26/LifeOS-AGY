@@ -7,7 +7,7 @@ Progressive disclosure interface for web scraping and automation via the Apify p
 ## Quick Start
 
 ```typescript
-import { Apify } from '~/.claude/skills/Apify'
+import { Apify } from '~/Projects/LifeOS-AGY/.agents/skills/Apify'
 
 const apify = new Apify(process.env.APIFY_TOKEN)
 
@@ -290,7 +290,7 @@ Get your token from: https://console.apify.com/account/integrations
 All types are exported from the main module:
 
 ```typescript
-import { Actor, ActorRun, DatasetOptions } from '~/.claude/skills/Apify'
+import { Actor, ActorRun, DatasetOptions } from '~/Projects/LifeOS-AGY/.agents/skills/Apify'
 ```
 
 ## Error Handling
@@ -317,7 +317,7 @@ try {
 
 ```bash
 # Run the Instagram scraper example
-cd ~/.claude/skills/Apify
+cd ~/Projects/LifeOS-AGY/.agents/skills/Apify
 bun run examples/instagram-scraper.ts
 
 # Or use bun directly
@@ -365,4 +365,4 @@ console.log('Code tokens:', estimateTokens(filtered)) // ~500
 - Apify Console: https://console.apify.com
 - Actor Store: https://apify.com/store
 - API Docs: https://docs.apify.com/api/v2
-- Parent README: `~/.claude/`
+- Parent README: `~/Projects/LifeOS-AGY/`

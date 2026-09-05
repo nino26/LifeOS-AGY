@@ -29,7 +29,7 @@ Automatically tracks new bug bounty programs across HackerOne, Bugcrowd, Intigri
 ## 📦 Installation
 
 ```bash
-cd ~/.claude/skills/hacking/bug-bounties
+cd ~/Projects/LifeOS-AGY/.agents/skills/hacking/bug-bounties
 bun install
 ./bounty.sh init
 ```

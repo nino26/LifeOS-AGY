@@ -3,7 +3,7 @@
  *
  * Absorbed from standalone the iMessage bot into Pulse module system.
  * Polls ~/Library/Messages/chat.db for incoming iMessages, processes them
- * through claude-agent-sdk (full Claude Code session with tools, hooks, CLAUDE.md),
+ * through claude-agent-sdk (full Antigravity CLI session with tools, hooks, CLAUDE.md),
  * and sends replies back via AppleScript.
  *
  * Architecture: SQLite poll -> auth -> SDK session -> AppleScript reply

@@ -1,6 +1,6 @@
 # LifeOS Hook System
 
-> **Lifecycle event handlers that extend Claude Code with voice, memory, classifier routing, and integrity checks.**
+> **Lifecycle event handlers that extend Antigravity CLI with voice, memory, classifier routing, and integrity checks.**
 
 This document is the authoritative reference for LifeOS's hook system. When modifying any hook, update both the hook's inline documentation AND this README.
 
@@ -25,7 +25,7 @@ This document is the authoritative reference for LifeOS's hook system. When modi
 
 ## Architecture Overview
 
-Hooks are TypeScript scripts that execute at specific lifecycle events in Claude Code. They enable:
+Hooks are TypeScript scripts that execute at specific lifecycle events in Antigravity CLI. They enable:
 
 - **Event nudges**: `AlgorithmNudge` fires bounded, deterministic questions at answerable moments (skill USE WHEN matches, depth directives, run state) — the mode/tier classifier (`TheRouter`) and the MINIMAL/NATIVE/ALGORITHM modes were retired 2026-07-11
 - **Voice feedback**: spoken phase announcements and completion lines
@@ -45,7 +45,7 @@ Hooks are TypeScript scripts that execute at specific lifecycle events in Claude
 
 ```
 ┌─────────────────────────────────────────────────────────────────────┐
-│                        Claude Code Session                          │
+│                        Antigravity CLI Session                          │
 ├─────────────────────────────────────────────────────────────────────┤
 │                                                                     │
 │  SessionStart ──┬──► HookHealer (exec-bit self-heal)                │
@@ -210,7 +210,7 @@ interface StopPayload extends BasePayload {
 | `TabState.hook.ts` | `AskUserQuestion` | Reset tab state after question answered | No | Kitty terminal |
 | `ISAStaleWriteGuard.hook.ts` | `Read`, `Write`, `Edit`, `MultiEdit` | Stop a whole-file Write from silently discarding ISA changes the writing session never saw | No | ISA read-state ledger |
 | `ISASync.hook.ts` | `Write`, `Edit`, `MultiEdit` | Sync ISA frontmatter (incl. `phase:`/`progress:`) → `work.json` + KV push | No | `MEMORY/WORK/`, `work.json` |
-| `CheckpointPerISC.hook.ts` | `Write`, `Edit`, `MultiEdit` | Auto-commit per-ISC durability checkpoint — stages only paths dirty at-or-after the ISA's `started`, never the whole tree | No | `~/.claude/checkpoint-repos.txt` (timeout 30) |
+| `CheckpointPerISC.hook.ts` | `Write`, `Edit`, `MultiEdit` | Auto-commit per-ISC durability checkpoint — stages only paths dirty at-or-after the ISA's `started`, never the whole tree | No | `~/Projects/LifeOS-AGY/checkpoint-repos.txt` (timeout 30) |
 | `ConfigEvalFire.hook.ts` | `Write`, `Edit`, `MultiEdit` | Fire behavioural evals when CLAUDE.md / OPERATIONAL_RULES / a hook changes. Never blocks the edit. | No | Evals harness |
 | `AtlasEventCapture.hook.ts` | `Write`, `Edit`, `MultiEdit`, `Bash` | Mutation hints for the Atlas asset graph (deploys, DNS changes, tracked-asset edits) | No | Atlas store (timeout 5) |
 | `KnowledgeWriteGuard.hook.ts` | `Write`, `Edit`, `MultiEdit` | Advisory schema feedback the moment a `MEMORY/KNOWLEDGE/<Type>/<slug>.md` note is written — names violations and the sanctioned writer while the author is still in the loop. Never blocks. Ported from public PR #1687, credit @elhoim | No | `MemorySystem` note schema (timeout 5) |
@@ -266,7 +266,7 @@ interface StopPayload extends BasePayload {
 
 ### Subagent Lifecycle Hooks
 
-Subagent lifecycle is tracked via `AgentInvocation.hook.ts` on `PreToolUse:Agent` and `PostToolUse:Agent` — Claude Code's built-in `SubagentStart`/`SubagentStop` payloads omit `subagent_type` / `description` / `prompt`, so we capture at the tool-use boundary where that data is reliably present.
+Subagent lifecycle is tracked via `AgentInvocation.hook.ts` on `PreToolUse:Agent` and `PostToolUse:Agent` — Antigravity CLI's built-in `SubagentStart`/`SubagentStop` payloads omit `subagent_type` / `description` / `prompt`, so we capture at the tool-use boundary where that data is reliably present.
 
 Outputs: `subagent-events.jsonl` (start + stop events), correlated by `session_id + description`.
 
@@ -526,7 +526,7 @@ For `PreToolUse` and `PostToolUse` hooks, matchers filter by tool name:
 
 ## Block messages
 
-A hook that returns `decision: "block"` (or a deny permission decision) hands Claude Code a `reason` string, and that string is rendered in the red-outlined box. It is the only thing the model and the principal see when a gate fires.
+A hook that returns `decision: "block"` (or a deny permission decision) hands Antigravity CLI a `reason` string, and that string is rendered in the red-outlined box. It is the only thing the model and the principal see when a gate fires.
 
 **Every block message states the problem AND the recommended fix** ({{PRINCIPAL_NAME}}, 2026-07-31). Two parts, both required:
 
@@ -664,7 +664,7 @@ When modifying ANY hook:
 
 1. Verify `Safety.hook.ts` registered on `PermissionRequest` with matcher `Write|Edit|MultiEdit|Bash`
 2. Test: `echo '{"session_id":"t","hook_event_name":"PermissionRequest","tool_name":"Bash","tool_input":{"command":"ls /tmp"}}' | bun hooks/Safety.hook.ts` — should emit `{"hookSpecificOutput":{"hookEventName":"PermissionRequest","decision":{"behavior":"allow"}}}`
-3. Tail observability: `tail -f ~/.claude/LIFEOS/MEMORY/OBSERVABILITY/permission-decisions.jsonl`
+3. Tail observability: `tail -f ~/Projects/LifeOS-AGY/LIFEOS/MEMORY/OBSERVABILITY/permission-decisions.jsonl`
 
 ---
 

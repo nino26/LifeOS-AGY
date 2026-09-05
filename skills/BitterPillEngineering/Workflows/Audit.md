@@ -20,7 +20,7 @@ Read each discovered file completely. Count total lines and rules.
 
 ### 3. Evaluate each rule against the Five Questions
 
-For every rule found, apply the five questions from SKILL.md. Cross-reference with Claude Code's built-in system prompt behavior:
+For every rule found, apply the five questions from SKILL.md. Cross-reference with Antigravity CLI's built-in system prompt behavior:
 
 **Claude already does by default (common false adds):**
 - Read files before editing them

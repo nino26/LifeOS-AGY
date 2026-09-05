@@ -2,7 +2,7 @@
 /**
  * TranscriptParser.ts - Claude transcript parsing utilities
  *
- * Shared library for extracting content from Claude Code transcript files.
+ * Shared library for extracting content from Antigravity CLI transcript files.
  * Used by Stop hooks for voice, tab state, and response capture.
  *
  * CLI Usage:
@@ -134,7 +134,7 @@ export function collectCurrentResponseText(transcriptContent: string): string {
   const lines = transcriptContent.trim().split('\n');
 
   // Find the index of the last REAL user prompt.
-  // Claude Code transcript uses type='user' for both actual user prompts AND
+  // Antigravity CLI transcript uses type='user' for both actual user prompts AND
   // tool_result entries (which are mid-response). Real user prompts have at
   // least one {type:'text'} content block. Tool results only have {type:'tool_result'}.
   let lastHumanIndex = -1;

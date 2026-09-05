@@ -153,7 +153,7 @@ function criticalHealthLine(): string | null {
       .filter((f: any) => f.severity === "critical")
       .map((f: any) => f.message)
       .slice(0, 3);
-    return `🩺 MEMORY HEALTH: CRITICAL — ${blockers.join(" · ") || `${last.counts?.critical ?? "?"} blocker(s)`}. Fix: bun ~/.claude/LIFEOS/TOOLS/MemoryHealthCheck.ts`;
+    return `🩺 MEMORY HEALTH: CRITICAL — ${blockers.join(" · ") || `${last.counts?.critical ?? "?"} blocker(s)`}. Fix: bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/MemoryHealthCheck.ts`;
   } catch {
     return null;
   }

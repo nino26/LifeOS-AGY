@@ -23,7 +23,7 @@
  * Debounced to one sweep per DEBOUNCE_MS unless --force.
  *
  * Invoked: detached from EventLogger.hook.ts on PostToolUse (debounced),
- * or manually: bun ~/.claude/LIFEOS/TOOLS/WorkReconcile.ts [--force]
+ * or manually: bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/WorkReconcile.ts [--force]
  */
 
 import { readFileSync, statSync, writeFileSync, mkdirSync } from 'fs';

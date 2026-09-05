@@ -5,8 +5,8 @@
  *
  * LifeOS v5.0 Context Architecture:
  * - Constitutional rules     → LIFEOS/LIFEOS_SYSTEM_PROMPT.md (system prompt via --append-system-prompt-file)
- * - Operational procedures   → CLAUDE.md (loaded natively by Claude Code)
- * - Contextual knowledge     → @imports in CLAUDE.md (native Claude Code mechanism, v5.0)
+ * - Operational procedures   → CLAUDE.md (loaded natively by Antigravity CLI)
+ * - Contextual knowledge     → @imports in CLAUDE.md (native Antigravity CLI mechanism, v5.0)
  * - Dynamic context          → this hook (relationship, learning, work)
  *
  * This hook handles dynamic context only (v5.0 — static files moved to @imports):
@@ -187,7 +187,7 @@ interface WorkSession {
  *
  * Sessions do not all land in one tree: `<LIFEOS_DIR>/MEMORY/WORK` is the
  * primary (a symlink into the private USER data repo on this install), and
- * `~/.claude/MEMORY/WORK` is the second tree some sessions create directly.
+ * `~/Projects/LifeOS-AGY/MEMORY/WORK` is the second tree some sessions create directly.
  * Scanning only one starves this block of exactly the work it exists to
  * surface. Resolving through realpath before deduping matters here: the two
  * candidates ARE the same directory on installs where LIFEOS_DIR sits under
@@ -494,7 +494,7 @@ async function main() {
     const settings = loadSettings();
     console.error('✅ Loaded settings.json');
 
-    // v5.0: Static startup files now loaded via @imports in CLAUDE.md (native Claude Code mechanism)
+    // v5.0: Static startup files now loaded via @imports in CLAUDE.md (native Antigravity CLI mechanism)
 
     // Load relationship context (lightweight summary)
     let relationshipContext: string | null = null;

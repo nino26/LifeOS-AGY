@@ -3,9 +3,9 @@
  * InstallUsageAggregator.ts — Materialize com.lifeos.usage-aggregator.plist.template
  * and bootstrap it as a nightly launchd job (03:30). Mirrors InstallWorkSweep.ts.
  *
- *   bun ~/.claude/LIFEOS/TOOLS/InstallUsageAggregator.ts             # install
- *   bun ~/.claude/LIFEOS/TOOLS/InstallUsageAggregator.ts --uninstall # remove
- *   bun ~/.claude/LIFEOS/TOOLS/InstallUsageAggregator.ts --status    # check
+ *   bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/InstallUsageAggregator.ts             # install
+ *   bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/InstallUsageAggregator.ts --uninstall # remove
+ *   bun ~/Projects/LifeOS-AGY/LIFEOS/TOOLS/InstallUsageAggregator.ts --status    # check
  *
  * Reads $HOME, substitutes {{HOME}}/{{BUN}}/{{BUN_DIR}} in the template, writes
  * ~/Library/LaunchAgents/com.lifeos.usage-aggregator.plist, and runs launchctl

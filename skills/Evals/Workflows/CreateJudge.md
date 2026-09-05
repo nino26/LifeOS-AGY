@@ -33,7 +33,7 @@ Ask the user:
 
 ### Step 2: Create Judge Config
 
-Create `~/.claude/skills/Evals/UseCases/<name>/judge-config.yaml`:
+Create `~/Projects/LifeOS-AGY/.agents/skills/Evals/UseCases/<name>/judge-config.yaml`:
 
 ```yaml
 judge:
@@ -65,10 +65,10 @@ output:
 ### Step 3: Render Judge Prompt
 
 ```bash
-bun run ~/.claude/skills/Prompting/Tools/RenderTemplate.ts \
+bun run ~/Projects/LifeOS-AGY/.agents/skills/Prompting/Tools/RenderTemplate.ts \
   -t Evals/Judge.hbs \
-  -d ~/.claude/skills/Evals/UseCases/<name>/judge-config.yaml \
-  -o ~/.claude/skills/Evals/UseCases/<name>/judge-prompt.md \
+  -d ~/Projects/LifeOS-AGY/.agents/skills/Evals/UseCases/<name>/judge-config.yaml \
+  -o ~/Projects/LifeOS-AGY/.agents/skills/Evals/UseCases/<name>/judge-prompt.md \
   --preview
 ```
 
@@ -99,8 +99,8 @@ criteria:
 Run the suite (which contains the use case + judge) via `EvalRunner.ts` and inspect the output:
 
 ```bash
-bun run ~/.claude/skills/Evals/Tools/EvalRunner.ts -s <suite>
-cat ~/.claude/LIFEOS/MEMORY/STATE/Evals-Results/<use-case>/<run-id>/results.json | jq '.trials[0].graders'
+bun run ~/Projects/LifeOS-AGY/.agents/skills/Evals/Tools/EvalRunner.ts -s <suite>
+cat ~/Projects/LifeOS-AGY/LIFEOS/MEMORY/STATE/Evals-Results/<use-case>/<run-id>/results.json | jq '.trials[0].graders'
 ```
 
 To exercise only a single test case while iterating on the judge, scope the suite config to one task in `UseCases/<name>/test-cases/` and re-run.

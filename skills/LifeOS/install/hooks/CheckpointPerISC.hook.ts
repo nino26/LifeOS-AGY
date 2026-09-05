@@ -7,7 +7,7 @@
  * MEMORY/WORK/<slug>/.
  *
  * For each newly-checked ISC, iterates through the allowlist of opted-in repos
- * (~/.claude/checkpoint-repos.txt per spec) and creates one git commit per
+ * (~/Projects/LifeOS-AGY/checkpoint-repos.txt per spec) and creates one git commit per
  * repo that has uncommitted changes. Commit subject:
  *   "<ISC-id> (<slug>): <sanitized description>"
  *

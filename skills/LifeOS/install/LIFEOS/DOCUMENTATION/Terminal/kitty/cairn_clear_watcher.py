@@ -8,7 +8,7 @@
 import json
 import os
 
-STATE_DIR = os.path.expanduser('~/.claude/LIFEOS/MEMORY/STATE/tab-titles')
+STATE_DIR = os.path.expanduser('~/Projects/LifeOS-AGY/LIFEOS/MEMORY/STATE/tab-titles')
 
 
 def on_focus_change(boss, window, data):

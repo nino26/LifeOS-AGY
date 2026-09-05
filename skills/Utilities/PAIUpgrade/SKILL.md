@@ -6,7 +6,7 @@ description: Extract system improvements from content AND monitor external sourc
 ## Customization
 
 **Before executing, check for user customizations at:**
-`~/.claude/PAI/USER/SKILLCUSTOMIZATIONS/PAIUpgrade/`
+`~/Projects/LifeOS-AGY/PAI/USER/SKILLCUSTOMIZATIONS/PAIUpgrade/`
 
 If this directory exists, load and apply any PREFERENCES.md, configurations, or resources found there. These override default behavior. If the directory does not exist, proceed with skill defaults.
 
@@ -329,26 +329,26 @@ Using BACKGROUNDDELEGATION, spawn both analysis threads simultaneously:
 
 ### Agent 1: TELOS Analysis
 Read and analyze:
-- ~/.claude/PAI/USER/TELOS/TELOS.md
-- ~/.claude/PAI/USER/TELOS/GOALS.md
-- ~/.claude/PAI/USER/TELOS/PROJECTS.md
-- ~/.claude/PAI/USER/TELOS/CHALLENGES.md
-- ~/.claude/PAI/USER/TELOS/STATUS.md
+- ~/Projects/LifeOS-AGY/PAI/USER/TELOS/TELOS.md
+- ~/Projects/LifeOS-AGY/PAI/USER/TELOS/GOALS.md
+- ~/Projects/LifeOS-AGY/PAI/USER/TELOS/PROJECTS.md
+- ~/Projects/LifeOS-AGY/PAI/USER/TELOS/CHALLENGES.md
+- ~/Projects/LifeOS-AGY/PAI/USER/TELOS/STATUS.md
 
 Extract: Current focus, priorities, active goals, project themes
 
 ### Agent 2: Recent Work Analysis
 Read and analyze:
-- ~/.claude/MEMORY/STATE/current-work.json
+- ~/Projects/LifeOS-AGY/MEMORY/STATE/current-work.json
 - Recent MEMORY/WORK/ directories
 
 Extract: What user has been working on, patterns, open tasks
 
 ### Agent 3: PAI System State
 Analyze:
-- ~/.claude/skills/ (installed skills)
-- ~/.claude/hooks/ (active hooks)
-- ~/.claude/settings.json (configuration)
+- ~/Projects/LifeOS-AGY/.agents/skills/ (installed skills)
+- ~/Projects/LifeOS-AGY/hooks/ (active hooks)
+- ~/Projects/LifeOS-AGY/settings.json (configuration)
 
 Extract: Current capabilities, potential gaps, system health
 
@@ -363,7 +363,7 @@ From PROJECTS and recent work, identify:
 ## Thread 2: Source Collection (3 parallel agents)
 
 ### Agent 1: Anthropic Sources
-Run: bun ~/.claude/skills/Utilities/PAIUpgrade/Tools/Anthropic.ts
+Run: bun ~/Projects/LifeOS-AGY/.agents/skills/Utilities/PAIUpgrade/Tools/Anthropic.ts
 Check all 30+ official sources for updates
 
 ### Agent 2: YouTube Channels
@@ -407,7 +407,7 @@ Generate the prioritized recommendations report (see format above).
 - `State/youtube-videos.json` - YouTube state
 - `State/github-trending.json` - GitHub trending state (seen repos)
 
-**User Customizations** (`~/.claude/PAI/USER/SKILLCUSTOMIZATIONS/PAIUpgrade/`):
+**User Customizations** (`~/Projects/LifeOS-AGY/PAI/USER/SKILLCUSTOMIZATIONS/PAIUpgrade/`):
 - `EXTEND.yaml` - Extension manifest
 - `youtube-channels.json` - User's personal YouTube channels
 - Additional source definitions
@@ -473,7 +473,7 @@ These output patterns are **FAILURES**. If you produce these, you have not compl
 
 | ❌ Bad Output | Why It's Wrong | ✅ Correct Output |
 |---------------|----------------|-------------------|
-| "Check out R Amjad's video on Claude Code" | Points to content instead of extracting it | "@ 5:42, R Amjad shows this technique: [quote]" |
+| "Check out R Amjad's video on Antigravity CLI" | Points to content instead of extracting it | "@ 5:42, R Amjad shows this technique: [quote]" |
 | "v2.1.16 has task management improvements" | Vague summary, no technique | "v2.1.16 adds `addBlockedBy` parameter: [code example]" |
 | "Consider looking into MCP updates" | Recommendation without extraction | "MCP now supports [specific feature]: [docs quote]" |
 | "This could be useful for your workflows" | Vague relevance | "This improves your Browser skill because [specific gap it fills]" |
